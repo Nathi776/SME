@@ -5,6 +5,8 @@ from models.sme import SME
 from models.user import User
 from pydantic import BaseModel
 from typing import List
+from services.auth_service import get_current_user
+
 
 router = APIRouter(
     prefix="/smes",
@@ -44,6 +46,24 @@ def create_sme(sme: SMEBase, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_sme)
     return new_sme
+
+
+# ✅ Dashboad
+@router.get("/dashboard")
+def sme_dashboard(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Return dashboard statistics for the logged-in SME user.
+
+    """
+    return {
+        "invoice_count": 0,
+        "outstanding_balance": 0,
+        "credit_score": 0,
+        "finance_requests": 0
+    }
 
 
 # ✅ Get all SMEs
@@ -88,3 +108,4 @@ def delete_sme(sme_id: int, db: Session = Depends(get_db)):
     db.delete(sme)
     db.commit()
     return {"message": f"SME with ID {sme_id} deleted successfully."}
+
