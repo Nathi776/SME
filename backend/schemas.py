@@ -32,3 +32,16 @@ class CreditScoreFullResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class InvoiceCreate(BaseModel):
+    client_name: str
+    description: str
+    amount: float
+
+class InvoiceOut(InvoiceCreate):
+    id: int
+    status: str
+
+    class Config:
+        orm_mode = True

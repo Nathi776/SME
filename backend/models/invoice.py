@@ -1,19 +1,16 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Date
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
+from datetime import datetime
 from database import Base
-from datetime import date
+from sqlalchemy.orm import relationship
 
 class Invoice(Base):
     __tablename__ = "invoices"
 
     id = Column(Integer, primary_key=True, index=True)
-    sme_id = Column(Integer, ForeignKey("smes.id", ondelete="CASCADE"), nullable=False)
-    client_name = Column(String, nullable=False)
-    amount = Column(Float, nullable=False)
-    due_date = Column(Date, default=date.today)
-    status = Column(String, default="pending")  # pending, paid, overdue
-
+    sme_id = Column(Integer, ForeignKey("smes.id"))
+    client_name = Column(String)
+    description = Column(String)
+    amount = Column(Float)
+    status = Column(String, default="Pending")
+    created_at = Column(DateTime, default=datetime.utcnow)
     sme = relationship("SME", back_populates="invoices")
-
-    def __repr__(self):
-        return f"<Invoice(id={self.id}, client_name='{self.client_name}', amount={self.amount}, status='{self.status}')>"

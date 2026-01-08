@@ -14,5 +14,7 @@ class CreditScore(Base):
 
     sme = relationship("SME", back_populates="credit_scores")
 
+    finance_requests = relationship("FinanceRequest", back_populates="credit_score")
+
     def __repr__(self):
         return f"<CreditScore(id={self.id}, sme_id={self.sme_id}, score={self.score})>"

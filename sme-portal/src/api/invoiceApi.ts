@@ -1,4 +1,7 @@
 import api from "./client";
+import axios from "axios";
+
+const API = "http://localhost:8000";
 
 export interface Invoice {
   id: number;
@@ -15,10 +18,25 @@ export interface InvoiceCreate {
   status?: string;
 }
 
-export const InvoiceApi = {
-  getAll: () => api.get<Invoice[]>("/invoices"),
-  getOne: (id: number) => api.get<Invoice>(`/invoices/${id}`),
-  create: (data: InvoiceCreate) => api.post("/invoices", data),
-  update: (id: number, data: InvoiceCreate) => api.put(`/invoices/${id}`, data),
-  delete: (id: number) => api.delete(`/invoices/${id}`),
+export const InvoiceAPI = {
+  create: (data: any) =>
+    axios.post(`${API}/invoices`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }),
+
+  getAll: () =>
+    axios.get(`${API}/invoices`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }),
+
+  delete: (id: number) =>
+    axios.delete(`${API}/invoices/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }),
 };

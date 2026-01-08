@@ -11,4 +11,6 @@ class FinanceRequest(Base):
     sme_id = Column(Integer, ForeignKey("smes.id"))
 
     sme = relationship("SME", back_populates="finance_requests")
-    credit_score = relationship("CreditScore", back_populates="finance_request", uselist=False)
+
+    credit_score_id = Column(Integer, ForeignKey("credit_scores.id"))
+    credit_score = relationship("CreditScore", back_populates="finance_requests")

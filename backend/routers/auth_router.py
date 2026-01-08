@@ -11,15 +11,17 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 class RegisterRequest(BaseModel):
     username: str
     password: str
+    email: str
 
 class LoginRequest(BaseModel):
     username: str
     password: str
+    email: str
 
 @router.post("/register")
 def register_user(request: RegisterRequest, db: Session = Depends(get_db)):
     hashed_pw = hash_password(request.password)
-    new_user = User(username=request.username, hashed_password=hashed_pw)
+    new_user = User(username=request.username, email=request.email, hashed_password=hashed_pw)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

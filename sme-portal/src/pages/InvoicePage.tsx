@@ -1,107 +1,83 @@
 import { useEffect, useState } from "react";
-import { Invoice, InvoiceApi, InvoiceCreate } from "../api/invoiceApi";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Card,
+  CardContent,
+} from "@mui/material";
+import { InvoiceAPI } from "../api/invoiceApi";
 
-function InvoicePage() {
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [form, setForm] = useState<InvoiceCreate>({
-    sme_id: 1,
-    amount: 0,
-    due_date: "",
-    status: "pending",
-  });
+export default function InvoicesPage() {
+  const [invoices, setInvoices] = useState<any[]>([]);
+  const [client, setClient] = useState("");
+  const [desc, setDesc] = useState("");
+  const [amount, setAmount] = useState(0);
+
+  const loadInvoices = async () => {
+    const res = await InvoiceAPI.getAll();
+    setInvoices(res.data);
+  };
+
+  const createInvoice = async () => {
+    await InvoiceAPI.create({
+      client_name: client,
+      description: desc,
+      amount,
+    });
+    setClient("");
+    setDesc("");
+    setAmount(0);
+    loadInvoices();
+  };
+
+  const deleteInvoice = async (id: number) => {
+    await InvoiceAPI.delete(id);
+    loadInvoices();
+  };
 
   useEffect(() => {
     loadInvoices();
   }, []);
 
-  const loadInvoices = async () => {
-    try {
-      const res = await InvoiceApi.getAll();
-      setInvoices(res.data);
-    } catch (error) {
-      console.error("Error loading invoices", error);
-    }
-  };
-
-  const createInvoice = async () => {
-    try {
-      await InvoiceApi.create(form);
-      setForm({ sme_id: 1, amount: 0, due_date: "", status: "pending" });
-      loadInvoices();
-    } catch (error) {
-      console.error("Error creating invoice", error);
-    }
-  };
-
-  const deleteInvoice = async (id: number) => {
-    try {
-      await InvoiceApi.delete(id);
-      loadInvoices();
-    } catch (error) {
-      console.error("Error deleting invoice", error);
-    }
-  };
-
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Invoice Management</h1>
+    <Box p={3}>
+      <Typography variant="h4">Invoices</Typography>
 
-      <h2>Create Invoice</h2>
+      <Box mt={2}>
+        <TextField label="Client" fullWidth margin="dense"
+          value={client} onChange={e => setClient(e.target.value)} />
 
-      <div>
-        <input
-          type="number"
-          placeholder="SME ID"
-          value={form.sme_id}
-          onChange={(e) => setForm({ ...form, sme_id: Number(e.target.value) })}
-        />
+        <TextField label="Description" fullWidth margin="dense"
+          value={desc} onChange={e => setDesc(e.target.value)} />
 
-        <input
-          type="number"
-          placeholder="Amount"
-          value={form.amount}
-          onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })}
-        />
+        <TextField label="Amount" type="number" fullWidth margin="dense"
+          value={amount} onChange={e => setAmount(Number(e.target.value))} />
 
-        <input
-          type="date"
-          placeholder="Due Date"
-          value={form.due_date}
-          onChange={(e) => setForm({ ...form, due_date: e.target.value })}
-        />
+        <Button variant="contained" sx={{ mt: 2 }} onClick={createInvoice}>
+          Create Invoice
+        </Button>
+      </Box>
 
-        <input
-          placeholder="Status"
-          value={form.status}
-          onChange={(e) => setForm({ ...form, status: e.target.value })}
-        />
+      <Box mt={4}>
+        {invoices.map(inv => (
+          <Card key={inv.id} sx={{ mb: 2 }}>
+            <CardContent>
+              <Typography><b>Client:</b> {inv.client_name}</Typography>
+              <Typography><b>Amount:</b> R{inv.amount}</Typography>
+              <Typography><b>Status:</b> {inv.status}</Typography>
 
-        <button onClick={createInvoice}>Create Invoice</button>
-      </div>
-
-      <h2>Invoice List</h2>
-      {invoices.map((inv) => (
-        <div
-          key={inv.id}
-          style={{
-            border: "1px solid gray",
-            padding: 10,
-            marginBottom: 10,
-            borderRadius: 4,
-          }}
-        >
-          <p>
-            <strong>Invoice #{inv.id}</strong>
-          </p>
-          <p>SME: {inv.sme_id}</p>
-          <p>Amount: {inv.amount}</p>
-          <p>Due: {inv.due_date}</p>
-          <p>Status: {inv.status}</p>
-          <button onClick={() => deleteInvoice(inv.id)}>Delete</button>
-        </div>
-      ))}
-    </div>
+              <Button
+                color="error"
+                onClick={() => deleteInvoice(inv.id)}
+              >
+                Delete
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+    </Box>
   );
 }
-
-export default InvoicePage;

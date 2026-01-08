@@ -1,8 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
+from sqlalchemy import func
+
 from models.sme import SME
 from models.user import User
+
+from models.credit_score import CreditScore
+from models.finance_request import FinanceRequest
+from models.invoice import Invoice
+
 from pydantic import BaseModel
 from typing import List
 from services.auth_service import get_current_user
@@ -26,6 +33,12 @@ class SMECreated(SMEBase):
     class Config:
         orm_mode = True
 
+class DashboardResponse(BaseModel):
+    sme_id: int
+    invoice_count: int
+    outstanding_balance: float
+    credit_score: int | None
+    finance_requests: int
 
 # ---------- CRUD Endpoints ----------
 
@@ -49,21 +62,40 @@ def create_sme(sme: SMEBase, db: Session = Depends(get_db)):
 
 
 # ✅ Dashboad
-@router.get("/dashboard")
+@router.get("/dashboard", response_model=DashboardResponse)
 def sme_dashboard(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """
-    Return dashboard statistics for the logged-in SME user.
+    sme = db.query(SME).filter(SME.user_id == current_user.id).first()
 
-    """
+    if not sme:
+        raise HTTPException(status_code=404, detail="SME profile not found")
+
+    invoices = db.query(Invoice).filter(Invoice.sme_id == sme.id).all()
+    finance_requests = db.query(FinanceRequest).filter(
+        FinanceRequest.sme_id == sme.id
+    ).all()
+
+    outstanding_balance = sum(
+        i.amount for i in invoices if i.status != "paid"
+    )
+
+    latest_score = (
+        db.query(CreditScore)
+        .filter(CreditScore.sme_id == sme.id)
+        .order_by(CreditScore.created_at.desc())
+        .first()
+    )
+
     return {
-        "invoice_count": 0,
-        "outstanding_balance": 0,
-        "credit_score": 0,
-        "finance_requests": 0
+        "sme_id": sme.id,
+        "invoice_count": len(invoices),
+        "outstanding_balance": outstanding_balance,
+        "credit_score": latest_score.score if latest_score else None,
+        "finance_requests": len(finance_requests),
     }
+
 
 
 # ✅ Get all SMEs
