@@ -6,8 +6,12 @@ export interface LoginResponse {
 }
 
 export const AuthApi = {
-  login: (username: string, password: string) =>
-    api.post<LoginResponse>("/auth/login", null, {
-      params: { username, password },
-    }),
+  login: (username: string, password: string) => {
+    const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+
+    return api.post<LoginResponse>("/auth/login", {
+      body,
+    });
+  },
+
 };

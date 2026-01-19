@@ -17,13 +17,22 @@ function LoginPage() {
 
       setMessage("Login successful!");
       window.location.href = "/dashboard"; // redirect
-    } catch (error) {
+    }catch (error) {
       if (axios.isAxiosError(error)) {
-        setMessage(error.response?.data?.detail || "Login failed.");
+        const detail = error.response?.data?.detail;
+
+        if (Array.isArray(detail)) {
+          setMessage(detail.map(d => d.msg).join(", "));
+        } else if (typeof detail === "string") {
+          setMessage(detail);
+        } else {
+          setMessage("Login failed.");
+        }
       } else {
         setMessage("Unexpected error.");
       }
     }
+
   };
 
   return (

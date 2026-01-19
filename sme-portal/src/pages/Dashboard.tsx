@@ -8,7 +8,7 @@ import {
   Skeleton,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/client";
 import {
   BarChart,
   Bar,
@@ -61,29 +61,27 @@ export default function DashboardPage() {
       return;
     }
 
-    axios
-      .get("http://localhost:8000/smes/dashboard", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    api.get("/smes/dashboard")
       .then(async (res) => {
+        console.log("Dashboard API", res.data);
+        if(!res.data?.sme_id){
+          throw new Error("Invaild dashboard data")
+        }
+
         setStats(res.data);
 
         const smeId = res.data.sme_id;
 
         const [invRes, finRes] = await Promise.all([
-          axios.get(`http://localhost:8000/invoices/sme/${smeId}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get(`http://localhost:8000/finance/requests/${smeId}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
+          api.get(`/invoices/sme/${smeId}`),
+          api.get(`/finance/requests/${smeId}`),
         ]);
 
         setInvoices(invRes.data.slice(-5).reverse());
         setFinanceRequests(finRes.data.slice(-5).reverse());
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Dashboard error",err);
         setError("Failed to load dashboard");
       })
       .finally(() => setLoading(false));

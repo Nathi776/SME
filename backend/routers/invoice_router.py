@@ -11,8 +11,8 @@ router = APIRouter(prefix="/invoices", tags=["Invoices"])
 class InvoiceCreate(BaseModel):
     sme_id: int
     client_name: str
+    description: str | None = None
     amount: float
-    due_date: str
 
 class InvoiceUpdate(BaseModel):
     client_name: str | None = None
@@ -30,7 +30,8 @@ def create_invoice(request: InvoiceCreate, db: Session = Depends(get_db)):
         sme_id=request.sme_id,
         client_name=request.client_name,
         amount=request.amount,
-        due_date=request.due_date
+        description=request.description,
+        status="Pending"
     )
     db.add(invoice)
     db.commit()
