@@ -1,25 +1,37 @@
-import axios from 'axios';
+import api from "./client";
 
-const API = 'http://localhost:8000';
+export interface FinanceRequest {
+  id: number;
+  sme_id: number;
+  amount_requested: number;
+  approved_amount: number | null;
+  fee_rate: number;
+  status: string;
+  created_at: string;
+  approved_at: string | null;
+}
 
 export const FinanceApi = {
-    apply: (sme_id: number, amount: number, purpose: string) => {
-        const token = localStorage.getItem("token");
+  apply: (invoiceId: number, amount: number) =>
+    api.post<{ message: string; request_id: number; fee_rate: number; status: string }>(
+      "/finance/apply",
+      {
+        invoice_id: invoiceId,
+        amount,
+      }
+    ),
 
-        return axios.post(`${API}/finance/apply`, {
-            sme_id,
-            amount,
-            purpose
-        }, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-    },
+  getRequests: (smeId: number) =>
+    api.get<FinanceRequest[]>(`/finance/requests/${smeId}`),
 
-    getRequests: (sme_id: number) => {
-        const token = localStorage.getItem("token");
+  getPendingRequests: () =>
+    api.get<FinanceRequest[]>("/finance/pending"),
 
-        return axios.get(`${API}/finance/requests/${sme_id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-    },
+  approve: (requestId: number, approvedAmount: number) =>
+    api.put<FinanceRequest>(`/finance/approve/${requestId}`, {
+      approved_amount: approvedAmount,
+    }),
+
+  reject: (requestId: number) =>
+    api.put<FinanceRequest>(`/finance/reject/${requestId}`, {}),
 };

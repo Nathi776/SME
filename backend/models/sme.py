@@ -9,6 +9,7 @@ class SME(Base):
     name = Column(String, nullable=False)
     industry = Column(String, nullable=False)
     revenue = Column(Float, nullable=False)
+    years_active = Column(Integer, nullable=False, default=0)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
     # ---------- Relationships ----------

@@ -12,3 +12,4 @@ class User(Base):
     role = Column(String, default="sme")
 
     sme_profile = relationship("SME", back_populates="user", uselist=False)
+    lender_profile = relationship("Lender", back_populates="user", uselist=False)

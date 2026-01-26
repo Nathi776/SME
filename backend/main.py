@@ -5,7 +5,8 @@ from routers import (
     sme_router,
     invoice_router,
     credit_score_router,
-    finance_request_router
+    finance_request_router,
+    lender_router
 )
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -27,6 +28,7 @@ app.include_router(sme_router.router)
 app.include_router(invoice_router.router)
 app.include_router(credit_score_router.router)
 app.include_router(finance_request_router.router)
+app.include_router(lender_router.router)
 
 @app.get("/")
 def root():

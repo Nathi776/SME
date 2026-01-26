@@ -47,8 +47,6 @@ def get_all_invoices(db: Session = Depends(get_db)):
 @router.get("/sme/{sme_id}")
 def get_invoices_by_sme(sme_id: int, db: Session = Depends(get_db)):
     invoices = db.query(Invoice).filter(Invoice.sme_id == sme_id).all()
-    if not invoices:
-        raise HTTPException(status_code=404, detail="No invoices found for this SME")
     return invoices
 
 # ---------- Update Invoice ----------
