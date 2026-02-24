@@ -3,6 +3,7 @@ import api from "./client";
 export interface LoginResponse {
   access_token: string;
   token_type: string;
+  role: string;
 }
 
 export const AuthApi = {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -42,6 +43,7 @@ interface SME {
 }
 
 export default function LenderDashboard() {
+  const navigate = useNavigate();
   const [pendingRequests, setPendingRequests] = useState<FinanceRequest[]>([]);
   const [availableSMEs, setAvailableSMEs] = useState<SME[]>([]);
   const [loading, setLoading] = useState(true);
@@ -138,9 +140,18 @@ export default function LenderDashboard() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        Lender Dashboard
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
+        <Typography variant="h4">
+          Lender Dashboard
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/analytics")}
+        >
+          View Analytics
+        </Button>
+      </Box>
 
       {error && <Typography color="error">{error}</Typography>}
 
@@ -234,7 +245,11 @@ export default function LenderDashboard() {
                 </TableHead>
                 <TableBody>
                   {availableSMEs.map((sme) => (
-                    <TableRow key={sme.sme_id}>
+                    <TableRow 
+                      key={sme.sme_id}
+                      onClick={() => navigate(`/lender/sme/${sme.sme_id}`)}
+                      sx={{ cursor: "pointer", "&:hover": { backgroundColor: "#f5f5f5" } }}
+                    >
                       <TableCell>{sme.company_name}</TableCell>
                       <TableCell>{sme.industry}</TableCell>
                       <TableCell align="right">

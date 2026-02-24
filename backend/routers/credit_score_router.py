@@ -6,7 +6,7 @@ from models.sme import SME
 from models.invoice import Invoice
 from datetime import datetime
 
-router = APIRouter(prefix="/credit-score", tags=["Credit Scoring"])
+router = APIRouter(prefix="/credit-scores", tags=["Credit Scoring"])
 
 # ---------- Helper Function ----------
 def calculate_score(revenue: float, years_active: int, unpaid_invoices: int) -> float:
@@ -46,6 +46,13 @@ def generate_credit_score(sme_id: int, db: Session = Depends(get_db)):
     }
 
 # ---------- Get SME Credit Score History ----------
+@router.get("/sme/{sme_id}")
+def get_credit_scores_by_sme(sme_id: int, db: Session = Depends(get_db)):
+    scores = db.query(CreditScore).filter(CreditScore.sme_id == sme_id).order_by(CreditScore.created_at.desc()).all()
+    if not scores:
+        return []  # Return empty list instead of 404
+    return scores
+
 @router.get("/history/{sme_id}")
 def get_credit_history(sme_id: int, db: Session = Depends(get_db)):
     scores = db.query(CreditScore).filter(CreditScore.sme_id == sme_id).all()

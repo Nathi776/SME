@@ -42,6 +42,18 @@ class FinanceRequestResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class FinanceRequestOut(BaseModel):
+    id: int
+    amount_requested: float
+    approved_amount: float | None
+    platform_fee: float
+    net_amount: float
+    status: str
+
+    class Config:
+        from_attributes = True
+
+
 # ========== SME Endpoints ==========
 
 @router.post("/apply")

@@ -93,8 +93,12 @@ export default function LenderSMEDetailPage() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Button onClick={() => navigate(-1)} sx={{ mb: 2 }}>
-        Back
+      <Button 
+        variant="outlined" 
+        onClick={() => navigate("/lender/dashboard")} 
+        sx={{ mb: 2 }}
+      >
+        ← Back to Dashboard
       </Button>
 
       {/* SME Header */}

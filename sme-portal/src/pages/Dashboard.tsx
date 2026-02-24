@@ -6,6 +6,9 @@ import {
   CardContent,
   Button,
   Skeleton,
+  Stack,
+  Divider,
+  Chip,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import api from "../api/client";
@@ -38,6 +41,9 @@ interface Invoice {
 interface FinanceRequest {
   id: number;
   amount_requested: number;
+  approved_amount?: number;
+  platform_fee?: number;
+  net_amount?: number; 
   status: string;
   decision: string | null;
 }
@@ -63,9 +69,8 @@ export default function DashboardPage() {
 
     api.get("/smes/dashboard")
       .then(async (res) => {
-        console.log("Dashboard API", res.data);
-        if(!res.data?.sme_id){
-          throw new Error("Invaild dashboard data")
+        if (!res.data?.sme_id) {
+          throw new Error("Invalid dashboard data");
         }
 
         setStats(res.data);
@@ -81,20 +86,26 @@ export default function DashboardPage() {
         setFinanceRequests(finRes.data.slice(-5).reverse());
       })
       .catch((err) => {
-        console.error("Dashboard error",err);
+        console.error("Dashboard error", err);
         setError("Failed to load dashboard");
       })
       .finally(() => setLoading(false));
   }, []);
 
   if (loading) return <DashboardSkeleton />;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (error) return <Typography color="error">{error}</Typography>;
 
   return (
-    <Box p={3}>
-      <Typography variant="h4" gutterBottom>
-        SME Dashboard
-      </Typography>
+    <Box p={4} bgcolor="#f8fafc" minHeight="100vh">
+      {/* ===== HEADER ===== */}
+      <Box mb={4}>
+        <Typography variant="h4" fontWeight={700}>
+          SME Dashboard
+        </Typography>
+        <Typography color="text.secondary">
+          Overview of your business performance
+        </Typography>
+      </Box>
 
       {/* ===== STATS ===== */}
       <Box
@@ -107,10 +118,7 @@ export default function DashboardPage() {
           title="Outstanding Balance"
           value={`R ${stats?.outstanding_balance ?? 0}`}
         />
-        <StatCard
-          title="Credit Score"
-          value={stats?.credit_score ?? "-"}
-        />
+        <StatCard title="Credit Score" value={stats?.credit_score ?? "-"} />
         <StatCard
           title="Finance Requests"
           value={stats?.finance_requests ?? 0}
@@ -118,123 +126,181 @@ export default function DashboardPage() {
       </Box>
 
       {/* ===== ACTIONS ===== */}
-      <Box mt={4}>
-        <Typography variant="h5" gutterBottom>
-          Quick Actions
-        </Typography>
+      <Card sx={{ mt: 4 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            Quick Actions
+          </Typography>
 
-        <Button
-          variant="contained"
-          sx={{ mr: 2 }}
-          onClick={() => navigate("/invoices")}
-        >
-          + Add Invoice
-        </Button>
+          <Stack direction="row" spacing={2} mt={1}>
+            <Button
+              variant="contained"
+              onClick={() => navigate("/invoices")}
+            >
+              + Add Invoice
+            </Button>
 
-        <Button
-          variant="outlined"
-          onClick={() => navigate("/finance")}
-        >
-          Request Finance
-        </Button>
+            <Button
+              variant="outlined"
+              onClick={() => navigate("/finance")}
+            >
+              Request Finance
+            </Button>
 
-        <Button onClick={() => navigate("/invoices")}>
-          Manage Invoices
-        </Button>
-
-      </Box>
+            <Button
+              variant="text"
+              onClick={() => navigate("/invoices")}
+            >
+              Manage Invoices
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* ===== CHART ===== */}
-      <Box mt={5}>
-        <Typography variant="h5">Invoice Overview</Typography>
+      <Card sx={{ mt: 4 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            Invoice Overview
+          </Typography>
 
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart
-            data={[
-              {
-                name: "Paid",
-                value: invoices.filter((i) => i.status === "paid").length,
-              },
-              {
-                name: "Pending",
-                value: invoices.filter((i) => i.status === "pending").length,
-              },
-              {
-                name: "Overdue",
-                value: invoices.filter((i) => i.status === "overdue").length,
-              },
-            ]}
-          >
-            <XAxis dataKey="name" />
-            <Tooltip />
-            <Bar dataKey="value" fill="#1976d2" />
-          </BarChart>
-        </ResponsiveContainer>
-      </Box>
+          <ResponsiveContainer width="100%" height={280}>
+            <BarChart
+              data={[
+                {
+                  name: "Paid",
+                  value: invoices.filter((i) => i.status === "paid").length,
+                },
+                {
+                  name: "Pending",
+                  value: invoices.filter((i) => i.status === "pending").length,
+                },
+                {
+                  name: "Overdue",
+                  value: invoices.filter((i) => i.status === "overdue").length,
+                },
+              ]}
+            >
+              <XAxis dataKey="name" />
+              <Tooltip />
+              <Bar dataKey="value" fill="#2563eb" radius={[6, 6, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
 
       {/* ===== INVOICES ===== */}
-      <Box mt={5}>
-        <Typography variant="h5">Latest Invoices</Typography>
-        {invoices.length === 0 ? (
-          <p>No invoices found.</p>
-        ) : (
-          invoices.map((inv) => (
-            <Card key={inv.id} sx={{ mb: 1 }}>
-              <CardContent>
-                <Typography>
-                  <strong>Invoice #{inv.id}</strong> — {inv.client_name}
-                </Typography>
-                <Typography>Amount: R {inv.amount}</Typography>
-                <Typography>Due: {inv.due_date}</Typography>
-                <Typography
-                  color={
-                    inv.status === "paid"
-                      ? "green"
-                      : inv.status === "overdue"
-                      ? "red"
-                      : "orange"
-                  }
+      <Card sx={{ mt: 4 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            Latest Invoices
+          </Typography>
+
+          {invoices.length === 0 ? (
+            <Typography color="text.secondary">
+              No invoices found.
+            </Typography>
+          ) : (
+            invoices.map((inv) => (
+              <Box key={inv.id} mb={2}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
                 >
-                  Status: {inv.status}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))
-        )}
-      </Box>
+                  <Box>
+                    <Typography fontWeight={600}>
+                      Invoice #{inv.id} — {inv.client_name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Due: {inv.due_date}
+                    </Typography>
+                  </Box>
+
+                  <Box textAlign="right">
+                    <Typography fontWeight={600}>
+                      R {inv.amount}
+                    </Typography>
+                    <Chip
+                      size="small"
+                      label={inv.status}
+                      color={
+                        inv.status === "paid"
+                          ? "success"
+                          : inv.status === "overdue"
+                          ? "error"
+                          : "warning"
+                      }
+                    />
+                  </Box>
+                </Stack>
+                <Divider sx={{ mt: 2 }} />
+              </Box>
+            ))
+          )}
+        </CardContent>
+      </Card>
 
       {/* ===== FINANCE REQUESTS ===== */}
-      <Box mt={5}>
-        <Typography variant="h5">Finance Requests</Typography>
-        {financeRequests.length === 0 ? (
-          <p>No finance requests found.</p>
-        ) : (
-          financeRequests.map((fr) => (
-            <Card key={fr.id} sx={{ mb: 1 }}>
-              <CardContent>
+      {financeRequests.map((fr) => (
+        <Card
+          key={fr.id}
+          sx={{
+            mb: 2,
+            borderLeft: "6px solid",
+            borderColor:
+              fr.status === "approved"
+                ? "success.main"
+                : fr.status === "rejected"
+                ? "error.main"
+                : "warning.main",
+          }}
+        >
+          <CardContent>
+            <Typography variant="subtitle1" fontWeight="bold">
+              Finance Request #{fr.id}
+            </Typography>
+
+            <Typography>Requested: R {fr.amount_requested}</Typography>
+
+            {fr.approved_amount && (
+              <>
                 <Typography>
-                  <strong>Request #{fr.id}</strong>
+                  Approved: <strong>R {fr.approved_amount}</strong>
                 </Typography>
-                <Typography>Amount: R {fr.amount_requested}</Typography>
-                <Typography
-                  color={
-                    fr.status === "Approved"
-                      ? "green"
-                      : fr.status === "Rejected"
-                      ? "red"
-                      : "orange"
-                  }
-                >
-                  Status: {fr.status}
+
+                <Typography color="text.secondary">
+                  Platform Fee: R {fr.platform_fee ?? 0}
                 </Typography>
-                <Typography>
-                  Decision: {fr.decision || "-"}
+
+                <Typography color="success.main" fontWeight="bold">
+                  Net Amount You Receive: R {fr.net_amount ?? 0}
                 </Typography>
-              </CardContent>
-            </Card>
-          ))
-        )}
-      </Box>
+              </>
+            )}
+
+            <Typography
+              sx={{ mt: 1 }}
+              color={
+                fr.status === "approved"
+                  ? "success.main"
+                  : fr.status === "rejected"
+                  ? "error.main"
+                  : "warning.main"
+              }
+            >
+              Status: {fr.status.toUpperCase()}
+            </Typography>
+
+            {fr.decision && (
+              <Typography color="text.secondary">
+                Lender Decision: {fr.decision}
+              </Typography>
+            )}
+          </CardContent>
+        </Card>
+      ))}
+
     </Box>
   );
 }
@@ -245,10 +311,12 @@ function StatCard({ title, value }: { title: string; value: any }) {
   return (
     <Card>
       <CardContent>
-        <Typography variant="subtitle1" color="text.secondary">
+        <Typography variant="subtitle2" color="text.secondary">
           {title}
         </Typography>
-        <Typography variant="h4">{value}</Typography>
+        <Typography variant="h4" fontWeight={700}>
+          {value}
+        </Typography>
       </CardContent>
     </Card>
   );
@@ -256,17 +324,19 @@ function StatCard({ title, value }: { title: string; value: any }) {
 
 function DashboardSkeleton() {
   return (
-    <Box p={3}>
-      <Box display="grid" gridTemplateColumns="repeat(4, 1fr)" gap={2}>
+    <Box p={4}>
+      <Box
+        display="grid"
+        gridTemplateColumns="repeat(auto-fit, minmax(220px, 1fr))"
+        gap={3}
+      >
         {[1, 2, 3, 4].map((i) => (
-          <Skeleton key={i} variant="rectangular" height={120} />
+          <Skeleton key={i} variant="rectangular" height={110} />
         ))}
       </Box>
 
-      <Box mt={4}>
-        <Skeleton variant="text" height={40} />
-        <Skeleton variant="rectangular" height={200} />
-      </Box>
+      <Skeleton sx={{ mt: 4 }} variant="rectangular" height={240} />
+      <Skeleton sx={{ mt: 4 }} variant="rectangular" height={300} />
     </Box>
   );
 }

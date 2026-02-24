@@ -7,10 +7,16 @@ class FinanceRequest(Base):
     __tablename__ = 'finance_requests'
 
     id = Column(Integer, primary_key=True, index=True)
+
     amount_requested = Column(Float, nullable=False)
     approved_amount = Column(Float, nullable=True)
+
     fee_rate = Column(Float, default=0)
+    platform_fee = Column(Float, default=0)
+    net_amount = Column(Float, default=0)
+
     status = Column(String, default="pending")
+    
     lender_id = Column(Integer, ForeignKey("lenders.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     approved_at = Column(DateTime, nullable=True)

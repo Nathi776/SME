@@ -6,6 +6,9 @@ from models.invoice import Invoice
 from models.credit_score import CreditScore
 from models.lender import Lender
 
+
+PLATGORM_FEE_RATE = 0.02
+
 def calculate_fee_rate(credit_score: int | None) -> float:
     """
     Calculate fee rate based on credit score.
@@ -112,8 +115,14 @@ def approve_finance_request(db: Session, request_id: int, lender_id: int, approv
     if not lender:
         raise ValueError("Lender not found")
     
+    platform_fee = approved_amount * PLATGORM_FEE_RATE
+    net_amount = approved_amount - platform_fee
+
+
     req.lender_id = lender_id
     req.approved_amount = approved_amount
+    req.platform_fee = platform_fee
+    req.net_amount = net_amount
     req.status = "approved"
     req.approved_at = datetime.utcnow()
     
