@@ -24,13 +24,12 @@ interface SMEDetail {
   name: string;
   industry: string;
   revenue: number;
-  company_reg: string;
 }
 
 interface CreditScore {
   id: number;
   score: number;
-  rating: string;
+  rating: string | number | null;
   created_at: string;
 }
 
@@ -54,7 +53,7 @@ export default function LenderSMEDetailPage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+      navigate("/");
       return;
     }
 
@@ -85,6 +84,20 @@ export default function LenderSMEDetailPage() {
     return "success";
   };
 
+  const getRiskLabel = (score: number | null | undefined, rating: string | number | null) => {
+    if (typeof rating === "string" && rating.trim()) {
+      return rating;
+    }
+
+    if (score == null) {
+      return "N/A";
+    }
+
+    if (score < 40) return "High";
+    if (score < 60) return "Medium";
+    return "Low";
+  };
+
   if (loading) return <CircularProgress />;
   if (error) return <Typography color="error">{error}</Typography>;
   if (!sme) return <Typography>SME not found</Typography>;
@@ -110,7 +123,6 @@ export default function LenderSMEDetailPage() {
                 {sme.name}
               </Typography>
               <Typography>Industry: {sme.industry}</Typography>
-              <Typography>Registration #: {sme.company_reg}</Typography>
             </Box>
 
             <Box>
@@ -149,7 +161,7 @@ export default function LenderSMEDetailPage() {
               </Box>
               <Box>
                 <Chip
-                  label={latestScore.rating}
+                  label={getRiskLabel(latestScore.score, latestScore.rating)}
                   color={getRiskColor(latestScore.score) as any}
                   size="medium"
                   sx={{ mb: 1 }}
@@ -235,7 +247,7 @@ export default function LenderSMEDetailPage() {
                           size="small"
                         />
                       </TableCell>
-                      <TableCell>{score.rating}</TableCell>
+                      <TableCell>{getRiskLabel(score.score, score.rating)}</TableCell>
                       <TableCell>
                         {new Date(score.created_at).toLocaleDateString()}
                       </TableCell>

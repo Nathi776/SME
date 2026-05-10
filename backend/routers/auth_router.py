@@ -24,6 +24,14 @@ class ChangePasswordRequest(BaseModel):
 
 @router.post("/register")
 def register_user(request: RegisterRequest, db: Session = Depends(get_db)):
+    existing_username = db.query(User).filter(User.username == request.username).first()
+    if existing_username:
+        raise HTTPException(status_code=400, detail="Username already exists")
+
+    existing_email = db.query(User).filter(User.email == request.email).first()
+    if existing_email:
+        raise HTTPException(status_code=400, detail="Email already exists")
+
     hashed_pw = hash_password(request.password)
     new_user = User(username=request.username, email=request.email, hashed_password=hashed_pw)
     db.add(new_user)

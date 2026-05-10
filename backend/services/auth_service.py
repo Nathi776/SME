@@ -1,3 +1,5 @@
+import os
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -13,7 +15,7 @@ from datetime import datetime, timedelta
 import jwt
 
 # Security settings
-SECRET_KEY = "supersecretkey"  # ⚠️ Replace this with a secure env variable in production
+SECRET_KEY = os.getenv("SECRET_KEY", "change-me-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 

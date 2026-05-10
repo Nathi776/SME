@@ -25,7 +25,6 @@ class SMEBase(BaseModel):
     name: str
     industry: str
     revenue: float
-    user_id: int
 
 class SMECreated(SMEBase):
     id: int
@@ -44,16 +43,24 @@ class DashboardResponse(BaseModel):
 
 # ✅ Create SME
 @router.post("/", response_model=SMECreated)
-def create_sme(sme: SMEBase, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.id == sme.user_id).first()
+def create_sme(
+    sme: SMEBase,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    user = db.query(User).filter(User.id == current_user.id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found. Cannot link SME.")
+
+    existing_sme = db.query(SME).filter(SME.user_id == current_user.id).first()
+    if existing_sme:
+        raise HTTPException(status_code=400, detail="SME profile already exists for this user")
 
     new_sme = SME(
         name=sme.name,
         industry=sme.industry,
         revenue=sme.revenue,
-        user_id=sme.user_id
+        user_id=current_user.id
     )
     db.add(new_sme)
     db.commit()
@@ -78,7 +85,7 @@ def sme_dashboard(
     ).all()
 
     outstanding_balance = sum(
-        i.amount for i in invoices if i.status != "paid"
+        i.amount for i in invoices if (i.status or "").lower() != "paid"
     )
 
     latest_score = (
@@ -116,15 +123,22 @@ def get_sme(sme_id: int, db: Session = Depends(get_db)):
 
 # ✅ Update SME
 @router.put("/{sme_id}", response_model=SMECreated)
-def update_sme(sme_id: int, updated_sme: SMEBase, db: Session = Depends(get_db)):
+def update_sme(
+    sme_id: int,
+    updated_sme: SMEBase,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     sme = db.query(SME).filter(SME.id == sme_id).first()
     if not sme:
         raise HTTPException(status_code=404, detail="SME not found.")
 
+    if sme.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="You can only update your own SME profile")
+
     sme.name = updated_sme.name
     sme.industry = updated_sme.industry
     sme.revenue = updated_sme.revenue
-    sme.user_id = updated_sme.user_id
     db.commit()
     db.refresh(sme)
     return sme
@@ -132,10 +146,17 @@ def update_sme(sme_id: int, updated_sme: SMEBase, db: Session = Depends(get_db))
 
 # ✅ Delete SME
 @router.delete("/{sme_id}")
-def delete_sme(sme_id: int, db: Session = Depends(get_db)):
+def delete_sme(
+    sme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     sme = db.query(SME).filter(SME.id == sme_id).first()
     if not sme:
         raise HTTPException(status_code=404, detail="SME not found.")
+
+    if sme.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="You can only delete your own SME profile")
 
     db.delete(sme)
     db.commit()

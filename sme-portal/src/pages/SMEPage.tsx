@@ -6,9 +6,8 @@ function SMEPage() {
     const [smes, setSmes] = useState<SME[]>([]);
     const [form, setForm] = useState<SMECreate>({
         name: '',
-        description: '',
         industry: '',
-        owner_id: 1,
+        revenue: 0,
     });
 
     // Load SMEs
@@ -25,9 +24,8 @@ function SMEPage() {
         await SMEApi.create(form);
         setForm({
             name: '',
-            description: '',
             industry: '',
-            owner_id: 1,
+            revenue: 0,
         });
         loadSMEs();
     };
@@ -60,6 +58,12 @@ function SMEPage() {
                 value={form.industry}
                 onChange={(e) => setForm({ ...form, industry: e.target.value })}
             />
+            <input
+                type="number"
+                placeholder="Revenue"
+                value={form.revenue}
+                onChange={(e) => setForm({ ...form, revenue: Number(e.target.value) })}
+            />
             <button onClick={createSME}>Create SME</button>
 
 
@@ -67,7 +71,7 @@ function SMEPage() {
             {smes.map((s) => (
                 <div key={s.id} style={{ border: "1px solid #ccc", margin: 8, padding: 8 }}>
                 <strong>{s.name}</strong> ({s.industry})
-                <p>{s.description}</p>
+                <p>Revenue: {s.revenue}</p>
                 <button onClick={() => deleteSME(s.id)}>Delete</button>
                 </div>
             ))}

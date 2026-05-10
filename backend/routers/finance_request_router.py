@@ -91,17 +91,14 @@ def list_finance_requests(
     """Get finance requests for an SME."""
     from models.sme import SME
     
-    # Verify ownership or admin/lender access
     if current_user.role == "sme":
         sme = db.query(SME).filter(SME.user_id == current_user.id).first()
         if not sme or sme.id != sme_id:
             raise HTTPException(status_code=403, detail="You can only view your own requests")
     
-    return get_finance_requests(db, sme_id)
+    if current_user.role not in {"sme", "lender"}:
+        raise HTTPException(status_code=403, detail="Unauthorized to view finance requests")
 
-@router.get("/requests/{sme_id}")
-def list_sme_finance_requests(sme_id: int, db: Session = Depends(get_db)):
-    """Get finance requests for a specific SME."""
     return get_finance_requests(db, sme_id)
 
 # ========== Lender Endpoints ==========

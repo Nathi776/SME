@@ -126,9 +126,10 @@ export default function FinanceRequestPage() {
             <Select
               value={selectedInvoice}
               onChange={(e) => {
-                setSelectedInvoice(e.target.value);
+                const invoiceId = Number(e.target.value);
+                setSelectedInvoice(invoiceId);
                 const selected = invoices.find(
-                  (inv) => inv.id === e.target.value
+                  (inv) => inv.id === invoiceId
                 );
                 if (selected) {
                   setAmount(selected.amount);

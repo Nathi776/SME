@@ -26,7 +26,6 @@ interface CreditScore {
 interface Sme {
   id: number;
   name: string;
-  registration_number: string;
   industry: string;
 }
 
@@ -75,7 +74,6 @@ function SmeDetailPage() {
   return (
     <div style={{ padding: 20 }}>
       <h1>SME: {sme.name}</h1>
-      <p><strong>Registration:</strong> {sme.registration_number}</p>
       <p><strong>Industry:</strong> {sme.industry}</p>
 
       <hr />

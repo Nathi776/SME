@@ -11,6 +11,6 @@ class Invoice(Base):
     client_name = Column(String)
     description = Column(String)
     amount = Column(Float)
-    status = Column(String, default="Pending")
+    status = Column(String, default="pending")
     created_at = Column(DateTime, default=datetime.utcnow)
     sme = relationship("SME", back_populates="invoices")

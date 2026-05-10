@@ -71,7 +71,13 @@ def create_finance_request(db: Session, sme_id: int, amount: float, invoice_id: 
     
     score_value = latest_score.score if latest_score else None
     fee_rate = calculate_fee_rate(score_value)
-    eligible_amount = calculate_eligible_amount(amount, score_value)
+    eligible_amount = calculate_eligible_amount(invoice.amount, score_value)
+
+    if amount > invoice.amount:
+        raise ValueError("Requested amount cannot exceed invoice amount")
+
+    if amount > eligible_amount:
+        raise ValueError("Requested amount exceeds eligible financing amount")
     
     request = FinanceRequest(
         sme_id=sme_id,

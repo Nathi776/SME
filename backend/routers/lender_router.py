@@ -52,6 +52,16 @@ class SMEFinanceView(BaseModel):
     class Config:
         from_attributes = True
 
+
+def get_risk_level(score: int | None) -> str | None:
+    if score is None:
+        return None
+    if score < 40:
+        return "High"
+    if score < 60:
+        return "Medium"
+    return "Low"
+
 # ========== CRUD Endpoints ==========
 
 @router.post("/register", response_model=LenderResponse)
@@ -141,7 +151,7 @@ def get_available_smes(
             "industry": sme.industry,
             "revenue": sme.revenue,
             "credit_score": latest_score.score if latest_score else None,
-            "risk_level": latest_score.rating if latest_score else None,
+            "risk_level": get_risk_level(latest_score.score if latest_score else None),
             "pending_finance_requests": pending_requests
         })
     

@@ -169,15 +169,15 @@ export default function DashboardPage() {
               data={[
                 {
                   name: "Paid",
-                  value: invoices.filter((i) => i.status === "paid").length,
+                  value: invoices.filter((i) => i.status?.toLowerCase() === "paid").length,
                 },
                 {
                   name: "Pending",
-                  value: invoices.filter((i) => i.status === "pending").length,
+                  value: invoices.filter((i) => i.status?.toLowerCase() === "pending").length,
                 },
                 {
                   name: "Overdue",
-                  value: invoices.filter((i) => i.status === "overdue").length,
+                  value: invoices.filter((i) => i.status?.toLowerCase() === "overdue").length,
                 },
               ]}
             >
@@ -223,11 +223,11 @@ export default function DashboardPage() {
                     </Typography>
                     <Chip
                       size="small"
-                      label={inv.status}
+                      label={inv.status?.toLowerCase?.() ?? inv.status}
                       color={
-                        inv.status === "paid"
+                        inv.status?.toLowerCase() === "paid"
                           ? "success"
-                          : inv.status === "overdue"
+                          : inv.status?.toLowerCase() === "overdue"
                           ? "error"
                           : "warning"
                       }

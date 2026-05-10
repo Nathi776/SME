@@ -4,15 +4,13 @@ export interface SME {
   id: number;
   name: string;
   industry: string;
-  description?: string;
-  owner_id: number;
+  revenue: number;
 }
 
 export interface SMECreate {
   name: string;
   industry: string;
-  description?: string;
-  owner_id: number;
+  revenue: number;
 }
 
 export const SMEApi = {
@@ -23,8 +21,8 @@ export const SMEApi = {
   delete: (id: number) => api.delete(`/smes/${id}`),
 
   getSmeDetails: (id: number) => api.get(`/smes/${id}`),
-  getSmeInvoices: (id: number) => api.get(`/smes/${id}/invoices`),
+  getSmeInvoices: (id: number) => api.get(`/invoices/sme/${id}`),
 
-  getCreditScore: (id: number) => api.get(`/smes/${id}/credit-score`),
-  getFinanceRequests: (id: number) => api.get(`/smes/${id}/finance-requests`)
+  getCreditScore: (id: number) => api.get(`/credit-scores/sme/${id}`),
+  getFinanceRequests: (id: number) => api.get(`/finance/requests/${id}`)
 };

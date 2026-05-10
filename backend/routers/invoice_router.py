@@ -4,6 +4,8 @@ from pydantic import BaseModel
 from database import get_db
 from models.invoice import Invoice
 from models.sme import SME
+from models.user import User
+from services.auth_service import get_current_user
 
 router = APIRouter(prefix="/invoices", tags=["Invoices"])
 
@@ -21,17 +23,27 @@ class InvoiceUpdate(BaseModel):
 
 # ---------- Create Invoice ----------
 @router.post("/")
-def create_invoice(request: InvoiceCreate, db: Session = Depends(get_db)):
+def create_invoice(
+    request: InvoiceCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if current_user.role != "sme":
+        raise HTTPException(status_code=403, detail="Only SMEs can create invoices")
+
     sme = db.query(SME).filter(SME.id == request.sme_id).first()
     if not sme:
         raise HTTPException(status_code=404, detail="SME not found")
+
+    if sme.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="You can only create invoices for your own SME")
 
     invoice = Invoice(
         sme_id=request.sme_id,
         client_name=request.client_name,
         amount=request.amount,
         description=request.description,
-        status="Pending"
+        status="pending"
     )
     db.add(invoice)
     db.commit()
@@ -51,10 +63,19 @@ def get_invoices_by_sme(sme_id: int, db: Session = Depends(get_db)):
 
 # ---------- Update Invoice ----------
 @router.put("/{invoice_id}")
-def update_invoice(invoice_id: int, request: InvoiceUpdate, db: Session = Depends(get_db)):
+def update_invoice(
+    invoice_id: int,
+    request: InvoiceUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     invoice = db.query(Invoice).filter(Invoice.id == invoice_id).first()
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")
+
+    sme = db.query(SME).filter(SME.id == invoice.sme_id).first()
+    if not sme or sme.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="You can only update your own invoices")
 
     for key, value in request.dict(exclude_unset=True).items():
         setattr(invoice, key, value)
@@ -64,10 +85,18 @@ def update_invoice(invoice_id: int, request: InvoiceUpdate, db: Session = Depend
 
 # ---------- Delete Invoice ----------
 @router.delete("/{invoice_id}")
-def delete_invoice(invoice_id: int, db: Session = Depends(get_db)):
+def delete_invoice(
+    invoice_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     invoice = db.query(Invoice).filter(Invoice.id == invoice_id).first()
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")
+
+    sme = db.query(SME).filter(SME.id == invoice.sme_id).first()
+    if not sme or sme.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="You can only delete your own invoices")
 
     db.delete(invoice)
     db.commit()

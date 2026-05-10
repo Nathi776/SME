@@ -7,7 +7,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import axios from "axios";
+import api from "../api/client";
 
 export default function InvoicesPage() {
   const [invoices, setInvoices] = useState<any[]>([]);
@@ -15,39 +15,29 @@ export default function InvoicesPage() {
   const [desc, setDesc] = useState("");
   const [amount, setAmount] = useState<number | "">("");
 
-  const token = localStorage.getItem("token");
-
   const loadInvoices = async () => {
-    const dash = await axios.get("http://localhost:8000/smes/dashboard", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const dash = await api.get("/smes/dashboard");
 
     const smeId = dash.data.sme_id;
 
-    const res = await axios.get(
-      `http://localhost:8000/invoices/sme/${smeId}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const res = await api.get(`/invoices/sme/${smeId}`);
 
     setInvoices(res.data);
   };
 
   const createInvoice = async () => {
-    const dash = await axios.get("http://localhost:8000/smes/dashboard", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const dash = await api.get("/smes/dashboard");
 
     const smeId = dash.data.sme_id;
 
-    await axios.post(
-      "http://localhost:8000/invoices/",
+    await api.post(
+      "/invoices/",
       {
         sme_id: smeId,
         client_name: client,
         description: desc,
         amount,
-      },
-      { headers: { Authorization: `Bearer ${token}` } }
+      }
     );
 
     setClient("");
@@ -57,9 +47,7 @@ export default function InvoicesPage() {
   };
 
   const deleteInvoice = async (id: number) => {
-    await axios.delete(`http://localhost:8000/invoices/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    await api.delete(`/invoices/${id}`);
     loadInvoices();
   };
 
