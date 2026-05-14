@@ -1,7 +1,6 @@
-import os
-
 from fastapi import FastAPI
 from database import Base, engine
+from config import get_settings
 from routers import (
     auth_router,
     sme_router,
@@ -12,18 +11,10 @@ from routers import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="SME Credit Scoring API")
 
-cors_origins = [
-    origin.strip()
-    for origin in os.getenv(
-        "CORS_ORIGINS",
-        "http://localhost:3000,http://127.0.0.1:3000",
-    ).split(",")
-    if origin.strip()
-]
+settings = get_settings()
+cors_origins = settings.cors_origins
 
 app.add_middleware(
     CORSMiddleware,

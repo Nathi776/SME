@@ -24,6 +24,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import api from "../api/client";
 import { FinanceApi } from "../api/financeApi";
+import { useSnackbar } from "notistack";
+import { formatZAR } from "../utils/format";
 
 interface Invoice {
   id: number;
@@ -42,6 +44,7 @@ interface FinanceRequest {
 
 export default function FinanceRequestPage() {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [financeRequests, setFinanceRequests] = useState<FinanceRequest[]>([]);
@@ -52,14 +55,14 @@ export default function FinanceRequestPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
       navigate("/");
       return;
     }
 
     loadData();
-  }, []);
+  }, [navigate]);
 
   const loadData = async () => {
     try {
@@ -92,14 +95,14 @@ export default function FinanceRequestPage() {
     try {
       setLoading(true);
       const res = await FinanceApi.apply(Number(selectedInvoice), amount);
-      setMessage(
-        `Finance request submitted! Fee rate: ${(res.data.fee_rate * 100).toFixed(1)}%`
-      );
+      setMessage(`Finance request submitted! Fee rate: ${(res.data.fee_rate * 100).toFixed(1)}%`);
+      enqueueSnackbar("Finance request submitted", { variant: "success" });
       setSelectedInvoice("");
       setAmount(0);
       setTimeout(() => loadData(), 1500);
     } catch (err: any) {
       setMessage(err?.response?.data?.detail || "Request failed.");
+      enqueueSnackbar(err?.response?.data?.detail || "Request failed", { variant: "error" });
     } finally {
       setLoading(false);
     }
@@ -139,7 +142,7 @@ export default function FinanceRequestPage() {
             >
               {invoices.map((invoice) => (
                 <MenuItem key={invoice.id} value={invoice.id}>
-                  {invoice.client_name} - R{invoice.amount.toLocaleString()}
+                  {invoice.client_name} - {formatZAR(invoice.amount)}
                 </MenuItem>
               ))}
             </Select>
@@ -192,7 +195,7 @@ export default function FinanceRequestPage() {
                     <TableRow key={req.id}>
                       <TableCell>#{req.id}</TableCell>
                       <TableCell align="right">
-                        R{req.amount_requested.toLocaleString()}
+                        {formatZAR(req.amount_requested)}
                       </TableCell>
                       <TableCell>{(req.fee_rate * 100).toFixed(1)}%</TableCell>
                       <TableCell>

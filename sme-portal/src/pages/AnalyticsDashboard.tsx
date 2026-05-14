@@ -4,7 +4,6 @@ import {
   Typography,
   Card,
   CardContent,
-  Grid,
   CircularProgress,
   Table,
   TableBody,
@@ -16,8 +15,6 @@ import {
   Chip,
 } from "@mui/material";
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   XAxis,
@@ -30,7 +27,6 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import api from "../api/client";
 
 interface AnalyticsMetrics {
   total_applications: number;

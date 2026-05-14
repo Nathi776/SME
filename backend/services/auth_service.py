@@ -1,5 +1,3 @@
-import os
-
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -8,6 +6,7 @@ from jwt import PyJWTError
 from database import get_db
 from models.user import User
 from services.user_service import get_user_by_username
+from config import get_settings
 
 
 from passlib.context import CryptContext
@@ -15,9 +14,10 @@ from datetime import datetime, timedelta
 import jwt
 
 # Security settings
-SECRET_KEY = os.getenv("SECRET_KEY", "change-me-in-production")
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+settings = get_settings()
+SECRET_KEY = settings.secret_key
+ALGORITHM = settings.algorithm
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 

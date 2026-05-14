@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Numeric, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -8,7 +8,7 @@ class SME(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     industry = Column(String, nullable=False)
-    revenue = Column(Float, nullable=False)
+    revenue = Column(Numeric(18, 2), nullable=False)
     years_active = Column(Integer, nullable=False, default=0)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 

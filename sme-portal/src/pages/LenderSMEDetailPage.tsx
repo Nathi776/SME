@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -8,7 +8,6 @@ import {
   Button,
   CircularProgress,
   Chip,
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -50,17 +49,7 @@ export default function LenderSMEDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/");
-      return;
-    }
-
-    loadSMEDetails();
-  }, [smeId]);
-
-  const loadSMEDetails = async () => {
+  const loadSMEDetails = useCallback(async () => {
     try {
       const [smeRes, scoresRes, invoicesRes] = await Promise.all([
         api.get(`/smes/${smeId}`),
@@ -76,7 +65,17 @@ export default function LenderSMEDetailPage() {
       setError("Failed to load SME details");
       setLoading(false);
     }
-  };
+  }, [smeId]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+      return;
+    }
+
+    loadSMEDetails();
+  }, [loadSMEDetails, navigate]);
 
   const getRiskColor = (score: number) => {
     if (score < 40) return "error";

@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { AuthApi } from "../api/authApi";
 import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { enqueueSnackbar } = useSnackbar();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -18,17 +23,17 @@ function LoginPage() {
       const role = res.data.role;
 
       // store JWT and role
-      localStorage.setItem("token", token);
-      localStorage.setItem("role", role);
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("role", role);
 
       setMessage("Login successful!");
+      enqueueSnackbar("Login successful", { variant: "success" });
 
       const redirectPath =
-        role === "lender" ? "/lender/dashboard" : "/dashboard";
+        (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ||
+        (role === "lender" ? "/lender/dashboard" : "/dashboard");
 
-      setTimeout(() => {
-        window.location.href = redirectPath;
-      }, 800);
+      navigate(redirectPath, { replace: true });
 
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -41,8 +46,10 @@ function LoginPage() {
         } else {
           setMessage("Login failed.");
         }
+        enqueueSnackbar(typeof detail === "string" ? detail : "Login failed", { variant: "error" });
       } else {
         setMessage("Unexpected error.");
+        enqueueSnackbar("Unexpected error", { variant: "error" });
       }
     } finally {
       setLoading(false);

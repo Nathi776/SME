@@ -5,22 +5,26 @@ from models.credit_score import CreditScore
 from models.sme import SME
 from models.invoice import Invoice
 from datetime import datetime
+from decimal import Decimal
+from models.user import User
+from services.auth_service import get_current_user
 
 router = APIRouter(prefix="/credit-scores", tags=["Credit Scoring"])
 
 # ---------- Helper Function ----------
-def calculate_score(revenue: float, years_active: int, unpaid_invoices: int) -> float:
+def calculate_score(revenue: Decimal | float | int, years_active: int, unpaid_invoices: int) -> float:
     """
     Simple rule-based credit scoring algorithm.
     Adjust logic later for ML integration.
     """
+    revenue = Decimal(str(revenue))
     base_score = 50
-    revenue_boost = min(revenue / 100000, 30)  # max +30 points
+    revenue_boost = min(revenue / Decimal("100000"), Decimal("30"))  # max +30 points
     stability_boost = min(years_active * 2, 10)  # max +10 points
     penalty = unpaid_invoices * 2  # -2 points per unpaid invoice
 
     score = base_score + revenue_boost + stability_boost - penalty
-    return max(0, min(score, 100))  # Clamp between 0 and 100
+    return float(max(Decimal("0"), min(score, Decimal("100"))))  # Clamp between 0 and 100
 
 # ---------- Calculate Credit Score ----------
 @router.post("/calculate/{sme_id}")
@@ -47,7 +51,16 @@ def generate_credit_score(sme_id: int, db: Session = Depends(get_db)):
 
 # ---------- Get SME Credit Score History ----------
 @router.get("/sme/{sme_id}")
-def get_credit_scores_by_sme(sme_id: int, db: Session = Depends(get_db)):
+def get_credit_scores_by_sme(
+    sme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if current_user.role not in {"admin", "lender"}:
+        sme = db.query(SME).filter(SME.user_id == current_user.id).first()
+        if not sme or sme.id != sme_id:
+            raise HTTPException(status_code=403, detail="Unauthorized")
+
     scores = db.query(CreditScore).filter(CreditScore.sme_id == sme_id).order_by(CreditScore.created_at.desc()).all()
     if not scores:
         return []  # Return empty list instead of 404

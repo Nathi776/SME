@@ -9,3 +9,4 @@ PyJWT
 joblib
 numpy
 requests
+pydantic-settings

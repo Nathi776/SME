@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from sqlalchemy.orm import Session
 from datetime import datetime
 from models.finance_request import FinanceRequest
@@ -5,11 +7,18 @@ from models.sme import SME
 from models.invoice import Invoice
 from models.credit_score import CreditScore
 from models.lender import Lender
+from config import get_settings
 
 
-PLATGORM_FEE_RATE = 0.02
+PLATFORM_FEE_RATE = get_settings().platform_fee_rate
 
-def calculate_fee_rate(credit_score: int | None) -> float:
+
+def _to_decimal(value: Decimal | float | int) -> Decimal:
+    if isinstance(value, Decimal):
+        return value
+    return Decimal(str(value))
+
+def calculate_fee_rate(credit_score: int | None) -> Decimal:
     """
     Calculate fee rate based on credit score.
     Score 0-40: 8% fee (high risk)
@@ -18,18 +27,18 @@ def calculate_fee_rate(credit_score: int | None) -> float:
     Score 80+: 1.5% fee (very low risk)
     """
     if credit_score is None:
-        return 0.08  # Default high risk if no score
+        return Decimal("0.08")  # Default high risk if no score
     
     if credit_score < 40:
-        return 0.08
+        return Decimal("0.08")
     elif credit_score < 60:
-        return 0.05
+        return Decimal("0.05")
     elif credit_score < 80:
-        return 0.03
+        return Decimal("0.03")
     else:
-        return 0.015
+        return Decimal("0.015")
 
-def calculate_eligible_amount(invoice_amount: float, credit_score: int | None) -> float:
+def calculate_eligible_amount(invoice_amount: Decimal | float | int, credit_score: int | None) -> Decimal:
     """
     Calculate eligible financing amount based on invoice and credit score.
     Base: 80% of invoice
@@ -39,17 +48,19 @@ def calculate_eligible_amount(invoice_amount: float, credit_score: int | None) -
     - Score 60-80: 80%
     - Score 80+: 90%
     """
+    invoice_amount = _to_decimal(invoice_amount)
     if credit_score is None or credit_score < 40:
-        return invoice_amount * 0.60
+        return invoice_amount * Decimal("0.60")
     elif credit_score < 60:
-        return invoice_amount * 0.70
+        return invoice_amount * Decimal("0.70")
     elif credit_score < 80:
-        return invoice_amount * 0.80
+        return invoice_amount * Decimal("0.80")
     else:
-        return invoice_amount * 0.90
+        return invoice_amount * Decimal("0.90")
 
-def create_finance_request(db: Session, sme_id: int, amount: float, invoice_id: int):
+def create_finance_request(db: Session, sme_id: int, amount: Decimal | float | int, invoice_id: int):
     """Create a new financing request."""
+    amount = _to_decimal(amount)
     sme = db.query(SME).filter(SME.id == sme_id).first()
     if not sme:
         raise ValueError("SME not found")
@@ -81,6 +92,7 @@ def create_finance_request(db: Session, sme_id: int, amount: float, invoice_id: 
     
     request = FinanceRequest(
         sme_id=sme_id,
+        invoice_id=invoice_id,
         amount_requested=amount,
         approved_amount=None,
         fee_rate=fee_rate,
@@ -103,8 +115,9 @@ def get_pending_finance_requests(db: Session, lender_id: int = None):
         query = query.filter(FinanceRequest.lender_id == lender_id)
     return query.all()
 
-def approve_finance_request(db: Session, request_id: int, lender_id: int, approved_amount: float):
+def approve_finance_request(db: Session, request_id: int, lender_id: int, approved_amount: Decimal | float | int):
     """Approve a finance request by a lender."""
+    approved_amount = _to_decimal(approved_amount)
     req = db.query(FinanceRequest).filter(FinanceRequest.id == request_id).first()
     if not req:
         raise ValueError("Finance request not found")
@@ -121,7 +134,7 @@ def approve_finance_request(db: Session, request_id: int, lender_id: int, approv
     if not lender:
         raise ValueError("Lender not found")
     
-    platform_fee = approved_amount * PLATGORM_FEE_RATE
+    platform_fee = approved_amount * PLATFORM_FEE_RATE
     net_amount = approved_amount - platform_fee
 
 

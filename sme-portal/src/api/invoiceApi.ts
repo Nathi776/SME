@@ -1,42 +1,10 @@
 import api from "./client";
-import axios from "axios";
+import { Invoice, InvoiceCreate } from "../types/invoice";
 
-const API = "http://localhost:8000";
+export const invoiceApi = {
+  listBySme: (smeId: number) => api.get<Invoice[]>(`/invoices/sme/${smeId}`),
 
-export interface Invoice {
-  id: number;
-  sme_id: number;
-  amount: number;
-  due_date: string;
-  status: string;
-}
+  create: (data: InvoiceCreate) => api.post<Invoice>("/invoices/", data),
 
-export interface InvoiceCreate {
-  sme_id: number;
-  amount: number;
-  due_date: string;
-  status?: string;
-}
-
-export const InvoiceAPI = {
-  create: (data: any) =>
-    axios.post(`${API}/invoices`, data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    }),
-
-  getAll: () =>
-    axios.get(`${API}/invoices`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    }),
-
-  delete: (id: number) =>
-    axios.delete(`${API}/invoices/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    }),
+  delete: (id: number) => api.delete(`/invoices/${id}`),
 };

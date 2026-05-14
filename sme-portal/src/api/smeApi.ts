@@ -5,12 +5,14 @@ export interface SME {
   name: string;
   industry: string;
   revenue: number;
+  description?: string | null;
 }
 
 export interface SMECreate {
   name: string;
   industry: string;
   revenue: number;
+  description?: string;
 }
 
 export const SMEApi = {

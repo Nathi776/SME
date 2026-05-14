@@ -1,17 +1,25 @@
 from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.orm import Session
 from services.auth_service import hash_password, verify_password, create_access_token, get_current_user
 from database import get_db
 from models.user import User
+import re
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 # Request schemas
 class RegisterRequest(BaseModel):
-    username: str
-    password: str
+    username: str = Field(..., min_length=3, max_length=50, pattern=r"^[a-zA-Z0-9_]+$")
+    password: str = Field(..., min_length=8)
     email: str
+
+    @field_validator("password")
+    @classmethod
+    def password_strength(cls, value):
+        if not re.search(r"[A-Z]", value) or not re.search(r"[0-9]", value):
+            raise ValueError("Password must contain uppercase letter and number")
+        return value
 
 class LoginRequest(BaseModel):
     username: str

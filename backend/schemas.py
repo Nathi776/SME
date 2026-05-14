@@ -1,10 +1,12 @@
-from pydantic import BaseModel, Field
+from decimal import Decimal
+
+from pydantic import BaseModel, ConfigDict, Field
 
 class CreditScoreRequest(BaseModel):
     applicant_name: str = Field(..., example="John Doe")
-    monthly_income: float
-    monthly_expenses: float
-    loan_amount: float
+    monthly_income: Decimal = Field(..., ge=0)
+    monthly_expenses: Decimal = Field(..., ge=0)
+    loan_amount: Decimal = Field(..., ge=0)
     credit_history_years: int
     missed_payments: int
 
@@ -15,33 +17,30 @@ class CreditScoreResponse(BaseModel):
     credit_score: float
     decision: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CreditScoreFullResponse(BaseModel):
     id: int
     applicant_name: str
-    monthly_income: float
-    monthly_expenses: float
-    loan_amount: float
+    monthly_income: Decimal
+    monthly_expenses: Decimal
+    loan_amount: Decimal
     credit_history_years: int
     missed_payments: int
     credit_score: float
     decision: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class InvoiceCreate(BaseModel):
     client_name: str
     description: str
-    amount: float
+    amount: Decimal
 
 class InvoiceOut(InvoiceCreate):
     id: int
     status: str
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

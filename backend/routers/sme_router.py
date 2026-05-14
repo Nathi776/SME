@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
 from sqlalchemy import func
+from decimal import Decimal
 
 from models.sme import SME
 from models.user import User
@@ -10,7 +11,7 @@ from models.credit_score import CreditScore
 from models.finance_request import FinanceRequest
 from models.invoice import Invoice
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 from typing import List
 from services.auth_service import get_current_user
 
@@ -24,20 +25,21 @@ router = APIRouter(
 class SMEBase(BaseModel):
     name: str
     industry: str
-    revenue: float
+    revenue: Decimal = Field(..., ge=0)
 
 class SMECreated(SMEBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class DashboardResponse(BaseModel):
     sme_id: int
     invoice_count: int
-    outstanding_balance: float
+    outstanding_balance: Decimal
     credit_score: int | None
     finance_requests: int
+
+    model_config = ConfigDict(from_attributes=True)
 
 # ---------- CRUD Endpoints ----------
 
@@ -85,7 +87,8 @@ def sme_dashboard(
     ).all()
 
     outstanding_balance = sum(
-        i.amount for i in invoices if (i.status or "").lower() != "paid"
+        (i.amount for i in invoices if (i.status or "").lower() != "paid"),
+        Decimal("0.00"),
     )
 
     latest_score = (
@@ -107,17 +110,30 @@ def sme_dashboard(
 
 # ✅ Get all SMEs
 @router.get("/", response_model=List[SMECreated])
-def get_all_smes(db: Session = Depends(get_db)):
+def get_all_smes(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if current_user.role not in {"admin", "lender"}:
+        raise HTTPException(status_code=403, detail="Unauthorized")
+
     smes = db.query(SME).all()
     return smes
 
 
 # ✅ Get SME by ID
 @router.get("/{sme_id}", response_model=SMECreated)
-def get_sme(sme_id: int, db: Session = Depends(get_db)):
+def get_sme(
+    sme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     sme = db.query(SME).filter(SME.id == sme_id).first()
     if not sme:
         raise HTTPException(status_code=404, detail="SME not found.")
+
+    if current_user.role not in {"admin", "lender"} and sme.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Unauthorized")
     return sme
 
 

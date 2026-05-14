@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Numeric, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -10,7 +10,7 @@ class Lender(Base):
     organization_name = Column(String, nullable=False)
     contact_email = Column(String, nullable=False)
     phone = Column(String, nullable=True)
-    max_lending_amount = Column(Float, default=1000000)
+    max_lending_amount = Column(Numeric(18, 2), default=1000000)
     min_credit_score = Column(Integer, default=40)
 
     user = relationship("User", back_populates="lender_profile")

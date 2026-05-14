@@ -8,46 +8,46 @@ import {
   CardContent,
 } from "@mui/material";
 import api from "../api/client";
+import { invoiceApi } from "../api/invoiceApi";
+import { formatZAR } from "../utils/format";
+import { useSnackbar } from "notistack";
 
 export default function InvoicesPage() {
   const [invoices, setInvoices] = useState<any[]>([]);
   const [client, setClient] = useState("");
   const [desc, setDesc] = useState("");
   const [amount, setAmount] = useState<number | "">("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const loadInvoices = async () => {
     const dash = await api.get("/smes/dashboard");
 
     const smeId = dash.data.sme_id;
 
-    const res = await api.get(`/invoices/sme/${smeId}`);
+    const res = await invoiceApi.listBySme(smeId);
 
     setInvoices(res.data);
   };
 
   const createInvoice = async () => {
-    const dash = await api.get("/smes/dashboard");
-
-    const smeId = dash.data.sme_id;
-
-    await api.post(
-      "/invoices/",
-      {
-        sme_id: smeId,
-        client_name: client,
-        description: desc,
-        amount,
-      }
-    );
+    await invoiceApi.create({
+      client_name: client,
+      description: desc,
+      amount: Number(amount),
+      issue_date: new Date().toISOString(),
+      due_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    });
 
     setClient("");
     setDesc("");
     setAmount("");
+    enqueueSnackbar("Invoice created", { variant: "success" });
     loadInvoices();
   };
 
   const deleteInvoice = async (id: number) => {
-    await api.delete(`/invoices/${id}`);
+    await invoiceApi.delete(id);
+    enqueueSnackbar("Invoice deleted", { variant: "success" });
     loadInvoices();
   };
 
@@ -98,7 +98,7 @@ export default function InvoicesPage() {
             <CardContent>
               <Typography><b>Client:</b> {inv.client_name}</Typography>
               <Typography><b>Description:</b> {inv.description}</Typography>
-              <Typography><b>Amount:</b> R {inv.amount}</Typography>
+              <Typography><b>Amount:</b> {formatZAR(inv.amount)}</Typography>
               <Typography><b>Status:</b> {inv.status}</Typography>
 
               <Button color="error" onClick={() => deleteInvoice(inv.id)}>

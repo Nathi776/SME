@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import api from "../api/client";
+import { formatZAR } from "../utils/format";
 import {
   BarChart,
   Bar,
@@ -60,7 +61,7 @@ export default function DashboardPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
       setError("You are not logged in.");
       setLoading(false);
@@ -116,7 +117,7 @@ export default function DashboardPage() {
         <StatCard title="Total Invoices" value={stats?.invoice_count ?? 0} />
         <StatCard
           title="Outstanding Balance"
-          value={`R ${stats?.outstanding_balance ?? 0}`}
+          value={formatZAR(stats?.outstanding_balance ?? 0)}
         />
         <StatCard title="Credit Score" value={stats?.credit_score ?? "-"} />
         <StatCard
@@ -219,7 +220,7 @@ export default function DashboardPage() {
 
                   <Box textAlign="right">
                     <Typography fontWeight={600}>
-                      R {inv.amount}
+                      {formatZAR(inv.amount)}
                     </Typography>
                     <Chip
                       size="small"
@@ -261,20 +262,20 @@ export default function DashboardPage() {
               Finance Request #{fr.id}
             </Typography>
 
-            <Typography>Requested: R {fr.amount_requested}</Typography>
+            <Typography>Requested: {formatZAR(fr.amount_requested)}</Typography>
 
             {fr.approved_amount && (
               <>
                 <Typography>
-                  Approved: <strong>R {fr.approved_amount}</strong>
+                  Approved: <strong>{formatZAR(fr.approved_amount)}</strong>
                 </Typography>
 
                 <Typography color="text.secondary">
-                  Platform Fee: R {fr.platform_fee ?? 0}
+                  Platform Fee: {formatZAR(fr.platform_fee ?? 0)}
                 </Typography>
 
                 <Typography color="success.main" fontWeight="bold">
-                  Net Amount You Receive: R {fr.net_amount ?? 0}
+                  Net Amount You Receive: {formatZAR(fr.net_amount ?? 0)}
                 </Typography>
               </>
             )}

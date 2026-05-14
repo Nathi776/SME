@@ -71,6 +71,13 @@ If you prefer to avoid activating the virtual environment, you can run the inter
 .\venv\Scripts\python.exe -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
+Run database migrations explicitly before starting the backend:
+
+```powershell
+cd backend
+alembic upgrade head
+```
+
 Backend URL:
 
 - `http://127.0.0.1:8000`

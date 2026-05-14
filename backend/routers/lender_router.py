@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
+from decimal import Decimal
+
+from pydantic import BaseModel, ConfigDict, Field
 from database import get_db
 from models.user import User
 from models.lender import Lender
@@ -18,14 +20,14 @@ class LenderCreate(BaseModel):
     organization_name: str
     contact_email: str
     phone: str | None = None
-    max_lending_amount: float = 1000000
+    max_lending_amount: Decimal = Field(default=Decimal("1000000.00"), ge=0)
     min_credit_score: int = 40
 
 class LenderUpdate(BaseModel):
     organization_name: str | None = None
     contact_email: str | None = None
     phone: str | None = None
-    max_lending_amount: float | None = None
+    max_lending_amount: Decimal | None = Field(default=None, ge=0)
     min_credit_score: int | None = None
 
 class LenderResponse(BaseModel):
@@ -34,23 +36,21 @@ class LenderResponse(BaseModel):
     organization_name: str
     contact_email: str
     phone: str | None
-    max_lending_amount: float
+    max_lending_amount: Decimal
     min_credit_score: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class SMEFinanceView(BaseModel):
     sme_id: int
     company_name: str
     industry: str
-    revenue: float
+    revenue: Decimal
     credit_score: int | None
     risk_level: str | None
     pending_finance_requests: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 def get_risk_level(score: int | None) -> str | None:
@@ -112,7 +112,7 @@ def update_lender_profile(
     if not lender:
         raise HTTPException(status_code=404, detail="Lender profile not found")
     
-    for key, value in request.dict(exclude_unset=True).items():
+    for key, value in request.model_dump(exclude_unset=True).items():
         setattr(lender, key, value)
     
     db.commit()

@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
+from decimal import Decimal
+
+from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
 from database import get_db
 from models.user import User
@@ -23,35 +25,34 @@ router = APIRouter(prefix="/finance", tags=["Finance Requests"])
 
 class FinanceRequestCreate(BaseModel):
     invoice_id: int
-    amount: float
+    amount: Decimal = Field(..., ge=0)
 
 class FinanceRequestApprove(BaseModel):
-    approved_amount: float
+    approved_amount: Decimal = Field(..., ge=0)
 
 class FinanceRequestResponse(BaseModel):
     id: int
     sme_id: int
-    amount_requested: float
-    approved_amount: float | None
-    fee_rate: float
+    invoice_id: int
+    amount_requested: Decimal
+    approved_amount: Decimal | None
+    fee_rate: Decimal
     status: str
     lender_id: int | None
     created_at: datetime
     approved_at: datetime | None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class FinanceRequestOut(BaseModel):
     id: int
-    amount_requested: float
-    approved_amount: float | None
-    platform_fee: float
-    net_amount: float
+    amount_requested: Decimal
+    approved_amount: Decimal | None
+    platform_fee: Decimal
+    net_amount: Decimal
     status: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # ========== SME Endpoints ==========

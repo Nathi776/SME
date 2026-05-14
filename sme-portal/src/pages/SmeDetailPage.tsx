@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SMEApi } from "../api/smeApi";
 import axios from "axios";
@@ -40,7 +40,7 @@ function SmeDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       const smeRes = await SMEApi.getSmeDetails(smeId);
       setSme(smeRes.data);
@@ -61,11 +61,11 @@ function SmeDetailPage() {
     }
 
     setLoading(false);
-  };
+  }, [smeId]);
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [loadData]);
 
   if (loading) return <p>Loading SME data...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
