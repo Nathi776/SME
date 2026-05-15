@@ -17,6 +17,7 @@ import {
   Paper,
 } from "@mui/material";
 import api from "../api/client";
+import { formatZAR } from "../utils/format";
 
 interface SMEDetail {
   id: number;
@@ -104,160 +105,123 @@ export default function LenderSMEDetailPage() {
   const latestScore = creditScores[0];
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Button 
-        variant="outlined" 
-        onClick={() => navigate("/lender/dashboard")} 
-        sx={{ mb: 2 }}
-      >
-        ← Back to Dashboard
-      </Button>
+    <Box sx={{ minHeight: "100vh", py: 4 }}>
+      <Box sx={{ px: { xs: 2, md: 4 } }}>
+        <Button variant="outlined" onClick={() => navigate("/lender/dashboard")} sx={{ mb: 3 }}>
+          Back to Dashboard
+        </Button>
 
-      {/* SME Header */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 3 }}>
-            <Box>
-              <Typography variant="h5" sx={{ mb: 2 }}>
-                {sme.name}
-              </Typography>
-              <Typography>Industry: {sme.industry}</Typography>
-            </Box>
-
-            <Box>
-              <Typography variant="h6">Financial Overview</Typography>
-              <Typography sx={{ fontSize: "1.5rem", color: "#2196F3" }}>
-                R{sme.revenue.toLocaleString()}
-              </Typography>
-              <Typography color="textSecondary">Annual Revenue</Typography>
-            </Box>
-          </Box>
-        </CardContent>
-      </Card>
-
-      {/* Credit Score Card */}
-      {latestScore && (
         <Card sx={{ mb: 3 }}>
           <CardContent>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              Latest Credit Score
-            </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <Box
-                sx={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "#f5f5f5",
-                  fontSize: "2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                {latestScore.score.toFixed(0)}
-              </Box>
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 3 }}>
               <Box>
-                <Chip
-                  label={getRiskLabel(latestScore.score, latestScore.rating)}
-                  color={getRiskColor(latestScore.score) as any}
-                  size="medium"
-                  sx={{ mb: 1 }}
-                />
-                <Typography color="textSecondary">
-                  Calculated: {new Date(latestScore.created_at).toLocaleDateString()}
+                <Typography variant="h5" sx={{ mb: 1, fontWeight: 800 }}>
+                  {sme.name}
                 </Typography>
+                <Typography color="text.secondary">Industry: {sme.industry}</Typography>
+              </Box>
+
+              <Box>
+                <Typography variant="h6">Financial Overview</Typography>
+                <Typography variant="h4" color="primary.main" sx={{ mt: 0.5, fontWeight: 800 }}>
+                  {formatZAR(sme.revenue)}
+                </Typography>
+                <Typography color="text.secondary">Annual Revenue</Typography>
               </Box>
             </Box>
           </CardContent>
         </Card>
-      )}
 
-      {/* Invoices */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Recent Invoices ({invoices.length})
-          </Typography>
+        {latestScore && (
+          <Card sx={{ mb: 3 }}>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+                Latest Credit Score
+              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <Box sx={{ width: 100, height: 100, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", bgcolor: "background.default", fontSize: "2rem", fontWeight: 800, color: "text.primary", border: "1px solid", borderColor: "divider" }}>
+                  {latestScore.score.toFixed(0)}
+                </Box>
+                <Box>
+                  <Chip label={getRiskLabel(latestScore.score, latestScore.rating)} color={getRiskColor(latestScore.score) as any} size="medium" sx={{ mb: 1 }} />
+                  <Typography color="text.secondary">
+                    Calculated: {new Date(latestScore.created_at).toLocaleDateString()}
+                  </Typography>
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        )}
 
-          {invoices.length === 0 ? (
-            <Typography>No invoices found</Typography>
-          ) : (
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                    <TableCell>Client Name</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Date</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {invoices.slice(0, 5).map((invoice) => (
-                    <TableRow key={invoice.id}>
-                      <TableCell>{invoice.client_name}</TableCell>
-                      <TableCell align="right">
-                        R{invoice.amount.toLocaleString()}
-                      </TableCell>
-                      <TableCell>
-                        <Chip
-                          label={invoice.status}
-                          color={invoice.status === "paid" ? "success" : "warning"}
-                          size="small"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        {new Date(invoice.created_at).toLocaleDateString()}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Credit Score History */}
-      {creditScores.length > 0 && (
-        <Card>
+        <Card sx={{ mb: 3 }}>
           <CardContent>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              Credit Score History
+            <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+              Recent Invoices ({invoices.length})
             </Typography>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                    <TableCell>Score</TableCell>
-                    <TableCell>Rating</TableCell>
-                    <TableCell>Date</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {creditScores.map((score) => (
-                    <TableRow key={score.id}>
-                      <TableCell>
-                        <Chip
-                          label={score.score.toFixed(0)}
-                          color={getRiskColor(score.score) as any}
-                          size="small"
-                        />
-                      </TableCell>
-                      <TableCell>{getRiskLabel(score.score, score.rating)}</TableCell>
-                      <TableCell>
-                        {new Date(score.created_at).toLocaleDateString()}
-                      </TableCell>
+
+            {invoices.length === 0 ? (
+              <Typography color="text.secondary">No invoices found</Typography>
+            ) : (
+              <TableContainer component={Paper} variant="outlined">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Client Name</TableCell>
+                      <TableCell align="right">Amount</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>Date</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {invoices.slice(0, 5).map((invoice) => (
+                      <TableRow key={invoice.id}>
+                        <TableCell>{invoice.client_name}</TableCell>
+                        <TableCell align="right">R{invoice.amount.toLocaleString()}</TableCell>
+                        <TableCell>
+                          <Chip label={invoice.status} color={invoice.status === "paid" ? "success" : "warning"} size="small" />
+                        </TableCell>
+                        <TableCell>{new Date(invoice.created_at).toLocaleDateString()}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
           </CardContent>
         </Card>
-      )}
+
+        {creditScores.length > 0 && (
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+                Credit Score History
+              </Typography>
+              <TableContainer component={Paper} variant="outlined">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Score</TableCell>
+                      <TableCell>Rating</TableCell>
+                      <TableCell>Date</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {creditScores.map((score) => (
+                      <TableRow key={score.id}>
+                        <TableCell>
+                          <Chip label={score.score.toFixed(0)} color={getRiskColor(score.score) as any} size="small" />
+                        </TableCell>
+                        <TableCell>{getRiskLabel(score.score, score.rating)}</TableCell>
+                        <TableCell>{new Date(score.created_at).toLocaleDateString()}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </CardContent>
+          </Card>
+        )}
+      </Box>
     </Box>
   );
 }

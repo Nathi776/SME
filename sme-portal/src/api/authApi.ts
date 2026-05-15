@@ -13,5 +13,12 @@ export const AuthApi = {
       password,
     });
   },
+  register: (username: string, password: string, email: string) => {
+    return api.post<{ id: number; username: string; email: string }>("/auth/register", {
+      username,
+      password,
+      email,
+    });
+  },
 
 };

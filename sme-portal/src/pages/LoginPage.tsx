@@ -3,6 +3,16 @@ import { AuthApi } from "../api/authApi";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -57,124 +67,79 @@ function LoginPage() {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <h1 style={styles.title}>Welcome Back</h1>
-        <p style={styles.subtitle}>
-          Sign in to your SME Credit Portal
-        </p>
-
-        <div style={styles.field}>
-          <label style={styles.label}>Username</label>
-          <input
-            style={styles.input}
-            placeholder="Enter your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-
-        <div style={styles.field}>
-          <label style={styles.label}>Password</label>
-          <input
-            style={styles.input}
-            placeholder="Enter your password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-
-        <button
-          style={{
-            ...styles.button,
-            opacity: loading ? 0.7 : 1,
-            cursor: loading ? "not-allowed" : "pointer",
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        px: 2,
+        py: 4,
+        backgroundImage:
+          "radial-gradient(circle at top, rgba(37, 99, 235, 0.22), transparent 34%), linear-gradient(135deg, #0f172a 0%, #172554 46%, #020617 100%)",
+      }}
+    >
+      <Container maxWidth="sm">
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, sm: 4 },
+            borderRadius: 4,
+            border: "1px solid rgba(255, 255, 255, 0.14)",
+            bgcolor: "rgba(255, 255, 255, 0.96)",
+            backdropFilter: "blur(18px)",
           }}
-          onClick={handleLogin}
-          disabled={loading}
         >
-          {loading ? "Signing in..." : "Login"}
-        </button>
+          <Stack spacing={3}>
+            <Box>
+              <Typography variant="overline" color="primary.main" sx={{ letterSpacing: 1.4 }}>
+                SME Credit Portal
+              </Typography>
+              <Typography variant="h4" sx={{ mt: 1, fontWeight: 800 }}>
+                Welcome back
+              </Typography>
+              <Typography color="text.secondary" sx={{ mt: 1 }}>
+                Sign in to continue to your finance dashboard.
+              </Typography>
+            </Box>
 
-        {message && (
-          <p
-            style={{
-              ...styles.message,
-              color: message.includes("successful") ? "#16a34a" : "#dc2626",
-            }}
-          >
-            {message}
-          </p>
-        )}
-      </div>
-    </div>
+            <Box component="form" onSubmit={(event) => { event.preventDefault(); void handleLogin(); }}>
+              <Stack spacing={2.5}>
+                <TextField
+                  label="Username"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  fullWidth
+                  autoComplete="username"
+                />
+
+                <TextField
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  fullWidth
+                  autoComplete="current-password"
+                />
+
+                <Button type="submit" variant="contained" size="large" disabled={loading} fullWidth>
+                  {loading ? "Signing in..." : "Login"}
+                </Button>
+              </Stack>
+            </Box>
+
+            {message ? (
+              <Alert severity={message.includes("successful") ? "success" : "error"} variant="outlined">
+                {message}
+              </Alert>
+            ) : null}
+          </Stack>
+        </Paper>
+      </Container>
+    </Box>
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  page: {
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "linear-gradient(135deg, #0f172a, #020617)",
-    padding: "1rem",
-  },
-  card: {
-    width: "100%",
-    maxWidth: 420,
-    background: "#ffffff",
-    borderRadius: 12,
-    padding: "2.5rem",
-    boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
-  },
-  title: {
-    margin: 0,
-    fontSize: "1.75rem",
-    fontWeight: 700,
-    color: "#020617",
-  },
-  subtitle: {
-    marginTop: "0.5rem",
-    marginBottom: "2rem",
-    color: "#475569",
-    fontSize: "0.95rem",
-  },
-  field: {
-    marginBottom: "1.25rem",
-  },
-  label: {
-    display: "block",
-    marginBottom: "0.4rem",
-    fontSize: "0.85rem",
-    color: "#334155",
-    fontWeight: 500,
-  },
-  input: {
-    width: "100%",
-    padding: "0.75rem",
-    borderRadius: 8,
-    border: "1px solid #cbd5f5",
-    fontSize: "0.95rem",
-    outline: "none",
-  },
-  button: {
-    width: "100%",
-    padding: "0.85rem",
-    borderRadius: 8,
-    border: "none",
-    background: "#2563eb",
-    color: "#fff",
-    fontSize: "1rem",
-    fontWeight: 600,
-    marginTop: "0.5rem",
-  },
-  message: {
-    marginTop: "1rem",
-    fontSize: "0.9rem",
-    textAlign: "center",
-  },
-};
 
 export default LoginPage;

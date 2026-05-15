@@ -5,26 +5,11 @@ from models.credit_score import CreditScore
 from models.sme import SME
 from models.invoice import Invoice
 from datetime import datetime
-from decimal import Decimal
 from models.user import User
 from services.auth_service import get_current_user
+from services.scoring_service import calculate_credit_score
 
 router = APIRouter(prefix="/credit-scores", tags=["Credit Scoring"])
-
-# ---------- Helper Function ----------
-def calculate_score(revenue: Decimal | float | int, years_active: int, unpaid_invoices: int) -> float:
-    """
-    Simple rule-based credit scoring algorithm.
-    Adjust logic later for ML integration.
-    """
-    revenue = Decimal(str(revenue))
-    base_score = 50
-    revenue_boost = min(revenue / Decimal("100000"), Decimal("30"))  # max +30 points
-    stability_boost = min(years_active * 2, 10)  # max +10 points
-    penalty = unpaid_invoices * 2  # -2 points per unpaid invoice
-
-    score = base_score + revenue_boost + stability_boost - penalty
-    return float(max(Decimal("0"), min(score, Decimal("100"))))  # Clamp between 0 and 100
 
 # ---------- Calculate Credit Score ----------
 @router.post("/calculate/{sme_id}")
@@ -36,7 +21,7 @@ def generate_credit_score(sme_id: int, db: Session = Depends(get_db)):
     invoices = db.query(Invoice).filter(Invoice.sme_id == sme_id).all()
     unpaid_invoices = sum(1 for i in invoices if i.status != "paid")
 
-    score = calculate_score(sme.revenue, sme.years_active, unpaid_invoices)
+    score = calculate_credit_score(sme.revenue, sme.years_active, unpaid_invoices)
 
     new_score = CreditScore(sme_id=sme.id, score=score, created_at=datetime.utcnow())
     db.add(new_score)

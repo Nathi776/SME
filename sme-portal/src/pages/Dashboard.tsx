@@ -20,6 +20,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useTheme } from "@mui/material/styles";
 
 /* ================= TYPES ================= */
 
@@ -53,9 +54,11 @@ interface FinanceRequest {
 
 export default function DashboardPage() {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [allInvoices, setAllInvoices] = useState<Invoice[]>([]);
+  const [latestInvoices, setLatestInvoices] = useState<Invoice[]>([]);
   const [financeRequests, setFinanceRequests] = useState<FinanceRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -83,7 +86,8 @@ export default function DashboardPage() {
           api.get(`/finance/requests/${smeId}`),
         ]);
 
-        setInvoices(invRes.data.slice(-5).reverse());
+        setAllInvoices(invRes.data);
+        setLatestInvoices(invRes.data.slice(-5).reverse());
         setFinanceRequests(finRes.data.slice(-5).reverse());
       })
       .catch((err) => {
@@ -97,7 +101,7 @@ export default function DashboardPage() {
   if (error) return <Typography color="error">{error}</Typography>;
 
   return (
-    <Box p={4} bgcolor="#f8fafc" minHeight="100vh">
+    <Box p={4} bgcolor="background.default" minHeight="100vh">
       {/* ===== HEADER ===== */}
       <Box mb={4}>
         <Typography variant="h4" fontWeight={700}>
@@ -162,7 +166,10 @@ export default function DashboardPage() {
       <Card sx={{ mt: 4 }}>
         <CardContent>
           <Typography variant="h6" gutterBottom>
-            Invoice Overview
+            Invoice Status Breakdown
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            This chart shows the number of invoices in each status, not the total amount.
           </Typography>
 
           <ResponsiveContainer width="100%" height={280}>
@@ -170,21 +177,21 @@ export default function DashboardPage() {
               data={[
                 {
                   name: "Paid",
-                  value: invoices.filter((i) => i.status?.toLowerCase() === "paid").length,
+                  value: allInvoices.filter((i) => i.status?.toLowerCase() === "paid").length,
                 },
                 {
                   name: "Pending",
-                  value: invoices.filter((i) => i.status?.toLowerCase() === "pending").length,
+                  value: allInvoices.filter((i) => i.status?.toLowerCase() === "pending").length,
                 },
                 {
                   name: "Overdue",
-                  value: invoices.filter((i) => i.status?.toLowerCase() === "overdue").length,
+                  value: allInvoices.filter((i) => i.status?.toLowerCase() === "overdue").length,
                 },
               ]}
             >
               <XAxis dataKey="name" />
-              <Tooltip />
-              <Bar dataKey="value" fill="#2563eb" radius={[6, 6, 0, 0]} />
+              <Tooltip formatter={(value) => [`${value} invoice(s)`, "Count"]} />
+              <Bar dataKey="value" fill={theme.palette.primary.main} radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
@@ -197,12 +204,12 @@ export default function DashboardPage() {
             Latest Invoices
           </Typography>
 
-          {invoices.length === 0 ? (
+          {latestInvoices.length === 0 ? (
             <Typography color="text.secondary">
               No invoices found.
             </Typography>
           ) : (
-            invoices.map((inv) => (
+            latestInvoices.map((inv) => (
               <Box key={inv.id} mb={2}>
                 <Stack
                   direction="row"

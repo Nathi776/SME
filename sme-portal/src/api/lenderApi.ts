@@ -26,6 +26,8 @@ export const LenderApi = {
   
   updateProfile: (data: Partial<LenderProfile>) =>
     api.put<LenderProfile>("/lenders/me", data),
+  register: (data: Partial<LenderProfile>) =>
+    api.post<LenderProfile>("/lenders/register", data),
 
   // SME browsing
   getAvailableSMEs: () =>

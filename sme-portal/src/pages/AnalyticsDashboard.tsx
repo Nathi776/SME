@@ -13,7 +13,10 @@ import {
   TableRow,
   Paper,
   Chip,
+  Container,
+  Stack,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import {
   BarChart,
   Bar,
@@ -49,13 +52,14 @@ interface LoanRepayment {
 }
 
 export default function AnalyticsDashboard() {
+  const theme = useTheme();
   const [metrics, setMetrics] = useState<AnalyticsMetrics | null>(null);
   const [repayments, setRepayments] = useState<LoanRepayment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
       setError("You are not logged in.");
       setLoading(false);
@@ -121,9 +125,9 @@ export default function AnalyticsDashboard() {
 
   // Prepare chart data
   const applicationStatusData = metrics ? [
-    { name: "Approved", value: metrics.approved_applications, fill: "#4CAF50" },
-    { name: "Pending", value: metrics.pending_applications, fill: "#FF9800" },
-    { name: "Rejected", value: metrics.rejected_applications, fill: "#F44336" },
+    { name: "Approved", value: metrics.approved_applications, fill: theme.palette.success.main },
+    { name: "Pending", value: metrics.pending_applications, fill: theme.palette.warning.main },
+    { name: "Rejected", value: metrics.rejected_applications, fill: theme.palette.error.main },
   ] : [];
 
   const performanceData = [
@@ -135,165 +139,71 @@ export default function AnalyticsDashboard() {
   ];
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        Analytics Dashboard
-      </Typography>
+    <Box sx={{ minHeight: "100vh", py: 4 }}>
+      <Container maxWidth="xl">
+        <Stack spacing={3}>
+          <Box>
+            <Typography variant="h4" sx={{ fontWeight: 800 }}>
+              Analytics Dashboard
+            </Typography>
+            <Typography color="text.secondary">
+              Portfolio performance and repayment analytics.
+            </Typography>
+          </Box>
 
-      {error && <Typography color="error">{error}</Typography>}
+          {error && <Typography color="error">{error}</Typography>}
 
-      {/* KPI Cards */}
-      {metrics && (
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(4, 1fr)" }, gap: 2, mb: 3 }}>
+          {metrics && (
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(4, 1fr)" }, gap: 2 }}>
+              <Card><CardContent><Typography color="text.secondary" gutterBottom>Total Applications</Typography><Typography variant="h5" sx={{ fontWeight: 800 }}>{metrics.total_applications}</Typography></CardContent></Card>
+
+              <Card><CardContent><Typography color="text.secondary" gutterBottom>Approved Rate</Typography><Typography variant="h5" sx={{ color: theme.palette.success.main, fontWeight: 800 }}>{((metrics.approved_applications / metrics.total_applications) * 100).toFixed(0)}%</Typography></CardContent></Card>
+
+              <Card><CardContent><Typography color="text.secondary" gutterBottom>Total Financed</Typography><Typography variant="h6" sx={{ fontWeight: 800 }}>R{(metrics.total_financed_amount / 1000000).toFixed(1)}M</Typography></CardContent></Card>
+
+              <Card><CardContent><Typography color="text.secondary" gutterBottom>Avg Credit Score</Typography><Typography variant="h5" sx={{ fontWeight: 800 }}>{metrics.average_credit_score.toFixed(0)}</Typography></CardContent></Card>
+            </Box>
+          )}
+
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 3 }}>
+            <Card><CardContent><Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>Application Status Distribution</Typography>{metrics && (<ResponsiveContainer width="100%" height={300}><PieChart><Pie data={applicationStatusData} cx="50%" cy="50%" labelLine={false} label={({ name, value }) => `${name}: ${value}`} outerRadius={80} fill={theme.palette.primary.main} dataKey="value">{applicationStatusData.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.fill} />))}</Pie><Tooltip /></PieChart></ResponsiveContainer>)}</CardContent></Card>
+
+            <Card><CardContent><Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>Monthly Performance</Typography><ResponsiveContainer width="100%" height={300}><BarChart data={performanceData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="month" /><YAxis /><Tooltip /><Legend /><Bar dataKey="approved" fill={theme.palette.success.main} /><Bar dataKey="rejected" fill={theme.palette.error.main} /></BarChart></ResponsiveContainer></CardContent></Card>
+          </Box>
+
           <Card>
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  Total Applications
-                </Typography>
-                <Typography variant="h5">
-                  {metrics.total_applications}
-                </Typography>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  Approved Rate
-                </Typography>
-                <Typography variant="h5" sx={{ color: "#4CAF50" }}>
-                  {((metrics.approved_applications / metrics.total_applications) * 100).toFixed(0)}%
-                </Typography>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  Total Financed
-                </Typography>
-                <Typography variant="h6">
-                  R{(metrics.total_financed_amount / 1000000).toFixed(1)}M
-                </Typography>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  Avg Credit Score
-                </Typography>
-                <Typography variant="h5">
-                  {metrics.average_credit_score.toFixed(0)}
-                </Typography>
-              </CardContent>
-            </Card>
-        </Box>
-      )}
-
-      {/* Charts */}
-      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 3, mb: 3 }}>
-        {/* Application Status Pie Chart */}
-        <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                Application Status Distribution
-              </Typography>
-              {metrics && (
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={applicationStatusData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ name, value }) => `${name}: ${value}`}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {applicationStatusData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.fill} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              )}
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>Recent Repayments</Typography>
+              <TableContainer component={Paper} variant="outlined">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>SME Name</TableCell>
+                      <TableCell align="right">Amount</TableCell>
+                      <TableCell align="right">Fee</TableCell>
+                      <TableCell>Due Date</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>Paid Date</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {repayments.map((repayment) => (
+                      <TableRow key={repayment.id}>
+                        <TableCell>{repayment.sme_name}</TableCell>
+                        <TableCell align="right">R{repayment.amount.toLocaleString()}</TableCell>
+                        <TableCell align="right">R{repayment.fee.toLocaleString()}</TableCell>
+                        <TableCell>{new Date(repayment.due_date).toLocaleDateString()}</TableCell>
+                        <TableCell><Chip label={repayment.status} color={repayment.status === "paid" ? "success" : "warning"} size="small" /></TableCell>
+                        <TableCell>{repayment.paid_date ? new Date(repayment.paid_date).toLocaleDateString() : "-"}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </CardContent>
           </Card>
-
-        {/* Performance Over Time */}
-        <Card>
-          <CardContent>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              Monthly Performance
-            </Typography>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="approved" fill="#4CAF50" />
-                <Bar dataKey="rejected" fill="#F44336" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </Box>
-
-      {/* Repayment Status Table */}
-      <Card>
-        <CardContent>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Recent Repayments
-          </Typography>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                  <TableCell>SME Name</TableCell>
-                  <TableCell align="right">Amount</TableCell>
-                  <TableCell align="right">Fee</TableCell>
-                  <TableCell>Due Date</TableCell>
-                  <TableCell>Status</TableCell>
-                  <TableCell>Paid Date</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {repayments.map((repayment) => (
-                  <TableRow key={repayment.id}>
-                    <TableCell>{repayment.sme_name}</TableCell>
-                    <TableCell align="right">
-                      R{repayment.amount.toLocaleString()}
-                    </TableCell>
-                    <TableCell align="right">
-                      R{repayment.fee.toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(repayment.due_date).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>
-                      <Chip
-                        label={repayment.status}
-                        color={repayment.status === "paid" ? "success" : "warning"}
-                        size="small"
-                      />
-                    </TableCell>
-                    <TableCell>
-                      {repayment.paid_date
-                        ? new Date(repayment.paid_date).toLocaleDateString()
-                        : "-"}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-      </Card>
+        </Stack>
+      </Container>
     </Box>
   );
 }

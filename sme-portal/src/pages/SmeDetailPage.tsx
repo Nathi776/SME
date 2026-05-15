@@ -2,6 +2,24 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SMEApi } from "../api/smeApi";
 import axios from "axios";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Container,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import { formatZAR } from "../utils/format";
 
 interface Invoice {
   id: number;
@@ -72,80 +90,107 @@ function SmeDetailPage() {
   if (!sme) return <p>No SME found.</p>;
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>SME: {sme.name}</h1>
-      <p><strong>Industry:</strong> {sme.industry}</p>
+    <Box sx={{ minHeight: "100vh", py: 4 }}>
+      <Container maxWidth="lg">
+        <Stack spacing={3}>
+          <Box>
+            <Typography variant="h4" sx={{ fontWeight: 800 }}>
+              SME: {sme.name}
+            </Typography>
+            <Typography color="text.secondary">Industry: {sme.industry}</Typography>
+          </Box>
 
-      <hr />
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+                Credit Score
+              </Typography>
+              {!creditScore ? (
+                <Typography color="text.secondary">No credit score available.</Typography>
+              ) : (
+                <Stack spacing={0.5}>
+                  <Typography>Score: {creditScore.score}</Typography>
+                  <Typography>Rating: {creditScore.rating}</Typography>
+                  <Typography>Last Updated: {creditScore.last_updated}</Typography>
+                </Stack>
+              )}
+            </CardContent>
+          </Card>
 
-      {/* CREDIT SCORE SECTION */}
-      <h2>Credit Score</h2>
-      {!creditScore && <p>No credit score available.</p>}
-      {creditScore && (
-        <div style={{ marginTop: 10 }}>
-          <p><strong>Score:</strong> {creditScore.score}</p>
-          <p><strong>Rating:</strong> {creditScore.rating}</p>
-          <p><strong>Last Updated:</strong> {creditScore.last_updated}</p>
-        </div>
-      )}
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+                Invoices
+              </Typography>
+              {invoices.length === 0 ? (
+                <Typography color="text.secondary">No invoices found.</Typography>
+              ) : (
+                <TableContainer component={Paper} variant="outlined">
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Amount</TableCell>
+                        <TableCell>Status</TableCell>
+                        <TableCell>Due Date</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {invoices.map((inv) => (
+                        <TableRow key={inv.id}>
+                          <TableCell>{inv.id}</TableCell>
+                          <TableCell>{formatZAR(inv.amount)}</TableCell>
+                          <TableCell>
+                            <Chip label={inv.status} color={inv.status === "paid" ? "success" : inv.status === "overdue" ? "error" : "warning"} size="small" />
+                          </TableCell>
+                          <TableCell>{inv.due_date}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            </CardContent>
+          </Card>
 
-      <hr />
-
-      {/* INVOICES TABLE */}
-      <h2>Invoices</h2>
-      {invoices.length === 0 && <p>No invoices found.</p>}
-      {invoices.length > 0 && (
-        <table border={1} cellPadding={6} style={{ marginTop: 10 }}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Amount</th>
-              <th>Status</th>
-              <th>Due Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {invoices.map((inv) => (
-              <tr key={inv.id}>
-                <td>{inv.id}</td>
-                <td>{inv.amount}</td>
-                <td>{inv.status}</td>
-                <td>{inv.due_date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      <hr />
-
-      {/* FINANCE REQUESTS TABLE */}
-      <h2>Finance Requests</h2>
-      {financeRequests.length === 0 && <p>No finance requests found.</p>}
-      {financeRequests.length > 0 && (
-        <table border={1} cellPadding={6} style={{ marginTop: 10 }}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Amount Requested</th>
-              <th>Status</th>
-              <th>Decision</th>
-            </tr>
-          </thead>
-          <tbody>
-            {financeRequests.map((fr) => (
-              <tr key={fr.id}>
-                <td>{fr.id}</td>
-                <td>{fr.amount_requested}</td>
-                <td>{fr.status}</td>
-                <td>{fr.decision || "-"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-    </div>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+                Finance Requests
+              </Typography>
+              {financeRequests.length === 0 ? (
+                <Typography color="text.secondary">No finance requests found.</Typography>
+              ) : (
+                <TableContainer component={Paper} variant="outlined">
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Amount Requested</TableCell>
+                        <TableCell>Status</TableCell>
+                        <TableCell>Decision</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {financeRequests.map((fr) => (
+                        <TableRow key={fr.id}>
+                          <TableCell>{fr.id}</TableCell>
+                          <TableCell>{formatZAR(fr.amount_requested)}</TableCell>
+                          <TableCell>
+                            <Chip label={fr.status} color={fr.status === "approved" ? "success" : fr.status === "rejected" ? "error" : "warning"} size="small" />
+                          </TableCell>
+                          <TableCell>{fr.decision || "-"}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            </CardContent>
+          </Card>
+        </Stack>
+      </Container>
+    </Box>
   );
 }
 
