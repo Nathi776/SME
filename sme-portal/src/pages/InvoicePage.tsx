@@ -40,8 +40,6 @@ export default function InvoicesPage() {
       client_name: client,
       description: desc,
       amount: Number(amount),
-      issue_date: new Date().toISOString(),
-      due_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
     });
 
     setClient("");

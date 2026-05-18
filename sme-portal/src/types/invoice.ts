@@ -14,6 +14,4 @@ export interface InvoiceCreate {
   client_name: string;
   description?: string;
   amount: number;
-  issue_date: string;
-  due_date: string;
 }

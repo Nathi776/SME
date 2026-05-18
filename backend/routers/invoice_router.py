@@ -48,7 +48,8 @@ def create_invoice(
     db.add(invoice)
     db.commit()
     db.refresh(invoice)
-    return {"message": "Invoice created successfully", "invoice": invoice.id}
+    # Return the created invoice object so frontend receives full invoice details
+    return {"message": "Invoice created successfully", "invoice": invoice}
 
 # ---------- Get All Invoices ----------
 @router.get("/")

@@ -24,7 +24,7 @@ export const login = async (username: string, password: string) => {
   return res;
 };
 
-export default {
+const auth = {
   setToken,
   getToken,
   setRole,
@@ -32,3 +32,5 @@ export default {
   logout,
   login,
 };
+
+export default auth;

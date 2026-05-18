@@ -45,7 +45,7 @@ def register_user(request: RegisterRequest, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"message": "User registered successfully", "user": new_user.username}
+    return {"message": "User registered successfully", "id": new_user.id, "username": new_user.username}
 
 @router.post("/login")
 def login_user(request: LoginRequest, db: Session = Depends(get_db)):
