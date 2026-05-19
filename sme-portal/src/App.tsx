@@ -31,6 +31,7 @@ import Box from "@mui/material/Box";
  */
 function LayoutWrapper() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const location = useLocation();
 
   // Routes that should NOT show SME layout
@@ -68,10 +69,19 @@ function LayoutWrapper() {
   // TopHeader + Sidebar layout for SME routes
   return (
     <>
-      <TopHeader onMenuToggle={() => setSidebarOpen((s) => !s)} />
-      <Box sx={{ display: 'flex' }}>
-        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <Box component="main" sx={{ flex: 1, p: { xs: 2, md: 4 } }}>
+      <TopHeader
+        onMenuToggle={() => setSidebarOpen((s) => !s)}
+        onSidebarToggle={() => setSidebarCollapsed((s) => !s)}
+        sidebarCollapsed={sidebarCollapsed}
+      />
+      <Box sx={{ display: 'flex', minHeight: 'calc(100vh - 4rem)' }}>
+        <Sidebar
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          collapsed={sidebarCollapsed}
+          onToggleCollapse={() => setSidebarCollapsed((s) => !s)}
+        />
+        <Box component="main" sx={{ flex: 1, minWidth: 0, p: { xs: 2, md: 4 } }}>
           <Routes>
             <Route path="/dashboard" element={<ProtectedRoute roles={["sme"]}><Dashboard /></ProtectedRoute>} />
             <Route path="/invoices" element={<ProtectedRoute roles={["sme"]}><InvoicePage /></ProtectedRoute>} />

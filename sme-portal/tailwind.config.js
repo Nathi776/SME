@@ -4,6 +4,12 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
+      spacing: {
+        'sidebar': '280px',
+      },
+      width: {
+        'sidebar': '280px',
+      },
       fontFamily: {
         inter: ['var(--font-inter)'],
       },

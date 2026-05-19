@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, User, FileText, CreditCard, Star, Users,
-  ArrowRightLeft, FolderOpen, MessageSquare, HelpCircle, Settings, LogOut
+  ArrowRightLeft, FolderOpen, MessageSquare, HelpCircle, Settings, LogOut,
+  PanelLeftClose, PanelLeftOpen
 } from "lucide-react";
 
 const navSections = [
@@ -38,7 +39,17 @@ const navSections = [
   },
 ];
 
-export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void; }) {
+export default function Sidebar({
+  isOpen,
+  onClose,
+  collapsed,
+  onToggleCollapse,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  collapsed: boolean;
+  onToggleCollapse: () => void;
+}) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -51,27 +62,37 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         />
       )}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-64 bg-sidebar flex flex-col transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed top-0 left-0 z-50 h-full transition-all duration-300 lg:sticky lg:top-16 lg:z-20 lg:h-[calc(100vh-4rem)] ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        } lg:translate-x-0 ${collapsed ? "w-[72px]" : "w-sidebar"}`}
+        style={{ background: 'linear-gradient(180deg,#0f2b48 0%,#071a2b 100%)', color: '#ffffff' }}
       >
         {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-6 border-b border-sidebar-border">
-          <div className="w-10 h-10 rounded-lg bg-sidebar-primary flex items-center justify-center">
+        <div className={`flex items-center border-b border-sidebar-border ${collapsed ? "justify-center px-3 py-5" : "gap-3 px-5 py-6"}`}>
+          <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
             <span className="text-white font-bold text-lg">S</span>
           </div>
-          <div>
-            <h1 className="text-white font-bold text-sm tracking-wide">SME FINANCE</h1>
-            <p className="text-sidebar-foreground text-[10px] tracking-widest">Grow Your Business</p>
-          </div>
+          {!collapsed && (
+            <div>
+              <h1 className="text-white font-bold text-sm tracking-wide">SME FINANCE</h1>
+              <p className="text-sidebar-foreground text-[10px] tracking-widest">Grow Your Business</p>
+            </div>
+          )}
+          <button
+            onClick={onToggleCollapse}
+            className="hidden lg:inline-flex ml-auto items-center justify-center rounded-md p-2 text-white/90 hover:bg-white/6"
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {collapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
+          </button>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+        <nav className={`flex-1 overflow-y-auto py-4 ${collapsed ? "px-2" : "px-3"} space-y-5`}>
           {navSections.map((section, sIdx) => (
             <div key={sIdx}>
-              {section.label && (
-                <p className="text-sidebar-foreground/50 text-[10px] font-semibold tracking-widest uppercase px-3 mb-2">
+              {section.label && !collapsed && (
+                <p className="text-[10px] font-semibold tracking-widest uppercase px-3 mb-2 text-white/70">
                   {section.label}
                 </p>
               )}
@@ -84,14 +105,16 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
                       key={item.path}
                       to={item.path}
                       onClick={onClose}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      title={collapsed ? item.label : undefined}
+                      className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                         active
-                          ? "bg-sidebar-primary text-white shadow-lg shadow-sidebar-primary/30"
-                          : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-white"
+                          ? "bg-[#2F6BFF] text-white shadow-lg"
+                          : "text-white/90 hover:bg-white/6 hover:text-white"
                       }`}
+                      style={active ? { boxShadow: '0 6px 20px rgba(47,107,255,0.12)' } : undefined}
                     >
-                      <Icon className="w-[18px] h-[18px]" />
-                      {item.label}
+                      <Icon className="w-[18px] h-[18px] shrink-0" />
+                      {!collapsed && <span>{item.label}</span>}
                     </Link>
                   );
                 })}
@@ -101,16 +124,17 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </nav>
 
         {/* Logout */}
-        <div className="p-3 border-t border-sidebar-border">
+        <div className={`border-t border-sidebar-border p-3 ${collapsed ? "flex justify-center" : ""}`}>
           <button
             onClick={() => {
               onClose();
               navigate("/login");
             }}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-400 hover:bg-red-500/10 w-full transition-colors"
+            title={collapsed ? "Logout" : undefined}
+            className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} py-2.5 rounded-lg text-sm font-medium text-red-400 hover:bg-red-500/10 w-full transition-colors`}
           >
             <LogOut className="w-[18px] h-[18px]" />
-            Logout
+            {!collapsed && <span>Logout</span>}
           </button>
         </div>
       </aside>

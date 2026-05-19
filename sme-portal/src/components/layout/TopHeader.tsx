@@ -1,10 +1,18 @@
-import { Menu, Bell } from "lucide-react";
+import { Menu, Bell, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
-export default function TopHeader({ onMenuToggle }: { onMenuToggle?: () => void; }) {
+export default function TopHeader({
+  onMenuToggle,
+  onSidebarToggle,
+  sidebarCollapsed,
+}: {
+  onMenuToggle?: () => void;
+  onSidebarToggle?: () => void;
+  sidebarCollapsed?: boolean;
+}) {
   const initials = "U";
 
   return (
-    <header className="h-16 bg-card border-b border-border flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
+    <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuToggle}
@@ -12,11 +20,22 @@ export default function TopHeader({ onMenuToggle }: { onMenuToggle?: () => void;
         >
           <Menu className="w-5 h-5 text-foreground" />
         </button>
+        <button
+          onClick={onSidebarToggle}
+          className="hidden lg:inline-flex p-2 rounded-lg hover:bg-muted transition-colors"
+          aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {sidebarCollapsed ? (
+            <PanelLeftOpen className="w-5 h-5 text-foreground" />
+          ) : (
+            <PanelLeftClose className="w-5 h-5 text-foreground" />
+          )}
+        </button>
         <h2 className="text-lg font-semibold text-foreground">SME Dashboard</h2>
       </div>
 
       <div className="flex items-center gap-4">
-        <button className="relative p-2 rounded-lg hover:bg-muted transition-colors">
+        <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
           <Bell className="w-5 h-5 text-muted-foreground" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
         </button>

@@ -1,10 +1,10 @@
 import React from "react";
-import { Menu, Bell } from "lucide-react";
+import { Menu, Bell, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { getRole } from "../../utils/auth";
 
-type Props = { onMenuToggle?: () => void };
+type Props = { onMenuToggle?: () => void; onSidebarToggle?: () => void; sidebarCollapsed?: boolean };
 
-export default function LenderHeader({ onMenuToggle }: Props) {
+export default function LenderHeader({ onMenuToggle, onSidebarToggle, sidebarCollapsed }: Props) {
   const userName = "Lerato Mokoena";
   const initials = userName
     ? userName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
@@ -16,6 +16,13 @@ export default function LenderHeader({ onMenuToggle }: Props) {
       <div className="flex items-center gap-4">
         <button onClick={onMenuToggle} className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
           <Menu className="w-5 h-5 text-gray-600" />
+        </button>
+        <button
+          onClick={onSidebarToggle}
+          className="hidden lg:inline-flex p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {sidebarCollapsed ? <PanelLeftOpen className="w-5 h-5 text-gray-600" /> : <PanelLeftClose className="w-5 h-5 text-gray-600" />}
         </button>
         <h2 className="text-lg font-bold text-gray-900 tracking-wide">LENDER DASHBOARD</h2>
       </div>

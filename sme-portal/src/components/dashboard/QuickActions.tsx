@@ -10,14 +10,14 @@ const actions = [
 
 export default function QuickActions() {
   return (
-    <div className="bg-card rounded-xl border border-border p-5">
+    <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-5">
       <h3 className="font-semibold text-foreground text-sm mb-4">Quick Actions</h3>
       <div className="grid grid-cols-2 gap-3">
         {actions.map((a, i) => (
           <Link
             key={i}
             to={a.path}
-            className={`flex flex-col items-center justify-center p-4 rounded-xl border border-border transition-colors text-center ${a.color}`}
+            className={`flex flex-col items-center justify-center p-4 rounded-lg border border-gray-100 transition-colors text-center ${a.color}`}
           >
             <a.icon className="w-6 h-6 mb-2" />
             <p className="text-xs font-semibold">{a.label}</p>

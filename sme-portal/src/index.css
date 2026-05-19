@@ -14,6 +14,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
     --primary: 228 72% 16%;
+    /* Primary brand color: #2F6BFF -> HSL 223 100% 59% */
+    --primary: 223 100% 59%;
     --primary-foreground: 0 0% 100%;
     --secondary: 220 14% 96%;
     --secondary-foreground: 222 47% 11%;
@@ -40,6 +42,7 @@
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 228 50% 22%;
     --sidebar-ring: 152 60% 48%;
+    --sidebar-width: 280px;
   }
 
   .dark {
