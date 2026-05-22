@@ -4,50 +4,68 @@ import { formatZAR } from "../../utils/format";
 type RecentInvoice = {
   id: number;
   client_name: string;
-  amount: number;
+  amount: number | string;
   status: string | null;
   created_at: string;
 };
 
 const statusStyles: Record<string, string> = {
-  paid: "bg-green-100 text-green-700 border-green-200",
-  pending: "bg-orange-100 text-orange-700 border-orange-200",
-  overdue: "bg-red-100 text-red-700 border-red-200",
-  draft: "bg-slate-100 text-slate-700 border-slate-200",
+  paid: "bg-[#cdf5db] text-[#009a65]",
+  pending: "bg-[#fff0cf] text-[#f08a00]",
+  unpaid: "bg-[#fff0cf] text-[#f08a00]",
+  overdue: "bg-[#ffe0e0] text-[#df3b3b]",
+  draft: "bg-[#eef3fb] text-[#5c6f91]",
 };
 
 type RecentInvoicesProps = {
   invoices: RecentInvoice[];
 };
 
+const money = (value: number | string) => formatZAR(value).replace(/\s/g, "");
+
+function formatDate(value: string) {
+  return new Date(value).toLocaleDateString("en-ZA", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function invoiceCode(id: number) {
+  return `INV-2024-${String(id).padStart(3, "0")}`;
+}
+
 export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
   return (
-    <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-5 flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-foreground text-sm">Recent Invoices</h3>
-        <Link to="/invoices" className="text-xs text-[#2F6BFF] hover:underline font-medium">View all</Link>
+    <div className="flex min-h-[360px] flex-col rounded-lg border border-[#eef4ff] bg-white px-6 py-6 shadow-sm xl:col-span-4">
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="text-base font-bold text-[#071942]">Recent Invoices</h3>
+        <Link to="/invoices" className="text-sm font-medium text-[#315cff] hover:underline">View all</Link>
       </div>
-      <div className="space-y-3 flex-1">
+      <div className="flex-1">
         {invoices.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No invoices yet.</p>
+          <p className="border-t border-[#e5ecf7] py-5 text-sm text-[#6d7b99]">No invoices yet.</p>
         ) : (
-          invoices.map((inv) => {
-            const status = (inv.status || "draft").toLowerCase();
+          invoices.slice(0, 4).map((inv) => {
+            const rawStatus = (inv.status || "draft").toLowerCase();
+            const status = rawStatus === "pending" ? "unpaid" : rawStatus;
+            const label = status.charAt(0).toUpperCase() + status.slice(1);
+            const dateLabel = status === "paid" ? "Paid" : "Due";
 
             return (
-              <div key={inv.id} className="flex items-start justify-between py-3 border-b last:border-0 border-gray-100">
-                <div>
-                  <p className="text-sm font-semibold text-foreground">INV-{inv.id}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{inv.client_name}</p>
+              <div key={inv.id} className="flex items-start justify-between gap-4 border-t border-[#eef6ff] py-4">
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-[#071942]">{invoiceCode(inv.id)}</p>
+                  <p className="mt-2 truncate text-sm text-[#31456f]">{inv.client_name}</p>
                 </div>
-                <div className="text-right">
-                  <div className="flex items-center gap-3 justify-end">
-                    <p className="text-sm font-semibold text-foreground">{formatZAR(inv.amount)}</p>
-                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ${statusStyles[status] ?? "bg-slate-100 text-slate-700 border-slate-200"}`}>
-                      {status}
+                <div className="shrink-0 text-right">
+                  <div className="flex items-center justify-end gap-8">
+                    <p className="text-sm font-bold text-[#071942]">{money(inv.amount)}</p>
+                    <span className={`inline-flex min-w-[58px] justify-center rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[status] ?? statusStyles.draft}`}>
+                      {label}
                     </span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">Created: {new Date(inv.created_at).toLocaleDateString("en-ZA")}</p>
+                  <p className="mt-2 text-xs text-[#31456f]">{dateLabel}: {formatDate(inv.created_at)}</p>
                 </div>
               </div>
             );

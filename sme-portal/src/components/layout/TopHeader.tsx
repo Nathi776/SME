@@ -1,4 +1,4 @@
-import { Menu, Bell, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Bell, ChevronDown, Menu, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 export default function TopHeader({
   onMenuToggle,
@@ -9,44 +9,42 @@ export default function TopHeader({
   onSidebarToggle?: () => void;
   sidebarCollapsed?: boolean;
 }) {
-  const initials = "U";
-
   return (
-    <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
-      <div className="flex items-center gap-4">
+    <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-[#dfe7f4] bg-[#f8fbff]/95 px-5 shadow-[0_6px_20px_rgba(9,30,66,0.04)] backdrop-blur lg:px-8">
+      <div className="flex items-center gap-7">
         <button
           onClick={onMenuToggle}
-          className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+          className="rounded-md p-2 text-[#071942] transition hover:bg-[#eaf0fb] lg:hidden"
+          aria-label="Open sidebar"
         >
-          <Menu className="w-5 h-5 text-foreground" />
+          <Menu className="h-6 w-6" />
         </button>
         <button
           onClick={onSidebarToggle}
-          className="hidden lg:inline-flex p-2 rounded-lg hover:bg-muted transition-colors"
+          className="hidden rounded-md p-2 text-[#071942] transition hover:bg-[#eaf0fb] lg:inline-flex"
           aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          {sidebarCollapsed ? (
-            <PanelLeftOpen className="w-5 h-5 text-foreground" />
-          ) : (
-            <PanelLeftClose className="w-5 h-5 text-foreground" />
-          )}
+          {sidebarCollapsed ? <PanelLeftOpen className="h-6 w-6" /> : <PanelLeftClose className="h-6 w-6" />}
         </button>
-        <h2 className="text-lg font-semibold text-foreground">SME Dashboard</h2>
+        <h2 className="text-2xl font-bold tracking-[-0.01em] text-[#071942]">SME Dashboard</h2>
       </div>
 
-      <div className="flex items-center gap-4">
-        <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <Bell className="w-5 h-5 text-muted-foreground" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+      <div className="flex items-center gap-6">
+        <button className="relative rounded-md p-2 text-[#071942] transition hover:bg-[#eaf0fb]" aria-label="Notifications">
+          <Bell className="h-6 w-6" />
+          <span className="absolute right-0.5 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#ef4444] text-[10px] font-bold text-white">
+            3
+          </span>
         </button>
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground text-xs font-bold">{initials}</span>
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#e8edf8] text-sm font-bold text-[#071942]">
+            TM
           </div>
           <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-foreground leading-tight">User</p>
-            <p className="text-[11px] text-muted-foreground">Premium Plan</p>
+            <p className="text-sm font-semibold leading-tight text-[#071942]">Thabo Mokoena</p>
+            <p className="mt-1 text-xs text-[#31456f]">Premium Plan</p>
           </div>
+          <ChevronDown className="hidden h-4 w-4 text-[#071942] sm:block" />
         </div>
       </div>
     </header>

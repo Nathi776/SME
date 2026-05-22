@@ -10,3 +10,4 @@ joblib
 numpy
 requests
 pydantic-settings
+email-validator

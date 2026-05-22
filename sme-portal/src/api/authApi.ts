@@ -7,11 +7,13 @@ export interface LoginResponse {
 }
 
 export const AuthApi = {
-  login: (username: string, password: string) => {
-    return api.post<LoginResponse>("/auth/login", {
-      username,
-      password,
-    });
+  // identifier may be a username or an email. If it looks like an email, send as `email`.
+  login: (identifier: string, password: string) => {
+    const payload: any = { password };
+    if (identifier.includes("@")) payload.email = identifier;
+    else payload.username = identifier;
+
+    return api.post<LoginResponse>("/auth/login", payload);
   },
   register: (username: string, password: string, email: string) => {
     return api.post<{ id: number; username: string; email: string }>("/auth/register", {

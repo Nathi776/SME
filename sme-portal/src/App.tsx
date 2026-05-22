@@ -81,7 +81,7 @@ function LayoutWrapper() {
           collapsed={sidebarCollapsed}
           onToggleCollapse={() => setSidebarCollapsed((s) => !s)}
         />
-        <Box component="main" sx={{ flex: 1, minWidth: 0, p: { xs: 2, md: 4 } }}>
+        <Box component="main" sx={{ flex: 1, minWidth: 0, bgcolor: '#f5f8fd', p: { xs: 2, md: 3 } }}>
           <Routes>
             <Route path="/dashboard" element={<ProtectedRoute roles={["sme"]}><Dashboard /></ProtectedRoute>} />
             <Route path="/invoices" element={<ProtectedRoute roles={["sme"]}><InvoicePage /></ProtectedRoute>} />

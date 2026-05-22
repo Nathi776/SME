@@ -2,14 +2,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, User, FileText, CreditCard, Star, Users,
   ArrowRightLeft, FolderOpen, MessageSquare, HelpCircle, Settings, LogOut,
-  PanelLeftClose, PanelLeftOpen
+  BarChart3
 } from "lucide-react";
 
 const navSections = [
   {
     label: "",
     items: [
-      { icon: LayoutDashboard, label: "Dashboard", path: "/" },
+      { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
     ],
   },
   {
@@ -17,7 +17,7 @@ const navSections = [
     items: [
       { icon: User, label: "My Profile", path: "/profile" },
       { icon: FileText, label: "Invoices", path: "/invoices" },
-      { icon: CreditCard, label: "Finance Requests", path: "/finance-requests" },
+      { icon: CreditCard, label: "Finance Requests", path: "/finance" },
       { icon: Star, label: "Credit Score", path: "/credit-score" },
       { icon: Users, label: "Customers", path: "/customers" },
     ],
@@ -62,37 +62,30 @@ export default function Sidebar({
         />
       )}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full transition-all duration-300 lg:sticky lg:top-16 lg:z-20 lg:h-[calc(100vh-4rem)] ${
+        className={`fixed top-0 left-0 z-50 h-full transition-all duration-300 lg:sticky lg:top-[72px] lg:z-20 lg:h-[calc(100vh-72px)] ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 ${collapsed ? "w-[72px]" : "w-sidebar"}`}
-        style={{ background: 'linear-gradient(180deg,#0f2b48 0%,#071a2b 100%)', color: '#ffffff' }}
+        style={{ background: 'linear-gradient(180deg,#102c4f 0%,#071b31 100%)', color: '#ffffff' }}
       >
         {/* Logo */}
-        <div className={`flex items-center border-b border-sidebar-border ${collapsed ? "justify-center px-3 py-5" : "gap-3 px-5 py-6"}`}>
-          <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-            <span className="text-white font-bold text-lg">S</span>
+        <div className={`flex items-center ${collapsed ? "justify-center px-3 py-6" : "justify-center px-5 pb-8 pt-7"}`}>
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#1f724f] shadow-[0_10px_25px_rgba(25,196,113,0.2)]">
+            <BarChart3 className="h-8 w-8 text-white" />
           </div>
           {!collapsed && (
-            <div>
-              <h1 className="text-white font-bold text-sm tracking-wide">SME FINANCE</h1>
-              <p className="text-sidebar-foreground text-[10px] tracking-widest">Grow Your Business</p>
+            <div className="ml-3 text-center">
+              <h1 className="text-base font-bold tracking-wide text-white">SME FINANCE</h1>
+              <p className="mt-1 text-[10px] text-white/75">Grow Your Business</p>
             </div>
           )}
-          <button
-            onClick={onToggleCollapse}
-            className="hidden lg:inline-flex ml-auto items-center justify-center rounded-md p-2 text-white/90 hover:bg-white/6"
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {collapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
-          </button>
         </div>
 
         {/* Navigation */}
-        <nav className={`flex-1 overflow-y-auto py-4 ${collapsed ? "px-2" : "px-3"} space-y-5`}>
+        <nav className={`flex-1 overflow-y-auto ${collapsed ? "px-2" : "px-4"} space-y-7`}>
           {navSections.map((section, sIdx) => (
             <div key={sIdx}>
               {section.label && !collapsed && (
-                <p className="text-[10px] font-semibold tracking-widest uppercase px-3 mb-2 text-white/70">
+                <p className="mb-3 px-2 text-xs font-medium uppercase tracking-wide text-white/75">
                   {section.label}
                 </p>
               )}
@@ -106,14 +99,13 @@ export default function Sidebar({
                       to={item.path}
                       onClick={onClose}
                       title={collapsed ? item.label : undefined}
-                      className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-4 px-3"} py-3 rounded-md text-sm font-medium transition-all duration-200 ${
                         active
-                          ? "bg-[#2F6BFF] text-white shadow-lg"
-                          : "text-white/90 hover:bg-white/6 hover:text-white"
+                          ? "bg-[#3f63f1] text-white shadow-[0_10px_25px_rgba(49,92,255,0.28)]"
+                          : "text-white/90 hover:bg-white/10 hover:text-white"
                       }`}
-                      style={active ? { boxShadow: '0 6px 20px rgba(47,107,255,0.12)' } : undefined}
                     >
-                      <Icon className="w-[18px] h-[18px] shrink-0" />
+                      <Icon className="h-5 w-5 shrink-0" />
                       {!collapsed && <span>{item.label}</span>}
                     </Link>
                   );
@@ -124,16 +116,16 @@ export default function Sidebar({
         </nav>
 
         {/* Logout */}
-        <div className={`border-t border-sidebar-border p-3 ${collapsed ? "flex justify-center" : ""}`}>
+        <div className={`mx-4 border-t border-white/10 py-4 ${collapsed ? "flex justify-center" : ""}`}>
           <button
             onClick={() => {
               onClose();
               navigate("/login");
             }}
             title={collapsed ? "Logout" : undefined}
-            className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} py-2.5 rounded-lg text-sm font-medium text-red-400 hover:bg-red-500/10 w-full transition-colors`}
+            className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-4 px-3"} w-full rounded-md py-3 text-sm font-medium text-[#ff5a5a] transition-colors hover:bg-red-500/10`}
           >
-            <LogOut className="w-[18px] h-[18px]" />
+            <LogOut className="h-5 w-5" />
             {!collapsed && <span>Logout</span>}
           </button>
         </div>

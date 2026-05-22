@@ -21,7 +21,25 @@ export default function Dashboard() {
       try {
         const response = await SMEApi.getDashboard();
         if (isMounted) {
-          setDashboard(response.data);
+          const d = response.data;
+          // Coerce numeric-like fields to numbers for the UI components
+          const coerced = {
+            ...d,
+            revenue: Number(d.revenue),
+            outstanding_balance: Number(d.outstanding_balance),
+            funded_amount: Number(d.funded_amount),
+            eligible_amount: Number(d.eligible_amount),
+            requested_amount: Number(d.requested_amount),
+            approved_amount: Number(d.approved_amount),
+            recent_invoices: (d.recent_invoices || []).map((inv: any) => ({ ...inv, amount: Number(inv.amount) })),
+            recent_finance_requests: (d.recent_finance_requests || []).map((r: any) => ({
+              ...r,
+              amount_requested: Number(r.amount_requested),
+              approved_amount: r.approved_amount == null ? null : Number(r.approved_amount),
+            })),
+          } as DashboardResponse;
+
+          setDashboard(coerced);
           setError(null);
         }
       } catch (requestError) {
@@ -51,25 +69,25 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-6 max-w-[1400px] mx-auto px-6">
-      <WelcomeBanner username={dashboard.username} smeName={dashboard.sme_name} industry={dashboard.industry} />
+    <div className="mx-auto max-w-[1600px] space-y-4 px-1 pb-6 text-[#071942] sm:px-3">
+      <WelcomeBanner username={dashboard.username} smeName={dashboard.sme_name} smeId={dashboard.sme_id} />
       <StatCards
         creditScore={dashboard.credit_score}
         invoiceCount={dashboard.invoice_count}
+        unpaidInvoiceCount={dashboard.recent_invoices.filter((invoice) => invoice.status?.toLowerCase() !== "paid").length}
         outstandingBalance={dashboard.outstanding_balance}
         fundedAmount={dashboard.funded_amount}
         eligibleAmount={dashboard.eligible_amount}
+        financeRequestCount={dashboard.finance_requests}
       />
 
-      {/* Row: Credit Score / Recent Invoices / Finance Requests */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
         <CreditScoreOverview score={dashboard.credit_score} />
         <RecentInvoices invoices={dashboard.recent_invoices} />
         <FinanceRequests requests={dashboard.recent_finance_requests} />
       </div>
 
-      {/* Row: Funding Summary / Recent Activity / Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
         <FundingSummary
           requestedAmount={dashboard.requested_amount}
           approvedAmount={dashboard.approved_amount}

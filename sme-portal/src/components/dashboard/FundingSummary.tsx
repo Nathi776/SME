@@ -1,70 +1,61 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { ChevronDown } from "lucide-react";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 import { formatZAR } from "../../utils/format";
 
 type FundingSummaryProps = {
-  requestedAmount: number;
-  approvedAmount: number;
-  fundedAmount: number;
+  requestedAmount: number | string;
+  approvedAmount: number | string;
+  fundedAmount: number | string;
 };
+
+const money = (value: number | string) => formatZAR(value).replace(/\s/g, "");
 
 export default function FundingSummary({ requestedAmount, approvedAmount, fundedAmount }: FundingSummaryProps) {
   const data = [
-    { name: "Total Requested", value: requestedAmount, color: "hsl(228, 72%, 55%)" },
-    { name: "Total Approved", value: approvedAmount, color: "hsl(152, 60%, 48%)" },
-    { name: "Total Funded", value: fundedAmount, color: "hsl(35, 92%, 55%)" },
-  ];
-
-  const legend = [
-    { label: "Total Requested", amount: formatZAR(requestedAmount), color: "bg-blue-500" },
-    { label: "Total Approved", amount: formatZAR(approvedAmount), color: "bg-green-500" },
-    { label: "Total Funded", amount: formatZAR(fundedAmount), color: "bg-orange-400" },
+    { name: "Total Requested", value: requestedAmount, color: "#315cff" },
+    { name: "Total Approved", value: approvedAmount, color: "#22c55e" },
+    { name: "Total Funded", value: fundedAmount, color: "#7c3cff" },
   ];
 
   return (
-    <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-5 flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-foreground text-sm">Funding Summary</h3>
-        <span className="text-xs text-muted-foreground border border-gray-100 rounded-md px-2 py-1">This Month ▾</span>
+    <div className="flex min-h-[300px] flex-col rounded-lg border border-[#eef4ff] bg-white px-6 py-5 shadow-sm xl:col-span-4">
+      <div className="mb-5 flex items-center justify-between">
+        <h3 className="text-base font-bold text-[#071942]">Funding Summary</h3>
+        <button className="inline-flex items-center gap-2 rounded-md border border-[#dfe7f4] px-4 py-2 text-sm font-medium text-[#31456f] hover:bg-[#f6f8fc]">
+          This Month
+          <ChevronDown className="h-4 w-4" />
+        </button>
       </div>
 
-      <div className="flex items-center gap-4 flex-1">
-        <div className="w-36 h-36 shrink-0">
+      <div className="flex flex-1 flex-col items-center gap-6 sm:flex-row">
+        <div className="h-40 w-40 shrink-0">
           {requestedAmount > 0 || approvedAmount > 0 || fundedAmount > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie
-                  data={data}
-                  innerRadius={36}
-                  outerRadius={56}
-                  dataKey="value"
-                  stroke="none"
-                >
-                  {data.map((d, i) => (
-                    <Cell key={i} fill={d.color} />
+                <Pie data={data} innerRadius={48} outerRadius={74} dataKey="value" stroke="#ffffff" strokeWidth={1}>
+                  {data.map((d) => (
+                    <Cell key={d.name} fill={d.color} />
                   ))}
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <div className="h-full w-full flex items-center justify-center rounded-full border border-dashed border-border text-xs text-muted-foreground">
+            <div className="flex h-full w-full items-center justify-center rounded-full border border-dashed border-[#b9c6dc] text-xs text-[#6d7b99]">
               No funding data
             </div>
           )}
         </div>
-        <div className="space-y-3">
-          {legend.map((l, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <span className={`w-2.5 h-2.5 rounded-full ${l.color}`} />
-              <div>
-                <p className="text-xs text-muted-foreground">{l.label}</p>
-                <p className="text-sm font-semibold text-foreground">{l.amount}</p>
-              </div>
+        <div className="w-full space-y-6">
+          {data.map((item) => (
+            <div key={item.name} className="flex items-center justify-between gap-4 text-sm">
+              <span className="text-[#31456f]">{item.name}</span>
+              <span className="font-bold text-[#071942]">{money(item.value)}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <button className="mt-4 self-center inline-flex items-center justify-center rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-muted">
+      <button className="mt-5 inline-flex items-center justify-center self-center rounded-md border border-[#a9bcf5] bg-white px-6 py-2.5 text-sm font-semibold text-[#315cff] hover:bg-[#f5f7ff]">
         View Full Report
       </button>
     </div>

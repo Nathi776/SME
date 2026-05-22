@@ -12,6 +12,7 @@ from config import get_settings
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 import jwt
+from passlib.exc import UnknownHashError
 
 # Security settings
 settings = get_settings()
@@ -29,7 +30,14 @@ def hash_password(password: str) -> str:
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Check if password matches hash."""
-    return pwd_context.verify(plain_password, hashed_password)
+    if not hashed_password:
+        return False
+
+    try:
+        return pwd_context.verify(plain_password, hashed_password)
+    except (UnknownHashError, ValueError, TypeError):
+        # Fall back for legacy rows that may store the raw password instead of a supported hash.
+        return plain_password == hashed_password
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
     """Generate JWT token for authentication."""
