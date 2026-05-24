@@ -38,17 +38,6 @@ function GoogleIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-function loginUsernameFromEmail(value: string) {
-  const source = value.trim().split("@")[0] || value;
-  const normalized = source
-    .toLowerCase()
-    .replace(/[^a-z0-9_]+/g, "_")
-    .replace(/^_+|_+$/g, "")
-    .slice(0, 32);
-
-  return normalized.length >= 3 ? normalized : value.trim();
-}
-
 function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -77,6 +66,8 @@ function LoginPage() {
 
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("role", role);
+      sessionStorage.setItem("email", email.trim());
+      sessionStorage.setItem("username", email.trim().split("@")[0] || email.trim());
 
       const redirectPath =
         (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ||

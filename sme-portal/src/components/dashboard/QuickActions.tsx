@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const actions = [
   { icon: UploadCloud, label: "Upload Invoice", desc: "Add a new invoice", path: "/invoices", color: "text-[#315cff]" },
-  { icon: BadgeDollarSign, label: "Request Finance", desc: "Get paid early", path: "/finance", color: "text-[#7c3cff]" },
+  { icon: BadgeDollarSign, label: "Request Finance", desc: "Get paid early", path: "/finance-requests", color: "text-[#7c3cff]" },
   { icon: Users, label: "View Customers", desc: "Manage your customers", path: "/customers", color: "text-[#315cff]" },
   { icon: FolderOpen, label: "Documents", desc: "Manage business docs", path: "/documents", color: "text-[#7c3cff]" },
 ];

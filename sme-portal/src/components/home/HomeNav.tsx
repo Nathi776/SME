@@ -19,16 +19,16 @@ export default function HomeNav() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          <a href="#" className="border-b-2 border-green-600 pb-0.5 text-sm font-medium text-green-600">
+          <Link to="/" className="border-b-2 border-green-600 pb-0.5 text-sm font-medium text-green-600">
             Home
-          </a>
-          <a href="#how-it-works" className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900">
+          </Link>
+          <a href="/#how-it-works" className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900">
             How It Works
           </a>
-          <a href="#features" className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900">
+          <a href="/#features" className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900">
             Features
           </a>
-          <a href="#about" className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900">
+          <a href="/#about" className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900">
             About Us
           </a>
           <button className="flex items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900">
@@ -60,16 +60,16 @@ export default function HomeNav() {
 
       {mobileOpen && (
         <div className="space-y-3 border-t border-gray-100 bg-white px-4 py-4 md:hidden">
-          <a href="#" className="block text-sm font-medium text-green-600">
+          <Link to="/" className="block text-sm font-medium text-green-600">
             Home
-          </a>
-          <a href="#how-it-works" className="block text-sm font-medium text-gray-600">
+          </Link>
+          <a href="/#how-it-works" className="block text-sm font-medium text-gray-600">
             How It Works
           </a>
-          <a href="#features" className="block text-sm font-medium text-gray-600">
+          <a href="/#features" className="block text-sm font-medium text-gray-600">
             Features
           </a>
-          <a href="#about" className="block text-sm font-medium text-gray-600">
+          <a href="/#about" className="block text-sm font-medium text-gray-600">
             About Us
           </a>
           <div className="flex gap-3 pt-2">

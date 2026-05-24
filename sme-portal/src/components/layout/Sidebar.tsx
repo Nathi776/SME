@@ -17,7 +17,7 @@ const navSections = [
     items: [
       { icon: User, label: "My Profile", path: "/profile" },
       { icon: FileText, label: "Invoices", path: "/invoices" },
-      { icon: CreditCard, label: "Finance Requests", path: "/finance" },
+      { icon: CreditCard, label: "Finance Requests", path: "/finance-requests" },
       { icon: Star, label: "Credit Score", path: "/credit-score" },
       { icon: Users, label: "Customers", path: "/customers" },
     ],
@@ -62,13 +62,13 @@ export default function Sidebar({
         />
       )}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full transition-all duration-300 lg:sticky lg:top-[72px] lg:z-20 lg:h-[calc(100vh-72px)] ${
+        className={`fixed top-0 left-0 z-50 flex h-screen flex-col overflow-hidden transition-all duration-300 lg:sticky lg:top-0 lg:z-20 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 ${collapsed ? "w-[72px]" : "w-sidebar"}`}
-        style={{ background: 'linear-gradient(180deg,#102c4f 0%,#071b31 100%)', color: '#ffffff' }}
+        style={{ background: '#0B1437', color: '#ffffff' }}
       >
         {/* Logo */}
-        <div className={`flex items-center ${collapsed ? "justify-center px-3 py-6" : "justify-center px-5 pb-8 pt-7"}`}>
+        <div className={`flex items-center border-b border-white/10 ${collapsed ? "justify-center px-3 py-6" : "justify-center px-5 pb-8 pt-7"}`}>
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#1f724f] shadow-[0_10px_25px_rgba(25,196,113,0.2)]">
             <BarChart3 className="h-8 w-8 text-white" />
           </div>
@@ -81,7 +81,7 @@ export default function Sidebar({
         </div>
 
         {/* Navigation */}
-        <nav className={`flex-1 overflow-y-auto ${collapsed ? "px-2" : "px-4"} space-y-7`}>
+        <nav className={`flex-1 min-h-0 overflow-y-auto ${collapsed ? "px-2" : "px-4"} space-y-7`}>
           {navSections.map((section, sIdx) => (
             <div key={sIdx}>
               {section.label && !collapsed && (
@@ -116,7 +116,7 @@ export default function Sidebar({
         </nav>
 
         {/* Logout */}
-        <div className={`mx-4 border-t border-white/10 py-4 ${collapsed ? "flex justify-center" : ""}`}>
+        <div className={`shrink-0 mx-4 border-t border-white/10 py-4 ${collapsed ? "flex justify-center" : ""}`}>
           <button
             onClick={() => {
               onClose();

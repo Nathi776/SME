@@ -46,7 +46,7 @@ export default function FinanceRequests({ requests }: FinanceRequestsProps) {
     <div className="flex min-h-[360px] flex-col rounded-lg border border-[#eef4ff] bg-white px-6 py-6 shadow-sm xl:col-span-4">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-base font-bold text-[#071942]">Finance Requests</h3>
-        <Link to="/finance" className="text-sm font-medium text-[#315cff] hover:underline">View all</Link>
+        <Link to="/finance-requests" className="text-sm font-medium text-[#315cff] hover:underline">View all</Link>
       </div>
 
       <div className="flex-1">
