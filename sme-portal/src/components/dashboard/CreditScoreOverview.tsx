@@ -11,9 +11,9 @@ export default function CreditScoreOverview({ score }: CreditScoreOverviewProps)
   const standingColor = score === null ? "text-[#6d7b99]" : numericScore >= 60 ? "text-[#009a65]" : "text-[#d97706]";
 
   return (
-    <div className="flex min-h-[380px] flex-col rounded-lg border border-[#eef4ff] bg-white px-6 py-6 shadow-sm xl:col-span-4">
+    <div className="flex min-h-[380px] flex-col rounded-2xl border border-[#e9eef8] bg-white px-6 py-5 shadow-sm">
       <div className="mb-6 flex items-center gap-2">
-        <h3 className="text-base font-bold text-[#071942]">Credit Score Overview</h3>
+        <h3 className="text-[15px] font-semibold text-[#071942]">Credit Score Overview</h3>
         <Info className="h-4 w-4 text-[#91a1bf]" />
       </div>
 
@@ -39,20 +39,20 @@ export default function CreditScoreOverview({ score }: CreditScoreOverviewProps)
             />
           </svg>
           <div className="absolute inset-x-0 bottom-4 flex flex-col items-center">
-            <span className="text-5xl font-extrabold text-[#071942]">{score === null ? "-" : displayScore}</span>
+            <span className="text-[34px] font-semibold leading-none text-[#071942]">{score === null ? "-" : displayScore}</span>
             <span className="mt-1 text-sm text-[#6b7f99]">out of 100</span>
           </div>
         </div>
         <div className="mt-3 flex items-center gap-2">
           <span className="h-2.5 w-2.5 rounded-full bg-[#58d67b]" />
-          <span className={`text-base font-bold ${standingColor}`}>{standing}</span>
+          <span className={`text-[15px] font-semibold ${standingColor}`}>{standing}</span>
         </div>
         <p className="mt-4 max-w-[260px] text-center text-sm leading-6 text-[#31456f]">
           Your score is based on payment behavior, revenue consistency, and invoice history.
         </p>
       </div>
 
-      <button className="mt-4 inline-flex items-center justify-center self-center rounded-md border border-[#a9bcf5] bg-white px-5 py-2.5 text-sm font-semibold text-[#315cff] hover:bg-[#f5f7ff]">
+      <button className="mt-4 inline-flex items-center justify-center self-center rounded-2xl border border-[#a9bcf5] bg-white px-5 py-2.5 text-sm font-semibold text-[#315cff] hover:bg-[#f5f7ff]">
         View Score Details
       </button>
     </div>

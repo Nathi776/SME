@@ -5,10 +5,10 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        'sidebar': '280px',
+        'sidebar': '240px',
       },
       width: {
-        'sidebar': '280px',
+        'sidebar': '240px',
       },
       fontFamily: {
         inter: ['var(--font-inter)'],

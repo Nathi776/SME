@@ -30,8 +30,8 @@ function formatDateTime(value: string) {
 
 export default function RecentActivity({ activities }: RecentActivityProps) {
   return (
-    <div className="flex min-h-[300px] flex-col rounded-lg border border-[#eef4ff] bg-white px-6 py-5 shadow-sm xl:col-span-4">
-      <h3 className="mb-5 text-base font-bold text-[#071942]">Recent Activity</h3>
+    <div className="flex min-h-[380px] flex-col rounded-2xl border border-[#e9eef8] bg-white px-6 py-5 shadow-sm">
+      <h3 className="mb-5 text-[15px] font-semibold text-[#071942]">Recent Activity</h3>
       <div className="flex-1">
         {activities.length === 0 ? (
           <p className="text-sm text-[#6d7b99]">No recent activity.</p>

@@ -20,7 +20,7 @@ export default function TopHeader({
       .slice(0, 2) || "U";
 
   return (
-    <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-[#dfe7f4] bg-white/95 px-5 shadow-[0_6px_20px_rgba(9,30,66,0.04)] backdrop-blur lg:px-8">
+    <header className="sticky top-0 z-30 flex h-[64px] items-center justify-between border-b border-[#dfe7f4] bg-white/95 px-5 shadow-[0_6px_20px_rgba(9,30,66,0.04)] backdrop-blur lg:px-8">
       <div className="flex items-center gap-7">
         <button
           onClick={onMenuToggle}
@@ -37,7 +37,7 @@ export default function TopHeader({
           {sidebarCollapsed ? <PanelLeftOpen className="h-6 w-6" /> : <PanelLeftClose className="h-6 w-6" />}
         </button>
         <div>
-          <h2 className="text-2xl font-bold tracking-[-0.01em] text-[#071942]">SME Dashboard</h2>
+          <h2 className="text-[22px] font-semibold tracking-[-0.01em] text-[#071942]">SME Dashboard</h2>
           <p className="text-xs text-[#58708f]">Welcome back, manage your business from one place</p>
         </div>
       </div>

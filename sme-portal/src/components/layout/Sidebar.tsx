@@ -62,7 +62,7 @@ export default function Sidebar({
         />
       )}
       <aside
-        className={`fixed top-0 left-0 z-50 flex h-screen flex-col overflow-hidden transition-all duration-300 lg:sticky lg:top-0 lg:z-20 ${
+        className={`fixed top-0 left-0 z-40 flex h-screen flex-col overflow-hidden transition-all duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 ${collapsed ? "w-[72px]" : "w-sidebar"}`}
         style={{ background: '#0B1437', color: '#ffffff' }}
@@ -99,7 +99,7 @@ export default function Sidebar({
                       to={item.path}
                       onClick={onClose}
                       title={collapsed ? item.label : undefined}
-                      className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-4 px-3"} py-3 rounded-md text-sm font-medium transition-all duration-200 ${
+                      className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-4 px-3"} rounded-2xl py-3 text-sm font-medium transition-all duration-200 ${
                         active
                           ? "bg-[#3f63f1] text-white shadow-[0_10px_25px_rgba(49,92,255,0.28)]"
                           : "text-white/90 hover:bg-white/10 hover:text-white"
@@ -123,7 +123,7 @@ export default function Sidebar({
               navigate("/login");
             }}
             title={collapsed ? "Logout" : undefined}
-            className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-4 px-3"} w-full rounded-md py-3 text-sm font-medium text-[#ff5a5a] transition-colors hover:bg-red-500/10`}
+            className={`flex w-full items-center ${collapsed ? "justify-center px-2" : "gap-4 px-3"} rounded-2xl py-3 text-sm font-medium text-[#ff5a5a] transition-colors hover:bg-red-500/10`}
           >
             <LogOut className="h-5 w-5" />
             {!collapsed && <span>Logout</span>}

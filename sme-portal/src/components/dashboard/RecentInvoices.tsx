@@ -37,9 +37,9 @@ function invoiceCode(id: number) {
 
 export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
   return (
-    <div className="flex min-h-[360px] flex-col rounded-lg border border-[#eef4ff] bg-white px-6 py-6 shadow-sm xl:col-span-4">
+    <div className="flex min-h-[380px] flex-col rounded-2xl border border-[#e9eef8] bg-white px-6 py-5 shadow-sm">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-base font-bold text-[#071942]">Recent Invoices</h3>
+        <h3 className="text-[15px] font-semibold text-[#071942]">Recent Invoices</h3>
         <Link to="/invoices" className="text-sm font-medium text-[#315cff] hover:underline">View all</Link>
       </div>
       <div className="flex-1">
@@ -55,12 +55,12 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
             return (
               <div key={inv.id} className="flex items-start justify-between gap-4 border-t border-[#eef6ff] py-4">
                 <div className="min-w-0">
-                  <p className="text-sm font-bold text-[#071942]">{invoiceCode(inv.id)}</p>
+                  <p className="text-[15px] font-semibold text-[#071942]">{invoiceCode(inv.id)}</p>
                   <p className="mt-2 truncate text-sm text-[#31456f]">{inv.client_name}</p>
                 </div>
                 <div className="shrink-0 text-right">
                   <div className="flex items-center justify-end gap-8">
-                    <p className="text-sm font-bold text-[#071942]">{money(inv.amount)}</p>
+                    <p className="text-[15px] font-semibold text-[#071942]">{money(inv.amount)}</p>
                     <span className={`inline-flex min-w-[58px] justify-center rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[status] ?? statusStyles.draft}`}>
                       {label}
                     </span>

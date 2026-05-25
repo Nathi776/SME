@@ -10,18 +10,18 @@ const actions = [
 
 export default function QuickActions() {
   return (
-    <div className="min-h-[300px] rounded-lg border border-[#dfe7f4] bg-white px-7 py-5 shadow-[0_10px_30px_rgba(9,30,66,0.04)] xl:col-span-4">
-      <h3 className="mb-6 text-base font-bold text-[#071942]">Quick Actions</h3>
+    <div className="min-h-[380px] rounded-2xl border border-[#e9eef8] bg-white px-6 py-5 shadow-sm">
+      <h3 className="mb-5 text-[15px] font-semibold text-[#071942]">Quick Actions</h3>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {actions.map((action) => (
           <Link
             key={action.label}
             to={action.path}
-            className="flex min-h-[82px] items-center gap-5 rounded-md border border-[#d8e2f3] bg-[#f8faff] px-5 py-4 text-left transition hover:border-[#a9bcf5] hover:bg-white hover:shadow-[0_8px_20px_rgba(49,92,255,0.08)]"
+            className="flex h-[78px] items-center gap-4 rounded-2xl border border-[#d8e2f3] bg-[#f8faff] px-5 py-4 text-left transition hover:border-[#a9bcf5] hover:bg-white hover:shadow-[0_8px_20px_rgba(49,92,255,0.08)]"
           >
             <action.icon className={`h-8 w-8 shrink-0 ${action.color}`} />
             <div className="min-w-0">
-              <p className="text-sm font-bold text-[#071942]">{action.label}</p>
+              <p className="text-[15px] font-semibold text-[#071942]">{action.label}</p>
               <p className="mt-1 text-xs text-[#31456f]">{action.desc}</p>
             </div>
           </Link>
