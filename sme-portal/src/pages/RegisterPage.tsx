@@ -101,9 +101,10 @@ function PasswordStrength({ password }: PasswordStrengthProps) {
 
 function Stepper({ step }: StepperProps) {
   const steps = [
-    { n: 1, label: "Business Info" },
-    { n: 2, label: "Account Info" },
-    { n: 3, label: "Verify Account" },
+    { n: 1, label: "Account Information" },
+    { n: 2, label: "Business Information" },
+    { n: 3, label: "Verification" },
+    { n: 4, label: "Onboarding Setup" },
   ];
 
   return (
@@ -422,7 +423,8 @@ export default function RegisterPage() {
       sessionStorage.setItem("email", email.trim());
       sessionStorage.setItem("username", username);
 
-      navigate(accountType === "lender" ? "/register/lender" : "/register/sme", { replace: true });
+      // Advance to onboarding setup step (step 4) — user will proceed to the relevant setup page
+      setStep(4);
     } catch (verifyError) {
       if (axios.isAxiosError(verifyError)) {
         const detail = verifyError.response?.data?.detail;
@@ -487,7 +489,7 @@ export default function RegisterPage() {
 
             {error ? <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600">{error}</div> : null}
 
-            {step === 1 && (
+            {step === 2 && (
               <form onSubmit={handleStep1}>
                 <h2 className="mb-4 text-base font-bold text-gray-900">Business Information</h2>
                 <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -594,7 +596,7 @@ export default function RegisterPage() {
               </form>
             )}
 
-            {step === 2 && (
+            {step === 1 && (
               <form onSubmit={handleStep2}>
                 <h2 className="mb-4 text-base font-bold text-gray-900">Account Information</h2>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -732,7 +734,7 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <button type="button" onClick={() => setStep(1)} className="flex items-center gap-2 rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+                  <button type="button" onClick={() => setStep(2)} className="flex items-center gap-2 rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
                     ← Back
                   </button>
                   <button type="submit" disabled={loading} className="flex items-center gap-2 rounded-lg bg-green-700 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-800 disabled:opacity-50">
@@ -746,6 +748,27 @@ export default function RegisterPage() {
                   </button>
                 </div>
               </form>
+            )}
+
+            {step === 4 && (
+              <div>
+                <h2 className="mb-4 text-base font-bold text-gray-900">Onboarding Setup</h2>
+                <p className="mb-4 text-sm text-gray-500">Your account is active. Finish setting up your organization details and preferences.</p>
+
+                <div className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+                  <p className="mb-2 text-sm font-semibold text-gray-800">Account</p>
+                  <div className="text-xs text-gray-600">{fullName} — {email}</div>
+                </div>
+
+                <div className="mb-4 flex justify-between">
+                  <button type="button" onClick={() => setStep(3)} className="flex items-center gap-2 rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+                    ← Back
+                  </button>
+                  <button type="button" onClick={() => navigate(accountType === "lender" ? "/register/lender" : "/register/sme")} className="flex items-center gap-2 rounded-lg bg-green-700 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-800">
+                    Continue to Setup →
+                  </button>
+                </div>
+              </div>
             )}
 
             {step === 3 && (
