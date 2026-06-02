@@ -6,6 +6,7 @@ from email.message import EmailMessage
 
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel, Field, field_validator, EmailStr
+from typing import Literal
 from typing import Optional
 from sqlalchemy.orm import Session
 from config import get_settings
@@ -43,6 +44,7 @@ class RegisterRequest(BaseModel):
     username: str = Field(..., min_length=3, max_length=50, pattern=r"^[a-zA-Z0-9_]+$")
     password: str = Field(..., min_length=8)
     email: str
+    role: Literal["sme", "lender"] = "sme"
 
     @field_validator("password")
     @classmethod
@@ -162,11 +164,11 @@ def register_user(request: RegisterRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Email already exists")
 
     hashed_pw = hash_password(request.password)
-    new_user = User(username=request.username, email=request.email, hashed_password=hashed_pw)
+    new_user = User(username=request.username, email=request.email, hashed_password=hashed_pw, role=request.role)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"message": "User registered successfully", "id": new_user.id, "username": new_user.username}
+    return {"message": "User registered successfully", "id": new_user.id, "username": new_user.username, "role": new_user.role}
 
 
 @router.post("/send-verification")

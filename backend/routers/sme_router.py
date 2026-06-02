@@ -28,6 +28,7 @@ class SMEBase(BaseModel):
     name: str
     industry: str
     revenue: Decimal = Field(..., ge=0)
+    years_active: int = Field(default=0, ge=0)
 
 class SMECreated(SMEBase):
     id: int
@@ -105,6 +106,7 @@ def create_sme(
         name=sme.name,
         industry=sme.industry,
         revenue=sme.revenue,
+        years_active=sme.years_active,
         user_id=current_user.id
     )
     db.add(new_sme)

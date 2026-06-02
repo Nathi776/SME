@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
-import RegisterPage from "./pages/RegisterPage";
+import ChooseRolePage from "./pages/ChooseRolePage";
 import SmeRegisterPage from "./pages/SmeRegisterPage";
 import LenderRegisterPage from "./pages/LenderRegisterPage";
 import InvoicePage from "./pages/InvoicePage";
@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/register" element={<ChooseRolePage />} />
         <Route path="/register/sme" element={<SmeRegisterPage />} />
         <Route path="/register/lender" element={<LenderRegisterPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />

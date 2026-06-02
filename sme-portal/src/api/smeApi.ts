@@ -48,6 +48,7 @@ export interface SME {
   name: string;
   industry: string;
   revenue: number;
+  years_active?: number;
   description?: string | null;
 }
 
@@ -55,6 +56,7 @@ export interface SMECreate {
   name: string;
   industry: string;
   revenue: number;
+  years_active?: number;
   description?: string;
 }
 

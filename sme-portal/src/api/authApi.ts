@@ -15,11 +15,12 @@ export const AuthApi = {
 
     return api.post<LoginResponse>("/auth/login", payload);
   },
-  register: (username: string, password: string, email: string) => {
-    return api.post<{ id: number; username: string; email: string }>("/auth/register", {
+  register: (username: string, password: string, email: string, role: "sme" | "lender" = "sme") => {
+    return api.post<{ id: number; username: string; email: string; role: "sme" | "lender" }>("/auth/register", {
       username,
       password,
       email,
+      role,
     });
   },
 

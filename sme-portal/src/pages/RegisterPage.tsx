@@ -364,7 +364,7 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const registerResponse = await AuthApi.register(username, password, email);
+      const registerResponse = await AuthApi.register(username, password, email, accountType);
       const userId = registerResponse.data?.id;
 
       if (userId) {
