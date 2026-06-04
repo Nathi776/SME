@@ -118,7 +118,7 @@ def get_pending_requests(
     if not lender:
         raise HTTPException(status_code=404, detail="Lender profile not found")
     
-    return get_pending_finance_requests(db)
+    return get_pending_finance_requests(db, lender.id)
 
 @router.put("/approve/{request_id}", response_model=FinanceRequestResponse)
 def approve_request(

@@ -1,27 +1,34 @@
 import React from "react";
+import type { AvailableSme } from "../../api/lenderApi";
 
-const deals = [
-  { id: "FD-01", sme: "Sunrise Farms", amount: "R500,000", fundedOn: "2024-04-12" },
-  { id: "FD-02", sme: "Urban Bakers", amount: "R200,000", fundedOn: "2024-04-05" },
-  { id: "FD-03", sme: "Blue River Tech", amount: "R1,200,000", fundedOn: "2024-03-18" },
-];
+type Props = {
+  smes: AvailableSme[];
+};
 
-export default function RecentlyFundedDeals() {
+export default function RecentlyFundedDeals({ smes }: Props) {
+  const items = [...smes].sort((a, b) => b.pending_finance_requests - a.pending_finance_requests).slice(0, 3);
+
   return (
     <div className="bg-white rounded-lg border border-gray-100 p-4">
-      <h3 className="text-sm font-semibold text-gray-900">Recently Funded Deals</h3>
+      <h3 className="text-sm font-semibold text-gray-900">SMEs on Your Radar</h3>
       <div className="mt-3 space-y-3">
-        {deals.map((d) => (
-          <div key={d.id} className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-semibold">{d.sme}</p>
-              <p className="text-xs text-gray-400">{d.id} • {d.fundedOn}</p>
+        {items.length === 0 ? (
+          <p className="text-sm text-gray-500">No SME records were returned from the database.</p>
+        ) : (
+          items.map((sme) => (
+            <div key={sme.sme_id} className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold">{sme.company_name}</p>
+                <p className="text-xs text-gray-400">
+                  {sme.industry} • {sme.risk_level ?? "Unknown risk"}
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="font-semibold">{sme.pending_finance_requests} open</p>
+              </div>
             </div>
-            <div className="text-right">
-              <p className="font-semibold">{d.amount}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

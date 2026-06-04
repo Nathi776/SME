@@ -11,7 +11,7 @@ const navSections = [
   {
     label: "OVERVIEW",
     items: [
-      { icon: LayoutDashboard, label: "Dashboard", path: "/lender" },
+      { icon: LayoutDashboard, label: "Dashboard", path: "/lender/dashboard" },
       { icon: Bell, label: "Notifications", path: "/lender/notifications", badge: 3 },
     ],
   },
@@ -59,7 +59,7 @@ export default function LenderSidebar({ isOpen, onClose, collapsed, onToggleColl
         <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={onClose} />
       )}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full bg-[#0B1437] flex flex-col transition-all duration-300 lg:sticky lg:top-16 lg:z-20 lg:h-[calc(100vh-4rem)] ${
+        className={`fixed top-0 left-0 z-50 h-full bg-[#0B1437] flex flex-col transition-all duration-300 lg:sticky lg:top-16 lg:z-20 lg:h-[calc(100vh-4rem)] lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } ${collapsed ? "w-20" : "w-60"}`}
       >

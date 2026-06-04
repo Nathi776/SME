@@ -9,14 +9,14 @@ export default function LenderLayout({ children }: Props) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 lg:flex">
       <LenderSidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((p) => !p)}
       />
-      <div className="flex flex-col min-h-screen lg:ml-0">
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
         <LenderHeader
           onMenuToggle={() => setSidebarOpen((p) => !p)}
           onSidebarToggle={() => setSidebarCollapsed((p) => !p)}

@@ -272,6 +272,12 @@ export default function LenderRegisterPage() {
   const handleVerify = async () => {
     setError("");
     setLoading(true);
+    // Require all compliance documents before completing verification
+    if (!companyRegistration || !financialServicesLicense || !proofOfBanking || !taxClearance) {
+      setLoading(false);
+      setError("Please upload all required compliance documents before continuing.");
+      return;
+    }
 
     try {
       const stored = sessionStorage.getItem("justRegisteredUserId");
@@ -446,7 +452,7 @@ export default function LenderRegisterPage() {
                     ))}
                   </div>
                 </div>
-                <div className="flex items-center justify-between"><button type="button" onClick={() => setStep(2)} className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">← Back</button><button type="button" onClick={handleVerify} disabled={loading || emailOtp.length < OTP_LENGTH} className="flex items-center gap-2 rounded-lg bg-violet-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-violet-800 disabled:opacity-50">{loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Verifying...</> : <>Complete Verification</>}</button></div>
+                <div className="flex items-center justify-between"><button type="button" onClick={() => setStep(2)} className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">← Back</button><button type="button" onClick={handleVerify} disabled={loading || emailOtp.length < OTP_LENGTH || !companyRegistration || !financialServicesLicense || !proofOfBanking || !taxClearance} className="flex items-center gap-2 rounded-lg bg-violet-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-violet-800 disabled:opacity-50">{loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Verifying...</> : <>Complete Verification</>}</button></div>
               </div>
             )}
 

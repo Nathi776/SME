@@ -13,11 +13,26 @@ export interface LenderProfile {
 export interface FinanceRequest {
   id: number;
   sme_id: number;
+  invoice_id: number;
   amount_requested: number;
   approved_amount: number | null;
   fee_rate: number;
+  platform_fee: number | null;
+  net_amount: number | null;
   status: string;
+  lender_id: number | null;
   created_at: string;
+  approved_at: string | null;
+}
+
+export interface AvailableSme {
+  sme_id: number;
+  company_name: string;
+  industry: string;
+  revenue: number;
+  credit_score: number | null;
+  risk_level: "High" | "Medium" | "Low" | null;
+  pending_finance_requests: number;
 }
 
 export const LenderApi = {
@@ -30,8 +45,7 @@ export const LenderApi = {
     api.post<LenderProfile>("/lenders/register", data),
 
   // SME browsing
-  getAvailableSMEs: () =>
-    api.get("/lenders/available-smes"),
+  getAvailableSMEs: () => api.get<AvailableSme[]>("/lenders/available-smes"),
 
   // Finance request management
   getPendingRequests: () =>

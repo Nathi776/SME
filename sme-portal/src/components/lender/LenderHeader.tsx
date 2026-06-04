@@ -5,11 +5,9 @@ import { getRole } from "../../utils/auth";
 type Props = { onMenuToggle?: () => void; onSidebarToggle?: () => void; sidebarCollapsed?: boolean };
 
 export default function LenderHeader({ onMenuToggle, onSidebarToggle, sidebarCollapsed }: Props) {
-  const userName = "Lerato Mokoena";
-  const initials = userName
-    ? userName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
-    : "LM";
-  const roleLabel = getRole() ? "Lender • Premium" : "Lender Portal";
+  const role = getRole();
+  const initials = "LP";
+  const roleLabel = role ? "Lender Portal" : "Portal";
 
   return (
     <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
@@ -37,7 +35,7 @@ export default function LenderHeader({ onMenuToggle, onSidebarToggle, sidebarCol
             <span className="text-white text-xs font-bold">{initials}</span>
           </div>
           <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-gray-900 leading-tight">{userName}</p>
+            <p className="text-sm font-semibold text-gray-900 leading-tight">{role ? "Lender Account" : "SME Finance Portal"}</p>
             <p className="text-[11px] text-gray-500">{roleLabel}</p>
           </div>
         </div>
