@@ -37,7 +37,7 @@ function invoiceCode(id: number) {
 
 export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
   return (
-    <div className="flex min-h-[380px] flex-col rounded-2xl border border-[#e9eef8] bg-white px-6 py-5 shadow-sm">
+    <div className="flex min-h-[380px] flex-col rounded-lg border border-[#e9eef8] bg-white px-6 py-5 shadow-sm">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-[15px] font-semibold text-[#071942]">Recent Invoices</h3>
         <Link to="/invoices" className="text-sm font-medium text-[#315cff] hover:underline">View all</Link>

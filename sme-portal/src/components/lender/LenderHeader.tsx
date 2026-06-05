@@ -1,43 +1,52 @@
 import React from "react";
-import { Menu, Bell, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Bell, ChevronDown, Menu, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { getRole } from "../../utils/auth";
 
 type Props = { onMenuToggle?: () => void; onSidebarToggle?: () => void; sidebarCollapsed?: boolean };
 
 export default function LenderHeader({ onMenuToggle, onSidebarToggle, sidebarCollapsed }: Props) {
   const role = getRole();
-  const initials = "LP";
-  const roleLabel = role ? "Lender Portal" : "Portal";
+  const displayName = sessionStorage.getItem("username") || "Lerato Mokoena";
+  const initials =
+    displayName
+      .split(/\s+|@/)
+      .filter(Boolean)
+      .map((value) => value[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2) || "LM";
+  const roleLabel = role ? "Lender • Premium" : "Lender • Premium";
 
   return (
-    <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
-      <div className="flex items-center gap-4">
-        <button onClick={onMenuToggle} className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <Menu className="w-5 h-5 text-gray-600" />
+    <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between border-b border-[#dfe7f4] bg-white/95 px-5 shadow-[0_6px_20px_rgba(9,30,66,0.04)] backdrop-blur lg:px-8">
+      <div className="flex items-center gap-6">
+        <button onClick={onMenuToggle} className="rounded-md p-2 text-[#071942] transition hover:bg-[#eaf0fb] lg:hidden" aria-label="Open sidebar">
+          <Menu className="h-6 w-6" />
         </button>
         <button
           onClick={onSidebarToggle}
-          className="hidden lg:inline-flex p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="hidden rounded-md p-2 text-[#071942] transition hover:bg-[#eaf0fb] lg:inline-flex"
           aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          {sidebarCollapsed ? <PanelLeftOpen className="w-5 h-5 text-gray-600" /> : <PanelLeftClose className="w-5 h-5 text-gray-600" />}
+          {sidebarCollapsed ? <PanelLeftOpen className="h-6 w-6" /> : <PanelLeftClose className="h-6 w-6" />}
         </button>
-        <h2 className="text-lg font-bold text-gray-900 tracking-wide">LENDER DASHBOARD</h2>
+        <h2 className="text-[22px] font-bold tracking-wide text-[#071942]">LENDER DASHBOARD</h2>
       </div>
 
-      <div className="flex items-center gap-4">
-        <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <Bell className="w-5 h-5 text-gray-500" />
-          <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-[9px] text-white font-bold">3</span>
+      <div className="flex items-center gap-6">
+        <button className="relative rounded-md p-2 text-[#071942] transition hover:bg-[#eaf0fb]" aria-label="Notifications">
+          <Bell className="h-6 w-6" />
+          <span className="absolute right-0.5 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">3</span>
         </button>
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-[#4F46E5] flex items-center justify-center">
-            <span className="text-white text-xs font-bold">{initials}</span>
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#4f63f6] text-sm font-bold text-white">
+            {initials}
           </div>
           <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-gray-900 leading-tight">{role ? "Lender Account" : "SME Finance Portal"}</p>
-            <p className="text-[11px] text-gray-500">{roleLabel}</p>
+            <p className="text-sm font-semibold leading-tight text-[#071942]">{displayName}</p>
+            <p className="mt-1 text-xs text-[#31456f]">{roleLabel}</p>
           </div>
+          <ChevronDown className="hidden h-4 w-4 text-[#071942] sm:block" />
         </div>
       </div>
     </header>

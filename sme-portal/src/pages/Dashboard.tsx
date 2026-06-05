@@ -61,15 +61,15 @@ export default function Dashboard() {
   }, []);
 
   if (loading) {
-    return <div className="mx-auto max-w-[1450px] text-sm text-muted-foreground">Loading dashboard...</div>;
+    return <div className="text-sm text-muted-foreground">Loading dashboard...</div>;
   }
 
   if (error || !dashboard) {
-    return <div className="mx-auto max-w-[1450px] text-sm text-red-600">{error || "No dashboard data available."}</div>;
+    return <div className="text-sm text-red-600">{error || "No dashboard data available."}</div>;
   }
 
   return (
-    <div className="mx-auto max-w-[1450px] space-y-5 px-1 pb-6 text-[#071942] sm:px-3">
+    <div className="space-y-4 pb-6 text-[#071942]">
       <WelcomeBanner username={dashboard.username} smeName={dashboard.sme_name} smeId={String(dashboard.sme_id)} />
       <StatCards
         creditScore={dashboard.credit_score}
@@ -80,13 +80,13 @@ export default function Dashboard() {
         eligibleAmount={dashboard.eligible_amount}
         financeRequestCount={dashboard.finance_requests}
       />
-      <div className="grid grid-cols-1 gap-5 2xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
         <CreditScoreOverview score={dashboard.credit_score} />
         <RecentInvoices invoices={dashboard.recent_invoices} />
         <FinanceRequests requests={dashboard.recent_finance_requests} />
       </div>
 
-      <div className="grid grid-cols-1 gap-5 2xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
         <FundingSummary
           requestedAmount={dashboard.requested_amount}
           approvedAmount={dashboard.approved_amount}

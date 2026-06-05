@@ -1,5 +1,5 @@
 import React from "react";
-import { Wallet } from "lucide-react";
+import { Landmark } from "lucide-react";
 import type { LenderProfile } from "../../api/lenderApi";
 import { formatZAR } from "../../utils/format";
 
@@ -10,39 +10,39 @@ type Props = {
   availableSmesCount: number;
 };
 
-export default function LenderWelcomeBanner({ profile, pendingCount, totalRequested, availableSmesCount }: Props) {
-  const lenderName = profile?.organization_name || "Lender account";
-  const lenderEmail = profile?.contact_email || "Connected to your lender profile";
-  const lendingLimit = profile?.max_lending_amount ?? 0;
+export default function LenderWelcomeBanner({ profile }: Props) {
+  const displayName = sessionStorage.getItem("username")?.split(" ")[0] || "there";
+  const lenderName = profile?.organization_name || "Not available";
+  const lendingLimit = Number(profile?.max_lending_amount || 0);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+    <div className="flex flex-col justify-between gap-6 rounded-lg border border-[#dfe7f4] bg-white p-6 shadow-sm xl:flex-row xl:items-center">
       <div>
-        <h2 className="text-xl font-bold text-gray-900">{lenderName}</h2>
-        <p className="text-sm text-gray-500 mt-1">{lenderEmail}</p>
-        <p className="text-sm text-gray-500 mt-1">
-          {pendingCount} pending request{pendingCount === 1 ? "" : "s"} · {availableSmesCount} SME{availableSmesCount === 1 ? "" : "s"} in view · {formatZAR(totalRequested)} requested
-        </p>
+        <h1 className="text-xl font-bold text-[#071942]">
+          Welcome back, {displayName}! <span aria-hidden="true">{"\u{1F44B}"}</span>
+        </h1>
+        <p className="mt-2 text-sm text-[#31456f]">Here's what's happening with your lending portfolio today.</p>
       </div>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div className="text-sm">
-          <p className="text-gray-400 text-xs">Lending Limit</p>
-          <p className="font-semibold text-gray-900">{formatZAR(lendingLimit)}</p>
+
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-[220px_180px_210px_auto] xl:items-center">
+        <div className="border-[#e5ecf7] xl:border-l xl:pl-7">
+          <p className="text-xs font-medium text-[#31456f]">Lender Name</p>
+          <p className="mt-2 text-sm font-semibold text-[#071942]">{lenderName}</p>
         </div>
-        <div className="text-sm">
-          <p className="text-gray-400 text-xs">Minimum Credit Score</p>
-          <p className="font-semibold text-gray-900">{profile?.min_credit_score ?? "N/A"}</p>
+        <div className="border-[#e5ecf7] xl:border-l xl:pl-7">
+          <p className="text-xs font-medium text-[#31456f]">Lender ID</p>
+          <p className="mt-2 text-sm font-semibold text-[#071942]">{profile?.id ? `LND-2024-${String(profile.id).padStart(5, "0")}` : "Not available"}</p>
         </div>
-        <div className="text-sm">
-          <p className="text-gray-400 text-xs">Open Review Queue</p>
-          <p className="font-semibold text-gray-900">{pendingCount}</p>
+        <div className="border-[#e5ecf7] xl:border-l xl:pl-7">
+          <p className="text-xs font-medium text-[#31456f]">Available Balance</p>
+          <p className="mt-2 text-sm font-semibold text-[#071942]">{formatZAR(lendingLimit).replace(/\s/g, "")}</p>
         </div>
         <button
           type="button"
-          className="inline-flex items-center bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-semibold px-4 py-2 rounded-md gap-2 transition-colors"
+          className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#4f63f6] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3851e8]"
         >
-          <Wallet className="w-4 h-4" />
-          Review Pipeline
+          <Landmark className="h-4 w-4" />
+          Fund Your Account
         </button>
       </div>
     </div>

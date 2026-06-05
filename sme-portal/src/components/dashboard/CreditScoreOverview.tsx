@@ -11,7 +11,7 @@ export default function CreditScoreOverview({ score }: CreditScoreOverviewProps)
   const standingColor = score === null ? "text-[#6d7b99]" : numericScore >= 60 ? "text-[#009a65]" : "text-[#d97706]";
 
   return (
-    <div className="flex min-h-[380px] flex-col rounded-2xl border border-[#e9eef8] bg-white px-6 py-5 shadow-sm">
+    <div className="flex min-h-[380px] flex-col rounded-lg border border-[#e9eef8] bg-white px-6 py-5 shadow-sm">
       <div className="mb-6 flex items-center gap-2">
         <h3 className="text-[15px] font-semibold text-[#071942]">Credit Score Overview</h3>
         <Info className="h-4 w-4 text-[#91a1bf]" />
@@ -52,7 +52,7 @@ export default function CreditScoreOverview({ score }: CreditScoreOverviewProps)
         </p>
       </div>
 
-      <button className="mt-4 inline-flex items-center justify-center self-center rounded-2xl border border-[#a9bcf5] bg-white px-5 py-2.5 text-sm font-semibold text-[#315cff] hover:bg-[#f5f7ff]">
+      <button className="mt-4 inline-flex items-center justify-center self-center rounded-md border border-[#a9bcf5] bg-white px-5 py-2.5 text-sm font-semibold text-[#315cff] hover:bg-[#f5f7ff]">
         View Score Details
       </button>
     </div>

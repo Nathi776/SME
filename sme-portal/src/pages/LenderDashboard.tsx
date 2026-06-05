@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BadgePercent, CalendarCheck, Coins, HandCoins, WalletCards } from "lucide-react";
 import LenderLayout from "../components/lender/LenderLayout";
 import LenderWelcomeBanner from "../components/lender/LenderWelcomeBanner";
 import LenderStatCards from "../components/lender/LenderStatCards";
@@ -54,13 +55,49 @@ export default function LenderDashboardPage() {
   }, []);
 
   const totalRequested = pendingRequests.reduce((sum, request) => sum + Number(request.amount_requested || 0), 0);
-  const avgRequest = pendingRequests.length > 0 ? totalRequested / pendingRequests.length : 0;
-  const highRiskCount = availableSmes.filter((sme) => sme.risk_level === "High").length;
+  const lendingLimit = Number(profile?.max_lending_amount || 0);
+  const availableBalance = Math.max(lendingLimit - totalRequested, 0);
   const stats = [
-    { label: "Pending Requests", value: String(pendingRequests.length) },
-    { label: "Requested Exposure", value: formatZAR(totalRequested) },
-    { label: "Average Request", value: formatZAR(avgRequest) },
-    { label: "High Risk SMEs", value: String(highRiskCount) },
+    {
+      label: "Lending Limit",
+      value: formatZAR(lendingLimit).replace(/\s/g, ""),
+      sub: "Configured profile limit",
+      icon: WalletCards,
+      color: "text-[#315cff]",
+      bg: "bg-[#dfe9ff]",
+    },
+    {
+      label: "Pending Exposure",
+      value: formatZAR(totalRequested).replace(/\s/g, ""),
+      sub: `${pendingRequests.length} pending request${pendingRequests.length === 1 ? "" : "s"}`,
+      icon: HandCoins,
+      color: "text-[#16a35d]",
+      bg: "bg-[#d9f7e6]",
+    },
+    {
+      label: "Available Balance",
+      value: formatZAR(availableBalance).replace(/\s/g, ""),
+      sub: "Limit minus pending exposure",
+      icon: Coins,
+      color: "text-[#ff7a00]",
+      bg: "bg-[#ffe9c7]",
+    },
+    {
+      label: "Available SMEs",
+      value: String(availableSmes.length),
+      sub: "Returned for this lender",
+      icon: CalendarCheck,
+      color: "text-[#7c3cff]",
+      bg: "bg-[#eadcff]",
+    },
+    {
+      label: "Min. Credit Score",
+      value: profile?.min_credit_score == null ? "-" : String(profile.min_credit_score),
+      sub: "Configured lending rule",
+      icon: BadgePercent,
+      color: "text-[#315cff]",
+      bg: "bg-[#dfe9ff]",
+    },
   ];
 
   const smesById = availableSmes.reduce<Record<number, AvailableSme>>((accumulator, sme) => {
@@ -70,7 +107,7 @@ export default function LenderDashboardPage() {
 
   return (
     <LenderLayout>
-      <div className="space-y-4">
+      <div className="mx-auto max-w-[1540px] space-y-4 text-[#071942]">
         {error && (
           <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
@@ -85,21 +122,20 @@ export default function LenderDashboardPage() {
         />
         <LenderStatCards stats={stats} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2 space-y-4">
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.6fr_1fr]">
+          <div className="space-y-4">
             <PendingFinancingRequests requests={pendingRequests} smeById={smesById} />
-            <RecentlyFundedDeals smes={availableSmes} />
           </div>
           <div className="space-y-4">
-            <LenderQuickActions />
             <PortfolioSummary profile={profile} pendingRequests={pendingRequests} />
             <RiskDistribution smes={availableSmes} />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1fr_1fr_1.3fr]">
+          <RecentlyFundedDeals smes={availableSmes} />
           <RecentRepayments requests={pendingRequests} />
-          <div className="bg-white rounded-lg border border-gray-100 p-4">Other Insights</div>
+          <LenderQuickActions />
         </div>
       </div>
     </LenderLayout>

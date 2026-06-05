@@ -36,10 +36,7 @@ export default function TopHeader({
         >
           {sidebarCollapsed ? <PanelLeftOpen className="h-6 w-6" /> : <PanelLeftClose className="h-6 w-6" />}
         </button>
-        <div>
-          <h2 className="text-[22px] font-semibold tracking-[-0.01em] text-[#071942]">SME Dashboard</h2>
-          <p className="text-xs text-[#58708f]">Welcome back, manage your business from one place</p>
-        </div>
+        <h2 className="text-[22px] font-semibold text-[#071942]">SME Dashboard</h2>
       </div>
 
       <div className="flex items-center gap-6">
@@ -55,7 +52,7 @@ export default function TopHeader({
           </div>
           <div className="hidden sm:block">
             <p className="text-sm font-semibold leading-tight text-[#071942]">{displayName}</p>
-            <p className="mt-1 text-xs text-[#31456f]">SME Account</p>
+            <p className="mt-1 text-xs text-[#31456f]">Premium Plan</p>
           </div>
           <ChevronDown className="hidden h-4 w-4 text-[#071942] sm:block" />
         </div>

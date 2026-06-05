@@ -9,20 +9,20 @@ export default function LenderLayout({ children }: Props) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 lg:flex">
+    <div className="min-h-screen bg-[#f7f9fc]">
       <LenderSidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((p) => !p)}
       />
-      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
+      <div className={`min-h-screen transition-all duration-300 ${sidebarCollapsed ? "lg:ml-20" : "lg:ml-60"}`}>
         <LenderHeader
           onMenuToggle={() => setSidebarOpen((p) => !p)}
           onSidebarToggle={() => setSidebarCollapsed((p) => !p)}
           sidebarCollapsed={sidebarCollapsed}
         />
-        <main className="flex-1 p-4 lg:p-6">{children}</main>
+        <main className="flex-1 overflow-x-hidden p-4 lg:p-6">{children}</main>
       </div>
     </div>
   );

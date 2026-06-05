@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Bell, FileText, Briefcase, RefreshCw,
   PieChart, ArrowRightLeft, Users, BarChart2, FileBarChart,
-  TrendingUp, User, CreditCard, LogOut, PanelLeftClose, PanelLeftOpen
+  TrendingUp, User, CreditCard, LogOut, Home
 } from "lucide-react";
 import { logout } from "../../utils/auth";
 
@@ -59,40 +59,33 @@ export default function LenderSidebar({ isOpen, onClose, collapsed, onToggleColl
         <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={onClose} />
       )}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full bg-[#0B1437] flex flex-col transition-all duration-300 lg:sticky lg:top-16 lg:z-20 lg:h-[calc(100vh-4rem)] lg:translate-x-0 ${
+        className={`fixed left-0 top-0 z-50 flex h-screen flex-col overflow-hidden bg-[#071b3f] text-white shadow-[10px_0_30px_rgba(7,25,66,0.12)] transition-all duration-300 lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } ${collapsed ? "w-20" : "w-60"}`}
       >
         {/* Logo */}
-        <div className={`border-b border-white/10 ${collapsed ? "flex items-center justify-center py-5" : "flex flex-col items-center py-5"}`}>
-          <div className={`w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center ${collapsed ? "mb-0" : "mb-2"}`}>
-            <span className="text-white font-bold text-lg">S</span>
+        <div className={`${collapsed ? "flex items-center justify-center px-3 py-6" : "flex flex-col items-center px-4 pb-8 pt-6"}`}>
+          <div className={`flex h-12 w-12 items-center justify-center rounded-lg bg-[#8b7cff] shadow-[0_10px_24px_rgba(139,124,255,0.32)] ${collapsed ? "" : "mb-3"}`}>
+            <Home className="h-7 w-7 text-white" />
           </div>
           {!collapsed && (
             <>
-              <h1 className="text-white font-bold text-sm tracking-wide">SME FINANCE</h1>
-              <p className="text-white/40 text-[10px] tracking-widest mt-0.5">LENDER PORTAL</p>
+              <h1 className="text-[20px] font-bold leading-tight tracking-wide text-white">SME FINANCE</h1>
+              <p className="mt-1 text-xs tracking-[0.16em] text-white/75">LENDER PORTAL</p>
             </>
           )}
-          <button
-            onClick={onToggleCollapse}
-            className="hidden lg:inline-flex mt-2 items-center justify-center rounded-md p-2 text-white/60 hover:bg-white/10"
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {collapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
-          </button>
         </div>
 
         {/* Navigation */}
-        <nav className={`flex-1 overflow-y-auto py-4 ${collapsed ? "px-2" : "px-3"} space-y-4`}>
+        <nav className={`flex-1 overflow-y-auto ${collapsed ? "px-2" : "px-4"} space-y-6`}>
           {navSections.map((section, sIdx) => (
             <div key={sIdx}>
               {!collapsed && (
-                <p className="text-white/30 text-[10px] font-semibold tracking-widest uppercase px-3 mb-1.5">
+                <p className="mb-2 px-1 text-[11px] font-medium uppercase tracking-wide text-white/55">
                   {section.label}
                 </p>
               )}
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 {section.items.map((item) => {
                   const active = location.pathname === item.path;
                   const Icon = item.icon as any;
@@ -102,16 +95,16 @@ export default function LenderSidebar({ isOpen, onClose, collapsed, onToggleColl
                       to={item.path}
                       onClick={onClose}
                       title={collapsed ? item.label : undefined}
-                      className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} rounded-lg py-2.5 text-sm font-medium transition-all duration-200 ${
                         active
-                          ? "bg-[#4F46E5] text-white shadow-lg shadow-[#4F46E5]/30"
-                          : "text-white/60 hover:bg-white/10 hover:text-white"
+                          ? "bg-[#4f63f6] text-white shadow-[0_12px_24px_rgba(79,99,246,0.3)]"
+                          : "text-white/85 hover:bg-white/10 hover:text-white"
                       }`}
                     >
                       <Icon className="w-[17px] h-[17px] shrink-0" />
                       {!collapsed && <span className="flex-1">{item.label}</span>}
                       {item.badge && (
-                        <span className={`bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full ${collapsed ? "hidden" : ""}`}>
+                        <span className={`rounded-full bg-red-500 px-1.5 py-0.5 text-[10px] font-bold text-white ${collapsed ? "hidden" : ""}`}>
                           {item.badge}
                         </span>
                       )}
@@ -124,11 +117,11 @@ export default function LenderSidebar({ isOpen, onClose, collapsed, onToggleColl
         </nav>
 
         {/* Logout */}
-        <div className={`p-3 border-t border-white/10 ${collapsed ? "flex justify-center" : ""}`}>
+        <div className={`mx-4 border-t border-white/10 py-4 ${collapsed ? "flex justify-center" : ""}`}>
           <button
             onClick={logout}
             title={collapsed ? "Logout" : undefined}
-            className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} py-2.5 rounded-lg text-sm font-medium text-red-400 hover:bg-red-500/10 w-full transition-colors`}
+            className={`flex w-full items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} rounded-lg py-2.5 text-sm font-medium text-[#ff5a5a] transition-colors hover:bg-red-500/10`}
           >
             <LogOut className="w-[17px] h-[17px]" />
             {!collapsed && <span>Logout</span>}

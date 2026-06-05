@@ -70,11 +70,11 @@ export default function StatCards({
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
       {stats.map((s, i) => (
         <div
           key={s.label}
-          className="flex min-h-[160px] flex-col justify-between rounded-2xl border border-[#e9eef8] bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+          className="flex min-h-[146px] flex-col justify-between rounded-lg border border-[#e9eef8] bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
         >
           <div className="flex items-start gap-4">
             <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${s.iconBg}`}>
@@ -85,7 +85,7 @@ export default function StatCards({
             </div>
           </div>
           <div className="mt-4">
-            <p className="text-[34px] font-semibold leading-tight text-[#071942]">
+            <p className="text-[28px] font-semibold leading-tight text-[#071942]">
               {s.value}
               {s.suffix && <span className="text-base font-medium text-[#31456f]">{s.suffix}</span>}
             </p>
