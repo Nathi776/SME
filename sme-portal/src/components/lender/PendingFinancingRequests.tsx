@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { formatZAR } from "../../utils/format";
+import { FinanceApi } from "../../api/financeApi";
 import type { FinanceRequest, AvailableSme } from "../../api/lenderApi";
 
 type Props = {
   requests: FinanceRequest[];
   smeById: Record<number, AvailableSme>;
+  onAction?: () => void;
 };
 
 const fallbackRows = [
@@ -30,7 +32,7 @@ function formatDate(value: string) {
   });
 }
 
-export default function PendingFinancingRequests({ requests, smeById }: Props) {
+export default function PendingFinancingRequests({ requests, smeById, onAction }: Props) {
   const liveRows = [...requests]
     .sort((a, b) => b.created_at.localeCompare(a.created_at))
     .slice(0, 5)
@@ -101,7 +103,38 @@ export default function PendingFinancingRequests({ requests, smeById }: Props) {
                     >
                       Review
                     </Link>
-                    <button type="button" className="inline-flex h-8 items-center rounded border border-[#ff3b30] px-3 text-xs font-semibold text-[#ff1616] hover:bg-[#fff2f2]">
+                    <button
+                      type="button"
+                      className="inline-flex h-8 items-center rounded border border-[#16a34a] px-3 text-xs font-semibold text-[#0b6b2f] hover:bg-[#f0fff4]"
+                      onClick={async () => {
+                        if (!confirm("Approve this financing request for the full requested amount?")) return;
+                        try {
+                          await FinanceApi.approve(row.id, row.amount);
+                          alert("Request approved");
+                          if (onAction) onAction();
+                        } catch (err) {
+                          console.error(err);
+                          alert("Failed to approve request");
+                        }
+                      }}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex h-8 items-center rounded border border-[#ff3b30] px-3 text-xs font-semibold text-[#ff1616] hover:bg-[#fff2f2]"
+                      onClick={async () => {
+                        if (!confirm("Reject this financing request?")) return;
+                        try {
+                          await FinanceApi.reject(row.id);
+                          alert("Request rejected");
+                          if (onAction) onAction();
+                        } catch (err) {
+                          console.error(err);
+                          alert("Failed to reject request");
+                        }
+                      }}
+                    >
                       Reject
                     </button>
                   </div>

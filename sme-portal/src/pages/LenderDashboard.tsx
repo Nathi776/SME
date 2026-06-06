@@ -22,7 +22,7 @@ export default function LenderDashboardPage() {
   useEffect(() => {
     let isMounted = true;
 
-    const loadDashboard = async () => {
+    async function loadDashboard() {
       try {
         const [profileResponse, requestsResponse, smesResponse] = await Promise.all([
           LenderApi.getProfile(),
@@ -30,22 +30,17 @@ export default function LenderDashboardPage() {
           LenderApi.getAvailableSMEs(),
         ]);
 
-        if (!isMounted) {
-          return;
-        }
+        if (!isMounted) return;
 
         setProfile(profileResponse.data);
         setPendingRequests(requestsResponse.data ?? []);
         setAvailableSmes(smesResponse.data ?? []);
         setError(null);
       } catch (requestError) {
-        if (!isMounted) {
-          return;
-        }
-
+        if (!isMounted) return;
         setError(requestError instanceof Error ? requestError.message : "Failed to load lender dashboard");
       }
-    };
+    }
 
     void loadDashboard();
 
@@ -124,7 +119,10 @@ export default function LenderDashboardPage() {
 
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.6fr_1fr]">
           <div className="space-y-4">
-            <PendingFinancingRequests requests={pendingRequests} smeById={smesById} />
+            <PendingFinancingRequests requests={pendingRequests} smeById={smesById} onAction={() => void (async () => {
+              const [ , requestsResponse ] = await Promise.all([LenderApi.getProfile(), LenderApi.getPendingRequests()]);
+              setPendingRequests(requestsResponse.data ?? []);
+            })()} />
           </div>
           <div className="space-y-4">
             <PortfolioSummary profile={profile} pendingRequests={pendingRequests} />
