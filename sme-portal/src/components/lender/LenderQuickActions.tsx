@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { BadgeDollarSign, FileText, ShieldCheck, WalletCards } from "lucide-react";
 
 const actions = [
@@ -9,6 +10,8 @@ const actions = [
 ];
 
 export default function LenderQuickActions() {
+  const navigate = useNavigate();
+
   return (
     <div className="rounded-lg border border-[#e9eef8] bg-white p-5 shadow-sm">
       <h3 className="text-[15px] font-semibold text-[#071942]">Quick Actions</h3>
@@ -17,6 +20,11 @@ export default function LenderQuickActions() {
           <button
             key={action.label}
             type="button"
+            onClick={() => {
+              if (action.label === "Review Requests") {
+                navigate("/lender/decision-engine");
+              }
+            }}
             className="flex h-[72px] items-center gap-4 rounded-md border border-[#d8e2f3] bg-[#f8faff] px-4 text-left transition hover:border-[#a9bcf5] hover:bg-white"
           >
             <action.icon className="h-6 w-6 shrink-0 text-[#315cff]" />

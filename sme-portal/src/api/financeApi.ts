@@ -34,4 +34,6 @@ export const FinanceApi = {
 
   reject: (requestId: number) =>
     api.put<FinanceRequest>(`/finance/reject/${requestId}`, {}),
+
+  fund: (requestId: number) => api.put<FinanceRequest>(`/finance/funded/${requestId}`, {}),
 };

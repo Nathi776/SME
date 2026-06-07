@@ -8,6 +8,7 @@ from models.invoice import Invoice
 from models.sme import SME
 from models.user import User
 from services.auth_service import get_current_user
+from services.finance_service import mark_finance_request_paid
 
 router = APIRouter(prefix="/invoices", tags=["Invoices"])
 
@@ -23,6 +24,13 @@ class InvoiceUpdate(BaseModel):
     status: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+def _mark_related_finance_requests_paid(db: Session, invoice: Invoice) -> None:
+    for finance_request in invoice.finance_requests:
+        # Only mark related finance requests as paid when they have been funded.
+        if finance_request.status == "funded":
+            mark_finance_request_paid(db, finance_request.id)
 
 # ---------- Create Invoice ----------
 @router.post("/")
@@ -101,11 +109,40 @@ def update_invoice(
     if not sme or sme.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="You can only update your own invoices")
 
+    mark_related_finance_requests_paid = request.status == "paid"
+
     for key, value in request.model_dump(exclude_unset=True).items():
         setattr(invoice, key, value)
     db.commit()
     db.refresh(invoice)
+
+    if mark_related_finance_requests_paid:
+        _mark_related_finance_requests_paid(db, invoice)
+
     return {"message": "Invoice updated successfully", "invoice": invoice}
+
+# ---------- Mark Invoice Paid ----------
+@router.put("/{invoice_id}/paid")
+def mark_invoice_paid(
+    invoice_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    invoice = db.query(Invoice).filter(Invoice.id == invoice_id).first()
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    sme = db.query(SME).filter(SME.id == invoice.sme_id).first()
+    if not sme or sme.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="You can only update your own invoices")
+
+    invoice.status = "paid"
+    db.commit()
+    db.refresh(invoice)
+
+    _mark_related_finance_requests_paid(db, invoice)
+
+    return {"message": "Invoice marked as paid successfully", "invoice": invoice}
 
 # ---------- Delete Invoice ----------
 @router.delete("/{invoice_id}")

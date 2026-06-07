@@ -11,6 +11,14 @@ import Dashboard from "./pages/Dashboard";
 import LenderDashboard from "./pages/LenderDashboard";
 import LenderSMEDetailPage from "./pages/LenderSMEDetailPage";
 import AnalyticsDashboard from "./pages/AnalyticsDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminVerifications from "./pages/AdminVerifications";
+import DocumentsPage from "./pages/DocumentsPage";
+import TransactionsPage from "./pages/TransactionsPage";
+import MessagesPage from "./pages/MessagesPage";
+import CreditScorePage from "./pages/CreditScorePage";
+import CreditScoreDetails from "./pages/CreditScoreDetails";
+import LenderDecisionEngine from "./pages/LenderDecisionEngine";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import AppLayout from "./components/layout/AppLayout";
@@ -38,12 +46,20 @@ function App() {
           <Route path="/finance" element={<FinanceRequestPage />} />
           <Route path="/finance-requests" element={<FinanceRequestPage />} />
           <Route path="/analytics" element={<AnalyticsDashboard />} />
+          <Route path="/credit-score" element={<CreditScorePage />} />
+          <Route path="/credit-score/details" element={<CreditScoreDetails />} />
+          <Route path="/documents" element={<DocumentsPage />} />
+          <Route path="/transactions" element={<TransactionsPage />} />
+          <Route path="/messages" element={<MessagesPage />} />
         </Route>
 
         <Route path="/smes/:id" element={<ProtectedRoute roles={["admin", "lender"]}><SmeDetailPage /></ProtectedRoute>} />
   <Route path="/lender" element={<Navigate to="/lender/dashboard" replace />} />
         <Route path="/lender/dashboard" element={<ProtectedRoute roles={["lender"]}><LenderDashboard /></ProtectedRoute>} />
         <Route path="/lender/sme/:smeId" element={<ProtectedRoute roles={["lender", "admin"]}><LenderSMEDetailPage /></ProtectedRoute>} />
+        <Route path="/lender/decision-engine" element={<ProtectedRoute roles={["lender"]}><LenderDecisionEngine /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute roles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin/verifications" element={<ProtectedRoute roles={["admin"]}><AdminVerifications /></ProtectedRoute>} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

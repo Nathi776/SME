@@ -73,5 +73,9 @@ export const SMEApi = {
   getSmeInvoices: (id: number) => api.get(`/invoices/sme/${id}`),
 
   getCreditScore: (id: number) => api.get(`/credit-scores/sme/${id}`),
+  getCreditDecision: (id: number) => api.get(`/credit-scores/decision/${id}`),
+  getCreditScoreDetails: (id: number) => api.get(`/credit-scores/details/${id}`),
   getFinanceRequests: (id: number) => api.get(`/finance/requests/${id}`)
+  ,
+  calculateCreditScore: (id: number) => api.post(`/credit-scores/calculate/${id}`),
 };

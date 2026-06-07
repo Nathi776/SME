@@ -172,7 +172,7 @@ def sme_dashboard(
         (
             request.approved_amount
             for request in finance_requests
-            if request.approved_amount is not None and request.status in {"approved", "paid"}
+            if request.approved_amount is not None and request.status in {"funded", "paid", "closed", "completed"}
         ),
         Decimal("0.00"),
     )
@@ -227,10 +227,16 @@ def sme_dashboard(
         label = request.invoice.client_name if request.invoice else f"Invoice #{request.invoice_id}"
         if request.status == "approved":
             activity_text = f"Finance request for {label} was approved"
+        elif request.status == "funded":
+            activity_text = f"Finance request for {label} was funded"
+        elif request.status == "paid":
+            activity_text = f"Finance request for {label} was repaid"
+        elif request.status == "closed":
+            activity_text = f"Finance request for {label} was closed"
+        elif request.status == "completed":
+            activity_text = f"Finance request for {label} was repaid"
         elif request.status == "rejected":
             activity_text = f"Finance request for {label} was rejected"
-        elif request.status == "paid":
-            activity_text = f"Finance request for {label} was paid"
         else:
             activity_text = f"Finance request for {label} was submitted"
         activity_items.append(

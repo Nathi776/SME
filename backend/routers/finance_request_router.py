@@ -14,10 +14,10 @@ from services.finance_service import (
     get_pending_finance_requests,
     approve_finance_request,
     reject_finance_request,
-    mark_finance_request_paid,
     calculate_fee_rate,
     calculate_eligible_amount
 )
+from services.finance_service import mark_finance_request_funded, mark_finance_request_paid, mark_finance_request_closed
 
 router = APIRouter(prefix="/finance", tags=["Finance Requests"])
 
@@ -29,6 +29,9 @@ class FinanceRequestCreate(BaseModel):
 
 class FinanceRequestApprove(BaseModel):
     approved_amount: Decimal = Field(..., ge=0)
+
+class FinanceRequestPaid(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
 
 class FinanceRequestResponse(BaseModel):
     id: int
@@ -159,6 +162,77 @@ def reject_request(
     
     try:
         req = reject_finance_request(db, request_id, lender.id)
+        return req
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.put("/funded/{request_id}", response_model=FinanceRequestResponse)
+def mark_request_funded(
+    request_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Mark an approved finance request as funded by the lender."""
+    if current_user.role not in {"lender", "admin"}:
+        raise HTTPException(status_code=403, detail="Only lenders or admins can mark requests as funded")
+
+    if current_user.role == "lender":
+        from models.lender import Lender
+
+        lender = db.query(Lender).filter(Lender.user_id == current_user.id).first()
+        if not lender:
+            raise HTTPException(status_code=404, detail="Lender profile not found")
+
+    try:
+        req = mark_finance_request_funded(db, request_id)
+        return req
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.put("/paid/{request_id}", response_model=FinanceRequestResponse)
+def mark_request_paid(
+    request_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Mark a funded finance request as paid (repayment event)."""
+    if current_user.role not in {"lender", "admin"}:
+        raise HTTPException(status_code=403, detail="Only lenders or admins can mark requests as paid")
+
+    if current_user.role == "lender":
+        from models.lender import Lender
+
+        lender = db.query(Lender).filter(Lender.user_id == current_user.id).first()
+        if not lender:
+            raise HTTPException(status_code=404, detail="Lender profile not found")
+
+    try:
+        req = mark_finance_request_paid(db, request_id)
+        return req
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.put("/closed/{request_id}", response_model=FinanceRequestResponse)
+def mark_request_closed(
+    request_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Close a paid finance request after settlement is fully finalized."""
+    if current_user.role not in {"lender", "admin"}:
+        raise HTTPException(status_code=403, detail="Only lenders or admins can close requests")
+
+    if current_user.role == "lender":
+        from models.lender import Lender
+
+        lender = db.query(Lender).filter(Lender.user_id == current_user.id).first()
+        if not lender:
+            raise HTTPException(status_code=404, detail="Lender profile not found")
+
+    try:
+        req = mark_finance_request_closed(db, request_id)
         return req
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

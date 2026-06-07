@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { formatZAR } from "../../utils/format";
 import { FinanceApi } from "../../api/financeApi";
@@ -33,6 +33,12 @@ function formatDate(value: string) {
 }
 
 export default function PendingFinancingRequests({ requests, smeById, onAction }: Props) {
+  const [pendingAction, setPendingAction] = useState<null | {
+    kind: "approve" | "fund" | "reject";
+    requestId: number;
+    amount?: number;
+  }>(null);
+
   const liveRows = [...requests]
     .sort((a, b) => b.created_at.localeCompare(a.created_at))
     .slice(0, 5)
@@ -50,8 +56,75 @@ export default function PendingFinancingRequests({ requests, smeById, onAction }
     });
   const rows = liveRows.length > 0 ? liveRows : fallbackRows;
 
+  const actionText =
+    pendingAction?.kind === "approve"
+      ? "Approve this financing request for the full requested amount?"
+      : pendingAction?.kind === "fund"
+      ? "Mark this approved request as funded?"
+      : "Reject this financing request?";
+
+  const runPendingAction = async () => {
+    if (!pendingAction) return;
+
+    try {
+      if (pendingAction.kind === "approve") {
+        await FinanceApi.approve(pendingAction.requestId, pendingAction.amount ?? 0);
+        alert("Request approved");
+      } else if (pendingAction.kind === "fund") {
+        await FinanceApi.fund(pendingAction.requestId);
+        alert("Request marked as funded");
+      } else {
+        await FinanceApi.reject(pendingAction.requestId);
+        alert("Request rejected");
+      }
+
+      if (onAction) onAction();
+    } catch (err) {
+      console.error(err);
+      alert(
+        pendingAction.kind === "reject"
+          ? "Failed to reject request"
+          : pendingAction.kind === "fund"
+          ? "Failed to mark as funded"
+          : "Failed to approve request"
+      );
+    } finally {
+      setPendingAction(null);
+    }
+  };
+
   return (
     <div className="rounded-lg border border-[#e9eef8] bg-white p-5 shadow-sm">
+      {pendingAction && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 px-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+            <h4 className="text-lg font-semibold text-[#071942]">Confirm action</h4>
+            <p className="mt-2 text-sm text-[#31456f]">{actionText}</p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                className="inline-flex h-9 items-center rounded border border-[#d8e1f2] px-4 text-sm font-semibold text-[#31456f] hover:bg-[#f7f9fd]"
+                onClick={() => setPendingAction(null)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className={`inline-flex h-9 items-center rounded px-4 text-sm font-semibold text-white ${
+                  pendingAction.kind === "reject"
+                    ? "bg-[#ff3b30] hover:bg-[#e62d24]"
+                    : pendingAction.kind === "fund"
+                    ? "bg-[#0b84ff] hover:bg-[#086fd1]"
+                    : "bg-[#16a34a] hover:bg-[#12813a]"
+                }`}
+                onClick={runPendingAction}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h3 className="text-[15px] font-semibold text-[#071942]">Pending Financing Requests</h3>
@@ -107,32 +180,25 @@ export default function PendingFinancingRequests({ requests, smeById, onAction }
                       type="button"
                       className="inline-flex h-8 items-center rounded border border-[#16a34a] px-3 text-xs font-semibold text-[#0b6b2f] hover:bg-[#f0fff4]"
                       onClick={async () => {
-                        if (!confirm("Approve this financing request for the full requested amount?")) return;
-                        try {
-                          await FinanceApi.approve(row.id, row.amount);
-                          alert("Request approved");
-                          if (onAction) onAction();
-                        } catch (err) {
-                          console.error(err);
-                          alert("Failed to approve request");
-                        }
+                        setPendingAction({ kind: "approve", requestId: row.id, amount: row.amount });
                       }}
                     >
                       Approve
                     </button>
                     <button
                       type="button"
+                      className="inline-flex h-8 items-center rounded border border-[#0b84ff] px-3 text-xs font-semibold text-[#0b5ecf] hover:bg-[#f0f6ff]"
+                      onClick={async () => {
+                        setPendingAction({ kind: "fund", requestId: row.id });
+                      }}
+                    >
+                      Fund
+                    </button>
+                    <button
+                      type="button"
                       className="inline-flex h-8 items-center rounded border border-[#ff3b30] px-3 text-xs font-semibold text-[#ff1616] hover:bg-[#fff2f2]"
                       onClick={async () => {
-                        if (!confirm("Reject this financing request?")) return;
-                        try {
-                          await FinanceApi.reject(row.id);
-                          alert("Request rejected");
-                          if (onAction) onAction();
-                        } catch (err) {
-                          console.error(err);
-                          alert("Failed to reject request");
-                        }
+                        setPendingAction({ kind: "reject", requestId: row.id });
                       }}
                     >
                       Reject

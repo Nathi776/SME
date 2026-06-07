@@ -166,16 +166,54 @@ def reject_finance_request(db: Session, request_id: int, lender_id: int):
     db.refresh(req)
     return req
 
-def mark_finance_request_paid(db: Session, request_id: int):
-    """Mark finance request as paid when invoice is paid."""
+def mark_finance_request_funded(db: Session, request_id: int):
+    """Mark an approved finance request as funded by the lender."""
     req = db.query(FinanceRequest).filter(FinanceRequest.id == request_id).first()
     if not req:
         raise ValueError("Finance request not found")
-    
+
     if req.status != "approved":
-        raise ValueError("Only approved requests can be marked as paid")
-    
+        raise ValueError("Only approved requests can be marked as funded")
+
+    req.status = "funded"
+    db.commit()
+    db.refresh(req)
+    return req
+
+
+def mark_finance_request_paid(db: Session, request_id: int):
+    """Mark a funded finance request as paid when the invoice is settled by the client."""
+    req = db.query(FinanceRequest).filter(FinanceRequest.id == request_id).first()
+    if not req:
+        raise ValueError("Finance request not found")
+
+    if req.status != "funded":
+        raise ValueError("Only funded requests can be marked as paid")
+
+    if req.invoice:
+        req.invoice.status = "paid"
+
     req.status = "paid"
     db.commit()
     db.refresh(req)
     return req
+
+
+def mark_finance_request_closed(db: Session, request_id: int):
+    """Mark a paid finance request as closed to finalize the lifecycle."""
+    req = db.query(FinanceRequest).filter(FinanceRequest.id == request_id).first()
+    if not req:
+        raise ValueError("Finance request not found")
+
+    if req.status != "paid":
+        raise ValueError("Only paid requests can be closed")
+
+    req.status = "closed"
+    db.commit()
+    db.refresh(req)
+    return req
+
+
+def mark_finance_request_completed(db: Session, request_id: int):
+    """Backward-compatible alias for legacy code paths now mapped to paid."""
+    return mark_finance_request_paid(db, request_id)

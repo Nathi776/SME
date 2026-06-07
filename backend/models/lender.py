@@ -15,3 +15,4 @@ class Lender(Base):
 
     user = relationship("User", back_populates="lender_profile")
     approvals = relationship("FinanceRequest", back_populates="lender")
+    verifications = relationship("Verification", back_populates="lender", cascade="all, delete-orphan")

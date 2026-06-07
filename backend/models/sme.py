@@ -17,6 +17,7 @@ class SME(Base):
     invoices = relationship("Invoice", back_populates="sme", cascade="all, delete-orphan")
     credit_scores = relationship("CreditScore", back_populates="sme", cascade="all, delete-orphan")
     finance_requests = relationship("FinanceRequest", back_populates="sme", cascade="all, delete-orphan")
+    verifications = relationship("Verification", back_populates="sme", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<SME(id={self.id}, name='{self.name}', industry='{self.industry}', revenue={self.revenue})>"

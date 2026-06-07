@@ -244,7 +244,17 @@ export default function FinanceRequestPage() {
                           <TableCell>
                             <Chip
                               label={req.status}
-                              color={req.status === "approved" ? "success" : req.status === "pending" ? "warning" : "error"}
+                              color={
+                                req.status === "completed"
+                                  ? "success"
+                                  : req.status === "funded"
+                                  ? "info"
+                                  : req.status === "approved"
+                                  ? "primary"
+                                  : req.status === "pending"
+                                  ? "warning"
+                                  : "error"
+                              }
                               size="small"
                             />
                           </TableCell>
