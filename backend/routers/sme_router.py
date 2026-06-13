@@ -41,6 +41,17 @@ class DashboardInvoiceItem(BaseModel):
     client_name: str
     amount: Decimal
     status: str | None
+    invoice_number: str | None = None
+    issue_date: datetime | None = None
+    due_date: datetime | None = None
+    currency: str | None = "ZAR"
+    customer_company: str | None = None
+    contact_person: str | None = None
+    email: str | None = None
+    phone: str | None = None
+    customer_industry: str | None = None
+    payment_terms: int | None = None
+    pdf_url: str | None = None
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
@@ -191,6 +202,17 @@ def sme_dashboard(
             client_name=invoice.client_name,
             amount=invoice.amount,
             status=invoice.status,
+            invoice_number=invoice.invoice_number,
+            issue_date=invoice.issue_date,
+            due_date=invoice.due_date,
+            currency=invoice.currency,
+            customer_company=invoice.customer_company,
+            contact_person=invoice.contact_person,
+            email=invoice.email,
+            phone=invoice.phone,
+            customer_industry=invoice.customer_industry,
+            payment_terms=invoice.payment_terms,
+            pdf_url=invoice.pdf_url,
             created_at=invoice.created_at,
         )
         for invoice in invoices[:4]

@@ -5,6 +5,7 @@ import ChooseRolePage from "./pages/ChooseRolePage";
 import SmeRegisterPage from "./pages/SmeRegisterPage";
 import LenderRegisterPage from "./pages/LenderRegisterPage";
 import InvoicePage from "./pages/InvoicePage";
+import UploadInvoicePage from "./pages/UploadInvoicePage";
 import SmeDetailPage from "./pages/SmeDetailPage";
 import FinanceRequestPage from "./pages/FinanceRequestPage";
 import Dashboard from "./pages/Dashboard";
@@ -19,6 +20,7 @@ import MessagesPage from "./pages/MessagesPage";
 import CreditScorePage from "./pages/CreditScorePage";
 import CreditScoreDetails from "./pages/CreditScoreDetails";
 import LenderDecisionEngine from "./pages/LenderDecisionEngine";
+import CustomersPage from "./pages/CustomersPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import AppLayout from "./components/layout/AppLayout";
@@ -43,6 +45,7 @@ function App() {
         >
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/invoices" element={<InvoicePage />} />
+          <Route path="/invoices/upload" element={<UploadInvoicePage />} />
           <Route path="/finance" element={<FinanceRequestPage />} />
           <Route path="/finance-requests" element={<FinanceRequestPage />} />
           <Route path="/analytics" element={<AnalyticsDashboard />} />
@@ -51,6 +54,7 @@ function App() {
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/customers" element={<CustomersPage />} />
         </Route>
 
         <Route path="/smes/:id" element={<ProtectedRoute roles={["admin", "lender"]}><SmeDetailPage /></ProtectedRoute>} />

@@ -52,7 +52,7 @@ export default function TopHeader({
           </div>
           <div className="hidden sm:block">
             <p className="text-sm font-semibold leading-tight text-[#071942]">{displayName}</p>
-            <p className="mt-1 text-xs text-[#31456f]">Premium Plan</p>
+            <p className="mt-1 text-xs text-[#31456f]">SME Account</p>
           </div>
           <ChevronDown className="hidden h-4 w-4 text-[#071942] sm:block" />
         </div>

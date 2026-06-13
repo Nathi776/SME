@@ -23,7 +23,7 @@ def calculate_fee_rate(credit_score: int | None) -> Decimal:
     Calculate fee rate based on credit score.
     Score 0-40: 8% fee (high risk)
     Score 40-60: 5% fee (medium risk)
-    Score 60-80: 3% fee (low risk)
+    Score 60-80: 2.5% fee (low risk)
     Score 80+: 1.5% fee (very low risk)
     """
     if credit_score is None:
@@ -34,7 +34,7 @@ def calculate_fee_rate(credit_score: int | None) -> Decimal:
     elif credit_score < 60:
         return Decimal("0.05")
     elif credit_score < 80:
-        return Decimal("0.03")
+        return Decimal("0.025")
     else:
         return Decimal("0.015")
 
@@ -58,7 +58,15 @@ def calculate_eligible_amount(invoice_amount: Decimal | float | int, credit_scor
     else:
         return invoice_amount * Decimal("0.90")
 
-def create_finance_request(db: Session, sme_id: int, amount: Decimal | float | int, invoice_id: int):
+def create_finance_request(
+    db: Session, 
+    sme_id: int, 
+    amount: Decimal | float | int, 
+    invoice_id: int,
+    purpose_of_funding: str | None = None,
+    preferred_payout_date: datetime | None = None,
+    additional_notes: str | None = None
+):
     """Create a new financing request."""
     amount = _to_decimal(amount)
     sme = db.query(SME).filter(SME.id == sme_id).first()
@@ -96,6 +104,9 @@ def create_finance_request(db: Session, sme_id: int, amount: Decimal | float | i
         amount_requested=amount,
         approved_amount=None,
         fee_rate=fee_rate,
+        purpose_of_funding=purpose_of_funding,
+        preferred_payout_date=preferred_payout_date,
+        additional_notes=additional_notes,
         status="pending",
         credit_score_id=latest_score.id if latest_score else None
     )

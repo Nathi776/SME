@@ -26,6 +26,9 @@ router = APIRouter(prefix="/finance", tags=["Finance Requests"])
 class FinanceRequestCreate(BaseModel):
     invoice_id: int
     amount: Decimal = Field(..., ge=0)
+    purpose_of_funding: str | None = None
+    preferred_payout_date: datetime | None = None
+    additional_notes: str | None = None
 
 class FinanceRequestApprove(BaseModel):
     approved_amount: Decimal = Field(..., ge=0)
@@ -44,6 +47,9 @@ class FinanceRequestResponse(BaseModel):
     lender_id: int | None
     created_at: datetime
     approved_at: datetime | None
+    purpose_of_funding: str | None = None
+    preferred_payout_date: datetime | None = None
+    additional_notes: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -76,7 +82,15 @@ def apply_for_finance(
         raise HTTPException(status_code=404, detail="SME profile not found")
     
     try:
-        finance_req = create_finance_request(db, sme.id, request.amount, request.invoice_id)
+        finance_req = create_finance_request(
+            db, 
+            sme.id, 
+            request.amount, 
+            request.invoice_id,
+            purpose_of_funding=request.purpose_of_funding,
+            preferred_payout_date=request.preferred_payout_date,
+            additional_notes=request.additional_notes
+        )
         return {
             "message": "Finance request submitted",
             "request_id": finance_req.id,
@@ -100,7 +114,7 @@ def list_finance_requests(
         if not sme or sme.id != sme_id:
             raise HTTPException(status_code=403, detail="You can only view your own requests")
     
-    if current_user.role not in {"sme", "lender"}:
+    if current_user.role not in {"sme", "lender", "admin"}:
         raise HTTPException(status_code=403, detail="Unauthorized to view finance requests")
 
     return get_finance_requests(db, sme_id)

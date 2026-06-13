@@ -16,6 +16,9 @@ class FinanceRequest(Base):
     net_amount = Column(Numeric(18, 2), default=0)
 
     status = Column(String, default="pending")
+    purpose_of_funding = Column(String, nullable=True)
+    preferred_payout_date = Column(DateTime, nullable=True)
+    additional_notes = Column(String, nullable=True)
     
     lender_id = Column(Integer, ForeignKey("lenders.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

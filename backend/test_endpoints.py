@@ -130,29 +130,32 @@ def admin_token():
     return login.json()["access_token"]
 
 
-def test_credit_score_generation(sme_id):
-    res = requests.post(f"{BASE_URL}/credit-scores/calculate/{sme_id}")
+def test_credit_score_generation(sme_id, token):
+    headers = {"Authorization": f"Bearer {token}"}
+    res = requests.post(f"{BASE_URL}/credit-scores/calculate/{sme_id}", headers=headers)
     assert res.status_code == 200
     data = res.json()
     assert "score" in data
 
 
-def test_credit_score_history_and_latest(sme_id):
-    history = requests.get(f"{BASE_URL}/credit-scores/history/{sme_id}")
+def test_credit_score_history_and_latest(sme_id, token):
+    headers = {"Authorization": f"Bearer {token}"}
+    history = requests.get(f"{BASE_URL}/credit-scores/history/{sme_id}", headers=headers)
     assert history.status_code == 200
     history_data = history.json()
     assert isinstance(history_data, list)
     assert len(history_data) >= 1
 
-    latest = requests.get(f"{BASE_URL}/credit-scores/latest/{sme_id}")
+    latest = requests.get(f"{BASE_URL}/credit-scores/latest/{sme_id}", headers=headers)
     assert latest.status_code == 200
     latest_data = latest.json()
     assert latest_data["sme_id"] == sme_id
     assert "latest_score" in latest_data
 
 
-def test_credit_score_details_endpoint(sme_id):
-    res = requests.get(f"{BASE_URL}/credit-scores/details/{sme_id}")
+def test_credit_score_details_endpoint(sme_id, token):
+    headers = {"Authorization": f"Bearer {token}"}
+    res = requests.get(f"{BASE_URL}/credit-scores/details/{sme_id}", headers=headers)
     assert res.status_code == 200
     data = res.json()
     assert "score" in data

@@ -37,35 +37,12 @@ def calculate_score_breakdown(revenue: Decimal | float | int, years_active: int,
     breakdown: dict[str, dict[str, float]] = {}
 
     # Revenue consistency contribution
-    if revenue >= Decimal("500000"):
-        rev_score = 25
-    elif revenue >= Decimal("100000"):
-        rev_score = 15
-    else:
-        rev_score = 5
-    breakdown["Revenue Consistency"] = {"value": float(revenue), "contribution": rev_score}
+    rev_boost = min(revenue / Decimal("100000"), Decimal("30"))
+    breakdown["Revenue Consistency"] = {"value": float(revenue), "contribution": float(rev_boost)}
 
     # Business age contribution
-    if years_active > 5:
-        age_score = 10
-    elif years_active > 2:
-        age_score = 5
-    else:
-        age_score = 2
-    breakdown["Business Age"] = {"value": years_active, "contribution": age_score}
-
-    # Invoice payment history (on-time)
-    on_time_ratio = 1.0
-    if total_invoices and total_invoices > 0:
-        on_time_ratio = max(0.0, 1.0 - (unpaid_invoices / total_invoices))
-
-    if on_time_ratio >= 0.9:
-        invoice_score = 20
-    elif on_time_ratio >= 0.7:
-        invoice_score = 10
-    else:
-        invoice_score = 5
-    breakdown["Invoice Payment History"] = {"value": float(on_time_ratio), "contribution": invoice_score}
+    age_boost = min(years_active * 2, 10)
+    breakdown["Business Age"] = {"value": years_active, "contribution": float(age_boost)}
 
     # Unpaid invoices penalty
     unpaid_penalty = unpaid_invoices * 2

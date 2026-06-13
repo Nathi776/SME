@@ -53,6 +53,7 @@ export default function Sidebar({
   const location = useLocation();
   const navigate = useNavigate();
 
+
   return (
     <>
       {isOpen && (
@@ -81,7 +82,7 @@ export default function Sidebar({
         </div>
 
         {/* Navigation */}
-        <nav className={`flex-1 min-h-0 overflow-y-auto ${collapsed ? "px-2" : "px-3"} space-y-7`}>
+        <nav className={`flex-1 min-h-0 overflow-y-auto ${collapsed ? "px-2" : "px-3"} py-4 space-y-7`}>
           {navSections.map((section, sIdx) => (
             <div key={sIdx}>
               {section.label && !collapsed && (
@@ -91,7 +92,7 @@ export default function Sidebar({
               )}
               <div className="space-y-0.5">
                 {section.items.map((item) => {
-                  const active = location.pathname === item.path;
+                  const active = location.pathname === item.path || (item.path === "/invoices" && location.pathname.startsWith("/invoices"));
                   const Icon = item.icon;
                   return (
                     <Link
@@ -99,9 +100,9 @@ export default function Sidebar({
                       to={item.path}
                       onClick={onClose}
                       title={collapsed ? item.label : undefined}
-                    className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} rounded-lg py-3 text-sm font-medium transition-all duration-200 ${
+                      className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} rounded-lg py-3 text-sm font-medium transition-all duration-200 ${
                         active
-                          ? "bg-[#3f63f1] text-white shadow-[0_10px_25px_rgba(49,92,255,0.28)]"
+                          ? "bg-[#1f724f] text-white shadow-[0_10px_25px_rgba(31,114,79,0.25)]"
                           : "text-white/90 hover:bg-white/10 hover:text-white"
                       }`}
                     >
@@ -114,6 +115,8 @@ export default function Sidebar({
             </div>
           ))}
         </nav>
+
+
 
         {/* Logout */}
         <div className={`shrink-0 mx-4 border-t border-white/10 py-4 ${collapsed ? "flex justify-center" : ""}`}>

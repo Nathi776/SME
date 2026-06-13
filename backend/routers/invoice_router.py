@@ -1,3 +1,4 @@
+from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from decimal import Decimal
@@ -17,11 +18,34 @@ class InvoiceCreate(BaseModel):
     client_name: str
     description: str | None = None
     amount: Decimal = Field(..., ge=0)
+    invoice_number: str | None = None
+    issue_date: datetime | None = None
+    due_date: datetime | None = None
+    currency: str | None = "ZAR"
+    customer_company: str | None = None
+    contact_person: str | None = None
+    email: str | None = None
+    phone: str | None = None
+    customer_industry: str | None = None
+    payment_terms: int | None = None
+    pdf_url: str | None = None
 
 class InvoiceUpdate(BaseModel):
     client_name: str | None = None
+    description: str | None = None
     amount: Decimal | None = Field(default=None, ge=0)
     status: str | None = None
+    invoice_number: str | None = None
+    issue_date: datetime | None = None
+    due_date: datetime | None = None
+    currency: str | None = None
+    customer_company: str | None = None
+    contact_person: str | None = None
+    email: str | None = None
+    phone: str | None = None
+    customer_industry: str | None = None
+    payment_terms: int | None = None
+    pdf_url: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -51,6 +75,17 @@ def create_invoice(
         client_name=request.client_name,
         amount=request.amount,
         description=request.description,
+        invoice_number=request.invoice_number,
+        issue_date=request.issue_date,
+        due_date=request.due_date,
+        currency=request.currency or "ZAR",
+        customer_company=request.customer_company,
+        contact_person=request.contact_person,
+        email=request.email,
+        phone=request.phone,
+        customer_industry=request.customer_industry,
+        payment_terms=request.payment_terms,
+        pdf_url=request.pdf_url,
         status="pending"
     )
     db.add(invoice)

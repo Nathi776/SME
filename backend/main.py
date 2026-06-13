@@ -7,7 +7,8 @@ from routers import (
     invoice_router,
     credit_score_router,
     finance_request_router,
-    lender_router
+    lender_router,
+    customer_router
 )
 from routers import verification_router
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,6 +34,7 @@ app.include_router(credit_score_router.router)
 app.include_router(finance_request_router.router)
 app.include_router(lender_router.router)
 app.include_router(verification_router.router)
+app.include_router(customer_router.router)
 
 @app.get("/")
 def root():

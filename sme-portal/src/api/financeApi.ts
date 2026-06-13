@@ -12,12 +12,21 @@ export interface FinanceRequest {
 }
 
 export const FinanceApi = {
-  apply: (invoiceId: number, amount: number) =>
+  apply: (
+    invoiceId: number,
+    amount: number,
+    purposeOfFunding?: string,
+    preferredPayoutDate?: string,
+    additionalNotes?: string
+  ) =>
     api.post<{ message: string; request_id: number; fee_rate: number; status: string }>(
       "/finance/apply",
       {
         invoice_id: invoiceId,
         amount,
+        purpose_of_funding: purposeOfFunding,
+        preferred_payout_date: preferredPayoutDate,
+        additional_notes: additionalNotes,
       }
     ),
 
