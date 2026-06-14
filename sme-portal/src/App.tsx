@@ -20,6 +20,10 @@ import MessagesPage from "./pages/MessagesPage";
 import CreditScorePage from "./pages/CreditScorePage";
 import CreditScoreDetails from "./pages/CreditScoreDetails";
 import LenderDecisionEngine from "./pages/LenderDecisionEngine";
+import LenderReviewRequestsPage from "./pages/LenderReviewRequestsPage";
+import LenderRequestDetailPage from "./pages/LenderRequestDetailPage";
+import LenderFundADealPage from "./pages/LenderFundADealPage";
+import LenderPortfolioReportPage from "./pages/LenderPortfolioReportPage";
 import CustomersPage from "./pages/CustomersPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
@@ -62,6 +66,10 @@ function App() {
         <Route path="/lender/dashboard" element={<ProtectedRoute roles={["lender"]}><LenderDashboard /></ProtectedRoute>} />
         <Route path="/lender/sme/:smeId" element={<ProtectedRoute roles={["lender", "admin"]}><LenderSMEDetailPage /></ProtectedRoute>} />
         <Route path="/lender/decision-engine" element={<ProtectedRoute roles={["lender"]}><LenderDecisionEngine /></ProtectedRoute>} />
+        <Route path="/lender/fund-a-deal" element={<ProtectedRoute roles={["lender"]}><LenderFundADealPage /></ProtectedRoute>} />
+        <Route path="/lender/portfolio-report" element={<ProtectedRoute roles={["lender"]}><LenderPortfolioReportPage /></ProtectedRoute>} />
+        <Route path="/lender/review-requests" element={<ProtectedRoute roles={["lender"]}><LenderReviewRequestsPage /></ProtectedRoute>} />
+        <Route path="/lender/review-requests/:id" element={<ProtectedRoute roles={["lender"]}><LenderRequestDetailPage /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute roles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
         <Route path="/admin/verifications" element={<ProtectedRoute roles={["admin"]}><AdminVerifications /></ProtectedRoute>} />
 

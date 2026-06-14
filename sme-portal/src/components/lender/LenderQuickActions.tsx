@@ -22,6 +22,12 @@ export default function LenderQuickActions() {
             type="button"
             onClick={() => {
               if (action.label === "Review Requests") {
+                navigate("/lender/review-requests");
+              } else if (action.label === "Fund a Deal") {
+                navigate("/lender/fund-a-deal");
+              } else if (action.label === "Portfolio Report" || action.label === "Portfolio Review") {
+                navigate("/lender/portfolio-report");
+              } else if (action.label === "Add Funds") {
                 navigate("/lender/decision-engine");
               }
             }}

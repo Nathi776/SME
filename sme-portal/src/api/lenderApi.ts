@@ -23,6 +23,9 @@ export interface FinanceRequest {
   lender_id: number | null;
   created_at: string;
   approved_at: string | null;
+  purpose_of_funding?: string;
+  preferred_payout_date?: string;
+  additional_notes?: string;
 }
 
 export interface AvailableSme {
