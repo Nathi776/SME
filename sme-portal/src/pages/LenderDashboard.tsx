@@ -55,7 +55,7 @@ export default function LenderDashboardPage() {
   const stats = [
     {
       label: "Lending Limit",
-      value: formatZAR(lendingLimit).replace(/\s/g, ""),
+      value: formatZAR(lendingLimit),
       sub: "Configured profile limit",
       icon: WalletCards,
       color: "text-[#315cff]",
@@ -63,7 +63,7 @@ export default function LenderDashboardPage() {
     },
     {
       label: "Pending Exposure",
-      value: formatZAR(totalRequested).replace(/\s/g, ""),
+      value: formatZAR(totalRequested),
       sub: `${pendingRequests.length} pending request${pendingRequests.length === 1 ? "" : "s"}`,
       icon: HandCoins,
       color: "text-[#16a35d]",
@@ -71,7 +71,7 @@ export default function LenderDashboardPage() {
     },
     {
       label: "Available Balance",
-      value: formatZAR(availableBalance).replace(/\s/g, ""),
+      value: formatZAR(availableBalance),
       sub: "Limit minus pending exposure",
       icon: Coins,
       color: "text-[#ff7a00]",
@@ -102,7 +102,7 @@ export default function LenderDashboardPage() {
 
   return (
     <LenderLayout>
-      <div className="mx-auto max-w-[1540px] space-y-4 text-[#071942]">
+      <div className="max-w-[1600px] px-6 mx-auto space-y-6 text-[#071942] pb-12">
         {error && (
           <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
@@ -120,7 +120,7 @@ export default function LenderDashboardPage() {
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.6fr_1fr]">
           <div className="space-y-4">
             <PendingFinancingRequests requests={pendingRequests} smeById={smesById} onAction={() => void (async () => {
-              const [ , requestsResponse ] = await Promise.all([LenderApi.getProfile(), LenderApi.getPendingRequests()]);
+              const [, requestsResponse] = await Promise.all([LenderApi.getProfile(), LenderApi.getPendingRequests()]);
               setPendingRequests(requestsResponse.data ?? []);
             })()} />
           </div>

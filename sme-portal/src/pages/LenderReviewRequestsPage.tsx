@@ -44,9 +44,22 @@ export default function LenderReviewRequestsPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Search & Filter state
+  const [searchValue, setSearchValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [riskFilter, setRiskFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Debounce search query
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchQuery(searchValue);
+      setCurrentPage(1); // Reset page on search
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
   const pageSize = 10;
 
   // Load backend data
@@ -154,7 +167,7 @@ export default function LenderReviewRequestsPage() {
 
   return (
     <LenderLayout>
-      <div className="space-y-6 text-[#071942] max-w-[1540px] mx-auto">
+      <div className="space-y-6 text-[#071942] max-w-[1600px] px-6 mx-auto pb-12">
         {/* Header */}
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight text-[#071942]">Review Financing Requests</h1>
@@ -227,8 +240,8 @@ export default function LenderReviewRequestsPage() {
               <input
                 type="text"
                 placeholder="Search by SME name or ID..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
                 className="w-full rounded-xl border border-[#dfe5f0] bg-white pl-10 pr-4 py-2.5 text-sm text-[#071942] placeholder-[#91a1bf] font-medium transition focus:border-[#4f63f6] focus:outline-none focus:ring-1 focus:ring-[#4f63f6]"
               />
             </div>
@@ -251,8 +264,67 @@ export default function LenderReviewRequestsPage() {
             </div>
           </div>
 
-          {/* Table */}
-          <div className="overflow-x-auto">
+          {/* Mobile Card Fallback (hidden on md and above) */}
+          <div className="block md:hidden divide-y divide-[#f2f5fa] bg-white">
+            {loading && requests.length === 0 ? (
+              <div className="py-12 text-center text-[#5f6d8a] font-semibold text-xs">
+                Fetching requests...
+              </div>
+            ) : paginatedRequests.length === 0 ? (
+              <div className="py-12 text-center text-[#5f6d8a] font-semibold text-xs">
+                No pending requests available.
+              </div>
+            ) : (
+              paginatedRequests.map((row) => (
+                <div key={row.id} className="p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-[#5f6d8a]">
+                      REQ-2026-{String(row.id).padStart(3, "0")}
+                    </span>
+                    <span
+                      className={`inline-flex min-w-[76px] justify-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold ${
+                        row.risk === "Low"
+                          ? "bg-emerald-50 text-emerald-700 border-emerald-100"
+                          : row.risk === "High"
+                            ? "bg-rose-50 text-rose-700 border-rose-100"
+                            : "bg-amber-50 text-amber-700 border-amber-100"
+                      }`}
+                    >
+                      {row.risk} Risk
+                    </span>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-extrabold text-[#071942]">{row.name}</h4>
+                    <p className="text-[10px] text-[#8f9bba] mt-0.5">Submitted: {row.date}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f2f5fa] text-xs">
+                    <div>
+                      <span className="text-[#8f9bba] block text-[9px] uppercase font-bold">Amount Requested</span>
+                      <span className="font-extrabold text-[#071942]">{formatZAR(row.amount)}</span>
+                    </div>
+                    <div>
+                      <span className="text-[#8f9bba] block text-[9px] uppercase font-bold">Credit Score</span>
+                      <span className="inline-flex items-center gap-1.5 rounded bg-[#f5f7ff] px-2 py-0.5 text-xs font-bold text-[#315cff] border border-[#c8d5ff] mt-0.5">
+                        {row.score}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="pt-2 border-t border-[#f2f5fa] flex justify-end">
+                    <button
+                      onClick={() => navigate(`/lender/review-requests/${row.id}`)}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#4f63f6] hover:bg-[#3d51e5] text-white px-4 py-2.5 text-xs font-bold shadow-md shadow-indigo-950/5 transition active:scale-95"
+                    >
+                      Assess Deal
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Desktop Table (hidden on mobile) */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-[#e9eef8] bg-slate-50 text-[10px] font-extrabold uppercase tracking-wider text-[#5f6d8a]">
@@ -305,13 +377,12 @@ export default function LenderReviewRequestsPage() {
                       {/* Risk */}
                       <td className="py-4 px-4 text-center">
                         <span
-                          className={`inline-flex min-w-[76px] justify-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold ${
-                            row.risk === "Low"
+                          className={`inline-flex min-w-[76px] justify-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold ${row.risk === "Low"
                               ? "bg-emerald-50 text-emerald-700 border-emerald-100"
                               : row.risk === "High"
-                              ? "bg-rose-50 text-rose-700 border-rose-100"
-                              : "bg-amber-50 text-amber-700 border-amber-100"
-                          }`}
+                                ? "bg-rose-50 text-rose-700 border-rose-100"
+                                : "bg-amber-50 text-amber-700 border-amber-100"
+                            }`}
                         >
                           {row.risk} Risk
                         </span>
@@ -352,11 +423,10 @@ export default function LenderReviewRequestsPage() {
                 <button
                   key={idx}
                   onClick={() => setCurrentPage(idx + 1)}
-                  className={`h-8 w-8 rounded-lg text-xs font-bold transition-all ${
-                    currentPage === idx + 1
+                  className={`h-8 w-8 rounded-lg text-xs font-bold transition-all ${currentPage === idx + 1
                       ? "bg-[#4f63f6] text-white shadow-sm"
                       : "border border-[#dfe5f0] text-[#5f6d8a] hover:bg-slate-50"
-                  }`}
+                    }`}
                 >
                   {idx + 1}
                 </button>

@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Briefcase, ArrowRightLeft, Users, BarChart2,
-  LogOut, Home, Settings, ShieldCheck, BadgeDollarSign
+  LogOut, Home, Settings, ShieldCheck, BadgeDollarSign, Wallet
 } from "lucide-react";
 import { logout } from "../../utils/auth";
 import { LenderApi } from "../../api/lenderApi";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/lender/dashboard" },
-  { icon: BadgeDollarSign, label: "Fund a Deal", path: "/lender/fund-a-deal" },
   { icon: ShieldCheck, label: "Review Requests", path: "/lender/review-requests", hasBadge: true },
+  { icon: BadgeDollarSign, label: "Fund a Deal", path: "/lender/fund-a-deal" },
   { icon: Briefcase, label: "Funded Deals", path: "/lender/funded-deals" },
   { icon: BarChart2, label: "Portfolio Report", path: "/lender/portfolio-report" },
-  { icon: Users, label: "SME Customers", path: "/lender/lenders-smes" },
+  { icon: Wallet, label: "Add Funds", path: "/lender/add-funds" },
   { icon: ArrowRightLeft, label: "Transactions", path: "/lender/transactions" },
   { icon: BarChart2, label: "Reports", path: "/lender/reports" },
   { icon: Settings, label: "Settings", path: "/lender/decision-engine" },
@@ -47,9 +47,8 @@ export default function LenderSidebar({ isOpen, onClose, collapsed, onToggleColl
         <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={onClose} />
       )}
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-screen flex-col overflow-hidden bg-[#071b3f] text-white shadow-[10px_0_30px_rgba(7,25,66,0.12)] transition-all duration-300 lg:translate-x-0 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } ${collapsed ? "w-20" : "w-60"}`}
+        className={`fixed left-0 top-0 z-50 flex h-screen flex-col overflow-hidden bg-[#071b3f] text-white shadow-[10px_0_30px_rgba(7,25,66,0.12)] transition-all duration-300 lg:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } ${collapsed ? "w-20" : "w-60"}`}
       >
         {/* Logo */}
         <div className={`${collapsed ? "flex items-center justify-center px-3 py-6" : "flex flex-col items-center px-4 pb-8 pt-6"}`}>
@@ -77,11 +76,13 @@ export default function LenderSidebar({ isOpen, onClose, collapsed, onToggleColl
                 const isReviewRequests = item.path === "/lender/review-requests";
                 const isFundADeal = item.path === "/lender/fund-a-deal";
                 const isPortfolioReport = item.path === "/lender/portfolio-report";
-                
+                const isAddFunds = item.path === "/lender/add-funds";
+
                 const active = location.pathname === item.path ||
                   (isReviewRequests && location.pathname.startsWith("/lender/review-requests")) ||
                   (isFundADeal && location.pathname.startsWith("/lender/fund-a-deal")) ||
-                  (isPortfolioReport && location.pathname.startsWith("/lender/portfolio-report"));
+                  (isPortfolioReport && location.pathname.startsWith("/lender/portfolio-report")) ||
+                  (isAddFunds && location.pathname.startsWith("/lender/add-funds"));
 
                 const Icon = item.icon as any;
 
@@ -91,11 +92,10 @@ export default function LenderSidebar({ isOpen, onClose, collapsed, onToggleColl
                     to={item.path}
                     onClick={onClose}
                     title={collapsed ? item.label : undefined}
-                    className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} rounded-lg py-2.5 text-sm font-medium transition-all duration-200 ${
-                      active
+                    className={`flex items-center ${collapsed ? "justify-center px-2" : "gap-3 px-3"} rounded-lg py-2.5 text-sm font-medium transition-all duration-200 ${active
                         ? "bg-[#4f63f6] text-white shadow-[0_12px_24px_rgba(79,99,246,0.3)]"
                         : "text-white/80 hover:bg-white/10 hover:text-white"
-                    }`}
+                      }`}
                   >
                     <Icon className="w-[17px] h-[17px] shrink-0" />
                     {!collapsed && <span className="flex-1">{item.label}</span>}

@@ -161,8 +161,20 @@ export default function LenderFundADealPage() {
   const [activeDealsCount, setActiveDealsCount] = useState<number>(32);
 
   // Search & Filter state
+  const [searchValue, setSearchValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [riskFilter, setRiskFilter] = useState("All");
+
+  // Debounce search query
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchQuery(searchValue);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
   const [industryFilter, setIndustryFilter] = useState("All");
   const [amountFilter, setAmountFilter] = useState("All");
   const [scoreFilter, setScoreFilter] = useState("All");
@@ -254,7 +266,7 @@ export default function LenderFundADealPage() {
   const stats = useMemo(() => {
     const activeDeals = opportunities.length;
     const totalDemand = opportunities.reduce((sum, r) => sum + r.requested_funding, 0);
-    const avgYield = opportunities.length > 0 
+    const avgYield = opportunities.length > 0
       ? Number((opportunities.reduce((sum, r) => sum + r.expected_yield, 0) / opportunities.length).toFixed(1))
       : 12.8;
     const lowRiskCount = opportunities.filter((r) => r.risk_level === "Low").length;
@@ -423,21 +435,21 @@ export default function LenderFundADealPage() {
 
   return (
     <LenderLayout>
-      <div className="space-y-6 text-[#071942] max-w-[1600px] mx-auto pb-12">
-        
+      <div className="space-y-6 text-[#071942] max-w-[1600px] px-6 mx-auto pb-12">
+
         {/* Marketplace Banner Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 items-start">
-          
+
           {/* Main Marketplace Area (Left 75% Column) */}
           <div className="xl:col-span-3 space-y-6">
-            
+
             {/* Header Title */}
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <h1 className="text-3xl font-extrabold tracking-tight text-[#071942]">Fund a Deal</h1>
                 <p className="text-sm text-[#5f6d8a] mt-0.5">Browse and fund verified SME financing opportunities.</p>
               </div>
-              <button 
+              <button
                 onClick={() => enqueueSnackbar("All financing opportunities are fully audited and backed by valid invoices.", { variant: "info" })}
                 className="flex items-center gap-1.5 rounded-xl border border-[#dfe5f0] bg-white px-4 py-2 text-xs font-bold text-[#5f6d8a] hover:bg-slate-50 transition"
               >
@@ -506,8 +518,8 @@ export default function LenderFundADealPage() {
                   <input
                     type="text"
                     placeholder="Search SME or invoice..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
                     className="w-full rounded-xl border border-[#dfe5f0] bg-white pl-10 pr-4 py-2.5 text-xs text-[#071942] placeholder-[#91a1bf] font-medium transition focus:border-[#4f63f6] focus:outline-none"
                   />
                 </div>
@@ -604,7 +616,7 @@ export default function LenderFundADealPage() {
               {filteredDeals.length === 0 ? (
                 <div className="col-span-full rounded-2xl border border-dashed border-[#d8e2f3] bg-white py-16 text-center">
                   <p className="text-sm font-semibold text-[#5f6d8a]">No financing opportunities match your filter selections.</p>
-                  <button 
+                  <button
                     onClick={() => {
                       setSearchQuery("");
                       setRiskFilter("All");
@@ -612,7 +624,7 @@ export default function LenderFundADealPage() {
                       setAmountFilter("All");
                       setScoreFilter("All");
                       setTermFilter("All");
-                    }} 
+                    }}
                     className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#4f63f6] hover:underline"
                   >
                     Reset Filters
@@ -621,16 +633,15 @@ export default function LenderFundADealPage() {
               ) : (
                 filteredDeals.map((deal) => (
                   <div key={deal.id} className="rounded-2xl border border-[#e9eef8] bg-white p-5 shadow-sm space-y-4 relative hover:shadow-md transition duration-200">
-                    
+
                     {/* Badge header */}
                     <div className="flex items-center justify-between">
-                      <span className={`inline-flex px-2.5 py-0.5 rounded-full text-[9px] font-bold border ${
-                        deal.risk_level === "Low" 
-                          ? "bg-emerald-50 text-emerald-700 border-emerald-100" 
-                          : deal.risk_level === "High" 
-                          ? "bg-rose-50 text-rose-700 border-rose-100" 
-                          : "bg-amber-50 text-amber-700 border-amber-100"
-                      }`}>
+                      <span className={`inline-flex px-2.5 py-0.5 rounded-full text-[9px] font-bold border ${deal.risk_level === "Low"
+                          ? "bg-emerald-50 text-emerald-700 border-emerald-100"
+                          : deal.risk_level === "High"
+                            ? "bg-rose-50 text-rose-700 border-rose-100"
+                            : "bg-amber-50 text-amber-700 border-amber-100"
+                        }`}>
                         {deal.risk_level} Risk
                       </span>
                       {deal.is_new && (
@@ -654,7 +665,19 @@ export default function LenderFundADealPage() {
                     <div className="grid grid-cols-12 gap-3 items-center py-1">
                       {/* Circle Score dial */}
                       <div className="col-span-4 flex flex-col items-center justify-center">
-                        <div className="relative h-15 w-15 flex items-center justify-center">
+                        <div className="relative h-15 w-15 flex items-center justify-center group cursor-help">
+                          {/* Tooltip Content */}
+                          <div className="absolute bottom-full mb-2 hidden group-hover:block z-20 w-48 bg-[#071b3f] text-white text-[10px] leading-normal p-2.5 rounded-lg shadow-xl font-medium text-left">
+                            <p className="font-extrabold mb-1 border-b border-white/10 pb-1">ML Scoring Model</p>
+                            Calculated via:
+                            <ul className="list-disc pl-3 mt-1 space-y-0.5 text-white/90">
+                              <li>Debt Service Cover (DSCR)</li>
+                              <li>Days Sales Outstanding (DSO)</li>
+                              <li>Consistent Revenue Trends</li>
+                              <li>Industry Default Averages</li>
+                            </ul>
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#071b3f]" />
+                          </div>
                           <svg className="h-full w-full transform -rotate-90">
                             <circle cx="30" cy="30" r="24" stroke="#f1f5f9" strokeWidth="4.5" fill="transparent" />
                             <circle
@@ -671,9 +694,8 @@ export default function LenderFundADealPage() {
                           </svg>
                           <span className="absolute text-[13px] font-extrabold text-[#071942]">{deal.credit_score}</span>
                         </div>
-                        <span className={`text-[8px] font-bold mt-1 uppercase tracking-wide ${
-                          deal.risk_level === "High" ? "text-rose-600" : deal.risk_level === "Low" ? "text-emerald-600" : "text-amber-600"
-                        }`}>
+                        <span className={`text-[8px] font-bold mt-1 uppercase tracking-wide ${deal.risk_level === "High" ? "text-rose-600" : deal.risk_level === "Low" ? "text-emerald-600" : "text-amber-600"
+                          }`}>
                           {deal.credit_score >= 80 ? "Excellent" : deal.credit_score >= 70 ? "Good" : deal.credit_score >= 60 ? "Fair" : "Poor"}
                         </span>
                       </div>
@@ -701,13 +723,12 @@ export default function LenderFundADealPage() {
                       </div>
                       <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
                         <div
-                          className={`h-full transition-all duration-500 ${
-                            deal.risk_level === "High" 
-                              ? "bg-rose-500" 
-                              : deal.risk_level === "Low" 
-                              ? "bg-emerald-500" 
-                              : "bg-amber-500"
-                          }`}
+                          className={`h-full transition-all duration-500 ${deal.risk_level === "High"
+                              ? "bg-rose-500"
+                              : deal.risk_level === "Low"
+                                ? "bg-emerald-500"
+                                : "bg-amber-500"
+                            }`}
                           style={{ width: `${deal.funded_percentage}%` }}
                         />
                       </div>
@@ -761,7 +782,7 @@ export default function LenderFundADealPage() {
 
           {/* Right Sidebar Column (25% Column) */}
           <div className="space-y-6">
-            
+
             {/* 1. My Portfolio Summary Card */}
             <div className="rounded-2xl border border-[#e9eef8] bg-[#071b3f] text-white p-5 shadow-sm space-y-4">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
@@ -803,7 +824,7 @@ export default function LenderFundADealPage() {
             {/* 2. Quick Actions Card */}
             <div className="rounded-2xl border border-[#e9eef8] bg-white p-5 shadow-sm space-y-4">
               <h3 className="text-sm font-bold text-[#071942] border-b border-[#f2f5fa] pb-3">Quick Actions</h3>
-              
+
               <div className="space-y-2 text-xs font-bold">
                 {[
                   { label: "Review Requests", path: "/lender/review-requests" },
@@ -849,9 +870,8 @@ export default function LenderFundADealPage() {
                     </div>
                     <div className="text-right">
                       <p className="font-black text-[#071942]">{formatZAR(item.amount)}</p>
-                      <span className={`inline-block text-[8px] font-extrabold mt-0.5 rounded px-1.5 py-0.2 ${
-                        item.status === "Active" ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-400"
-                      }`}>{item.status}</span>
+                      <span className={`inline-block text-[8px] font-extrabold mt-0.5 rounded px-1.5 py-0.2 ${item.status === "Active" ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-400"
+                        }`}>{item.status}</span>
                     </div>
                   </div>
                 ))}
@@ -867,7 +887,7 @@ export default function LenderFundADealPage() {
                 <h4 className="font-bold text-[#071942] text-xs">Need Help?</h4>
                 <p className="text-[10px] text-[#5f6d8a] leading-normal mt-0.5">Our support team is here to assist you.</p>
               </div>
-              <button 
+              <button
                 onClick={() => navigate("/messages")}
                 className="w-full rounded-xl bg-white border border-[#dfe5f0] py-2 text-[10px] font-extrabold text-[#071942] hover:bg-slate-50 transition active:scale-95"
               >
@@ -885,7 +905,7 @@ export default function LenderFundADealPage() {
       {selectedDeal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/55 backdrop-blur-xs">
           <div className="bg-white rounded-2xl border border-[#e9eef8] w-full max-w-[460px] shadow-2xl p-6 relative overflow-hidden animate-none">
-            
+
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-[#f2f5fa] pb-4">
               <div>
@@ -899,7 +919,7 @@ export default function LenderFundADealPage() {
 
             {/* Modal Content */}
             <div className="py-5 space-y-4 text-xs font-semibold text-[#071942]">
-              
+
               {/* Stats Row */}
               <div className="grid grid-cols-2 gap-4 bg-[#f8faff] rounded-xl border border-[#d8e2f3] p-3">
                 <div>

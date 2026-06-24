@@ -8,7 +8,7 @@ type Props = {
   pendingRequests: FinanceRequest[];
 };
 
-const money = (value: number) => formatZAR(value).replace(/\s/g, "");
+const money = (value: number) => formatZAR(value);
 
 export default function PortfolioSummary({ profile, pendingRequests }: Props) {
   const totalPortfolio = profile?.max_lending_amount || 8750000;

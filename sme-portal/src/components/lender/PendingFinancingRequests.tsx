@@ -156,7 +156,7 @@ export default function PendingFinancingRequests({ requests, smeById, onAction }
                   <p className="font-semibold text-[#071942]">{row.name}</p>
                   <p className="mt-1 text-xs text-[#31507e]">SME-2024-{String(row.id).padStart(4, "0")}</p>
                 </td>
-                <td className="px-4 py-4 font-semibold text-[#071942]">{formatZAR(row.amount).replace(/\s/g, "")}</td>
+                <td className="px-4 py-4 font-semibold text-[#071942]">{formatZAR(row.amount)}</td>
                 <td className="px-4 py-4">
                   <span className="inline-flex min-w-10 justify-center rounded border border-[#a8ebcf] bg-[#ddf7eb] px-2 py-1 text-xs font-semibold text-[#008b5a]">
                     {row.score}

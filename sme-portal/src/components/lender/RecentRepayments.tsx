@@ -34,7 +34,7 @@ export default function RecentRepayments({ requests }: Props) {
               <p className="mt-1 text-xs text-[#31507e]">Repaid on {repayment.date}</p>
             </div>
             <div className="flex items-center gap-5">
-              <span className="text-sm font-semibold text-[#071942]">{formatZAR(repayment.amount).replace(/\s/g, "")}</span>
+              <span className="text-sm font-semibold text-[#071942]">{formatZAR(repayment.amount)}</span>
               <span className="rounded-md bg-[#d9f7e6] px-3 py-1 text-xs font-semibold text-[#008b5a]">Repaid</span>
             </div>
           </div>

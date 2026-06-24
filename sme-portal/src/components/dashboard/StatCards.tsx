@@ -20,7 +20,7 @@ export default function StatCards({
   eligibleAmount,
   financeRequestCount,
 }: StatCardsProps) {
-  const money = (value: number | string) => formatZAR(value).replace(/\s/g, "");
+  const money = (value: number | string) => formatZAR(value);
   const ob = Number(outstandingBalance || 0);
   const ea = Number(eligibleAmount || 0);
   const eligiblePercent = ob > 0 ? Math.round((ea / ob) * 100) : 80;

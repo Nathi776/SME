@@ -222,8 +222,8 @@ export default function UploadInvoicePage() {
           <span className="text-[#071942]">Upload Invoice</span>
         </div>
         <div className="flex items-center gap-3">
-          <button 
-            onClick={() => navigate("/invoices")} 
+          <button
+            onClick={() => navigate("/invoices")}
             className="flex items-center justify-center h-10 w-10 rounded-xl border border-[#e9eef8] bg-white hover:bg-slate-50 transition active:scale-95"
             title="Go back to invoices"
           >
@@ -451,13 +451,12 @@ export default function UploadInvoicePage() {
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   onDrop={handleDrop}
-                  className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 transition text-center cursor-pointer min-h-[160px] ${
-                    isDragging
+                  className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 transition text-center cursor-pointer min-h-[160px] ${isDragging
                       ? "border-[#1f724f] bg-emerald-50/30"
                       : uploadedFile
-                      ? "border-emerald-500/50 bg-emerald-50/10"
-                      : "border-[#dfe5f0] hover:border-[#1f724f] hover:bg-slate-50/50"
-                  }`}
+                        ? "border-emerald-500/50 bg-emerald-50/10"
+                        : "border-[#dfe5f0] hover:border-[#1f724f] hover:bg-slate-50/50"
+                    }`}
                 >
                   <input
                     type="file"

@@ -87,3 +87,25 @@
     @apply bg-background text-foreground font-inter;
   }
 }
+
+/* Accessibility Focus Rings */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid transparent !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px #4f63f6, 0 0 0 4px rgba(79, 99, 246, 0.2) !important;
+}
+
+/* Role-specific emerald focus ring for elements within green theme containers */
+[class*="emerald"] button:focus-visible,
+[class*="emerald"] input:focus-visible,
+[class*="emerald"] select:focus-visible,
+[class*="emerald"] textarea:focus-visible,
+[class*="emerald"] a:focus-visible,
+.bg-emerald-600 button:focus-visible,
+.text-emerald-600 button:focus-visible {
+  box-shadow: 0 0 0 2px #059669, 0 0 0 4px rgba(5, 150, 105, 0.2) !important;
+}

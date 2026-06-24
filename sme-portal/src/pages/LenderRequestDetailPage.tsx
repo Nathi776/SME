@@ -237,7 +237,7 @@ export default function LenderRequestDetailPage() {
 
   return (
     <LenderLayout>
-      <div className="space-y-6 text-[#071942] max-w-[1540px] mx-auto pb-12">
+      <div className="space-y-6 text-[#071942] max-w-[1600px] px-6 mx-auto pb-12">
         {/* Breadcrumb Header */}
         <div className="flex flex-col gap-1.5">
           <button
@@ -247,7 +247,7 @@ export default function LenderRequestDetailPage() {
             <ArrowLeft className="h-3.5 w-3.5" />
             Back to Requests
           </button>
-          
+
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-3">
@@ -258,7 +258,7 @@ export default function LenderRequestDetailPage() {
               </div>
               <p className="text-sm text-[#5f6d8a] mt-0.5">Carefully review the request details, risk assessment and supporting documents before making a decision.</p>
             </div>
-            
+
             <div className="text-right">
               <p className="text-sm font-bold text-[#071942]">Request ID: {details.req_code}</p>
               <p className="text-[11px] text-slate-400 font-semibold mt-1">Submitted: {details.submitted_date}</p>
@@ -529,7 +529,19 @@ export default function LenderRequestDetailPage() {
               </div>
 
               <div className="flex flex-col items-center justify-center py-2 text-center">
-                <div className="relative flex items-center justify-center h-24 w-24 shrink-0">
+                <div className="relative flex items-center justify-center h-24 w-24 shrink-0 group cursor-help">
+                  {/* Tooltip Content */}
+                  <div className="absolute bottom-full mb-2 hidden group-hover:block z-20 w-56 bg-[#071b3f] text-white text-[10px] leading-normal p-3 rounded-lg shadow-xl font-medium text-left">
+                    <p className="font-extrabold mb-1 border-b border-white/10 pb-1">ML Credit Risk Assessment</p>
+                    Automated underwriting evaluation based on:
+                    <ul className="list-disc pl-3 mt-1 space-y-0.5 text-white/90">
+                      <li>Debt Service Cover Ratio (DSCR)</li>
+                      <li>Days Sales Outstanding (DSO)</li>
+                      <li>Monthly Cash Flow Consistency</li>
+                      <li>Sector-Specific Defaults</li>
+                    </ul>
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#071b3f]" />
+                  </div>
                   <svg className="h-full w-full transform -rotate-90">
                     <circle cx="48" cy="48" r="38" stroke="#edf2fa" strokeWidth="7.5" fill="transparent" />
                     <circle
@@ -546,9 +558,8 @@ export default function LenderRequestDetailPage() {
                   </svg>
                   <div className="absolute flex flex-col items-center">
                     <span className="text-xl font-black text-[#071942] leading-none">{details.credit_score}</span>
-                    <span className={`text-[9px] font-bold mt-1 ${
-                      details.risk_level === "High" ? "text-red-500" : details.risk_level === "Low" ? "text-emerald-600" : "text-amber-500"
-                    }`}>
+                    <span className={`text-[9px] font-bold mt-1 ${details.risk_level === "High" ? "text-red-500" : details.risk_level === "Low" ? "text-emerald-600" : "text-amber-500"
+                      }`}>
                       {details.credit_score >= 70 ? "Good" : "Fair"}
                     </span>
                   </div>
@@ -557,9 +568,8 @@ export default function LenderRequestDetailPage() {
                 <div className="w-full mt-5 space-y-3 text-xs text-[#5f6d8a]">
                   <div className="flex justify-between">
                     <span>Risk Level</span>
-                    <span className={`font-extrabold ${
-                      details.risk_level === "High" ? "text-red-600" : details.risk_level === "Low" ? "text-emerald-700" : "text-amber-600"
-                    }`}>{details.risk_level} Risk</span>
+                    <span className={`font-extrabold ${details.risk_level === "High" ? "text-red-600" : details.risk_level === "Low" ? "text-emerald-700" : "text-amber-600"
+                      }`}>{details.risk_level} Risk</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Approval Probability</span>
@@ -604,9 +614,8 @@ export default function LenderRequestDetailPage() {
                       <p className="font-bold text-[#071942] truncate" title={doc.name}>{doc.name}</p>
                     </div>
                     <div className="flex items-center gap-2.5 shrink-0 ml-3">
-                      <span className={`rounded-full px-2 py-0.5 text-[8px] font-extrabold uppercase border ${
-                        doc.status === "Verified" ? "bg-emerald-50 text-emerald-700 border-emerald-100" : "bg-amber-50 text-amber-700 border-amber-100"
-                      }`}>
+                      <span className={`rounded-full px-2 py-0.5 text-[8px] font-extrabold uppercase border ${doc.status === "Verified" ? "bg-emerald-50 text-emerald-700 border-emerald-100" : "bg-amber-50 text-amber-700 border-amber-100"
+                        }`}>
                         {doc.status.replace(" Review", "")}
                       </span>
                       <button onClick={() => enqueueSnackbar(`Viewing document details: ${doc.name}`, { variant: "info" })} className="text-slate-400 hover:text-[#071942]">

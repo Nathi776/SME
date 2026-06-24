@@ -23,7 +23,7 @@ type FinanceRequestsProps = {
   requests: FinanceRequest[];
 };
 
-const money = (value: number | string) => formatZAR(value).replace(/\s/g, "");
+const money = (value: number | string) => formatZAR(value);
 
 function requestCode(id: number) {
   return `REQ-2024-${String(id).padStart(3, "0")}`;

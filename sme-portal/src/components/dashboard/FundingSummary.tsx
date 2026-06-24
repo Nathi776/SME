@@ -8,7 +8,7 @@ type FundingSummaryProps = {
   fundedAmount: number | string;
 };
 
-const money = (value: number | string) => formatZAR(value).replace(/\s/g, "");
+const money = (value: number | string) => formatZAR(value);
 
 export default function FundingSummary({ requestedAmount, approvedAmount, fundedAmount }: FundingSummaryProps) {
   const data = [

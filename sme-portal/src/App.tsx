@@ -24,6 +24,7 @@ import LenderReviewRequestsPage from "./pages/LenderReviewRequestsPage";
 import LenderRequestDetailPage from "./pages/LenderRequestDetailPage";
 import LenderFundADealPage from "./pages/LenderFundADealPage";
 import LenderPortfolioReportPage from "./pages/LenderPortfolioReportPage";
+import LenderAddFundsPage from "./pages/LenderAddFundsPage";
 import CustomersPage from "./pages/CustomersPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
@@ -62,12 +63,13 @@ function App() {
         </Route>
 
         <Route path="/smes/:id" element={<ProtectedRoute roles={["admin", "lender"]}><SmeDetailPage /></ProtectedRoute>} />
-  <Route path="/lender" element={<Navigate to="/lender/dashboard" replace />} />
+        <Route path="/lender" element={<Navigate to="/lender/dashboard" replace />} />
         <Route path="/lender/dashboard" element={<ProtectedRoute roles={["lender"]}><LenderDashboard /></ProtectedRoute>} />
         <Route path="/lender/sme/:smeId" element={<ProtectedRoute roles={["lender", "admin"]}><LenderSMEDetailPage /></ProtectedRoute>} />
         <Route path="/lender/decision-engine" element={<ProtectedRoute roles={["lender"]}><LenderDecisionEngine /></ProtectedRoute>} />
         <Route path="/lender/fund-a-deal" element={<ProtectedRoute roles={["lender"]}><LenderFundADealPage /></ProtectedRoute>} />
         <Route path="/lender/portfolio-report" element={<ProtectedRoute roles={["lender"]}><LenderPortfolioReportPage /></ProtectedRoute>} />
+        <Route path="/lender/add-funds" element={<ProtectedRoute roles={["lender"]}><LenderAddFundsPage /></ProtectedRoute>} />
         <Route path="/lender/review-requests" element={<ProtectedRoute roles={["lender"]}><LenderReviewRequestsPage /></ProtectedRoute>} />
         <Route path="/lender/review-requests/:id" element={<ProtectedRoute roles={["lender"]}><LenderRequestDetailPage /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute roles={["admin"]}><AdminDashboard /></ProtectedRoute>} />

@@ -21,7 +21,7 @@ type RecentInvoicesProps = {
   invoices: RecentInvoice[];
 };
 
-const money = (value: number | string) => formatZAR(value).replace(/\s/g, "");
+const money = (value: number | string) => formatZAR(value);
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString("en-ZA", {
@@ -42,34 +42,43 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
         <h3 className="text-[15px] font-semibold text-[#071942]">Recent Invoices</h3>
         <Link to="/invoices" className="text-sm font-medium text-[#315cff] hover:underline">View all</Link>
       </div>
-      <div className="flex-1">
-        {invoices.length === 0 ? (
-          <p className="border-t border-[#e5ecf7] py-5 text-sm text-[#6d7b99]">No invoices yet.</p>
-        ) : (
-          invoices.slice(0, 4).map((inv) => {
-            const rawStatus = (inv.status || "draft").toLowerCase();
-            const status = rawStatus === "pending" ? "unpaid" : rawStatus;
-            const label = status.charAt(0).toUpperCase() + status.slice(1);
-            const dateLabel = status === "paid" ? "Paid" : "Due";
+      <div className="flex-1 flex flex-col justify-between">
+        <div>
+          {invoices.length === 0 ? (
+            <p className="border-t border-[#e5ecf7] py-5 text-sm text-[#6d7b99]">No invoices yet.</p>
+          ) : (
+            invoices.slice(0, 5).map((inv) => {
+              const rawStatus = (inv.status || "draft").toLowerCase();
+              const status = rawStatus === "pending" ? "unpaid" : rawStatus;
+              const label = status.charAt(0).toUpperCase() + status.slice(1);
+              const dateLabel = status === "paid" ? "Paid" : "Due";
 
-            return (
-              <div key={inv.id} className="flex items-start justify-between gap-4 border-t border-[#eef6ff] py-4">
-                <div className="min-w-0">
-                  <p className="text-[15px] font-semibold text-[#071942]">{invoiceCode(inv.id)}</p>
-                  <p className="mt-2 truncate text-sm text-[#31456f]">{inv.client_name}</p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <div className="flex items-center justify-end gap-8">
-                    <p className="text-[15px] font-semibold text-[#071942]">{money(inv.amount)}</p>
-                    <span className={`inline-flex min-w-[58px] justify-center rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[status] ?? statusStyles.draft}`}>
-                      {label}
-                    </span>
+              return (
+                <div key={inv.id} className="flex items-start justify-between gap-4 border-t border-[#eef6ff] py-4">
+                  <div className="min-w-0">
+                    <p className="text-[15px] font-semibold text-[#071942]">{invoiceCode(inv.id)}</p>
+                    <p className="mt-2 truncate text-sm text-[#31456f]">{inv.client_name}</p>
                   </div>
-                  <p className="mt-2 text-xs text-[#31456f]">{dateLabel}: {formatDate(inv.created_at)}</p>
+                  <div className="shrink-0 text-right">
+                    <div className="flex items-center justify-end gap-8">
+                      <p className="text-[15px] font-semibold text-[#071942]">{money(inv.amount)}</p>
+                      <span className={`inline-flex min-w-[58px] justify-center rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[status] ?? statusStyles.draft}`}>
+                        {label}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-xs text-[#31456f]">{dateLabel}: {formatDate(inv.created_at)}</p>
+                  </div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })
+          )}
+        </div>
+        {invoices.length > 5 && (
+          <div className="mt-4 pt-3 border-t border-[#eef6ff] flex justify-center">
+            <Link to="/invoices" className="text-xs font-bold text-[#315cff] hover:underline flex items-center gap-1">
+              View All Invoices &rarr;
+            </Link>
+          </div>
         )}
       </div>
     </div>

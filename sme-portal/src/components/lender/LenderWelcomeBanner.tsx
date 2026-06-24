@@ -35,7 +35,7 @@ export default function LenderWelcomeBanner({ profile }: Props) {
         </div>
         <div className="border-[#e5ecf7] xl:border-l xl:pl-7">
           <p className="text-xs font-medium text-[#31456f]">Available Balance</p>
-          <p className="mt-2 text-sm font-semibold text-[#071942]">{formatZAR(lendingLimit).replace(/\s/g, "")}</p>
+          <p className="mt-2 text-sm font-semibold text-[#071942]">{formatZAR(lendingLimit)}</p>
         </div>
         <button
           type="button"

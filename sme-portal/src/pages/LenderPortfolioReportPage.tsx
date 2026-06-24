@@ -97,9 +97,22 @@ export default function LenderPortfolioReportPage() {
   const [loading, setLoading] = useState(false);
 
   // Filter and Search states
+  const [searchValue, setSearchValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [industryFilter, setIndustryFilter] = useState("All");
   const [riskFilter, setRiskFilter] = useState("All");
+
+  // Debounce search query
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchQuery(searchValue);
+      setCurrentPage(1); // Reset page on search
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
   const [activeTab, setActiveTab] = useState<"All" | "Active" | "Repaid" | "Overdue" | "Defaulted" | "Cancelled">("All");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -234,7 +247,7 @@ export default function LenderPortfolioReportPage() {
 
   return (
     <LenderLayout>
-      <div className="space-y-6 text-[#071942] max-w-[1600px] mx-auto pb-12">
+      <div className="space-y-6 text-[#071942] max-w-[1600px] px-6 mx-auto pb-12">
         
         {/* Header Title Section */}
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -657,8 +670,8 @@ export default function LenderPortfolioReportPage() {
                   <input
                     type="text"
                     placeholder="Search deals..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
                     className="rounded-xl border border-[#dfe5f0] bg-white pl-9 pr-4 py-2 text-xs text-[#071942] placeholder-[#91a1bf] font-medium transition focus:border-[#4f63f6] focus:outline-none w-56"
                   />
                 </div>
@@ -718,8 +731,80 @@ export default function LenderPortfolioReportPage() {
             </div>
           </div>
 
+          {/* Mobile Card Fallback (hidden on md and above) */}
+          <div className="block md:hidden divide-y divide-[#f2f5fa] bg-white">
+            {loading && paginatedDeals.length === 0 ? (
+              <div className="py-12 text-center text-[#5f6d8a] font-bold text-xs">
+                Loading funded transactions...
+              </div>
+            ) : paginatedDeals.length === 0 ? (
+              <div className="py-12 text-center text-[#5f6d8a] font-bold text-xs">
+                No deals available under selected criteria.
+              </div>
+            ) : (
+              paginatedDeals.map((deal) => (
+                <div key={deal.id} className="p-5 space-y-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-[#5f6d8a]">{deal.id}</span>
+                    <div className="flex gap-2">
+                      <span className={`inline-flex px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase ${
+                        deal.status === "Active"
+                          ? "bg-blue-50 text-blue-700 border border-blue-100"
+                          : deal.status === "Repaid"
+                          ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                          : deal.status === "Overdue"
+                          ? "bg-amber-50 text-amber-700 border border-amber-100"
+                          : "bg-rose-50 text-rose-700 border border-rose-100"
+                      }`}>
+                        {deal.status}
+                      </span>
+                      <span className={`inline-flex px-2 py-0.5 rounded-full text-[9px] font-bold border ${
+                        deal.risk_level === "Low"
+                          ? "bg-emerald-50 text-emerald-700 border-emerald-100"
+                          : deal.risk_level === "High"
+                          ? "bg-rose-50 text-rose-700 border-rose-100"
+                          : "bg-amber-50 text-amber-700 border-amber-100"
+                      }`}>
+                        {deal.risk_level} Risk
+                      </span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-extrabold text-[#071942]">{deal.sme_name}</h4>
+                    <p className="text-[10px] text-[#8f9bba] mt-0.5">{deal.industry} • Funded on {deal.funding_date}</p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-2 pt-3 border-t border-[#f2f5fa] text-xs">
+                    <div>
+                      <span className="text-[#8f9bba] block text-[9px] uppercase font-bold">Funded Amount</span>
+                      <span className="font-extrabold text-[#071942]">{formatZAR(deal.funded_amount)}</span>
+                      <span className="text-[9px] text-[#8f9bba] block">Inv: {formatZAR(deal.invoice_amount)}</span>
+                    </div>
+                    <div>
+                      <span className="text-[#8f9bba] block text-[9px] uppercase font-bold">Expected Return</span>
+                      <span className="font-black text-emerald-600">{formatZAR(deal.expected_return)}</span>
+                      <span className="text-[9px] text-[#8f9bba] block">Yield: {deal.interest_rate}%</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-[#f2f5fa] flex items-center justify-between text-xs">
+                    <span className="text-[10px] text-[#8f9bba] font-bold">Term: {deal.term} Days</span>
+                    <button
+                      onClick={() => navigate(`/lender/review-requests/${deal.id.split("-").pop()}`)}
+                      className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-[#dfe5f0] bg-white hover:bg-slate-50 text-[#071942] px-3.5 py-2 text-xs font-bold transition active:scale-95"
+                    >
+                      View Details
+                      <ArrowRight className="h-3.5 w-3.5 text-[#91a1bf]" />
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
           {/* Table Container */}
-          <div className="overflow-x-auto">
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-[#e9eef8] bg-slate-50 text-[10px] font-extrabold uppercase tracking-wider text-[#5f6d8a]">
