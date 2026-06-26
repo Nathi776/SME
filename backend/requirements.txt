@@ -11,3 +11,5 @@ numpy
 requests
 pydantic-settings
 email-validator
+boto3
+slowapi

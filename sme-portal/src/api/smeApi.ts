@@ -50,6 +50,13 @@ export interface SME {
   revenue: number;
   years_active?: number;
   description?: string | null;
+  bs_avg_monthly_balance?: number | null;
+  bs_avg_monthly_income?: number | null;
+  bs_avg_monthly_expenses?: number | null;
+  bs_overdraft_count?: number | null;
+  bs_income_regularity?: number | null;
+  bs_months_analysed?: number | null;
+  bs_parsed_revenue?: number | null;
 }
 
 export interface SMECreate {

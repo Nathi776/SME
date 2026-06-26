@@ -20,6 +20,8 @@ def upgrade() -> None:
     # Add missing columns to finance_requests
     op.add_column('finance_requests', sa.Column('approved_amount', sa.Float(), nullable=True))
     op.add_column('finance_requests', sa.Column('fee_rate', sa.Float(), server_default='0'))
+    op.add_column('finance_requests', sa.Column('platform_fee', sa.Float(), server_default='0'))
+    op.add_column('finance_requests', sa.Column('net_amount', sa.Float(), server_default='0'))
     op.add_column('finance_requests', sa.Column('approved_at', sa.DateTime(), nullable=True))
     op.add_column('finance_requests', sa.Column('credit_score_id', sa.Integer(), nullable=True))
 
@@ -28,5 +30,7 @@ def downgrade() -> None:
     # Remove the columns
     op.drop_column('finance_requests', 'approved_amount')
     op.drop_column('finance_requests', 'fee_rate')
+    op.drop_column('finance_requests', 'platform_fee')
+    op.drop_column('finance_requests', 'net_amount')
     op.drop_column('finance_requests', 'approved_at')
     op.drop_column('finance_requests', 'credit_score_id')

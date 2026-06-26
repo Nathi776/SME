@@ -13,7 +13,7 @@ export interface FinanceRequest {
 
 export const FinanceApi = {
   apply: (
-    invoiceId: number,
+    invoiceId: number | null,
     amount: number,
     purposeOfFunding?: string,
     preferredPayoutDate?: string,
@@ -45,4 +45,10 @@ export const FinanceApi = {
     api.put<FinanceRequest>(`/finance/reject/${requestId}`, {}),
 
   fund: (requestId: number) => api.put<FinanceRequest>(`/finance/funded/${requestId}`, {}),
+
+  getPricingParameters: (smeId?: number) =>
+    api.get<{ sme_id: number; credit_score: number | null; fee_rate: number; advance_rate: number }>(
+      "/finance/pricing-parameters",
+      { params: smeId ? { sme_id: smeId } : {} }
+    ),
 };

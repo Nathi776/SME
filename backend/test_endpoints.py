@@ -168,19 +168,24 @@ def test_verification_submission_and_admin_review(token, lender_token, admin_tok
     lender_headers = {"Authorization": f"Bearer {lender_token}"}
     admin_headers = {"Authorization": f"Bearer {admin_token}"}
 
-    sme_submit = requests.post(f"{BASE_URL}/verifications/submit", json={
-        "doc_type": "cipc",
-        "document_url": "https://example.com/cipc.pdf",
-    }, headers=sme_headers)
+    # Register & Login for SME and Lender already done
+    sme_submit = requests.post(
+        f"{BASE_URL}/verifications/submit",
+        data={"doc_type": "cipc"},
+        files={"file": ("cipc.pdf", b"cipc test doc", "application/pdf")},
+        headers=sme_headers
+    )
     assert sme_submit.status_code == 200
     sme_verification = sme_submit.json()
     assert sme_verification["status"] == "pending"
     assert sme_verification["sme_id"] is not None
 
-    lender_submit = requests.post(f"{BASE_URL}/verifications/submit", json={
-        "doc_type": "financial_license",
-        "document_url": "https://example.com/license.pdf",
-    }, headers=lender_headers)
+    lender_submit = requests.post(
+        f"{BASE_URL}/verifications/submit",
+        data={"doc_type": "registration_docs"},
+        files={"file": ("license.pdf", b"license test doc", "application/pdf")},
+        headers=lender_headers
+    )
     assert lender_submit.status_code == 200
     lender_verification = lender_submit.json()
     assert lender_verification["status"] == "pending"
@@ -277,4 +282,22 @@ def test_finance_request_repayment_lifecycle(token, lender_token):
     closed_res = requests.put(f"{BASE_URL}/finance/closed/{request_id}", headers=lender_headers)
     assert closed_res.status_code == 200
     assert closed_res.json()["status"] == "closed"
+
+
+def test_bank_statement_upload_and_parsing(token):
+    headers = {"Authorization": f"Bearer {token}"}
+    pdf_content = b"months_analysed=6\nincome_regularity=0.85\noverdraft_count=1\nparsed_revenue=150000"
+    res = requests.post(
+        f"{BASE_URL}/verifications/submit",
+        data={"doc_type": "bank_statement"},
+        files={"file": ("bank_statement.pdf", pdf_content, "application/pdf")},
+        headers=headers
+    )
+    assert res.status_code == 200
+    data = res.json()
+    assert "bank_statement_parsing" in data
+    assert data["bank_statement_parsing"]["parsed"] is True
+    assert data["bank_statement_parsing"]["months_analysed"] == 6
+    assert data["bank_statement_parsing"]["parsed_revenue"] == 150000
+
 

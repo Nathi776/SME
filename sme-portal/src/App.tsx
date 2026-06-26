@@ -66,6 +66,7 @@ function App() {
         <Route path="/lender" element={<Navigate to="/lender/dashboard" replace />} />
         <Route path="/lender/dashboard" element={<ProtectedRoute roles={["lender"]}><LenderDashboard /></ProtectedRoute>} />
         <Route path="/lender/sme/:smeId" element={<ProtectedRoute roles={["lender", "admin"]}><LenderSMEDetailPage /></ProtectedRoute>} />
+        <Route path="/lender/sme/:smeId/credit-score" element={<ProtectedRoute roles={["lender", "admin"]}><CreditScoreDetails /></ProtectedRoute>} />
         <Route path="/lender/decision-engine" element={<ProtectedRoute roles={["lender"]}><LenderDecisionEngine /></ProtectedRoute>} />
         <Route path="/lender/fund-a-deal" element={<ProtectedRoute roles={["lender"]}><LenderFundADealPage /></ProtectedRoute>} />
         <Route path="/lender/portfolio-report" element={<ProtectedRoute roles={["lender"]}><LenderPortfolioReportPage /></ProtectedRoute>} />

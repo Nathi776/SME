@@ -144,9 +144,12 @@ export default function LenderSMEDetailPage() {
                 </Box>
                 <Box>
                   <Chip label={getRiskLabel(latestScore.score, latestScore.rating)} color={getRiskColor(latestScore.score) as any} size="medium" sx={{ mb: 1 }} />
-                  <Typography color="text.secondary">
+                  <Typography color="text.secondary" sx={{ mb: 1.5 }}>
                     Calculated: {new Date(latestScore.created_at).toLocaleDateString()}
                   </Typography>
+                  <Button variant="outlined" size="small" onClick={() => navigate(`/lender/sme/${smeId}/credit-score`)} sx={{ textTransform: "none", borderRadius: "8px" }}>
+                    View Detailed Explanation
+                  </Button>
                 </Box>
               </Box>
             </CardContent>

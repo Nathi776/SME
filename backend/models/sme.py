@@ -12,6 +12,15 @@ class SME(Base):
     years_active = Column(Integer, nullable=False, default=0)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
+    # ---------- Bank Statement Parsing Signals ----------
+    bs_avg_monthly_balance = Column(Numeric(18, 2), nullable=True)
+    bs_avg_monthly_income = Column(Numeric(18, 2), nullable=True)
+    bs_avg_monthly_expenses = Column(Numeric(18, 2), nullable=True)
+    bs_overdraft_count = Column(Integer, nullable=True)
+    bs_income_regularity = Column(Numeric(18, 4), nullable=True)
+    bs_months_analysed = Column(Integer, nullable=True)
+    bs_parsed_revenue = Column(Numeric(18, 2), nullable=True)
+
     # ---------- Relationships ----------
     user = relationship("User", back_populates="sme_profile")
     invoices = relationship("Invoice", back_populates="sme", cascade="all, delete-orphan")

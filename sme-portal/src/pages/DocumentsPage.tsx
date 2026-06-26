@@ -18,6 +18,7 @@ import {
   Check
 } from "lucide-react";
 import { VerificationApi, VerificationRecord } from "../api/verificationApi";
+import { SMEApi, SME } from "../api/smeApi";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 
@@ -222,6 +223,8 @@ export default function DocumentsPage() {
 
   // API loading states
   const [dbVerifications, setDbVerifications] = useState<VerificationRecord[]>([]);
+  const [smeProfile, setSmeProfile] = useState<SME | null>(null);
+  const [bsParseResult, setBsParseResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -261,8 +264,21 @@ export default function DocumentsPage() {
     }
   };
 
+  const loadSmeProfile = async () => {
+    try {
+      const dashboardRes = await SMEApi.getDashboard();
+      if (dashboardRes.data?.sme_id) {
+        const smeRes = await SMEApi.getOne(dashboardRes.data.sme_id);
+        setSmeProfile(smeRes.data);
+      }
+    } catch (err) {
+      console.error("Could not load SME profile details", err);
+    }
+  };
+
   useEffect(() => {
     loadVerifications();
+    loadSmeProfile();
   }, []);
 
   // Update Category automatically when Document Type is chosen
@@ -572,22 +588,27 @@ export default function DocumentsPage() {
       return;
     }
 
+    if (!uploadedFile.rawFile) {
+      enqueueSnackbar("Raw file content is missing.", { variant: "warning" });
+      return;
+    }
+
     try {
       setSubmitting(true);
       const docTypeMeta = DOCUMENT_TYPES[selectedDocType];
       const displayName = docTypeMeta ? docTypeMeta.label : selectedDocType;
 
-      // Mock upload URL structure like backend test scripts
-      const mockUrl = `mock_uploads/${encodeURIComponent(uploadedFile.name)}`;
-
-      await VerificationApi.submit({
-        doc_type: selectedDocType,
-        document_url: mockUrl
-      });
+      const response = await VerificationApi.submit(selectedDocType, uploadedFile.rawFile);
 
       enqueueSnackbar(`${displayName} uploaded successfully and submitted for review.`, { variant: "success" });
+      
+      if (selectedDocType === "bank_statement" && (response.data as any).bank_statement_parsing) {
+        setBsParseResult((response.data as any).bank_statement_parsing);
+      }
+
       setUploadedFile(null);
       await loadVerifications();
+      await loadSmeProfile();
     } catch (err) {
       console.error(err);
       enqueueSnackbar("Failed to submit verification document. Please try again.", { variant: "error" });
@@ -756,6 +777,54 @@ export default function DocumentsPage() {
           </div>
         </div>
       </div>
+
+      {/* Parsed Cashflow Signals Alert Banner */}
+      {(bsParseResult || (smeProfile && smeProfile.bs_months_analysed !== null && smeProfile.bs_months_analysed !== undefined)) && (
+        <div className="rounded-2xl border border-emerald-250 bg-emerald-50/50 p-5 shadow-sm">
+          <div className="flex items-start gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+              <CheckCircle className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-extrabold text-[#071942] flex items-center gap-2">
+                Bank Statement Cashflow Signals Extracted
+                <span className="inline-flex items-center rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-black text-emerald-800 uppercase tracking-wider">
+                  Active
+                </span>
+              </h4>
+              <p className="text-xs text-[#5f6d8a] mt-1 leading-normal">
+                Your bank statement has been successfully parsed. Cashflow metrics have been mapped to your score profile for real-time risk assessment.
+              </p>
+              <div className="grid grid-cols-2 gap-3 mt-4 sm:grid-cols-4">
+                <div className="bg-white rounded-xl border border-[#e9eef8] p-3 shadow-2xs">
+                  <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Months Analysed</span>
+                  <span className="text-[13px] font-extrabold text-[#071942] mt-0.5 block">
+                    {bsParseResult?.months_analysed ?? smeProfile?.bs_months_analysed} months
+                  </span>
+                </div>
+                <div className="bg-white rounded-xl border border-[#e9eef8] p-3 shadow-2xs">
+                  <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Avg Monthly Income</span>
+                  <span className="text-[13px] font-extrabold text-[#071942] mt-0.5 block">
+                    R {Number(bsParseResult?.avg_monthly_income ?? smeProfile?.bs_avg_monthly_income ?? 0).toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </span>
+                </div>
+                <div className="bg-white rounded-xl border border-[#e9eef8] p-3 shadow-2xs">
+                  <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Avg Monthly Balance</span>
+                  <span className="text-[13px] font-extrabold text-[#071942] mt-0.5 block">
+                    R {Number(bsParseResult?.avg_monthly_balance ?? smeProfile?.bs_avg_monthly_balance ?? 0).toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </span>
+                </div>
+                <div className="bg-white rounded-xl border border-[#e9eef8] p-3 shadow-2xs">
+                  <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Income Consistency</span>
+                  <span className="text-[13px] font-extrabold text-[#071942] mt-0.5 block">
+                    {(Number(bsParseResult?.income_regularity ?? smeProfile?.bs_income_regularity ?? 0) * 100).toFixed(0)}%
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Grid Layout */}
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">

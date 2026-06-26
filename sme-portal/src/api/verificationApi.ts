@@ -12,12 +12,16 @@ export interface VerificationRecord {
   lender_id?: number | null;
 }
 
-export interface VerificationSubmitPayload {
-  doc_type: string;
-  document_url?: string;
-}
-
 export const VerificationApi = {
-  submit: (data: VerificationSubmitPayload) => api.post<VerificationRecord>("/verifications/submit", data),
+  submit: (docType: string, file: File) => {
+    const formData = new FormData();
+    formData.append("doc_type", docType);
+    formData.append("file", file);
+    return api.post<VerificationRecord>("/verifications/submit", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
   myVerifications: () => api.get<VerificationRecord[]>("/verifications/my"),
 };

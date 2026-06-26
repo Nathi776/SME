@@ -14,7 +14,7 @@ from models.invoice import Invoice
 from pydantic import BaseModel, ConfigDict, Field
 from typing import List
 from services.auth_service import get_current_user
-from services.scoring_service import calculate_credit_score
+from services.scoring_service import score_sme
 from services.finance_service import calculate_eligible_amount
 
 
@@ -32,6 +32,13 @@ class SMEBase(BaseModel):
 
 class SMECreated(SMEBase):
     id: int
+    bs_avg_monthly_balance: Decimal | None = None
+    bs_avg_monthly_income: Decimal | None = None
+    bs_avg_monthly_expenses: Decimal | None = None
+    bs_overdraft_count: int | None = None
+    bs_income_regularity: Decimal | None = None
+    bs_months_analysed: int | None = None
+    bs_parsed_revenue: Decimal | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -123,7 +130,7 @@ def create_sme(
     db.add(new_sme)
     db.flush()
 
-    initial_score = calculate_credit_score(new_sme.revenue, new_sme.years_active, 0)
+    initial_score = score_sme(new_sme, db).score
     db.add(
         CreditScore(
             sme_id=new_sme.id,

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FileText, Clock, Check, ArrowRight, ArrowLeft, HeartHandshake, ShieldCheck } from "lucide-react";
+import { FileText, Clock, Check, ArrowRight, ArrowLeft, HeartHandshake, ShieldCheck, AlertTriangle } from "lucide-react";
 import api from "../api/client";
 import { FinanceApi } from "../api/financeApi";
 import { useSnackbar } from "notistack";
@@ -26,16 +26,16 @@ interface FinanceRequest {
 }
 
 const calculateEligibleAmount = (invoiceAmount: number, score: number | null) => {
-  if (score === null || score < 40) return invoiceAmount * 0.6;
-  if (score < 60) return invoiceAmount * 0.7;
-  if (score < 80) return invoiceAmount * 0.8;
+  if (score === null || score < 50) return invoiceAmount * 0.6;
+  if (score < 75) return invoiceAmount * 0.7;
+  if (score < 85) return invoiceAmount * 0.8;
   return invoiceAmount * 0.9;
 };
 
 const getFeeRate = (score: number | null) => {
-  if (score === null || score < 40) return 0.08;
-  if (score < 60) return 0.05;
-  if (score < 80) return 0.025; // 2.5%
+  if (score === null || score < 50) return 0.08;
+  if (score < 75) return 0.05;
+  if (score < 85) return 0.025; // 2.5%
   return 0.015; // 1.5%
 };
 
@@ -48,6 +48,7 @@ export default function FinanceRequestPage() {
   const [currentStep, setCurrentStep] = useState<1 | 3 | 4>(1);
 
   // Form State
+  const [requestType, setRequestType] = useState<"invoice_backed" | "pre_invoice">("invoice_backed");
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [financeRequests, setFinanceRequests] = useState<FinanceRequest[]>([]);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<number | "">("");
@@ -63,6 +64,7 @@ export default function FinanceRequestPage() {
 
   // SME Details & Credit Score
   const [creditScore, setCreditScore] = useState<number | null>(78);
+  const [pricingParams, setPricingParams] = useState<{ fee_rate: number; advance_rate: number } | null>(null);
   const [loading, setLoading] = useState(false);
 
   const loadData = useCallback(async () => {
@@ -73,10 +75,14 @@ export default function FinanceRequestPage() {
       const scoreVal = dashboardRes.data.credit_score ?? 78;
       setCreditScore(scoreVal);
 
-      const [invoicesRes, requestsRes] = await Promise.all([
+      const [invoicesRes, requestsRes, pricingRes] = await Promise.all([
         api.get(`/invoices/sme/${smeId}`),
         api.get(`/finance/requests/${smeId}`),
+        FinanceApi.getPricingParameters(),
       ]);
+
+      const fetchedParams = pricingRes.data;
+      setPricingParams(fetchedParams);
 
       const activeInvoices = invoicesRes.data.filter((inv: Invoice) => inv.status !== "paid");
       setInvoices(activeInvoices);
@@ -92,7 +98,8 @@ export default function FinanceRequestPage() {
           if (prefill) {
             setRequestedAmount(Number(prefill));
           } else {
-            setRequestedAmount(calculateEligibleAmount(selected.amount, scoreVal));
+            const advRate = fetchedParams?.advance_rate ?? calculateEligibleAmount(1, scoreVal);
+            setRequestedAmount(selected.amount * advRate);
           }
         }
       } else {
@@ -105,7 +112,8 @@ export default function FinanceRequestPage() {
           );
           if (selected) {
             setSelectedInvoiceId(selected.id);
-            setRequestedAmount(calculateEligibleAmount(selected.amount, scoreVal));
+            const advRate = fetchedParams?.advance_rate ?? calculateEligibleAmount(1, scoreVal);
+            setRequestedAmount(selected.amount * advRate);
           } else {
             enqueueSnackbar(`No outstanding invoices found for ${prefillClientName}.`, { variant: "info" });
           }
@@ -132,7 +140,8 @@ export default function FinanceRequestPage() {
     setSelectedInvoiceId(id);
     const selected = invoices.find((inv) => inv.id === id);
     if (selected) {
-      const maxEligible = calculateEligibleAmount(selected.amount, creditScore);
+      const advRate = pricingParams ? pricingParams.advance_rate : calculateEligibleAmount(1, creditScore);
+      const maxEligible = selected.amount * advRate;
       setRequestedAmount(maxEligible);
     }
   };
@@ -144,15 +153,23 @@ export default function FinanceRequestPage() {
 
   // Derived financial previews
   const previewMetrics = useMemo(() => {
-    if (!selectedInvoice) return { maxEligible: 0, advanceRate: 80, feeRatePercent: "2.5", feeAmount: 0, payout: 0 };
-
     const scoreVal = creditScore ?? 78;
-    const advanceRate = scoreVal < 40 ? 60 : scoreVal < 60 ? 70 : scoreVal < 80 ? 80 : 90;
-    const feeRate = getFeeRate(scoreVal);
-    const maxEligible = calculateEligibleAmount(selectedInvoice.amount, scoreVal);
+    const advRate = pricingParams ? pricingParams.advance_rate : calculateEligibleAmount(1, scoreVal);
+    const feeRate = pricingParams ? pricingParams.fee_rate : getFeeRate(scoreVal);
+    const advanceRate = Math.round(advRate * 100);
+    
+    let maxEligible = 0;
+    if (requestType === "invoice_backed") {
+      if (selectedInvoice) {
+        maxEligible = selectedInvoice.amount * advRate;
+      }
+    } else {
+      maxEligible = requestedAmount * advRate;
+    }
 
-    const feeAmount = requestedAmount * feeRate;
-    const payout = requestedAmount - feeAmount;
+    const cappedAmount = requestType === "invoice_backed" ? requestedAmount : Math.min(requestedAmount, maxEligible);
+    const feeAmount = cappedAmount * feeRate;
+    const payout = cappedAmount - feeAmount;
 
     return {
       maxEligible,
@@ -161,7 +178,7 @@ export default function FinanceRequestPage() {
       feeAmount,
       payout: Math.max(0, payout),
     };
-  }, [selectedInvoice, requestedAmount, creditScore]);
+  }, [selectedInvoice, requestedAmount, creditScore, requestType, pricingParams]);
 
   // Dynamic statistics for right card
   const historyStats = useMemo(() => {
@@ -178,20 +195,28 @@ export default function FinanceRequestPage() {
   }, [financeRequests]);
 
   const isFormValid = useMemo(() => {
-    if (!selectedInvoiceId) return false;
-    if (requestedAmount <= 0 || requestedAmount > previewMetrics.maxEligible) return false;
     if (!term1 || !term2 || !term3) return false;
+    if (requestedAmount <= 0) return false;
+    if (requestType === "invoice_backed") {
+      if (!selectedInvoiceId) return false;
+      if (requestedAmount > previewMetrics.maxEligible) return false;
+    } else {
+      const scoreVal = creditScore ?? 78;
+      if (scoreVal < 50) return false;
+    }
     return true;
-  }, [selectedInvoiceId, requestedAmount, previewMetrics.maxEligible, term1, term2, term3]);
+  }, [requestType, selectedInvoiceId, requestedAmount, previewMetrics.maxEligible, creditScore, term1, term2, term3]);
 
   // Submit the request to the backend API
   const handleFinalSubmit = async () => {
-    if (!selectedInvoiceId || requestedAmount <= 0) return;
+    if (requestType === "invoice_backed" && !selectedInvoiceId) return;
+    if (requestedAmount <= 0) return;
 
     try {
       setLoading(true);
+      const invoiceIdPayload = requestType === "invoice_backed" ? Number(selectedInvoiceId) : null;
       await FinanceApi.apply(
-        Number(selectedInvoiceId),
+        invoiceIdPayload,
         requestedAmount,
         purpose,
         payoutDate ? new Date(payoutDate).toISOString() : undefined,
@@ -286,76 +311,155 @@ export default function FinanceRequestPage() {
         <div className="xl:col-span-2 space-y-6">
           {currentStep === 1 && (
             <>
-              {/* Section 1: Select Invoice to Finance */}
+              {/* Funding Path Selection Toggle */}
               <div className="rounded-2xl border border-[#e9eef8] bg-white p-6 shadow-sm">
-                <div className="flex items-center gap-3 border-b border-[#e9eef8] pb-4 mb-5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1f724f] text-sm font-bold text-white">
-                    1
-                  </div>
-                  <h2 className="text-lg font-bold text-[#071942]">Select Invoice to Finance</h2>
+                <h3 className="text-sm font-bold text-[#5f6d8a] uppercase tracking-wide mb-3">Choose Funding Type</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRequestType("invoice_backed");
+                      setSelectedInvoiceId("");
+                      setRequestedAmount(0);
+                    }}
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition text-center ${
+                      requestType === "invoice_backed"
+                        ? "border-[#1f724f] bg-emerald-50/10 font-bold"
+                        : "border-[#dfe5f0] hover:border-slate-300 hover:bg-slate-50/50"
+                    }`}
+                  >
+                    <span className="text-sm text-[#071942] font-extrabold">Invoice-Backed</span>
+                    <span className="text-[10px] text-[#5f6d8a] mt-1">Finance against an existing invoice</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRequestType("pre_invoice");
+                      setSelectedInvoiceId("");
+                      setRequestedAmount(0);
+                    }}
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition text-center ${
+                      requestType === "pre_invoice"
+                        ? "border-[#1f724f] bg-emerald-50/10 font-bold"
+                        : "border-[#dfe5f0] hover:border-slate-300 hover:bg-slate-50/50"
+                    }`}
+                  >
+                    <span className="text-sm text-[#071942] font-extrabold">Pre-Invoice</span>
+                    <span className="text-[10px] text-[#5f6d8a] mt-1">Access capital before invoicing clients</span>
+                  </button>
                 </div>
-                <p className="text-xs text-[#5f6d8a] -mt-2 mb-4">Choose an eligible invoice from your outstanding invoices.</p>
-
-                {invoices.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-10 text-center rounded-xl bg-slate-50 border border-slate-100">
-                    <FileText className="h-10 w-10 text-slate-400 mb-2" />
-                    <p className="text-sm font-bold text-[#071942]">No eligible invoices found</p>
-                    <p className="text-xs text-[#5f6d8a] mt-1 max-w-[280px]">All invoices are settled or currently under review. Upload a new invoice to apply.</p>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    {invoices.map((inv) => {
-                      const isSelected = selectedInvoiceId === inv.id;
-                      const issueStr = inv.issue_date ? new Date(inv.issue_date).toLocaleDateString("en-ZA", { day: "2-digit", month: "short", year: "numeric" }) : "-";
-                      const dueStr = inv.due_date ? new Date(inv.due_date).toLocaleDateString("en-ZA", { day: "2-digit", month: "short", year: "numeric" }) : "-";
-
-                      // Calculate remaining terms
-                      let remainingDays = 30;
-                      if (inv.due_date) {
-                        const diffTime = new Date(inv.due_date).getTime() - new Date().getTime();
-                        remainingDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                      }
-
-                      return (
-                        <div
-                          key={inv.id}
-                          onClick={() => handleSelectInvoice(inv.id)}
-                          className={`flex items-start gap-4 p-4 rounded-xl border-2 transition cursor-pointer ${
-                            isSelected 
-                              ? "border-[#1f724f] bg-emerald-50/10"
-                              : "border-[#dfe5f0] hover:border-[#1f724f]/50 hover:bg-slate-50/50"
-                          }`}
-                        >
-                          <div className={`mt-1 flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full border-2 ${
-                            isSelected ? "border-[#1f724f]" : "border-[#dfe5f0]"
-                          }`}>
-                            {isSelected && <div className="h-3 w-3 rounded-full bg-[#1f724f]" />}
-                          </div>
-                          
-                          <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-3">
-                            <div className="md:col-span-2">
-                              <h4 className="font-extrabold text-sm text-[#071942]">{inv.invoice_number || `INV-2026-${String(inv.id).padStart(3, "0")}`}</h4>
-                              <p className="text-xs text-[#5f6d8a] mt-0.5">{inv.client_name}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-bold text-[#5f6d8a] uppercase tracking-wide">Amount</p>
-                              <p className="text-sm font-extrabold text-[#071942] mt-0.5">{formatZAR(inv.amount)}</p>
-                            </div>
-                            <div className="flex flex-col md:items-end">
-                              <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-bold ${
-                                remainingDays < 0 ? "bg-rose-50 text-rose-700" : "bg-emerald-50 text-emerald-700"
-                              }`}>
-                                {remainingDays < 0 ? `Overdue by ${Math.abs(remainingDays)} days` : `Due in ${remainingDays} days`}
-                              </span>
-                              <p className="text-[10px] text-[#8f9bba] mt-1">Issued: {issueStr} | Due: {dueStr}</p>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
               </div>
+
+              {requestType === "invoice_backed" ? (
+                /* Section 1: Select Invoice to Finance */
+                <div className="rounded-2xl border border-[#e9eef8] bg-white p-6 shadow-sm">
+                  <div className="flex items-center gap-3 border-b border-[#e9eef8] pb-4 mb-5">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1f724f] text-sm font-bold text-white">
+                      1
+                    </div>
+                    <h2 className="text-lg font-bold text-[#071942]">Select Invoice to Finance</h2>
+                  </div>
+                  <p className="text-xs text-[#5f6d8a] -mt-2 mb-4">Choose an eligible invoice from your outstanding invoices.</p>
+
+                  {invoices.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-10 text-center rounded-xl bg-slate-50 border border-slate-100">
+                      <FileText className="h-10 w-10 text-slate-400 mb-2" />
+                      <p className="text-sm font-bold text-[#071942]">No eligible invoices found</p>
+                      <p className="text-xs text-[#5f6d8a] mt-1 max-w-[280px]">All invoices are settled or currently under review. Upload a new invoice to apply.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {invoices.map((inv) => {
+                        const isSelected = selectedInvoiceId === inv.id;
+                        const issueStr = inv.issue_date ? new Date(inv.issue_date).toLocaleDateString("en-ZA", { day: "2-digit", month: "short", year: "numeric" }) : "-";
+                        const dueStr = inv.due_date ? new Date(inv.due_date).toLocaleDateString("en-ZA", { day: "2-digit", month: "short", year: "numeric" }) : "-";
+
+                        // Calculate remaining terms
+                        let remainingDays = 30;
+                        if (inv.due_date) {
+                          const diffTime = new Date(inv.due_date).getTime() - new Date().getTime();
+                          remainingDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        }
+
+                        return (
+                          <div
+                            key={inv.id}
+                            onClick={() => handleSelectInvoice(inv.id)}
+                            className={`flex items-start gap-4 p-4 rounded-xl border-2 transition cursor-pointer ${
+                              isSelected 
+                                ? "border-[#1f724f] bg-emerald-50/10"
+                                : "border-[#dfe5f0] hover:border-[#1f724f]/50 hover:bg-slate-50/50"
+                            }`}
+                          >
+                            <div className={`mt-1 flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full border-2 ${
+                              isSelected ? "border-[#1f724f]" : "border-[#dfe5f0]"
+                            }`}>
+                              {isSelected && <div className="h-3 w-3 rounded-full bg-[#1f724f]" />}
+                            </div>
+                            
+                            <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-3">
+                              <div className="md:col-span-2">
+                                <h4 className="font-extrabold text-sm text-[#071942]">{inv.invoice_number || `INV-2026-${String(inv.id).padStart(3, "0")}`}</h4>
+                                <p className="text-xs text-[#5f6d8a] mt-0.5">{inv.client_name}</p>
+                              </div>
+                              <div>
+                                <p className="text-xs font-bold text-[#5f6d8a] uppercase tracking-wide">Amount</p>
+                                <p className="text-sm font-extrabold text-[#071942] mt-0.5">{formatZAR(inv.amount)}</p>
+                              </div>
+                              <div className="flex flex-col md:items-end">
+                                <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-bold ${
+                                  remainingDays < 0 ? "bg-rose-50 text-rose-700" : "bg-emerald-50 text-emerald-700"
+                                }`}>
+                                  {remainingDays < 0 ? `Overdue by ${Math.abs(remainingDays)} days` : `Due in ${remainingDays} days`}
+                                </span>
+                                <p className="text-[10px] text-[#8f9bba] mt-1">Issued: {issueStr} | Due: {dueStr}</p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                /* Pre-Invoice Eligibility Warning & Explanation Card */
+                <div className="rounded-2xl border border-[#e9eef8] bg-white p-6 shadow-sm">
+                  <div className="flex items-center gap-3 border-b border-[#e9eef8] pb-4 mb-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1f724f] text-sm font-bold text-white">
+                      1
+                    </div>
+                    <h2 className="text-lg font-bold text-[#071942]">Pre-Invoice Funding Request</h2>
+                  </div>
+                  
+                  {(creditScore ?? 0) < 50 ? (
+                    <div className="flex items-start gap-3 rounded-xl bg-rose-50 p-4 border border-rose-100 text-xs text-rose-700 leading-normal">
+                      <AlertTriangle className="h-5 w-5 shrink-0 text-rose-600 mt-0.5" />
+                      <div>
+                        <p className="font-extrabold">Pre-Invoice Financing Unavailable</p>
+                        <p className="mt-1 font-medium">Your current credit score of {creditScore !== null ? Math.round(creditScore) : "N/A"} is below the minimum threshold of 50. Please upload additional business documents or wait until bank statements are parsed to boost your score.</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4 text-xs text-[#5f6d8a] leading-normal">
+                      <div className="flex items-start gap-3 rounded-xl bg-emerald-50/50 p-4 border border-emerald-100/30 text-emerald-800">
+                        <ShieldCheck className="h-5 w-5 shrink-0 text-[#1f724f] mt-0.5" />
+                        <div>
+                          <p className="font-extrabold">Score Requirement Met</p>
+                          <p className="mt-1 font-medium">Your credit score ({creditScore}) meets the minimum pre-invoice threshold. You can request up to your credit score's maximum advance limit below.</p>
+                        </div>
+                      </div>
+                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                        <p className="font-bold text-[#071942]">Pre-Invoice Funding Rules:</p>
+                        <ul className="list-disc pl-4 space-y-1">
+                          <li>You do not need to link an invoice to submit this request.</li>
+                          <li>Platform fees are calculated on the capped eligible amount based on your credit score risk tier.</li>
+                          <li>Once approved, you are expected to link the invoice when generated.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Section 2: Finance Request Details */}
               <div className="rounded-2xl border border-[#e9eef8] bg-white p-6 shadow-sm">
@@ -367,18 +471,20 @@ export default function FinanceRequestPage() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-                  <div>
-                    <label className="block text-xs font-bold text-[#5f6d8a] mb-2 uppercase tracking-wide">Invoice Amount</label>
-                    <input
-                      type="text"
-                      disabled
-                      value={selectedInvoice ? formatZAR(selectedInvoice.amount) : "R0.00"}
-                      className="w-full rounded-xl border border-[#dfe5f0] bg-slate-50 px-4 py-3 text-sm text-[#5f6d8a] font-bold cursor-not-allowed"
-                    />
-                  </div>
+                  {requestType === "invoice_backed" && (
+                    <div>
+                      <label className="block text-xs font-bold text-[#5f6d8a] mb-2 uppercase tracking-wide">Invoice Amount</label>
+                      <input
+                        type="text"
+                        disabled
+                        value={selectedInvoice ? formatZAR(selectedInvoice.amount) : "R0.00"}
+                        className="w-full rounded-xl border border-[#dfe5f0] bg-slate-50 px-4 py-3 text-sm text-[#5f6d8a] font-bold cursor-not-allowed"
+                      />
+                    </div>
+                  )}
 
                   <div>
-                    <label className="block text-xs font-bold text-[#5f6d8a] mb-2 uppercase tracking-wide">Maximum Eligible ({previewMetrics.advanceRate}% Advance)</label>
+                    <label className="block text-xs font-bold text-[#5f6d8a] mb-2 uppercase tracking-wide">{requestType === "invoice_backed" ? "Maximum Eligible" : "Capped Advance Limit"} ({previewMetrics.advanceRate}% Advance)</label>
                     <input
                       type="text"
                       disabled
@@ -393,15 +499,20 @@ export default function FinanceRequestPage() {
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-bold text-[#5f6d8a]">R</span>
                       <input
                         type="number"
-                        disabled={!selectedInvoiceId}
+                        disabled={requestType === "invoice_backed" && !selectedInvoiceId}
                         placeholder="35 000.00"
                         value={requestedAmount || ""}
                         onChange={(e) => setRequestedAmount(e.target.value === "" ? 0 : Number(e.target.value))}
                         className="w-full rounded-xl border border-[#dfe5f0] bg-white pl-8 pr-4 py-3 text-sm text-[#071942] placeholder-[#91a1bf] font-bold transition focus:border-[#1f724f] focus:outline-none focus:ring-1 focus:ring-[#1f724f]"
                       />
                     </div>
-                    {selectedInvoiceId && requestedAmount > previewMetrics.maxEligible && (
+                    {requestType === "invoice_backed" && selectedInvoiceId && requestedAmount > previewMetrics.maxEligible && (
                       <p className="text-[10px] font-semibold text-rose-600 mt-1">Amount cannot exceed max eligible limit</p>
+                    )}
+                    {requestType === "pre_invoice" && requestedAmount > 0 && (
+                      <p className="text-[10px] font-semibold text-emerald-600 mt-1">
+                        Capped at {previewMetrics.advanceRate}%: R {previewMetrics.maxEligible.toFixed(2)}
+                      </p>
                     )}
                   </div>
 
@@ -475,7 +586,11 @@ export default function FinanceRequestPage() {
                       onChange={(e) => setTerm2(e.target.checked)}
                       className="mt-0.5 rounded border-[#dfe5f0] text-[#1f724f] focus:ring-[#1f724f]"
                     />
-                    <span>I confirm that the selected invoice is genuine and not previously financed.</span>
+                    <span>
+                      {requestType === "invoice_backed"
+                        ? "I confirm that the selected invoice is genuine and not previously financed."
+                        : "I confirm that I will upload the corresponding invoice as soon as it becomes available."}
+                    </span>
                   </label>
 
                   <label className="flex items-start gap-3 text-xs text-[#5f6d8a] cursor-pointer">
@@ -527,11 +642,21 @@ export default function FinanceRequestPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                 <div className="space-y-4">
-                  <h3 className="font-extrabold text-xs uppercase text-[#5f6d8a] tracking-wider">Invoice details</h3>
+                  <h3 className="font-extrabold text-xs uppercase text-[#5f6d8a] tracking-wider">Funding details</h3>
                   <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
-                    <p className="font-bold text-[#071942]">Invoice Number: <span className="font-medium text-[#5f6d8a]">{selectedInvoice?.invoice_number || `INV-2026-${String(selectedInvoice?.id).padStart(3,"0")}`}</span></p>
-                    <p className="font-bold text-[#071942]">Client: <span className="font-medium text-[#5f6d8a]">{selectedInvoice?.client_name}</span></p>
-                    <p className="font-bold text-[#071942]">Full Value: <span className="font-medium text-[#5f6d8a]">{formatZAR(selectedInvoice?.amount || 0)}</span></p>
+                    <p className="font-bold text-[#071942]">Funding Type: <span className="font-extrabold text-[#1f724f]">{requestType === "invoice_backed" ? "Invoice-Backed" : "Pre-Invoice"}</span></p>
+                    {requestType === "invoice_backed" ? (
+                      <>
+                        <p className="font-bold text-[#071942]">Invoice Number: <span className="font-medium text-[#5f6d8a]">{selectedInvoice?.invoice_number || `INV-2026-${String(selectedInvoice?.id).padStart(3,"0")}`}</span></p>
+                        <p className="font-bold text-[#071942]">Client: <span className="font-medium text-[#5f6d8a]">{selectedInvoice?.client_name}</span></p>
+                        <p className="font-bold text-[#071942]">Invoice Value: <span className="font-medium text-[#5f6d8a]">{formatZAR(selectedInvoice?.amount || 0)}</span></p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="font-bold text-[#071942]">Status: <span className="font-semibold text-emerald-600">Pre-Approved (Scored Request)</span></p>
+                        <p className="font-bold text-[#071942]">Capped Limit: <span className="font-medium text-[#5f6d8a]">{formatZAR(previewMetrics.maxEligible)}</span></p>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -555,7 +680,11 @@ export default function FinanceRequestPage() {
 
                 <div className="md:col-span-2 flex items-start gap-2.5 rounded-xl bg-emerald-50/30 p-4 border border-emerald-100/30 text-xs text-[#1f724f] leading-normal">
                   <ShieldCheck className="h-5 w-5 shrink-0 text-[#1f724f] mt-0.5" />
-                  <p>By confirming and submitting, you declare that the selected invoice is genuine, not previously financed, and all details submitted are correct.</p>
+                  <p>
+                    {requestType === "invoice_backed"
+                      ? "By confirming and submitting, you declare that the selected invoice is genuine, not previously financed, and all details submitted are correct."
+                      : "By confirming and submitting, you declare that all business details submitted are correct and that you will link the corresponding invoice when available."}
+                  </p>
                 </div>
               </div>
 
@@ -635,12 +764,19 @@ export default function FinanceRequestPage() {
             <h3 className="text-base font-extrabold text-[#071942] border-b border-[#e9eef8] pb-3 mb-5">Finance Preview</h3>
             
             <div className="space-y-4 text-sm">
-              <div className="flex justify-between">
-                <span className="text-[#5f6d8a]">Invoice Value</span>
-                <span className="font-bold text-[#071942]">
-                  {selectedInvoice ? formatZAR(selectedInvoice.amount) : "R0.00"}
-                </span>
-              </div>
+              {requestType === "invoice_backed" ? (
+                <div className="flex justify-between">
+                  <span className="text-[#5f6d8a]">Invoice Value</span>
+                  <span className="font-bold text-[#071942]">
+                    {selectedInvoice ? formatZAR(selectedInvoice.amount) : "R0.00"}
+                  </span>
+                </div>
+              ) : (
+                <div className="flex justify-between">
+                  <span className="text-[#5f6d8a]">Funding Type</span>
+                  <span className="font-bold text-[#071942]">Pre-Invoice</span>
+                </div>
+              )}
 
               <div className="flex justify-between">
                 <span className="text-[#5f6d8a]">Advance Rate</span>
@@ -648,12 +784,12 @@ export default function FinanceRequestPage() {
               </div>
 
               <div className="flex justify-between">
-                <span className="text-[#5f6d8a]">Maximum Finance</span>
+                <span className="text-[#5f6d8a]">{requestType === "invoice_backed" ? "Maximum Finance" : "Capped Eligible Amount"}</span>
                 <span className="font-bold text-[#071942]">{formatZAR(previewMetrics.maxEligible)}</span>
               </div>
 
               <div className="flex justify-between border-t border-dashed border-[#e9eef8] pt-3">
-                <span className="text-[#5f6d8a]">Requested Amount</span>
+                <span className="text-[#5f6d8a]">{requestType === "invoice_backed" ? "Requested Amount" : "Original Requested"}</span>
                 <span className="font-bold text-[#071942]">{formatZAR(requestedAmount)}</span>
               </div>
 
@@ -688,15 +824,15 @@ export default function FinanceRequestPage() {
               <div className="flex items-center gap-5">
                 <div className="relative flex items-center justify-center h-20 w-20 shrink-0 rounded-full border-4 border-emerald-500/20">
                   <div className="text-center">
-                    <span className="text-lg font-black text-[#071942]">{Math.round(creditScore * 10)}</span>
+                    <span className="text-lg font-black text-[#071942]">{Math.round(creditScore)}</span>
                   </div>
                 </div>
                 <div>
                   <h4 className="font-bold text-sm text-[#00a662]">
-                    {creditScore >= 80 ? "Excellent" : creditScore >= 60 ? "Good" : creditScore >= 40 ? "Fair" : "Poor"}
+                    {creditScore >= 85 ? "Excellent" : creditScore >= 75 ? "Good" : creditScore >= 50 ? "Fair" : "Poor"}
                   </h4>
-                  <p className="text-xs text-[#5f6d8a] mt-0.5">Low Risk standing</p>
-                  <p className="text-[10px] text-[#8f9bba] mt-1">Your excellent credit score increases your chances of approval.</p>
+                  <p className="text-xs text-[#5f6d8a] mt-0.5">Risk standing</p>
+                  <p className="text-[10px] text-[#8f9bba] mt-1">Your credit score determines your advance limits and fee rates.</p>
                 </div>
               </div>
             </div>

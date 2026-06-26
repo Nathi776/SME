@@ -8,9 +8,13 @@ import FundingSummary from "../components/dashboard/FundingSummary";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import QuickActions from "../components/dashboard/QuickActions";
 import { DashboardResponse, SMEApi } from "../api/smeApi";
+import ScoreTrajectoryChart from "../components/dashboard/ScoreTrajectoryChart";
+import ScoreImprovementPanel from "../components/dashboard/ScoreImprovementPanel";
 
 export default function Dashboard() {
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
+  const [scoreHistory, setScoreHistory] = useState<any[]>([]);
+  const [missingDocs, setMissingDocs] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,6 +26,23 @@ export default function Dashboard() {
         const response = await SMEApi.getDashboard();
         if (isMounted) {
           const d = response.data;
+          const smeId = d.sme_id;
+
+          // Parallel load score history and details (for missing docs guidance)
+          try {
+            const [historyRes, detailsRes] = await Promise.all([
+              SMEApi.getCreditScore(smeId),
+              SMEApi.getCreditScoreDetails(smeId)
+            ]);
+            if (isMounted) {
+              setScoreHistory(historyRes.data || []);
+              const missing = detailsRes.data?.breakdown?.["Verification Depth"]?.missing || [];
+              setMissingDocs(missing);
+            }
+          } catch (err) {
+            console.error("Could not load score history or breakdown details", err);
+          }
+
           // Coerce numeric-like fields to numbers for the UI components
           const coerced = {
             ...d,
@@ -61,11 +82,11 @@ export default function Dashboard() {
   }, []);
 
   if (loading) {
-    return <div className="text-sm text-muted-foreground">Loading dashboard...</div>;
+    return <div className="text-sm text-muted-foreground p-6">Loading dashboard...</div>;
   }
 
   if (error || !dashboard) {
-    return <div className="text-sm text-red-600">{error || "No dashboard data available."}</div>;
+    return <div className="text-sm text-red-600 p-6">{error || "No dashboard data available."}</div>;
   }
 
   return (
@@ -80,12 +101,25 @@ export default function Dashboard() {
         eligibleAmount={dashboard.eligible_amount}
         financeRequestCount={dashboard.finance_requests}
       />
+
+      {/* Row 1: Score gauge, recent invoices, recent requests */}
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
         <CreditScoreOverview score={dashboard.credit_score} />
         <RecentInvoices invoices={dashboard.recent_invoices} />
         <FinanceRequests requests={dashboard.recent_finance_requests} />
       </div>
 
+      {/* Row 2: Score Trajectory & Boost Panel */}
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
+        <div className="xl:col-span-2">
+          <ScoreTrajectoryChart history={scoreHistory} />
+        </div>
+        <div>
+          <ScoreImprovementPanel missingDocs={missingDocs} />
+        </div>
+      </div>
+
+      {/* Row 3: Funding summaries, activity log, quick actions */}
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
         <FundingSummary
           requestedAmount={dashboard.requested_amount}
