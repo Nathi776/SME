@@ -7,7 +7,7 @@ from main import app
 from limiter import limiter
 from models.user import User
 from models.sme import SME
-from models.invoice import Invoice
+from models.invoice import I nvoice
 from models.credit_score import CreditScore
 from models.finance_request import FinanceRequest
 from models.verification import Verification
