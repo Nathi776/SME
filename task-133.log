@@ -1,0 +1,925 @@
+--- Users: 84 ---
+ID: 5, Username: test_lender, Role: sme, Email: lender@test.com
+ID: 6, Username: test_sme_001, Role: sme, Email: sme001@test.com
+ID: 73, Username: testuser_a704ebbf, Role: sme, Email: testuser_a704ebbf@example.com
+ID: 8, Username: test_sme_002, Role: sme, Email: sme002@test.com
+ID: 9, Username: test_lender_002, Role: lender, Email: lender002@test.com
+ID: 10, Username: test_sme_003, Role: sme, Email: sme003@test.com
+ID: 11, Username: test_lender_003, Role: lender, Email: lender003@test.com
+ID: 12, Username: test_sme_004, Role: sme, Email: sme004@test.com
+ID: 33, Username: snkosinathi45, Role: lender, Email: Snkosinathi45@gmail.com
+ID: 34, Username: nkosinathisimelane136, Role: sme, Email: nkosinathisimelane136@gmail.com
+ID: 35, Username: testuser, Role: sme, Email: testuser@example.com
+ID: 36, Username: testuser_bd0e19d2, Role: sme, Email: testuser_bd0e19d2@example.com
+ID: 37, Username: testuser_272ecf0b, Role: sme, Email: testuser_272ecf0b@example.com
+ID: 38, Username: testuser_046fa024, Role: sme, Email: testuser_046fa024@example.com
+ID: 39, Username: testuser_5d42a004, Role: sme, Email: testuser_5d42a004@example.com
+ID: 40, Username: testuser_53531546, Role: sme, Email: testuser_53531546@example.com
+ID: 41, Username: testuser_ce84e2f8, Role: sme, Email: testuser_ce84e2f8@example.com
+ID: 42, Username: testuser_c073f7c5, Role: sme, Email: testuser_c073f7c5@example.com
+ID: 43, Username: lender_a85bc765, Role: lender, Email: lender_a85bc765@example.com
+ID: 44, Username: testuser_b7848974, Role: sme, Email: testuser_b7848974@example.com
+ID: 45, Username: lender_a360304a, Role: lender, Email: lender_a360304a@example.com
+ID: 46, Username: admin_d7465fe1, Role: admin, Email: admin_d7465fe1@example.com
+ID: 50, Username: testuser_ec04b824, Role: sme, Email: testuser_ec04b824@example.com
+ID: 4, Username: admin, Role: admin, Email: admin@test.com
+ID: 47, Username: testuser_b885d9ac, Role: sme, Email: testuser_b885d9ac@example.com
+ID: 48, Username: lender_526b3b80, Role: lender, Email: lender_526b3b80@example.com
+ID: 49, Username: admin_ed8cf3f6, Role: admin, Email: admin_ed8cf3f6@example.com
+ID: 51, Username: lender_5e1e24bf, Role: lender, Email: lender_5e1e24bf@example.com
+ID: 52, Username: admin_d6f995dd, Role: admin, Email: admin_d6f995dd@example.com
+ID: 53, Username: testuser_6eec2a8f, Role: sme, Email: testuser_6eec2a8f@example.com
+ID: 54, Username: testuser_5d1d41c7, Role: sme, Email: testuser_5d1d41c7@example.com
+ID: 55, Username: lender_5bb63222, Role: lender, Email: lender_5bb63222@example.com
+ID: 56, Username: admin_91a71fc9, Role: admin, Email: admin_91a71fc9@example.com
+ID: 57, Username: testuser_120d1659, Role: sme, Email: testuser_120d1659@example.com
+ID: 58, Username: lender_9911ce66, Role: lender, Email: lender_9911ce66@example.com
+ID: 59, Username: admin_1e902e32, Role: admin, Email: admin_1e902e32@example.com
+ID: 60, Username: testuser_698c72af, Role: sme, Email: testuser_698c72af@example.com
+ID: 61, Username: testuser_2e0d764f, Role: sme, Email: testuser_2e0d764f@example.com
+ID: 62, Username: test_sme_verify_123, Role: sme, Email: test_sme_verify_123@example.com
+ID: 63, Username: sme_user_111, Role: sme, Email: sme_user_111@example.com
+ID: 64, Username: testuser_9dc66d36, Role: sme, Email: testuser_9dc66d36@example.com
+ID: 65, Username: testuser_bfe195f5, Role: sme, Email: testuser_bfe195f5@example.com
+ID: 66, Username: lender_04498d3b, Role: lender, Email: lender_04498d3b@example.com
+ID: 67, Username: admin_1ddac843, Role: admin, Email: admin_1ddac843@example.com
+ID: 68, Username: testuser_4a9ad9be, Role: sme, Email: testuser_4a9ad9be@example.com
+ID: 69, Username: testuser_777b734b, Role: sme, Email: testuser_777b734b@example.com
+ID: 70, Username: lender_745e36f7, Role: lender, Email: lender_745e36f7@example.com
+ID: 71, Username: admin_36a61c7a, Role: admin, Email: admin_36a61c7a@example.com
+ID: 7, Username: test_lender_001, Role: lender, Email: lender001@test.com
+ID: 72, Username: testuser_918a89ec, Role: sme, Email: testuser_918a89ec@example.com
+ID: 74, Username: lender_1ffbbd78, Role: lender, Email: lender_1ffbbd78@example.com
+ID: 75, Username: admin_bd4668d4, Role: admin, Email: admin_bd4668d4@example.com
+ID: 76, Username: testuser_031f6af3, Role: sme, Email: testuser_031f6af3@example.com
+ID: 77, Username: testuser_01b8a14b, Role: sme, Email: testuser_01b8a14b@example.com
+ID: 78, Username: testuser_52c3eeeb, Role: sme, Email: testuser_52c3eeeb@example.com
+ID: 79, Username: lender_dacc56c9, Role: lender, Email: lender_dacc56c9@example.com
+ID: 80, Username: admin_00800ca7, Role: admin, Email: admin_00800ca7@example.com
+ID: 81, Username: testuser_95eaf909, Role: sme, Email: testuser_95eaf909@example.com
+ID: 82, Username: testuser_5e75f7f0, Role: sme, Email: testuser_5e75f7f0@example.com
+ID: 83, Username: lender_36f82b5b, Role: lender, Email: lender_36f82b5b@example.com
+ID: 84, Username: admin_54d7863c, Role: admin, Email: admin_54d7863c@example.com
+ID: 85, Username: testuser_3e9ff7c7, Role: sme, Email: testuser_3e9ff7c7@example.com
+ID: 86, Username: testuser_377b95d8, Role: sme, Email: testuser_377b95d8@example.com
+ID: 87, Username: lender_676d8260, Role: lender, Email: lender_676d8260@example.com
+ID: 88, Username: admin_ae069489, Role: admin, Email: admin_ae069489@example.com
+ID: 89, Username: testuser_a42e4c83, Role: sme, Email: testuser_a42e4c83@example.com
+ID: 90, Username: testuser_30b7ce39, Role: sme, Email: testuser_30b7ce39@example.com
+ID: 91, Username: lender_bab85649, Role: lender, Email: lender_bab85649@example.com
+ID: 92, Username: admin_9db499ac, Role: admin, Email: admin_9db499ac@example.com
+ID: 93, Username: testuser_6de1d83b, Role: sme, Email: testuser_6de1d83b@example.com
+ID: 94, Username: testuser_e6ff7f4b, Role: sme, Email: testuser_e6ff7f4b@example.com
+ID: 95, Username: lender_b6331a20, Role: lender, Email: lender_b6331a20@example.com
+ID: 96, Username: admin_4bb57dc0, Role: admin, Email: admin_4bb57dc0@example.com
+ID: 97, Username: testuser_cd2572a8, Role: sme, Email: testuser_cd2572a8@example.com
+ID: 98, Username: testuser_c5b22479, Role: sme, Email: testuser_c5b22479@example.com
+ID: 99, Username: lender_9962d2f6, Role: lender, Email: lender_9962d2f6@example.com
+ID: 100, Username: admin_715501c3, Role: admin, Email: admin_715501c3@example.com
+ID: 101, Username: scenario_1, Role: sme, Email: scenario_1@test.com
+ID: 102, Username: scenario_2, Role: sme, Email: scenario_2@test.com
+ID: 103, Username: scenario_3, Role: sme, Email: scenario_3@test.com
+ID: 104, Username: scenario_4, Role: sme, Email: scenario_4@test.com
+ID: 105, Username: scenario_5, Role: sme, Email: scenario_5@test.com
+ID: 106, Username: scenario_6a, Role: sme, Email: scenario_6a@test.com
+ID: 107, Username: scenario_6b, Role: sme, Email: scenario_6b@test.com
+
+--- SMEs: 46 ---
+ID: 1, Name: Admin Business, User ID: 4
+ID: 2, Name: TechStart Solutions, User ID: 6
+ID: 3, Name: TechStarts Solutions, User ID: 8
+ID: 4, Name: TechStart Solutions, User ID: 10
+ID: 5, Name: Technobyte, User ID: 12
+ID: 9, Name: Cherity, User ID: 34
+ID: 10, Name: TechGrow SME, User ID: 36
+ID: 11, Name: TechGrow SME, User ID: 37
+ID: 12, Name: TechGrow SME, User ID: 38
+ID: 13, Name: TechGrow SME, User ID: 39
+ID: 14, Name: TechGrow SME, User ID: 40
+ID: 15, Name: TechGrow SME, User ID: 41
+ID: 16, Name: TechGrow SME, User ID: 42
+ID: 17, Name: TechGrow SME, User ID: 44
+ID: 18, Name: TechGrow SME, User ID: 47
+ID: 19, Name: TechGrow SME, User ID: 50
+ID: 20, Name: TechGrow SME, User ID: 53
+ID: 21, Name: TechGrow SME, User ID: 54
+ID: 22, Name: TechGrow SME, User ID: 57
+ID: 23, Name: TechGrow SME, User ID: 60
+ID: 24, Name: TechGrow SME, User ID: 61
+ID: 25, Name: TechGrow SME, User ID: 64
+ID: 26, Name: TechGrow SME, User ID: 65
+ID: 27, Name: TechGrow SME, User ID: 68
+ID: 28, Name: TechGrow SME, User ID: 69
+ID: 29, Name: TechGrow SME, User ID: 72
+ID: 30, Name: TechGrow SME, User ID: 73
+ID: 31, Name: TechGrow SME, User ID: 77
+ID: 32, Name: TechGrow SME, User ID: 78
+ID: 33, Name: TechGrow SME, User ID: 81
+ID: 34, Name: TechGrow SME, User ID: 82
+ID: 35, Name: TechGrow SME, User ID: 85
+ID: 36, Name: TechGrow SME, User ID: 86
+ID: 37, Name: TechGrow SME, User ID: 89
+ID: 38, Name: TechGrow SME, User ID: 90
+ID: 39, Name: TechGrow SME, User ID: 93
+ID: 40, Name: TechGrow SME, User ID: 94
+ID: 41, Name: TechGrow SME, User ID: 97
+ID: 42, Name: TechGrow SME, User ID: 98
+ID: 43, Name: Scenario 1 � New Business � No Docs, No Invoices, User ID: 101
+ID: 44, Name: Scenario 2 � New Business � Bank Statement Uploaded (Not Approved), User ID: 102
+ID: 45, Name: Scenario 3 � New Business � CIPC & Bank Statement Approved, User ID: 103
+ID: 46, Name: Scenario 4 � Established Business � Good Invoices, All Docs Verified, User ID: 104
+ID: 47, Name: Scenario 5 � High Revenue � Poor Invoice Performance, No Docs, User ID: 105
+ID: 48, Name: Scenario 6a � Baseline SME � Technology Sector (Low Risk), User ID: 106
+ID: 49, Name: Scenario 6b � Baseline SME � Construction Sector (High Risk), User ID: 107
+
+--- Invoices: 750 ---
+ID: 1, Client: Client Corp, Amount: 50000.00, Status: Pending, SME ID: 1
+ID: 2, Client: Client Corp, Amount: 50000.00, Status: Pending, SME ID: 3
+ID: 3, Client: Client Crop, Amount: 50000.00, Status: Pending, SME ID: 4
+ID: 4, Client: Space x, Amount: 40000.00, Status: Pending, SME ID: 4
+ID: 5, Client: Noko solution, Amount: 50000.00, Status: pending, SME ID: 5
+ID: 6, Client: Softserver, Amount: 40000.00, Status: pending, SME ID: 5
+ID: 7, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 10
+ID: 8, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 11
+ID: 9, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 12
+ID: 10, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 13
+ID: 11, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 14
+ID: 12, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 15
+ID: 13, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 16
+ID: 14, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 17
+ID: 15, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 18
+ID: 16, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 18
+ID: 17, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 19
+ID: 18, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 19
+ID: 19, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 21
+ID: 20, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 21
+ID: 21, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 22
+ID: 22, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 22
+ID: 31, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 23
+ID: 32, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 23
+ID: 33, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 23
+ID: 34, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 23
+ID: 35, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 23
+ID: 36, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 23
+ID: 37, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 23
+ID: 38, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 23
+ID: 39, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 23
+ID: 40, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 23
+ID: 41, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 23
+ID: 42, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 23
+ID: 43, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 23
+ID: 44, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 23
+ID: 23, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 23
+ID: 45, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 23
+ID: 46, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 23
+ID: 47, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 23
+ID: 48, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 23
+ID: 49, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 23
+ID: 50, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 23
+ID: 51, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 23
+ID: 52, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 23
+ID: 53, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 23
+ID: 54, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 23
+ID: 55, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 23
+ID: 56, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 23
+ID: 57, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 23
+ID: 58, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 23
+ID: 59, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 23
+ID: 60, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 23
+ID: 61, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 23
+ID: 62, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 23
+ID: 63, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 23
+ID: 64, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 23
+ID: 65, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 23
+ID: 66, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 23
+ID: 67, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 23
+ID: 68, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 23
+ID: 69, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 23
+ID: 70, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 23
+ID: 71, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 23
+ID: 72, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 23
+ID: 73, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 23
+ID: 74, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 23
+ID: 75, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 23
+ID: 719, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 76, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 23
+ID: 77, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 23
+ID: 24, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 23
+ID: 25, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 23
+ID: 26, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 23
+ID: 27, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 23
+ID: 28, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 23
+ID: 29, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 23
+ID: 30, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 23
+ID: 86, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 24
+ID: 87, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 24
+ID: 88, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 24
+ID: 89, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 24
+ID: 90, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 24
+ID: 91, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 24
+ID: 92, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 24
+ID: 93, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 24
+ID: 94, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 24
+ID: 95, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 24
+ID: 96, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 24
+ID: 97, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 24
+ID: 98, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 24
+ID: 99, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 24
+ID: 100, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 24
+ID: 101, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 24
+ID: 102, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 24
+ID: 103, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 24
+ID: 104, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 24
+ID: 105, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 24
+ID: 106, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 24
+ID: 107, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 24
+ID: 108, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 24
+ID: 109, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 24
+ID: 110, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 24
+ID: 111, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 24
+ID: 112, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 24
+ID: 113, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 24
+ID: 114, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 24
+ID: 115, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 24
+ID: 116, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 24
+ID: 117, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 24
+ID: 118, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 24
+ID: 119, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 24
+ID: 120, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 24
+ID: 121, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 24
+ID: 122, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 24
+ID: 123, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 24
+ID: 124, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 24
+ID: 125, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 24
+ID: 126, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 24
+ID: 127, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 24
+ID: 128, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 24
+ID: 129, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 24
+ID: 130, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 24
+ID: 720, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: pending, SME ID: 46
+ID: 131, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 24
+ID: 132, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 24
+ID: 78, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 24
+ID: 79, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 24
+ID: 80, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 24
+ID: 81, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 24
+ID: 82, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 24
+ID: 83, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 24
+ID: 84, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 24
+ID: 85, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 24
+ID: 133, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 9
+ID: 134, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 9
+ID: 135, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 9
+ID: 136, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 9
+ID: 137, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 9
+ID: 138, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 9
+ID: 139, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 9
+ID: 140, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 9
+ID: 141, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 9
+ID: 142, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 9
+ID: 143, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 9
+ID: 144, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 9
+ID: 145, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 9
+ID: 146, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 9
+ID: 147, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 9
+ID: 148, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 9
+ID: 149, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 9
+ID: 150, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 9
+ID: 151, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 9
+ID: 152, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 9
+ID: 153, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 9
+ID: 154, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 9
+ID: 155, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 9
+ID: 156, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 9
+ID: 157, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 9
+ID: 158, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 9
+ID: 159, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 9
+ID: 160, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 9
+ID: 161, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 9
+ID: 162, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 9
+ID: 163, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 9
+ID: 164, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 9
+ID: 165, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 9
+ID: 166, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 9
+ID: 167, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 9
+ID: 168, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 9
+ID: 169, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 9
+ID: 170, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 9
+ID: 171, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 9
+ID: 172, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 9
+ID: 173, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 9
+ID: 174, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 9
+ID: 175, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 9
+ID: 176, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 9
+ID: 177, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 9
+ID: 178, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 9
+ID: 179, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 9
+ID: 180, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 9
+ID: 181, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 9
+ID: 182, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 9
+ID: 183, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 9
+ID: 184, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 9
+ID: 721, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: paid, SME ID: 47
+ID: 185, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 9
+ID: 186, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 9
+ID: 187, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 9
+ID: 196, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 25
+ID: 197, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 25
+ID: 198, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 25
+ID: 199, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 25
+ID: 200, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 25
+ID: 201, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 25
+ID: 202, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 25
+ID: 203, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 25
+ID: 204, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 25
+ID: 205, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 25
+ID: 206, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 25
+ID: 207, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 25
+ID: 208, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 25
+ID: 209, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 25
+ID: 210, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 25
+ID: 211, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 25
+ID: 212, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 25
+ID: 213, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 25
+ID: 214, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 25
+ID: 215, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 25
+ID: 722, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: paid, SME ID: 47
+ID: 723, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: paid, SME ID: 47
+ID: 724, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: paid, SME ID: 47
+ID: 725, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: paid, SME ID: 47
+ID: 726, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: paid, SME ID: 47
+ID: 727, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: paid, SME ID: 47
+ID: 728, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: paid, SME ID: 47
+ID: 729, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 730, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 731, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 732, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 733, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 734, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 735, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 736, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 737, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 216, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 25
+ID: 217, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 25
+ID: 218, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 25
+ID: 219, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 25
+ID: 220, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 25
+ID: 221, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 25
+ID: 222, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 25
+ID: 223, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 25
+ID: 224, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 25
+ID: 225, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 25
+ID: 226, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 25
+ID: 227, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 25
+ID: 228, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 25
+ID: 229, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 25
+ID: 230, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 25
+ID: 231, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 25
+ID: 232, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 25
+ID: 233, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 25
+ID: 234, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 25
+ID: 235, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 25
+ID: 236, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 25
+ID: 237, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 25
+ID: 238, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 25
+ID: 239, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 25
+ID: 240, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 25
+ID: 241, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 25
+ID: 242, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 25
+ID: 188, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 25
+ID: 189, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 25
+ID: 190, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 25
+ID: 191, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 25
+ID: 192, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 25
+ID: 193, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 25
+ID: 194, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 25
+ID: 195, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 25
+ID: 243, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 26
+ID: 244, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 26
+ID: 253, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 27
+ID: 254, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 27
+ID: 255, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 27
+ID: 256, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 27
+ID: 257, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 27
+ID: 258, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 27
+ID: 259, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 27
+ID: 260, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 27
+ID: 261, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 27
+ID: 262, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 27
+ID: 263, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 27
+ID: 264, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 27
+ID: 265, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 27
+ID: 266, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 27
+ID: 267, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 27
+ID: 268, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 27
+ID: 269, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 27
+ID: 270, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 27
+ID: 271, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 27
+ID: 272, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 27
+ID: 273, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 27
+ID: 274, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 27
+ID: 275, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 27
+ID: 276, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 27
+ID: 277, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 27
+ID: 278, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 27
+ID: 279, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 27
+ID: 280, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 27
+ID: 281, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 27
+ID: 282, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 27
+ID: 283, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 27
+ID: 284, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 27
+ID: 285, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 27
+ID: 286, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 27
+ID: 287, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 27
+ID: 288, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 27
+ID: 289, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 27
+ID: 290, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 27
+ID: 291, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 27
+ID: 292, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 27
+ID: 293, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 27
+ID: 294, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 27
+ID: 295, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 27
+ID: 296, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 27
+ID: 297, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 27
+ID: 298, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 27
+ID: 299, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 27
+ID: 245, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 27
+ID: 246, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 27
+ID: 738, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 247, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 27
+ID: 248, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 27
+ID: 249, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 27
+ID: 250, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 27
+ID: 251, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 27
+ID: 252, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 27
+ID: 300, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 28
+ID: 301, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 28
+ID: 310, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 29
+ID: 311, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 29
+ID: 312, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 29
+ID: 313, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 29
+ID: 314, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 29
+ID: 315, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 29
+ID: 316, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 29
+ID: 317, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 29
+ID: 318, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 29
+ID: 319, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 29
+ID: 320, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 29
+ID: 321, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 29
+ID: 322, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 29
+ID: 323, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 29
+ID: 324, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 29
+ID: 325, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 29
+ID: 326, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 29
+ID: 327, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 29
+ID: 328, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 29
+ID: 329, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 29
+ID: 330, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 29
+ID: 331, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 29
+ID: 332, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 29
+ID: 333, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 29
+ID: 334, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 29
+ID: 335, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 29
+ID: 336, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 29
+ID: 337, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 29
+ID: 338, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 29
+ID: 339, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 29
+ID: 340, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 29
+ID: 341, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 29
+ID: 342, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 29
+ID: 343, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 29
+ID: 344, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 29
+ID: 345, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 29
+ID: 346, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 29
+ID: 347, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 29
+ID: 348, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 29
+ID: 349, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 29
+ID: 350, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 29
+ID: 351, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 29
+ID: 352, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 29
+ID: 353, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 29
+ID: 354, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 29
+ID: 355, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 29
+ID: 356, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 29
+ID: 739, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 302, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 29
+ID: 303, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 29
+ID: 304, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 29
+ID: 305, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 29
+ID: 306, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 29
+ID: 307, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 29
+ID: 308, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 29
+ID: 309, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 29
+ID: 357, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 30
+ID: 358, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 30
+ID: 367, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 31
+ID: 368, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 31
+ID: 369, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 31
+ID: 370, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 31
+ID: 371, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 31
+ID: 372, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 31
+ID: 373, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 31
+ID: 374, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 31
+ID: 375, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 31
+ID: 376, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 31
+ID: 377, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 31
+ID: 378, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 31
+ID: 379, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 31
+ID: 380, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 31
+ID: 381, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 31
+ID: 382, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 31
+ID: 383, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 31
+ID: 384, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 31
+ID: 385, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 31
+ID: 386, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 31
+ID: 387, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 31
+ID: 388, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 31
+ID: 389, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 31
+ID: 390, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 31
+ID: 391, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 31
+ID: 392, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 31
+ID: 393, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 31
+ID: 394, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 31
+ID: 395, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 31
+ID: 396, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 31
+ID: 397, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 31
+ID: 398, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 31
+ID: 399, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 31
+ID: 400, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 31
+ID: 401, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 31
+ID: 402, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 31
+ID: 403, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 31
+ID: 404, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 31
+ID: 405, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 31
+ID: 406, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 31
+ID: 407, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 31
+ID: 408, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 31
+ID: 409, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 31
+ID: 410, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 31
+ID: 411, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 31
+ID: 740, Client: Test Client (Pty) Ltd, Amount: 80000.00, Status: overdue, SME ID: 47
+ID: 412, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 31
+ID: 413, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 31
+ID: 359, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 31
+ID: 360, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 31
+ID: 361, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 31
+ID: 362, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 31
+ID: 363, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 31
+ID: 364, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 31
+ID: 365, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 31
+ID: 366, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 31
+ID: 414, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 32
+ID: 415, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 32
+ID: 424, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 33
+ID: 425, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 33
+ID: 426, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 33
+ID: 427, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 33
+ID: 428, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 33
+ID: 429, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 33
+ID: 430, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 33
+ID: 431, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 33
+ID: 432, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 33
+ID: 433, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 33
+ID: 434, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 33
+ID: 435, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 33
+ID: 436, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 33
+ID: 437, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 33
+ID: 438, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 33
+ID: 439, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 33
+ID: 440, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 33
+ID: 441, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 33
+ID: 442, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 33
+ID: 443, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 33
+ID: 444, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 33
+ID: 445, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 33
+ID: 446, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 33
+ID: 447, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 33
+ID: 448, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 33
+ID: 449, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 33
+ID: 450, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 33
+ID: 451, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 33
+ID: 452, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 33
+ID: 453, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 33
+ID: 454, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 33
+ID: 455, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 33
+ID: 456, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 33
+ID: 457, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 33
+ID: 458, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 33
+ID: 459, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 33
+ID: 460, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 33
+ID: 461, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 33
+ID: 462, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 33
+ID: 463, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 33
+ID: 464, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 33
+ID: 465, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 33
+ID: 466, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 33
+ID: 741, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 48
+ID: 467, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 33
+ID: 468, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 33
+ID: 469, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 33
+ID: 470, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 33
+ID: 416, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 33
+ID: 417, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 33
+ID: 418, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 33
+ID: 419, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 33
+ID: 420, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 33
+ID: 421, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 33
+ID: 422, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 33
+ID: 423, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 33
+ID: 471, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 34
+ID: 472, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 34
+ID: 481, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 35
+ID: 482, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 35
+ID: 483, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 35
+ID: 484, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 35
+ID: 485, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 35
+ID: 486, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 35
+ID: 487, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 35
+ID: 488, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 35
+ID: 489, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 35
+ID: 490, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 35
+ID: 491, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 35
+ID: 492, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 35
+ID: 493, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 35
+ID: 494, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 35
+ID: 495, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 35
+ID: 496, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 35
+ID: 497, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 35
+ID: 498, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 35
+ID: 499, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 35
+ID: 500, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 35
+ID: 501, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 35
+ID: 502, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 35
+ID: 503, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 35
+ID: 504, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 35
+ID: 505, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 35
+ID: 506, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 35
+ID: 507, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 35
+ID: 508, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 35
+ID: 509, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 35
+ID: 510, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 35
+ID: 511, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 35
+ID: 512, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 35
+ID: 513, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 35
+ID: 514, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 35
+ID: 515, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 35
+ID: 516, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 35
+ID: 517, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 35
+ID: 518, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 35
+ID: 519, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 35
+ID: 520, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 35
+ID: 521, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 35
+ID: 742, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 48
+ID: 522, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 35
+ID: 523, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 35
+ID: 524, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 35
+ID: 525, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 35
+ID: 526, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 35
+ID: 527, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 35
+ID: 473, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 35
+ID: 474, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 35
+ID: 475, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 35
+ID: 476, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 35
+ID: 477, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 35
+ID: 478, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 35
+ID: 479, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 35
+ID: 480, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 35
+ID: 528, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 36
+ID: 529, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 36
+ID: 538, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 37
+ID: 539, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 37
+ID: 540, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 37
+ID: 541, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 37
+ID: 542, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 37
+ID: 543, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 37
+ID: 544, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 37
+ID: 545, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 37
+ID: 546, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 37
+ID: 547, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 37
+ID: 548, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 37
+ID: 549, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 37
+ID: 550, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 37
+ID: 551, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 37
+ID: 552, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 37
+ID: 553, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 37
+ID: 554, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 37
+ID: 555, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 37
+ID: 556, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 37
+ID: 557, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 37
+ID: 558, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 37
+ID: 559, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 37
+ID: 560, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 37
+ID: 561, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 37
+ID: 562, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 37
+ID: 563, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 37
+ID: 564, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 37
+ID: 565, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 37
+ID: 566, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 37
+ID: 567, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 37
+ID: 568, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 37
+ID: 569, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 37
+ID: 570, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 37
+ID: 571, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 37
+ID: 572, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 37
+ID: 573, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 37
+ID: 574, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 37
+ID: 575, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 37
+ID: 576, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 37
+ID: 577, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 37
+ID: 578, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 37
+ID: 579, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 37
+ID: 580, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 37
+ID: 581, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 37
+ID: 582, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 37
+ID: 583, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 37
+ID: 584, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 37
+ID: 530, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 37
+ID: 531, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 37
+ID: 532, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 37
+ID: 533, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 37
+ID: 534, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 37
+ID: 535, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 37
+ID: 536, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 37
+ID: 537, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 37
+ID: 585, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 38
+ID: 586, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 38
+ID: 595, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 39
+ID: 596, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 39
+ID: 597, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 39
+ID: 598, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 39
+ID: 599, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 39
+ID: 600, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 39
+ID: 601, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 39
+ID: 602, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 39
+ID: 603, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 39
+ID: 604, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 39
+ID: 605, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 39
+ID: 606, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 39
+ID: 607, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 39
+ID: 608, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 39
+ID: 609, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 39
+ID: 610, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 39
+ID: 611, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 39
+ID: 612, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 39
+ID: 613, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 39
+ID: 614, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 39
+ID: 615, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 39
+ID: 616, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 39
+ID: 617, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 39
+ID: 618, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 39
+ID: 619, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 39
+ID: 620, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 39
+ID: 621, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 39
+ID: 622, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 39
+ID: 623, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 39
+ID: 624, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 39
+ID: 625, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 39
+ID: 626, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 39
+ID: 627, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 39
+ID: 628, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 39
+ID: 629, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 39
+ID: 630, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 39
+ID: 631, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 39
+ID: 743, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 48
+ID: 632, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 39
+ID: 633, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 39
+ID: 634, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 39
+ID: 635, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 39
+ID: 636, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 39
+ID: 637, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 39
+ID: 638, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 39
+ID: 639, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 39
+ID: 640, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 39
+ID: 641, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 39
+ID: 587, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 39
+ID: 588, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 39
+ID: 589, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 39
+ID: 590, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 39
+ID: 591, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 39
+ID: 592, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 39
+ID: 593, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 39
+ID: 594, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 39
+ID: 642, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 40
+ID: 643, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 40
+ID: 652, Client: Metro Hardware Supplies, Amount: 30000.00, Status: paid, SME ID: 41
+ID: 653, Client: Metro Hardware Supplies, Amount: 40000.00, Status: paid, SME ID: 41
+ID: 654, Client: Metro Hardware Supplies, Amount: 50000.00, Status: pending, SME ID: 41
+ID: 655, Client: Metro Hardware Supplies, Amount: 35000.00, Status: pending, SME ID: 41
+ID: 656, Client: Metro Hardware Supplies, Amount: 25000.00, Status: paid, SME ID: 41
+ID: 657, Client: City Power Solutions, Amount: 20000.00, Status: paid, SME ID: 41
+ID: 658, Client: City Power Solutions, Amount: 30000.00, Status: paid, SME ID: 41
+ID: 659, Client: City Power Solutions, Amount: 40000.00, Status: pending, SME ID: 41
+ID: 660, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: paid, SME ID: 41
+ID: 661, Client: Office First (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 41
+ID: 662, Client: Office First (Pty) Ltd, Amount: 40000.00, Status: pending, SME ID: 41
+ID: 663, Client: Office First (Pty) Ltd, Amount: 20000.00, Status: pending, SME ID: 41
+ID: 664, Client: Office First (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 41
+ID: 665, Client: Office First (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 41
+ID: 666, Client: BuildTech (Pty) Ltd, Amount: 15000.00, Status: paid, SME ID: 41
+ID: 667, Client: BuildTech (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 41
+ID: 668, Client: BuildTech (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 41
+ID: 669, Client: BuildTech (Pty) Ltd, Amount: 10000.00, Status: paid, SME ID: 41
+ID: 670, Client: Cape Logistics, Amount: 50000.00, Status: pending, SME ID: 41
+ID: 671, Client: Cape Logistics, Amount: 40000.00, Status: paid, SME ID: 41
+ID: 672, Client: Durban Retailers Ltd, Amount: 35000.00, Status: pending, SME ID: 41
+ID: 673, Client: Durban Retailers Ltd, Amount: 25000.00, Status: paid, SME ID: 41
+ID: 674, Client: Global Partner 8 Ltd, Amount: 19000.00, Status: paid, SME ID: 41
+ID: 675, Client: Global Partner 9 Ltd, Amount: 19500.00, Status: paid, SME ID: 41
+ID: 676, Client: Global Partner 10 Ltd, Amount: 20000.00, Status: paid, SME ID: 41
+ID: 677, Client: Global Partner 11 Ltd, Amount: 20500.00, Status: paid, SME ID: 41
+ID: 678, Client: Global Partner 12 Ltd, Amount: 21000.00, Status: paid, SME ID: 41
+ID: 679, Client: Global Partner 13 Ltd, Amount: 21500.00, Status: paid, SME ID: 41
+ID: 680, Client: Global Partner 14 Ltd, Amount: 22000.00, Status: paid, SME ID: 41
+ID: 681, Client: Global Partner 15 Ltd, Amount: 22500.00, Status: paid, SME ID: 41
+ID: 682, Client: Global Partner 16 Ltd, Amount: 23000.00, Status: paid, SME ID: 41
+ID: 683, Client: Global Partner 17 Ltd, Amount: 23500.00, Status: paid, SME ID: 41
+ID: 684, Client: Global Partner 18 Ltd, Amount: 24000.00, Status: paid, SME ID: 41
+ID: 685, Client: Global Partner 19 Ltd, Amount: 24500.00, Status: paid, SME ID: 41
+ID: 686, Client: Global Partner 20 Ltd, Amount: 25000.00, Status: paid, SME ID: 41
+ID: 744, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 48
+ID: 687, Client: Global Partner 21 Ltd, Amount: 25500.00, Status: paid, SME ID: 41
+ID: 688, Client: Global Partner 22 Ltd, Amount: 26000.00, Status: paid, SME ID: 41
+ID: 689, Client: Global Partner 23 Ltd, Amount: 26500.00, Status: paid, SME ID: 41
+ID: 690, Client: Global Partner 24 Ltd, Amount: 27000.00, Status: paid, SME ID: 41
+ID: 691, Client: Global Partner 25 Ltd, Amount: 27500.00, Status: paid, SME ID: 41
+ID: 692, Client: Global Partner 26 Ltd, Amount: 28000.00, Status: paid, SME ID: 41
+ID: 693, Client: Global Partner 27 Ltd, Amount: 28500.00, Status: paid, SME ID: 41
+ID: 694, Client: Global Partner 28 Ltd, Amount: 29000.00, Status: paid, SME ID: 41
+ID: 695, Client: Global Partner 29 Ltd, Amount: 29500.00, Status: paid, SME ID: 41
+ID: 696, Client: Global Partner 30 Ltd, Amount: 30000.00, Status: paid, SME ID: 41
+ID: 697, Client: Global Partner 31 Ltd, Amount: 30500.00, Status: paid, SME ID: 41
+ID: 698, Client: Global Partner 32 Ltd, Amount: 31000.00, Status: paid, SME ID: 41
+ID: 644, Client: ABC Manufacturing (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 41
+ID: 645, Client: ABC Manufacturing (Pty) Ltd, Amount: 70000.00, Status: paid, SME ID: 41
+ID: 646, Client: ABC Manufacturing (Pty) Ltd, Amount: 40000.00, Status: paid, SME ID: 41
+ID: 647, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 41
+ID: 648, Client: ABC Manufacturing (Pty) Ltd, Amount: 60000.00, Status: pending, SME ID: 41
+ID: 649, Client: ABC Manufacturing (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 41
+ID: 650, Client: ABC Manufacturing (Pty) Ltd, Amount: 25000.00, Status: paid, SME ID: 41
+ID: 651, Client: ABC Manufacturing (Pty) Ltd, Amount: 45000.00, Status: paid, SME ID: 41
+ID: 699, Client: Client A, Amount: 10000.00, Status: pending, SME ID: 42
+ID: 700, Client: Lifecycle Client, Amount: 12000.00, Status: paid, SME ID: 42
+ID: 701, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 702, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 703, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 704, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 705, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 706, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 707, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 708, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 709, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 710, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 711, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 712, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 713, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 714, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 715, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 716, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 717, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 718, Client: Test Client (Pty) Ltd, Amount: 50000.00, Status: paid, SME ID: 46
+ID: 745, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 48
+ID: 746, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 49
+ID: 747, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 49
+ID: 748, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 49
+ID: 749, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: paid, SME ID: 49
+ID: 750, Client: Test Client (Pty) Ltd, Amount: 30000.00, Status: pending, SME ID: 49
+
+--- Finance Requests: 38 ---
+ID: 1, SME ID: 4, Invoice ID: None, Status: approved
+ID: 2, SME ID: 4, Invoice ID: None, Status: approved
+ID: 3, SME ID: 4, Invoice ID: None, Status: approved
+ID: 4, SME ID: 5, Invoice ID: 5, Status: approved
+ID: 5, SME ID: 10, Invoice ID: 7, Status: pending
+ID: 6, SME ID: 11, Invoice ID: 8, Status: pending
+ID: 7, SME ID: 12, Invoice ID: 9, Status: pending
+ID: 8, SME ID: 13, Invoice ID: 10, Status: pending
+ID: 9, SME ID: 15, Invoice ID: 12, Status: pending
+ID: 10, SME ID: 14, Invoice ID: 11, Status: pending
+ID: 11, SME ID: 16, Invoice ID: 13, Status: pending
+ID: 12, SME ID: 17, Invoice ID: 14, Status: pending
+ID: 13, SME ID: 18, Invoice ID: 15, Status: pending
+ID: 14, SME ID: 18, Invoice ID: 16, Status: paid
+ID: 15, SME ID: 19, Invoice ID: 17, Status: pending
+ID: 32, SME ID: 36, Invoice ID: 529, Status: closed
+ID: 33, SME ID: 38, Invoice ID: 585, Status: pending
+ID: 16, SME ID: 19, Invoice ID: 18, Status: closed
+ID: 17, SME ID: 21, Invoice ID: 19, Status: pending
+ID: 18, SME ID: 21, Invoice ID: 20, Status: closed
+ID: 19, SME ID: 22, Invoice ID: 21, Status: pending
+ID: 34, SME ID: 38, Invoice ID: 586, Status: closed
+ID: 35, SME ID: 40, Invoice ID: 642, Status: pending
+ID: 20, SME ID: 22, Invoice ID: 22, Status: closed
+ID: 21, SME ID: 26, Invoice ID: 243, Status: pending
+ID: 22, SME ID: 26, Invoice ID: 244, Status: closed
+ID: 23, SME ID: 28, Invoice ID: 300, Status: pending
+ID: 36, SME ID: 40, Invoice ID: 643, Status: closed
+ID: 37, SME ID: 42, Invoice ID: 699, Status: pending
+ID: 24, SME ID: 28, Invoice ID: 301, Status: closed
+ID: 25, SME ID: 30, Invoice ID: 357, Status: pending
+ID: 26, SME ID: 30, Invoice ID: 358, Status: closed
+ID: 27, SME ID: 32, Invoice ID: 414, Status: pending
+ID: 38, SME ID: 42, Invoice ID: 700, Status: closed
+ID: 28, SME ID: 32, Invoice ID: 415, Status: closed
+ID: 29, SME ID: 34, Invoice ID: 471, Status: pending
+ID: 30, SME ID: 34, Invoice ID: 472, Status: closed
+ID: 31, SME ID: 36, Invoice ID: 528, Status: pending
