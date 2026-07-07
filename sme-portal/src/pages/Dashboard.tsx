@@ -115,7 +115,7 @@ export default function Dashboard() {
           <ScoreTrajectoryChart history={scoreHistory} />
         </div>
         <div>
-          <ScoreImprovementPanel missingDocs={missingDocs} />
+          <ScoreImprovementPanel missingDocs={missingDocs} score={dashboard.credit_score} />
         </div>
       </div>
 

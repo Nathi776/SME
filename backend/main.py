@@ -10,7 +10,7 @@ from routers import (
     lender_router,
     customer_router
 )
-from routers import verification_router
+from routers import verification_router, founder_router
 from fastapi.middleware.cors import CORSMiddleware
 from limiter import limiter
 from slowapi.errors import RateLimitExceeded
@@ -40,6 +40,7 @@ app.include_router(finance_request_router.router)
 app.include_router(lender_router.router)
 app.include_router(verification_router.router)
 app.include_router(customer_router.router)
+app.include_router(founder_router.router)
 
 @app.get("/")
 def root():

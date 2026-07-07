@@ -49,6 +49,8 @@ export interface SME {
   industry: string;
   revenue: number;
   years_active?: number;
+  province?: string | null;       // one of the 9 SA provinces
+  business_city?: string | null;  // free text city
   description?: string | null;
   bs_avg_monthly_balance?: number | null;
   bs_avg_monthly_income?: number | null;
@@ -64,6 +66,8 @@ export interface SMECreate {
   industry: string;
   revenue: number;
   years_active?: number;
+  province?: string | null;       // feeds Market Viability factor in scoring engine
+  business_city?: string | null;
   description?: string;
 }
 

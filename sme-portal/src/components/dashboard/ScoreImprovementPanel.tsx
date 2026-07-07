@@ -3,6 +3,7 @@ import { UploadCloud, CheckCircle, AlertCircle, ArrowRight, Sparkles } from "luc
 
 type ScoreImprovementPanelProps = {
   missingDocs: string[];
+  score: number | null;
 };
 
 const DOCUMENT_GUIDANCE: Record<string, { label: string; pts: number }> = {
@@ -12,8 +13,10 @@ const DOCUMENT_GUIDANCE: Record<string, { label: string; pts: number }> = {
   registration_docs: { label: "Company Registration Documents", pts: 2 },
 };
 
-export default function ScoreImprovementPanel({ missingDocs }: ScoreImprovementPanelProps) {
+export default function ScoreImprovementPanel({ missingDocs, score }: ScoreImprovementPanelProps) {
   const navigate = useNavigate();
+
+  const pointsToReview = score !== null ? Math.max(0, 50 - Math.round(score)) : 0;
 
   // Filter missing docs to only those we have guidance for
   const actionableDocs = missingDocs.filter(doc => doc in DOCUMENT_GUIDANCE);
@@ -25,9 +28,28 @@ export default function ScoreImprovementPanel({ missingDocs }: ScoreImprovementP
           <Sparkles className="h-5 w-5 text-emerald-600 animate-pulse" />
           <h3 className="text-[15px] font-bold text-[#071942]">Boost Your Credit Score</h3>
         </div>
+
+        {score !== null && score < 50 && pointsToReview > 0 && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-3.5 mb-4 text-xs text-amber-900 leading-normal">
+            <div className="flex items-start gap-2.5">
+              <AlertCircle className="h-4.5 w-4.5 text-amber-700 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-extrabold text-amber-950">Almost Qualified</p>
+                <p className="mt-1 font-medium text-amber-900">
+                  You are only <strong className="font-black text-amber-950">{pointsToReview} {pointsToReview === 1 ? "point" : "points"}</strong> away from crossing the minimum financing threshold (score of 50).
+                </p>
+                <p className="mt-1 font-medium text-amber-800">
+                  Take the actions below to verify your business credentials and unlock lending opportunities.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <p className="text-xs text-[#5f6d8a] mb-5 leading-relaxed">
           Complete the verification steps below to increase your eligibility and unlock lower financing fee rates.
         </p>
+
 
         {actionableDocs.length > 0 ? (
           <div className="space-y-3.5">

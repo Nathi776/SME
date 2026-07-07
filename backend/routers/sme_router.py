@@ -25,20 +25,24 @@ router = APIRouter(
 
 # ---------- Pydantic Schemas ----------
 class SMEBase(BaseModel):
-    name: str
-    industry: str
-    revenue: Decimal = Field(..., ge=0)
-    years_active: int = Field(default=0, ge=0)
+    name:          str
+    industry:      str
+    revenue:       Decimal = Field(..., ge=0)
+    years_active:  int     = Field(default=0, ge=0)
+    province:      str | None = None   # one of the 9 SA provinces
+    business_city: str | None = None   # free text city
 
 class SMECreated(SMEBase):
     id: int
-    bs_avg_monthly_balance: Decimal | None = None
-    bs_avg_monthly_income: Decimal | None = None
+    province:      str | None = None
+    business_city: str | None = None
+    bs_avg_monthly_balance:  Decimal | None = None
+    bs_avg_monthly_income:   Decimal | None = None
     bs_avg_monthly_expenses: Decimal | None = None
-    bs_overdraft_count: int | None = None
-    bs_income_regularity: Decimal | None = None
-    bs_months_analysed: int | None = None
-    bs_parsed_revenue: Decimal | None = None
+    bs_overdraft_count:      int     | None = None
+    bs_income_regularity:    Decimal | None = None
+    bs_months_analysed:      int     | None = None
+    bs_parsed_revenue:       Decimal | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -125,7 +129,9 @@ def create_sme(
         industry=sme.industry,
         revenue=sme.revenue,
         years_active=sme.years_active,
-        user_id=current_user.id
+        province=sme.province,
+        business_city=sme.business_city,
+        user_id=current_user.id,
     )
     db.add(new_sme)
     db.flush()
@@ -348,13 +354,15 @@ def update_sme(
     sme = db.query(SME).filter(SME.id == sme_id).first()
     if not sme:
         raise HTTPException(status_code=404, detail="SME not found.")
-
     if sme.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="You can only update your own SME profile")
 
-    sme.name = updated_sme.name
-    sme.industry = updated_sme.industry
-    sme.revenue = updated_sme.revenue
+    sme.name          = updated_sme.name
+    sme.industry      = updated_sme.industry
+    sme.revenue       = updated_sme.revenue
+    sme.years_active  = updated_sme.years_active
+    sme.province      = updated_sme.province
+    sme.business_city = updated_sme.business_city
     db.commit()
     db.refresh(sme)
     return sme

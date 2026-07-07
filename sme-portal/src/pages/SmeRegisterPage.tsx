@@ -347,6 +347,8 @@ export default function SmeRegisterPage() {
         industry,
         revenue: Number(revenue) || 0,
         years_active: Number(yearsActive) || 0,
+        province,
+        business_city: city,
       });
       sessionStorage.removeItem("justRegisteredUserId");
       setStep(5);
@@ -485,7 +487,18 @@ export default function SmeRegisterPage() {
                 </div>
                 <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
                   <div><label className="mb-1.5 block text-xs font-semibold text-gray-700">City <span className="text-red-500">*</span></label><input required value={city} onChange={(event) => setCity(event.target.value)} className={INPUT_CLS} /></div>
-                  <div><label className="mb-1.5 block text-xs font-semibold text-gray-700">Province <span className="text-red-500">*</span></label><input required value={province} onChange={(event) => setProvince(event.target.value)} className={INPUT_CLS} /></div>
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold text-gray-700">Province <span className="text-red-500">*</span></label>
+                    <select required value={province} onChange={(event) => setProvince(event.target.value)} className={SELECT_CLS}>
+                      <option value="">Select province</option>
+                      {["Gauteng", "Western Cape", "KwaZulu-Natal", "Mpumalanga", "Eastern Cape", "North West", "Free State", "Limpopo", "Northern Cape"].map((prov) => (
+                        <option key={prov} value={prov}>{prov}</option>
+                      ))}
+                    </select>
+                    {province && (
+                      <p className="mt-1 text-xs text-green-600 font-medium">✓ Province selected — improves your market viability score.</p>
+                    )}
+                  </div>
                   <div><label className="mb-1.5 block text-xs font-semibold text-gray-700">Postal Code <span className="text-red-500">*</span></label><input required value={postalCode} onChange={(event) => setPostalCode(event.target.value)} className={INPUT_CLS} /></div>
                 </div>
                 <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">

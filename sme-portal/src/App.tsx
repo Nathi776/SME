@@ -29,6 +29,7 @@ import CustomersPage from "./pages/CustomersPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import AppLayout from "./components/layout/AppLayout";
+import FounderProfilePage from "./pages/FounderProfilePage";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path="/analytics" element={<AnalyticsDashboard />} />
           <Route path="/credit-score" element={<CreditScorePage />} />
           <Route path="/credit-score/details" element={<CreditScoreDetails />} />
+          <Route path="/founder-profile" element={<FounderProfilePage />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/messages" element={<MessagesPage />} />

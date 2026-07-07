@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
@@ -17,6 +17,12 @@ class Verification(Base):
     submitted_at = Column(DateTime, default=datetime.utcnow)
     reviewed_at = Column(DateTime, nullable=True)
     reviewer_notes = Column(String, nullable=True)
+
+    # Set by admin during review of letter_of_intent documents only.
+    # True  → counterparty is a recognised/known company (e.g. listed corp, govt entity)
+    # False → counterparty unknown or unverifiable
+    # None  → not applicable (non-LOI doc) or not yet reviewed
+    loi_counterparty_known = Column(Boolean, nullable=True, default=None)
 
     # Relations
     sme_id = Column(Integer, ForeignKey('smes.id'), nullable=True)

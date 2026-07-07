@@ -146,7 +146,10 @@ def test_auth_and_sme_flow():
     upload_file_content = b"PDF mock content for CIPC document"
     upload_response = client.post(
         "/verifications/submit",
-        data={"doc_type": "cipc"},
+        data={
+            "doc_type": "cipc",
+            "cipc_registration_number": "2019/045321/07"
+        },
         files={"file": ("cipc.pdf", upload_file_content, "application/pdf")},
         headers=headers
     )

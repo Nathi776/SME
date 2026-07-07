@@ -54,7 +54,10 @@ const DOCUMENT_TYPES: Record<string, { label: string; category: string; defaultF
   balance_sheet: { label: "Balance Sheet 2025", category: "Financial Documents", defaultFileName: "balance_sheet_2025.pdf", defaultFileSize: "1.1 MB" },
   director_id: { label: "Director ID - John Mokoena", category: "Compliance Documents", defaultFileName: "director_id_mokoena.jpg", defaultFileSize: "0.9 MB" },
   proof_of_address: { label: "Proof of Address", category: "Compliance Documents", defaultFileName: "utility_bill.pdf", defaultFileSize: "1.0 MB" },
-  bee_certificate: { label: "BEE Certificate", category: "Compliance Documents", defaultFileName: "bee_certificate_2025.pdf", defaultFileSize: "0.7 MB", expiryDays: -30 }
+  bee_certificate: { label: "BEE Certificate", category: "Compliance Documents", defaultFileName: "bee_certificate_2025.pdf", defaultFileSize: "0.7 MB", expiryDays: -30 },
+  letter_of_intent: { label: "Letter of Intent", category: "Intent Documents", defaultFileName: "letter_of_intent.pdf", defaultFileSize: "1.1 MB" },
+  supplier_quote: { label: "Supplier Quote", category: "Intent Documents", defaultFileName: "supplier_quote.pdf", defaultFileSize: "0.9 MB" },
+  lease_agreement: { label: "Lease Agreement", category: "Intent Documents", defaultFileName: "lease_agreement.pdf", defaultFileSize: "2.0 MB" }
 };
 
 // Default documents that represent the vault state (exactly matching the user request and stats in image)
@@ -231,6 +234,7 @@ export default function DocumentsPage() {
   // Quick Upload Form States
   const [selectedDocType, setSelectedDocType] = useState("cipc");
   const [selectedCategory, setSelectedCategory] = useState("Business Registration");
+  const [cipcRegNumber, setCipcRegNumber] = useState("");
   const [uploadedFile, setUploadedFile] = useState<{ name: string; size: string; rawFile?: File } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -370,7 +374,8 @@ export default function DocumentsPage() {
       "Tax Documents": 0,
       "Banking Documents": 0,
       "Financial Documents": 0,
-      "Compliance Documents": 0
+      "Compliance Documents": 0,
+      "Intent Documents": 0
     };
 
     mergedDocuments.forEach((doc) => {
@@ -593,20 +598,44 @@ export default function DocumentsPage() {
       return;
     }
 
+    if (selectedDocType === "cipc") {
+      const regPattern = /^\d{4}\/\d{6}\/\d{2}$/;
+      if (!regPattern.test(cipcRegNumber.trim())) {
+        enqueueSnackbar("Invalid registration number format. Expected YYYY/NNNNNN/NN (e.g. 2019/045321/07).", { variant: "error" });
+        return;
+      }
+    }
+
     try {
       setSubmitting(true);
       const docTypeMeta = DOCUMENT_TYPES[selectedDocType];
       const displayName = docTypeMeta ? docTypeMeta.label : selectedDocType;
 
-      const response = await VerificationApi.submit(selectedDocType, uploadedFile.rawFile);
+      const response = await VerificationApi.submit(
+        selectedDocType,
+        uploadedFile.rawFile,
+        selectedDocType === "cipc" ? cipcRegNumber : undefined
+      );
 
-      enqueueSnackbar(`${displayName} uploaded successfully and submitted for review.`, { variant: "success" });
+      if (selectedDocType === "cipc" && response.data.cipc_verification) {
+        const cipcResult = response.data.cipc_verification;
+        if (cipcResult.auto_approved && cipcResult.cipc_verified) {
+          enqueueSnackbar(`CIPC verification successful: ${cipcResult.company_name} is active!`, { variant: "success" });
+        } else if (cipcResult.cipc_verified === false) {
+          enqueueSnackbar(`CIPC verification failed: ${cipcResult.message}`, { variant: "error" });
+        } else {
+          enqueueSnackbar(`CIPC certificate uploaded. ${cipcResult.message}`, { variant: "info" });
+        }
+      } else {
+        enqueueSnackbar(`${displayName} uploaded successfully and submitted for review.`, { variant: "success" });
+      }
       
       if (selectedDocType === "bank_statement" && (response.data as any).bank_statement_parsing) {
         setBsParseResult((response.data as any).bank_statement_parsing);
       }
 
       setUploadedFile(null);
+      setCipcRegNumber("");
       await loadVerifications();
       await loadSmeProfile();
     } catch (err) {
@@ -903,6 +932,7 @@ export default function DocumentsPage() {
                     <option value="Banking Documents">Banking Documents</option>
                     <option value="Financial Documents">Financial Documents</option>
                     <option value="Compliance Documents">Compliance Documents</option>
+                    <option value="Intent Documents">Intent Documents</option>
                   </select>
 
                   {/* Sorting */}
@@ -1195,6 +1225,24 @@ export default function DocumentsPage() {
                 </select>
               </div>
 
+              {selectedDocType === "cipc" && (
+                <div>
+                  <label className="block text-[10px] font-bold text-[#5f6d8a] mb-1.5 uppercase tracking-wide">
+                    CIPC Registration Number
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 2019/045321/07"
+                    value={cipcRegNumber}
+                    onChange={(e) => setCipcRegNumber(e.target.value)}
+                    className="w-full rounded-xl border border-[#dfe5f0] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#071942] placeholder-[#c3cbd9] transition focus:border-[#1f724f] focus:outline-none"
+                  />
+                  <p className="text-[9px] text-[#8f9bba] mt-1.5">
+                    Format: YYYY/NNNNNN/NN (e.g. 2019/045321/07)
+                  </p>
+                </div>
+              )}
+
               <div>
                 <label className="block text-[10px] font-bold text-[#5f6d8a] mb-1.5 uppercase tracking-wide">
                   Category
@@ -1209,6 +1257,7 @@ export default function DocumentsPage() {
                   <option value="Banking Documents">Banking Documents</option>
                   <option value="Financial Documents">Financial Documents</option>
                   <option value="Compliance Documents">Compliance Documents</option>
+                  <option value="Intent Documents">Intent Documents</option>
                 </select>
               </div>
 

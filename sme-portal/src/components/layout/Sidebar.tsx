@@ -16,6 +16,7 @@ const navSections = [
     label: "BUSINESS",
     items: [
       { icon: User, label: "My Profile", path: "/profile" },
+      { icon: User, label: "Founder Profile", path: "/founder-profile" },
       { icon: FileText, label: "Invoices", path: "/invoices" },
       { icon: CreditCard, label: "Finance Requests", path: "/finance-requests" },
       { icon: Star, label: "Credit Score", path: "/credit-score" },
