@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, User, FileText, CreditCard, Star, Users,
   ArrowRightLeft, FolderOpen, MessageSquare, HelpCircle, Settings, LogOut,
-  BarChart3
+  BarChart3, TrendingUp
 } from "lucide-react";
 
 const navSections = [
@@ -20,6 +20,7 @@ const navSections = [
       { icon: FileText, label: "Invoices", path: "/invoices" },
       { icon: CreditCard, label: "Finance Requests", path: "/finance-requests" },
       { icon: Star, label: "Credit Score", path: "/credit-score" },
+      { icon: TrendingUp, label: "Coaching Roadmap", path: "/recommendations" },
       { icon: Users, label: "Customers", path: "/customers" },
     ],
   },

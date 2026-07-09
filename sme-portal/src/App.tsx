@@ -30,6 +30,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import AppLayout from "./components/layout/AppLayout";
 import FounderProfilePage from "./pages/FounderProfilePage";
+import RecommendationsPage from "./pages/RecommendationsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   return (
@@ -58,6 +60,8 @@ function App() {
           <Route path="/credit-score" element={<CreditScorePage />} />
           <Route path="/credit-score/details" element={<CreditScoreDetails />} />
           <Route path="/founder-profile" element={<FounderProfilePage />} />
+          <Route path="/recommendations" element={<RecommendationsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/messages" element={<MessagesPage />} />
