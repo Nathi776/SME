@@ -44,3 +44,4 @@ class FinanceRequest(Base):
     credit_score = relationship("CreditScore", back_populates="finance_requests")
 
     lender = relationship("Lender", back_populates="approvals")
+    outcome = relationship("SmeOutcome", back_populates="finance_request", uselist=False, cascade="all, delete-orphan")

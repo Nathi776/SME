@@ -171,7 +171,7 @@ def test_verification_submission_and_admin_review(token, lender_token, admin_tok
     # Register & Login for SME and Lender already done
     sme_submit = requests.post(
         f"{BASE_URL}/verifications/submit",
-        data={"doc_type": "cipc"},
+        data={"doc_type": "cipc", "cipc_registration_number": "2020/123456/07"},
         files={"file": ("cipc.pdf", b"cipc test doc", "application/pdf")},
         headers=sme_headers
     )

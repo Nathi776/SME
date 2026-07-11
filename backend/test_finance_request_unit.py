@@ -3,12 +3,7 @@ from decimal import Decimal
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database import Base
-from models.user import User
-from models.sme import SME
-from models.invoice import Invoice
-from models.credit_score import CreditScore
-from models.finance_request import FinanceRequest
-from models.verification import Verification
+from models import User, SME, Invoice, CreditScore, FinanceRequest, Verification, FounderProfile, Lender, SmeOutcome
 from services.finance_service import (
     calculate_fee_rate,
     calculate_eligible_amount,

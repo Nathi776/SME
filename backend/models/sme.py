@@ -44,6 +44,7 @@ class SME(Base):
     finance_requests = relationship("FinanceRequest", back_populates="sme", cascade="all, delete-orphan")
     verifications    = relationship("Verification",   back_populates="sme", cascade="all, delete-orphan")
     founder_profile  = relationship("FounderProfile", back_populates="sme", uselist=False, cascade="all, delete-orphan")
+    outcomes         = relationship("SmeOutcome",    back_populates="sme", cascade="all, delete-orphan")
 
     def __repr__(self):
         return (
