@@ -32,6 +32,7 @@ import AppLayout from "./components/layout/AppLayout";
 import FounderProfilePage from "./pages/FounderProfilePage";
 import RecommendationsPage from "./pages/RecommendationsPage";
 import SettingsPage from "./pages/SettingsPage";
+import OutcomeTrackingPage from "./pages/OutcomeTrackingPage";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
           <Route path="/credit-score/details" element={<CreditScoreDetails />} />
           <Route path="/founder-profile" element={<FounderProfilePage />} />
           <Route path="/recommendations" element={<RecommendationsPage />} />
+          <Route path="/outcomes" element={<OutcomeTrackingPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />

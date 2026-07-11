@@ -39,6 +39,10 @@ class SmeOutcomeResponse(BaseModel):
     score_at_funding: float
     amount: Decimal
     outstanding_recommendations: list[dict]
+    outcome_status: str
+    check_in_90_due_at: datetime | None
+    check_in_180_due_at: datetime | None
+    check_in_365_due_at: datetime | None
     created_at: datetime
     updated_at: datetime
 
@@ -65,7 +69,147 @@ class SmeOutcomeResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class SectorBreakdown(BaseModel):
+    repayment_rate: float
+    survival_rate: float
+    avg_score_at_funding: float
+    total_deals: int
+
+
+class ProvinceBreakdown(BaseModel):
+    repayment_rate: float
+    survival_rate: float
+    avg_score_at_funding: float
+    total_deals: int
+
+
+class OutcomeAnalyticsResponse(BaseModel):
+    repayment_rate: float
+    survival_rate: float
+    avg_score_at_funding: float
+    total_deals: int
+    breakdown_by_sector: dict[str, SectorBreakdown]
+    breakdown_by_province: dict[str, ProvinceBreakdown]
+
+
 # ── Endpoints ─────────────────────────────────────────────────────────────────
+
+@router.get("/analytics", response_model=OutcomeAnalyticsResponse)
+def get_outcome_analytics(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Retrieve platform-wide outcome analytics.
+    Only accessible by lenders or admins.
+    """
+    if current_user.role not in {"lender", "admin"}:
+        raise HTTPException(status_code=403, detail="Not authorized to view analytics")
+
+    outcomes = db.query(SmeOutcome).all()
+    total = len(outcomes)
+
+    if total == 0:
+        return OutcomeAnalyticsResponse(
+            repayment_rate=0.0,
+            survival_rate=0.0,
+            avg_score_at_funding=0.0,
+            total_deals=0,
+            breakdown_by_sector={},
+            breakdown_by_province={},
+        )
+
+    repaid_count = sum(1 for o in outcomes if o.outcome_status == "repaid")
+
+    # Survival count: still operating in check-ins (if any completed, check latest. Else count as surviving)
+    survived_count = 0
+    for o in outcomes:
+        still_operating = True
+        if o.checkin_365_completed:
+            still_operating = o.checkin_365_still_operating
+        elif o.checkin_180_completed:
+            still_operating = o.checkin_180_still_operating
+        elif o.checkin_90_completed:
+            still_operating = o.checkin_90_still_operating
+
+        if still_operating is not False:
+            survived_count += 1
+
+    avg_score = sum(o.score_at_funding for o in outcomes) / total
+
+    # Breakdown by sector (industry)
+    sector_data = {}
+    for o in outcomes:
+        sector = o.sme.industry or "Unknown"
+        if sector not in sector_data:
+            sector_data[sector] = []
+        sector_data[sector].append(o)
+
+    breakdown_by_sector = {}
+    for sector, s_outcomes in sector_data.items():
+        s_total = len(s_outcomes)
+        s_repaid = sum(1 for o in s_outcomes if o.outcome_status == "repaid")
+
+        s_survived = 0
+        for o in s_outcomes:
+            still_op = True
+            if o.checkin_365_completed:
+                still_op = o.checkin_365_still_operating
+            elif o.checkin_180_completed:
+                still_op = o.checkin_180_still_operating
+            elif o.checkin_90_completed:
+                still_op = o.checkin_90_still_operating
+            if still_op is not False:
+                s_survived += 1
+
+        breakdown_by_sector[sector] = SectorBreakdown(
+            repayment_rate=float(s_repaid) / s_total,
+            survival_rate=float(s_survived) / s_total,
+            avg_score_at_funding=sum(o.score_at_funding for o in s_outcomes) / s_total,
+            total_deals=s_total,
+        )
+
+    # Breakdown by province
+    province_data = {}
+    for o in outcomes:
+        province = o.sme.province or "Unknown"
+        if province not in province_data:
+            province_data[province] = []
+        province_data[province].append(o)
+
+    breakdown_by_province = {}
+    for province, p_outcomes in province_data.items():
+        p_total = len(p_outcomes)
+        p_repaid = sum(1 for o in p_outcomes if o.outcome_status == "repaid")
+
+        p_survived = 0
+        for o in p_outcomes:
+            still_op = True
+            if o.checkin_365_completed:
+                still_op = o.checkin_365_still_operating
+            elif o.checkin_180_completed:
+                still_op = o.checkin_180_still_operating
+            elif o.checkin_90_completed:
+                still_op = o.checkin_90_still_operating
+            if still_op is not False:
+                p_survived += 1
+
+        breakdown_by_province[province] = ProvinceBreakdown(
+            repayment_rate=float(p_repaid) / p_total,
+            survival_rate=float(p_survived) / p_total,
+            avg_score_at_funding=sum(o.score_at_funding for o in p_outcomes) / p_total,
+            total_deals=p_total,
+        )
+
+    return OutcomeAnalyticsResponse(
+        repayment_rate=float(repaid_count) / total,
+        survival_rate=float(survived_count) / total,
+        avg_score_at_funding=avg_score,
+        total_deals=total,
+        breakdown_by_sector=breakdown_by_sector,
+        breakdown_by_province=breakdown_by_province,
+    )
+
 
 @router.get("/history", response_model=list[SmeOutcomeResponse])
 def get_outcome_history(

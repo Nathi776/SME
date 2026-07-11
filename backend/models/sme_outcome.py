@@ -7,7 +7,7 @@ This forms the feedback loop to see if the recommendations provided
 lead to positive business outcomes (loan repayment, revenue growth, etc.).
 """
 
-from sqlalchemy import Column, Integer, Float, Numeric, ForeignKey, DateTime, JSON, Boolean
+from sqlalchemy import Column, Integer, Float, Numeric, ForeignKey, DateTime, JSON, Boolean, String
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
@@ -33,6 +33,10 @@ class SmeOutcome(Base):
     score_at_funding = Column(Float, nullable=False)
     amount = Column(Numeric(18, 2), nullable=False)
     outstanding_recommendations = Column(JSON, nullable=False, default=list)
+    outcome_status = Column(String(50), nullable=False, default="pending", server_default="pending")
+    check_in_90_due_at = Column(DateTime, nullable=True)
+    check_in_180_due_at = Column(DateTime, nullable=True)
+    check_in_365_due_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(
         DateTime, default=datetime.utcnow, onupdate=datetime.utcnow

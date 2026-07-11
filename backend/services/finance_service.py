@@ -239,12 +239,13 @@ def mark_finance_request_funded(db: Session, request_id: int):
         raise ValueError("Only approved requests can be marked as funded")
 
     req.status = "funded"
-    db.commit()
-    db.refresh(req)
 
     # Trigger outcome snapshot creation
     from services.outcome_service import create_outcome
     create_outcome(db, req.id)
+
+    db.commit()
+    db.refresh(req)
 
     return req
 

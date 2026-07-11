@@ -96,6 +96,10 @@ def test_outcome_tracking_flow(db):
     # Check SmeOutcome created
     outcome = db.query(SmeOutcome).filter(SmeOutcome.finance_request_id == req.id).first()
     assert outcome is not None
+    assert outcome.outcome_status == "pending"
+    assert outcome.check_in_90_due_at is not None
+    assert outcome.check_in_180_due_at is not None
+    assert outcome.check_in_365_due_at is not None
     
     # Calculate score live to check snapshot correctness
     expected_score = score_sme(sme, db).score
@@ -142,7 +146,76 @@ def test_outcome_tracking_flow(db):
     assert updated_90.checkin_90_still_operating is True
     assert updated_90.checkin_90_revenue == Decimal("320000")
     assert updated_90.checkin_90_loan_repaid is False
+    assert updated_90.outcome_status == "active"
+
+    # Test status change to active (still not repaid) on check-in 180
+    updated_180 = update_checkin(db, outcome.id, 180, True, 350000, False)
+    assert updated_180.outcome_status == "active"
+
+    # Test status change to repaid on check-in 365
+    updated_365 = update_checkin(db, outcome.id, 365, True, 400000, True)
+    assert updated_365.outcome_status == "repaid"
 
     # Invalid check-in interval should raise exception
     with pytest.raises(ValueError, match="Invalid check-in interval"):
         update_checkin(db, outcome.id, 100, True, 320000, False)
+
+
+def test_analytics_calculation(db):
+    # Setup multiple outcomes with different statuses, sectors, and provinces
+    user1 = User(username="sme_opt", email="sme1@test.com", hashed_password="pw", role="sme")
+    user2 = User(username="sme_farm", email="sme2@test.com", hashed_password="pw", role="sme")
+    db.add_all([user1, user2])
+    db.commit()
+
+    sme1 = SME(name="Tech SME", industry="Technology", province="Gauteng", revenue=Decimal("300000"), user_id=user1.id)
+    sme2 = SME(name="Agri SME", industry="Agriculture", province="Limpopo", revenue=Decimal("150000"), user_id=user2.id)
+    db.add_all([sme1, sme2])
+    db.commit()
+
+    # Credit scores
+    cs1 = CreditScore(sme_id=sme1.id, score=70.0)
+    cs2 = CreditScore(sme_id=sme2.id, score=80.0)
+    db.add_all([cs1, cs2])
+    db.commit()
+
+    # Invoices
+    inv1 = Invoice(sme_id=sme1.id, client_name="Client1", amount=Decimal("20000"), status="pending")
+    inv2 = Invoice(sme_id=sme2.id, client_name="Client2", amount=Decimal("15000"), status="pending")
+    db.add_all([inv1, inv2])
+    db.commit()
+
+    # Requests
+    req1 = create_finance_request(db, sme_id=sme1.id, amount=10000, invoice_id=inv1.id)
+    req2 = create_finance_request(db, sme_id=sme2.id, amount=10000, invoice_id=inv2.id)
+    db.commit()
+
+    # Lender
+    lender_user = User(username="lender2", email="lender2@test.com", hashed_password="pw", role="lender")
+    db.add(lender_user)
+    db.commit()
+    lender = Lender(user_id=lender_user.id, organization_name="Lender2", contact_email="lender2@test.com", max_lending_amount=100000)
+    db.add(lender)
+    db.commit()
+
+    req1 = approve_finance_request(db, req1.id, lender.id, 10000)
+    req2 = approve_finance_request(db, req2.id, lender.id, 10000)
+    db.commit()
+
+    req1 = mark_finance_request_funded(db, req1.id)
+    req2 = mark_finance_request_funded(db, req2.id)
+    db.commit()
+
+    # Check outcomes
+    o1 = db.query(SmeOutcome).filter(SmeOutcome.finance_request_id == req1.id).first()
+    o2 = db.query(SmeOutcome).filter(SmeOutcome.finance_request_id == req2.id).first()
+    assert o1 is not None
+    assert o2 is not None
+
+    # Update one to repaid, one to defaulted
+    o1 = update_checkin(db, o1.id, 90, True, 320000, True)
+    o2 = update_checkin(db, o2.id, 90, False, 10000, False)
+
+    assert o1.outcome_status == "repaid"
+    assert o2.outcome_status == "defaulted"
+

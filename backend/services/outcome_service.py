@@ -42,12 +42,18 @@ def create_outcome(db: Session, finance_request_id: int) -> SmeOutcome:
         })
 
     # 4. Create and save SmeOutcome
+    from datetime import timedelta
+    now = datetime.utcnow()
     outcome = SmeOutcome(
         finance_request_id=finance_request_id,
         sme_id=sme.id,
         score_at_funding=float(score_res.score),
         amount=req.approved_amount or req.amount_requested,
         outstanding_recommendations=outstanding,
+        outcome_status="pending",
+        check_in_90_due_at=now + timedelta(days=90),
+        check_in_180_due_at=now + timedelta(days=180),
+        check_in_365_due_at=now + timedelta(days=365),
     )
 
     db.add(outcome)
@@ -91,6 +97,29 @@ def update_checkin(
         outcome.checkin_365_loan_repaid = loan_repaid
     else:
         raise ValueError("Invalid check-in interval. Must be 90, 180, or 365")
+
+    # Recompute overall outcome_status
+    if (
+        (outcome.checkin_90_completed and outcome.checkin_90_loan_repaid) or
+        (outcome.checkin_180_completed and outcome.checkin_180_loan_repaid) or
+        (outcome.checkin_365_completed and outcome.checkin_365_loan_repaid)
+    ):
+        outcome.outcome_status = "repaid"
+    elif (
+        (outcome.checkin_90_completed and not outcome.checkin_90_still_operating) or
+        (outcome.checkin_180_completed and not outcome.checkin_180_still_operating) or
+        (outcome.checkin_365_completed and not outcome.checkin_365_still_operating) or
+        (outcome.checkin_365_completed and not outcome.checkin_365_loan_repaid)
+    ):
+        outcome.outcome_status = "defaulted"
+    elif (
+        outcome.checkin_90_completed or
+        outcome.checkin_180_completed or
+        outcome.checkin_365_completed
+    ):
+        outcome.outcome_status = "active"
+    else:
+        outcome.outcome_status = "pending"
 
     db.commit()
     db.refresh(outcome)
