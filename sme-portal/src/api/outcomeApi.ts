@@ -16,6 +16,10 @@ export interface SmeOutcome {
   score_at_funding: number;
   amount: number;
   outstanding_recommendations: any[];
+  outcome_status: "pending" | "active" | "repaid" | "defaulted";
+  check_in_90_due_at:  string | null;
+  check_in_180_due_at: string | null;
+  check_in_365_due_at: string | null;
   created_at: string;
   updated_at: string;
 

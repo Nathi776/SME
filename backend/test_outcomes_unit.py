@@ -219,3 +219,50 @@ def test_analytics_calculation(db):
     assert o1.outcome_status == "repaid"
     assert o2.outcome_status == "defaulted"
 
+
+def test_precedence_bug_repaid_but_not_operating(db):
+    # Seed user and SME
+    user = User(username="test_bug", email="bug@test.com", hashed_password="pw", role="sme")
+    db.add(user)
+    db.commit()
+
+    sme = SME(name="Bug SME", industry="Technology", revenue=Decimal("300000"), user_id=user.id)
+    db.add(sme)
+    db.commit()
+
+    score = CreditScore(sme_id=sme.id, score=60.0)
+    db.add(score)
+    db.commit()
+
+    invoice = Invoice(sme_id=sme.id, client_name="Client A", amount=Decimal("20000"), status="pending")
+    db.add(invoice)
+    db.commit()
+
+    req = create_finance_request(db, sme_id=sme.id, amount=10000, invoice_id=invoice.id)
+    db.commit()
+
+    # Lender
+    lender_user = User(username="lender_bug", email="lender_bug@test.com", hashed_password="pw", role="lender")
+    db.add(lender_user)
+    db.commit()
+    lender = Lender(user_id=lender_user.id, organization_name="Lender Bug", contact_email="lender_bug@test.com", max_lending_amount=100000)
+    db.add(lender)
+    db.commit()
+
+    req = approve_finance_request(db, req.id, lender.id, 10000)
+    req = mark_finance_request_funded(db, req.id)
+    db.commit()
+
+    outcome = db.query(SmeOutcome).filter(SmeOutcome.finance_request_id == req.id).first()
+    assert outcome is not None
+    assert outcome.outcome_status == "pending"
+
+    # 90d: repaid=True, still_operating=True
+    outcome = update_checkin(db, outcome.id, 90, True, 100000, True)
+    assert outcome.outcome_status == "repaid"
+
+    # 180d: still_operating=False (stopped operating)
+    outcome = update_checkin(db, outcome.id, 180, False, 0, False)
+    assert outcome.outcome_status == "defaulted"
+
+

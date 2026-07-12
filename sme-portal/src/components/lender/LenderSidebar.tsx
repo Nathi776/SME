@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Briefcase, ArrowRightLeft, Users, BarChart2,
-  LogOut, Home, Settings, ShieldCheck, BadgeDollarSign, Wallet
+  LogOut, Home, Settings, ShieldCheck, BadgeDollarSign, Wallet, TrendingUp
 } from "lucide-react";
 import { logout } from "../../utils/auth";
 import { LenderApi } from "../../api/lenderApi";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/lender/dashboard" },
+  { icon: TrendingUp, label: "Intelligence", path: "/lender/intelligence" },
   { icon: ShieldCheck, label: "Review Requests", path: "/lender/review-requests", hasBadge: true },
   { icon: BadgeDollarSign, label: "Fund a Deal", path: "/lender/fund-a-deal" },
   { icon: Briefcase, label: "Funded Deals", path: "/lender/funded-deals" },
@@ -77,12 +78,14 @@ export default function LenderSidebar({ isOpen, onClose, collapsed, onToggleColl
                 const isFundADeal = item.path === "/lender/fund-a-deal";
                 const isPortfolioReport = item.path === "/lender/portfolio-report";
                 const isAddFunds = item.path === "/lender/add-funds";
+                const isIntelligence = item.path === "/lender/intelligence";
 
                 const active = location.pathname === item.path ||
                   (isReviewRequests && location.pathname.startsWith("/lender/review-requests")) ||
                   (isFundADeal && location.pathname.startsWith("/lender/fund-a-deal")) ||
                   (isPortfolioReport && location.pathname.startsWith("/lender/portfolio-report")) ||
-                  (isAddFunds && location.pathname.startsWith("/lender/add-funds"));
+                  (isAddFunds && location.pathname.startsWith("/lender/add-funds")) ||
+                  (isIntelligence && location.pathname.startsWith("/lender/intelligence"));
 
                 const Icon = item.icon as any;
 

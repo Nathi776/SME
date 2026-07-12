@@ -57,8 +57,7 @@ def create_outcome(db: Session, finance_request_id: int) -> SmeOutcome:
     )
 
     db.add(outcome)
-    db.commit()
-    db.refresh(outcome)
+    db.flush()   # write to DB within the caller's transaction — do NOT commit here
     return outcome
 
 
@@ -98,25 +97,37 @@ def update_checkin(
     else:
         raise ValueError("Invalid check-in interval. Must be 90, 180, or 365")
 
-    # Recompute overall outcome_status
-    if (
-        (outcome.checkin_90_completed and outcome.checkin_90_loan_repaid) or
-        (outcome.checkin_180_completed and outcome.checkin_180_loan_repaid) or
-        (outcome.checkin_365_completed and outcome.checkin_365_loan_repaid)
-    ):
-        outcome.outcome_status = "repaid"
-    elif (
-        (outcome.checkin_90_completed and not outcome.checkin_90_still_operating) or
-        (outcome.checkin_180_completed and not outcome.checkin_180_still_operating) or
-        (outcome.checkin_365_completed and not outcome.checkin_365_still_operating) or
-        (outcome.checkin_365_completed and not outcome.checkin_365_loan_repaid)
-    ):
-        outcome.outcome_status = "defaulted"
-    elif (
+    # Recompute overall outcome_status.
+    # Order matters: defaulted is checked first — a business that stopped
+    # operating is defaulted even if an earlier check-in showed repaid=True.
+
+    not_operating_at_any_point = (
+        (outcome.checkin_90_completed  and outcome.checkin_90_still_operating  is False) or
+        (outcome.checkin_180_completed and outcome.checkin_180_still_operating is False) or
+        (outcome.checkin_365_completed and outcome.checkin_365_still_operating is False)
+    )
+
+    not_repaid_at_365 = (
+        outcome.checkin_365_completed and outcome.checkin_365_loan_repaid is False
+    )
+
+    fully_repaid = (
+        (outcome.checkin_90_completed  and outcome.checkin_90_loan_repaid  is True) or
+        (outcome.checkin_180_completed and outcome.checkin_180_loan_repaid is True) or
+        (outcome.checkin_365_completed and outcome.checkin_365_loan_repaid is True)
+    )
+
+    any_checkin_completed = (
         outcome.checkin_90_completed or
         outcome.checkin_180_completed or
         outcome.checkin_365_completed
-    ):
+    )
+
+    if not_operating_at_any_point or not_repaid_at_365:
+        outcome.outcome_status = "defaulted"
+    elif fully_repaid:
+        outcome.outcome_status = "repaid"
+    elif any_checkin_completed:
         outcome.outcome_status = "active"
     else:
         outcome.outcome_status = "pending"

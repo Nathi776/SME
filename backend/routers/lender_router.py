@@ -11,6 +11,11 @@ from models.credit_score import CreditScore
 from models.finance_request import FinanceRequest
 from services.auth_service import get_current_user
 from typing import List
+from models.sme_outcome import SmeOutcome
+from models.founder_profile import FounderProfile
+from services.scoring_service import score_sme
+from services.recommendations_service import generate_plan
+from core.scoring import determine_decision
 
 router = APIRouter(prefix="/lenders", tags=["Lenders"])
 
@@ -149,6 +154,7 @@ def get_available_smes(
             "sme_id": sme.id,
             "company_name": sme.name,
             "industry": sme.industry,
+            "province": sme.province,
             "revenue": sme.revenue,
             "credit_score": latest_score.score if latest_score else None,
             "risk_level": get_risk_level(latest_score.score if latest_score else None),
@@ -157,6 +163,201 @@ def get_available_smes(
     
     return result
 
+
+@router.get("/portfolio-analytics")
+def get_portfolio_analytics(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Retrieve portfolio-wide intelligence analytics."""
+    if current_user.role not in ["lender", "admin"]:
+        raise HTTPException(status_code=403, detail="Unauthorized access")
+    
+    # 1. applications
+    total_apps = db.query(FinanceRequest).count()
+    approved_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "approved").count()
+    funded_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "funded").count()
+    pending_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "pending").count()
+    rejected_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "rejected").count()
+
+    # 2. financials
+    financials_query = db.query(FinanceRequest).filter(
+        FinanceRequest.status.in_(["funded", "paid", "closed"])
+    ).all()
+    total_financed = float(sum(r.approved_amount or 0 for r in financials_query))
+    total_fees = float(sum(r.platform_fee or 0 for r in financials_query))
+
+    # 3. scores
+    smes = db.query(SME).all()
+    scores = []
+    distribution = {
+        "Declined (<50)": 0,
+        "Review (50-74)": 0,
+        "Approved (75+)": 0,
+        "Unscored": 0
+    }
+    for s in smes:
+        latest_score = db.query(CreditScore).filter(
+            CreditScore.sme_id == s.id
+        ).order_by(CreditScore.created_at.desc()).first()
+        if latest_score is not None:
+            scores.append(latest_score.score)
+            if latest_score.score < 50:
+                distribution["Declined (<50)"] += 1
+            elif latest_score.score < 75:
+                distribution["Review (50-74)"] += 1
+            else:
+                distribution["Approved (75+)"] += 1
+        else:
+            distribution["Unscored"] += 1
+
+    avg_score = round(sum(scores) / len(scores), 1) if scores else 0.0
+
+    # 4. concentration
+    by_sector = {}
+    by_province = {}
+    for s in smes:
+        sector = s.industry or "Other"
+        by_sector[sector] = by_sector.get(sector, 0) + 1
+        
+        prov = s.province or "Unknown"
+        by_province[prov] = by_province.get(prov, 0) + 1
+
+    # 5. outcomes
+    all_outcomes = db.query(SmeOutcome).all()
+    pending_out = sum(1 for o in all_outcomes if o.outcome_status == "pending")
+    active_out = sum(1 for o in all_outcomes if o.outcome_status == "active")
+    repaid_out = sum(1 for o in all_outcomes if o.outcome_status == "repaid")
+    defaulted_out = sum(1 for o in all_outcomes if o.outcome_status == "defaulted")
+    
+    total_denom = repaid_out + defaulted_out + active_out
+    repayment_rate = round((repaid_out / total_denom) * 100, 1) if total_denom > 0 else None
+
+    return {
+        "applications": {
+            "total": total_apps,
+            "approved": approved_apps,
+            "funded": funded_apps,
+            "pending": pending_apps,
+            "rejected": rejected_apps
+        },
+        "financials": {
+            "total_financed": total_financed,
+            "total_fees": total_fees
+        },
+        "scores": {
+            "average": avg_score,
+            "distribution": distribution
+        },
+        "concentration": {
+            "by_sector": by_sector,
+            "by_province": by_province
+        },
+        "outcomes": {
+            "pending": pending_out,
+            "active": active_out,
+            "repaid": repaid_out,
+            "defaulted": defaulted_out,
+            "repayment_rate": repayment_rate
+        }
+    }
+
+@router.get("/sme-intelligence/{sme_id}")
+def get_sme_intelligence(
+    sme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Retrieve in-depth credit intelligence for a specific SME."""
+    if current_user.role not in ["lender", "admin"]:
+        raise HTTPException(status_code=403, detail="Unauthorized access")
+
+    sme = db.query(SME).filter(SME.id == sme_id).first()
+    if not sme:
+        raise HTTPException(status_code=404, detail="SME not found")
+
+    # Call score_sme for the live score and breakdown
+    result = score_sme(sme, db)
+    
+    # Call generate_plan for recommendations and take the first 3
+    plan = generate_plan(result.breakdown, result.score)
+    top_3 = [
+        {
+            "action": rec.action,
+            "impact_score": rec.impact_score,
+            "difficulty": rec.difficulty
+        }
+        for rec in plan.recommendations[:3]
+    ]
+
+    # Query FounderProfile by sme_id
+    fp = db.query(FounderProfile).filter(FounderProfile.sme_id == sme_id).first()
+    founder_data = None
+    if fp is not None:
+        founder_data = {
+            "years_experience": fp.years_industry_experience,
+            "highest_qualification": fp.highest_qualification,
+            "prior_business_owner": fp.prior_business_owner,
+            "trade_association": fp.trade_association_name,
+            "reference_provided": bool(fp.reference_name) if fp.reference_name else False
+        }
+
+    # Query CreditScore ordered by created_at desc, limit 10
+    history = (
+        db.query(CreditScore)
+        .filter(CreditScore.sme_id == sme_id)
+        .order_by(CreditScore.created_at.desc())
+        .limit(10)
+        .all()
+    )
+    score_history = [
+        {
+            "score": h.score,
+            "created_at": h.created_at.isoformat()
+        }
+        for h in reversed(history)  # Chronological order for Line Chart
+    ]
+
+    # Query SmeOutcome by sme_id
+    outcomes_query = db.query(SmeOutcome).filter(SmeOutcome.sme_id == sme_id).all()
+    outcomes_data = [
+        {
+            "id": o.id,
+            "finance_request_id": o.finance_request_id,
+            "outcome_status": o.outcome_status,
+            "score_at_funding": o.score_at_funding,
+            "amount": float(o.amount),
+            "created_at": o.created_at.isoformat()
+        }
+        for o in outcomes_query
+    ]
+
+    return {
+        "sme": {
+            "id": sme.id,
+            "name": sme.name,
+            "industry": sme.industry,
+            "province": sme.province,
+            "business_city": sme.business_city,
+            "revenue": float(sme.revenue),
+            "years_active": sme.years_active,
+            "cipc_verified": sme.cipc_verified_at is not None
+        },
+        "score": {
+            "current": result.score,
+            "decision": result.decision,
+            "breakdown": result.breakdown
+        },
+        "founder": founder_data,
+        "recommendations": {
+            "projected_score": plan.projected_score,
+            "projected_decision": plan.projected_decision,
+            "top_3_actions": top_3
+        },
+        "score_history": score_history,
+        "outcomes": outcomes_data
+    }
+
 @router.get("/{lender_id}", response_model=LenderResponse)
 def get_lender(lender_id: int, db: Session = Depends(get_db)):
     """Get lender details by ID."""
@@ -164,3 +365,4 @@ def get_lender(lender_id: int, db: Session = Depends(get_db)):
     if not lender:
         raise HTTPException(status_code=404, detail="Lender not found")
     return lender
+

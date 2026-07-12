@@ -11,7 +11,8 @@ import FinanceRequestPage from "./pages/FinanceRequestPage";
 import Dashboard from "./pages/Dashboard";
 import LenderDashboard from "./pages/LenderDashboard";
 import LenderSMEDetailPage from "./pages/LenderSMEDetailPage";
-import AnalyticsDashboard from "./pages/AnalyticsDashboard";
+import LenderIntelligenceDashboard from "./pages/LenderIntelligenceDashboard";
+import BusinessAssessmentPage from "./pages/BusinessAssessmentPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminVerifications from "./pages/AdminVerifications";
 import DocumentsPage from "./pages/DocumentsPage";
@@ -43,6 +44,7 @@ function App() {
         <Route path="/register" element={<ChooseRolePage />} />
         <Route path="/register/sme" element={<SmeRegisterPage />} />
         <Route path="/register/lender" element={<LenderRegisterPage />} />
+        <Route path="/assess" element={<BusinessAssessmentPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
         <Route
@@ -57,7 +59,6 @@ function App() {
           <Route path="/invoices/upload" element={<UploadInvoicePage />} />
           <Route path="/finance" element={<FinanceRequestPage />} />
           <Route path="/finance-requests" element={<FinanceRequestPage />} />
-          <Route path="/analytics" element={<AnalyticsDashboard />} />
           <Route path="/credit-score" element={<CreditScorePage />} />
           <Route path="/credit-score/details" element={<CreditScoreDetails />} />
           <Route path="/founder-profile" element={<FounderProfilePage />} />
@@ -73,6 +74,7 @@ function App() {
         <Route path="/smes/:id" element={<ProtectedRoute roles={["admin", "lender"]}><SmeDetailPage /></ProtectedRoute>} />
         <Route path="/lender" element={<Navigate to="/lender/dashboard" replace />} />
         <Route path="/lender/dashboard" element={<ProtectedRoute roles={["lender"]}><LenderDashboard /></ProtectedRoute>} />
+        <Route path="/lender/intelligence" element={<ProtectedRoute roles={["lender", "admin"]}><LenderIntelligenceDashboard /></ProtectedRoute>} />
         <Route path="/lender/sme/:smeId" element={<ProtectedRoute roles={["lender", "admin"]}><LenderSMEDetailPage /></ProtectedRoute>} />
         <Route path="/lender/sme/:smeId/credit-score" element={<ProtectedRoute roles={["lender", "admin"]}><CreditScoreDetails /></ProtectedRoute>} />
         <Route path="/lender/decision-engine" element={<ProtectedRoute roles={["lender"]}><LenderDecisionEngine /></ProtectedRoute>} />
