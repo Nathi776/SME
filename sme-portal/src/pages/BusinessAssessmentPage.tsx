@@ -12,7 +12,7 @@ import {
   MapPin,
   Info
 } from "lucide-react";
-import api from "../api/client";
+import axios from "axios";
 
 const INDUSTRIES = [
   "Construction",
@@ -67,8 +67,9 @@ export default function BusinessAssessmentPage() {
     setStatus("loading");
     setError(null);
     try {
-      const res = await api.get<AssessmentResult>(
-        `/public/business-assessment?industry=${encodeURIComponent(industry)}&province=${encodeURIComponent(province)}`
+      const apiBase = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+      const res = await axios.get<AssessmentResult>(
+        `${apiBase}/public/business-assessment?industry=${encodeURIComponent(industry)}&province=${encodeURIComponent(province)}`
       );
       setResult(res.data);
       setTimeout(() => {

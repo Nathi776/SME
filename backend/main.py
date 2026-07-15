@@ -10,13 +10,20 @@ from routers import (
     lender_router,
     customer_router
 )
-from routers import verification_router, founder_router, recommendations_router, outcome_router, public_router
+from routers import (
+    verification_router, founder_router, recommendations_router,
+    outcome_router, public_router, api_v1_router, admin_router
+)
 from fastapi.middleware.cors import CORSMiddleware
 from limiter import limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi import _rate_limit_exceeded_handler
 
-app = FastAPI(title="SME Credit Scoring API")
+app = FastAPI(
+    title="SME Intelligence Platform API",
+    description="An SME intelligence platform whose first application is funding readiness.",
+    version="1.0.0",
+)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
@@ -44,7 +51,10 @@ app.include_router(founder_router.router)
 app.include_router(recommendations_router.router)
 app.include_router(outcome_router.router)
 app.include_router(public_router.router)
+app.include_router(api_v1_router.router)
+app.include_router(admin_router.router)
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to the SME Credit Scoring API"}
+    return {"message": "Welcome to the SME Intelligence Platform API"}
+

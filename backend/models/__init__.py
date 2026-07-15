@@ -7,3 +7,5 @@ from models.verification import Verification
 from models.founder_profile import FounderProfile
 from models.lender import Lender
 from models.sme_outcome import SmeOutcome
+from models.api_key import APIKey
+

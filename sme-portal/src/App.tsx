@@ -15,7 +15,10 @@ import LenderIntelligenceDashboard from "./pages/LenderIntelligenceDashboard";
 import BusinessAssessmentPage from "./pages/BusinessAssessmentPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminVerifications from "./pages/AdminVerifications";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminAPIKeysPage from "./pages/AdminAPIKeysPage";
 import DocumentsPage from "./pages/DocumentsPage";
+
 import TransactionsPage from "./pages/TransactionsPage";
 import MessagesPage from "./pages/MessagesPage";
 import CreditScorePage from "./pages/CreditScorePage";
@@ -83,8 +86,18 @@ function App() {
         <Route path="/lender/add-funds" element={<ProtectedRoute roles={["lender"]}><LenderAddFundsPage /></ProtectedRoute>} />
         <Route path="/lender/review-requests" element={<ProtectedRoute roles={["lender"]}><LenderReviewRequestsPage /></ProtectedRoute>} />
         <Route path="/lender/review-requests/:id" element={<ProtectedRoute roles={["lender"]}><LenderRequestDetailPage /></ProtectedRoute>} />
-        <Route path="/admin" element={<ProtectedRoute roles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
-        <Route path="/admin/verifications" element={<ProtectedRoute roles={["admin"]}><AdminVerifications /></ProtectedRoute>} />
+        <Route
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/verifications" element={<AdminVerifications />} />
+          <Route path="/admin/api-keys" element={<AdminAPIKeysPage />} />
+        </Route>
+
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

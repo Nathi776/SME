@@ -16,4 +16,8 @@ export const AdminApi = {
   listPendingVerifications: () => api.get<VerificationItem[]>("/verifications/pending"),
   approveVerification: (id: number, notes?: string) => api.put<VerificationItem>(`/verifications/approve/${id}`, { reviewer_notes: notes }),
   rejectVerification: (id: number, notes?: string) => api.put<VerificationItem>(`/verifications/reject/${id}`, { reviewer_notes: notes }),
+  listAPIKeys: () => api.get<any[]>("/admin/api-keys"),
+  generateAPIKey: (name: string, consumerType: string) => api.post<any>("/api/v1/keys/generate", { name, consumer_type: consumerType }),
+  revokeAPIKey: (id: number) => api.delete<any>(`/admin/api-keys/${id}`),
 };
+
