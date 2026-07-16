@@ -21,18 +21,15 @@ class KeyGenerateRequest(BaseModel):
     name: str = Field(..., min_length=1, max_length=255)
     consumer_type: Literal["lender", "government", "corporate", "developer"]
 
-@router.get("/sme/{reg_year}/{reg_num}/{reg_suffix}/score")
+@router.get("/sme/score")
 def get_sme_score(
-    reg_year: str,
-    reg_num: str,
-    reg_suffix: str,
+    registration_number: str,
     api_key: APIKey = Depends(get_api_key_from_header),
     db: Session = Depends(get_db)
 ):
     """
     Submit a company registration number and get back the platform's intelligence on that SME.
     """
-    registration_number = f"{reg_year}/{reg_num}/{reg_suffix}"
     sme = db.query(SME).filter(SME.cipc_registration_number == registration_number).first()
     if not sme:
         raise HTTPException(
@@ -102,7 +99,7 @@ def get_market_viability(
 
     # Combined viability formula
     if market is not None:
-        combined_viability = round(survival * (0.8 + 0.4 * market), 3)
+        combined_viability = round(survival * 0.6 + market * 0.4, 3)
     else:
         combined_viability = round(survival, 3)
 
@@ -184,6 +181,7 @@ def generate_new_api_key(
 
     new_key = APIKey(
         key_hash=key_hash,
+        key_prefix=raw_key[:12],
         name=req.name,
         consumer_type=req.consumer_type,
         is_active=True,

@@ -93,7 +93,7 @@ def test_api_keys_workflow():
 
     # 4. Use API Key to fetch SME score
     api_headers = {"X-API-Key": raw_key}
-    score_res = client.get("/api/v1/sme/2019/045321/07/score", headers=api_headers)
+    score_res = client.get("/api/v1/sme/score?registration_number=2019/045321/07", headers=api_headers)
     assert score_res.status_code == 200
     score_data = score_res.json()
     assert score_data["registration_number"] == "2019/045321/07"
@@ -108,6 +108,7 @@ def test_api_keys_workflow():
     assert mkt_data["industry"] == "Technology"
     assert mkt_data["province"] == "Gauteng"
     assert mkt_data["sector_survival_rate"] == 0.72
+    assert mkt_data["combined_viability"] == 0.832
 
     # 6. Retrieve platform stats
     stats_res = client.get("/api/v1/platform/stats", headers=api_headers)
@@ -117,7 +118,7 @@ def test_api_keys_workflow():
     assert "score_distribution" in stats_data
 
     # 7. Try fetching score with invalid API key
-    bad_res = client.get("/api/v1/sme/2019/045321/07/score", headers={"X-API-Key": "invalid_key"})
+    bad_res = client.get("/api/v1/sme/score?registration_number=2019/045321/07", headers={"X-API-Key": "invalid_key"})
     assert bad_res.status_code == 401
 
     # 8. Revoke the API Key
@@ -125,5 +126,5 @@ def test_api_keys_workflow():
     assert revoke_res.status_code == 200
 
     # 9. Verify the revoked API key returns 401
-    revoked_res = client.get("/api/v1/sme/2019/045321/07/score", headers=api_headers)
+    revoked_res = client.get("/api/v1/sme/score?registration_number=2019/045321/07", headers=api_headers)
     assert revoked_res.status_code == 401

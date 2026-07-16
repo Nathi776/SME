@@ -7,6 +7,7 @@ class APIKey(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     key_hash = Column(String, nullable=False)
+    key_prefix = Column(String(12), nullable=True, index=True)
     name = Column(String, nullable=False)
     consumer_type = Column(String, nullable=False)
     is_active = Column(Boolean, default=True, index=True, nullable=False)

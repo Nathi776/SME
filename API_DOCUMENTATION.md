@@ -44,12 +44,12 @@ To ensure platform reliability and fair usage, all external endpoints are rate l
 ## Endpoints
 
 ### 1. Retrieve SME Score
-`GET /api/v1/sme/{registration_number}/score`
+`GET /api/v1/sme/score`
 
 Submits a South African company registration number and retrieves detailed platform intelligence on that SME.
 
 #### Request Parameters
-*   `registration_number` (Path, required, string): Format `YYYY/NNNNNN/NN` (e.g. `2019/045321/07`).
+*   `registration_number` (Query, required, string): Format `YYYY/NNNNNN/NN` (e.g. `2019/045321/07`).
 
 #### Response Example (200 OK)
 ```json
@@ -93,7 +93,7 @@ Queries sector and province viability signals based on Stats SA and World Bank d
   "province": "Gauteng",
   "sector_survival_rate": 0.72,
   "province_market_score": 1.0,
-  "combined_viability": 0.864,
+  "combined_viability": 0.832,
   "viability_label": "Strong opportunity",
   "survival_label": "72% sector survival (strong)",
   "market_label": "High economic activity market (100%)"
@@ -156,13 +156,13 @@ None.
 ## Use Cases
 
 ### 1. Lender Credit Check
-A commercial bank integrates the API into its loan origination workflow. When an SME applies for funding, the bank's system automatically calls `GET /api/v1/sme/2019/045321/07/score` using their API key. The platform returns a consolidated rating (`82.4` / `Approved`) and full detail on cashflow verified through bank statements. This lets the lender offer instant, data-backed decisions.
+A commercial bank integrates the API into its loan origination workflow. When an SME applies for funding, the bank's system automatically calls `GET /api/v1/sme/score?registration_number=2019/045321/07` using their API key. The platform returns a consolidated rating (`82.4` / `Approved`) and full detail on cashflow verified through bank statements. This lets the lender offer instant, data-backed decisions.
 
 ### 2. Government Sector Query
 A provincial development agency wants to allocate enterprise grants to high-viability sectors. They fetch viability metrics by calling `GET /api/v1/market/viability?industry=Agriculture&province=Limpopo`. The API returns a combined viability index and a descriptive label ("Limpopo has lower formal economic activity, but Agriculture performs particularly well in this province").
 
 ### 3. Procurement Supplier Assessment
-A corporate enterprise wants to assess the operational risk of a potential supplier. They call `GET /api/v1/sme/2021/112233/07/score` to retrieve compliance depth (CIPC status, tax clearances) and payment behaviors (unpaid invoice ratio, invoice timeliness) before onboarding them.
+A corporate enterprise wants to assess the operational risk of a potential supplier. They call `GET /api/v1/sme/score?registration_number=2021/112233/07` to retrieve compliance depth (CIPC status, tax clearances) and payment behaviors (unpaid invoice ratio, invoice timeliness) before onboarding them.
 
 ---
 

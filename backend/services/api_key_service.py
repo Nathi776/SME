@@ -8,23 +8,27 @@ from services.auth_service import pwd_context
 
 def generate_api_key() -> tuple[str, str]:
     """
-    Generate a random 40-character key using secrets.token_urlsafe(30)
+    Generate a random prefixed key using secrets.token_urlsafe(30)
     and hash it with bcrypt using passlib's pwd_context.
     Returns (raw_key, hashed_key).
     """
-    raw_key = secrets.token_urlsafe(30)
+    raw_key = "smei_" + secrets.token_urlsafe(30)
     hashed_key = pwd_context.hash(raw_key)
     return raw_key, hashed_key
 
 def verify_api_key(raw_key: str, db: Session) -> APIKey | None:
     """
-    Query all active API keys from the DB.
-    Compare the raw key with each stored key_hash using pwd_context.verify.
+    Look up active API keys by prefix.
+    Compare the raw key with each candidate key_hash using pwd_context.verify.
     If a match is found, update last_used_at and return the APIKey record.
     If no match is found, return None.
     """
-    active_keys = db.query(APIKey).filter(APIKey.is_active == True).all()
-    for key_record in active_keys:
+    prefix = raw_key[:12]
+    candidates = db.query(APIKey).filter(
+        APIKey.is_active == True,
+        APIKey.key_prefix == prefix
+    ).all()
+    for key_record in candidates:
         try:
             if pwd_context.verify(raw_key, key_record.key_hash):
                 key_record.last_used_at = datetime.utcnow()
