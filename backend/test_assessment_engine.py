@@ -30,7 +30,8 @@ load("services.market_data_service", f"{BASE}/services/market_data_service.py")
 load("core.scoring",                 f"{BASE}/core/scoring.py")
 load("core.assessment_engine",       f"{BASE}/core/assessment_engine.py")
 
-from core.scoring          import ScoringInput, FounderSignalInput
+from core.scoring          import EvidencePackage, FounderSignalInput
+ScoringInput = EvidencePackage  # backward compat in test only
 from core.assessment_engine import (
     assess, infer_profile, select_strategy,
     BusinessProfile, STRATEGIES,
@@ -394,4 +395,39 @@ class TestAssessmentEngine:
         # Intent docs (2 approved): +10
         # Total: 10 + 45 + 25 + 10 + 10 = 100%
         assert res_high.confidence_score == 100.0
+
+    def test_decomposed_services_and_versioning(self):
+        from core.assessment_engine import (
+            ProfileInferenceService, StrategyFactory, ScoreCalculator,
+            ConfidenceCalculator, AssessmentBuilder
+        )
+        
+        # Test input package
+        inp = EvidencePackage(
+            revenue=100000, years_active=0, industry="Technology",
+            total_invoices=0, paid_on_time=0, unpaid_invoices=0,
+            verifications={}, province="Gauteng"
+        )
+        
+        # 1. ProfileInferenceService
+        profile_res = ProfileInferenceService.detect(inp)
+        assert profile_res.profile == BusinessProfile.IDEA
+        assert profile_res.inference_version == "v1"
+        assert "Revenue Tier" in profile_res.unavailable_factors
+        
+        # 2. StrategyFactory
+        strategy, strategy_ver = StrategyFactory.get_strategy(profile_res.profile)
+        assert strategy.name == "IdeaAssessmentStrategy"
+        assert strategy_ver == "v1"
+        
+        # 3. assess() audit version headers
+        res = assess(inp)
+        assert res.inference_version == "v1"
+        assert res.strategy_version == "v1"
+        
+        # 4. breakdown metadata contains version strings
+        meta = res.breakdown["_assessment"]
+        assert meta["inference_version"] == "v1"
+        assert meta["strategy_version"] == "v1"
+
 
