@@ -22,6 +22,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal
 
+from core.assessment_engine import AssessmentResult
+
 # ── Types ─────────────────────────────────────────────────────────────────────
 
 Category = Literal[
@@ -525,3 +527,14 @@ def _generate_summary(
         f"By completing {len(recommendations)} action{'s' if len(recommendations) != 1 else ''}, "
         f"your score could reach {projected:.1f} — moving you into the {projected_band} band."
     )
+
+
+class RecommendationEngine:
+    @staticmethod
+    def generate(result: AssessmentResult) -> RecommendationPlan:
+        """
+        Generate a RecommendationPlan from an AssessmentResult.
+        Provides a clean, type-safe architectural boundary.
+        """
+        return generate_plan(result.breakdown, result.score)
+

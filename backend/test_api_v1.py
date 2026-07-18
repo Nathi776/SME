@@ -27,11 +27,10 @@ def override_get_db():
     finally:
         db.close()
 
-app.dependency_overrides[get_db] = override_get_db
-
 @pytest.fixture(scope="module", autouse=True)
 def setup_db():
     Base.metadata.create_all(bind=engine)
+    app.dependency_overrides[get_db] = override_get_db
     db = TestingSessionLocal()
     
     # Create test users
@@ -56,6 +55,7 @@ def setup_db():
     
     db.close()
     yield
+    app.dependency_overrides.clear()
     Base.metadata.drop_all(bind=engine)
 
 client = TestClient(app)

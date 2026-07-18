@@ -17,7 +17,7 @@ from models.user import User
 from models.sme import SME
 from services.auth_service import get_current_user
 from services.scoring_service import score_sme
-from services.recommendations_service import generate_plan
+from services.recommendations_service import RecommendationEngine
 
 router = APIRouter(prefix="/recommendations", tags=["Recommendations"])
 
@@ -49,7 +49,7 @@ def get_recommendations(
 
     # Score is always recalculated live — no stale data
     result = score_sme(sme, db)
-    plan   = generate_plan(result.breakdown, result.score)
+    plan   = RecommendationEngine.generate(result)
 
     return {
         "current_score":      plan.current_score,

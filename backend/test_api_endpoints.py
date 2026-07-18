@@ -34,7 +34,9 @@ def setup_db():
         except Exception:
             pass
     Base.metadata.create_all(bind=engine)
+    app.dependency_overrides[get_db] = override_get_db
     yield
+    app.dependency_overrides.clear()
     Base.metadata.drop_all(bind=engine)
     if os.path.exists(TEST_DB_FILE):
         try:
@@ -49,8 +51,6 @@ def override_get_db():
         yield db
     finally:
         db.close()
-
-app.dependency_overrides[get_db] = override_get_db
 
 client = TestClient(app)
 

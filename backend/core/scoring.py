@@ -74,9 +74,9 @@ class FounderSignalInput:
     reference_provided:        bool  | None = None  # True if reference_name is populated
 
 
-# ── Main scoring input ────────────────────────────────────────────────────────
+# ── Main scoring input (Evidence Package) ──────────────────────────────────────
 @dataclass
-class ScoringInput:
+class EvidencePackage:
     revenue:       float
     years_active:  int
     industry:      str
@@ -98,6 +98,59 @@ class ScoringInput:
 
     # Founder signals — None when FounderProfile not yet created
     founder: FounderSignalInput | None = None
+
+# Backward compatibility alias
+ScoringInput = EvidencePackage
+
+
+@dataclass
+class ValidationResult:
+    is_valid: bool
+    errors: list[str]
+    warnings: list[str]
+
+
+class EvidenceValidator:
+    @staticmethod
+    def validate(pkg: EvidencePackage) -> ValidationResult:
+        errors: list[str] = []
+        warnings: list[str] = []
+
+        # Range checks
+        if pkg.revenue < 0:
+            errors.append(f"Revenue cannot be negative: {pkg.revenue}")
+        if pkg.years_active < 0:
+            errors.append(f"Years active cannot be negative: {pkg.years_active}")
+        if pkg.total_invoices < 0:
+            errors.append(f"Total invoices cannot be negative: {pkg.total_invoices}")
+        if pkg.paid_on_time < 0:
+            errors.append(f"Paid on time invoices cannot be negative: {pkg.paid_on_time}")
+        if pkg.unpaid_invoices < 0:
+            errors.append(f"Unpaid invoices cannot be negative: {pkg.unpaid_invoices}")
+
+        if pkg.months_analysed is not None and pkg.months_analysed < 0:
+            errors.append(f"Months analysed cannot be negative: {pkg.months_analysed}")
+        if pkg.overdraft_count is not None and pkg.overdraft_count < 0:
+            errors.append(f"Overdraft count cannot be negative: {pkg.overdraft_count}")
+        if pkg.income_regularity is not None and not (0.0 <= pkg.income_regularity <= 1.0):
+            errors.append(f"Income regularity must be between 0.0 and 1.0: {pkg.income_regularity}")
+
+        # Contradictions
+        if pkg.total_invoices > 0:
+            if pkg.paid_on_time > pkg.total_invoices:
+                errors.append(f"Paid on time ({pkg.paid_on_time}) exceeds total invoices ({pkg.total_invoices})")
+            if pkg.unpaid_invoices > pkg.total_invoices:
+                errors.append(f"Unpaid invoices ({pkg.unpaid_invoices}) exceeds total invoices ({pkg.total_invoices})")
+            if pkg.paid_on_time + pkg.unpaid_invoices > pkg.total_invoices:
+                errors.append(f"Sum of paid ({pkg.paid_on_time}) and unpaid ({pkg.unpaid_invoices}) exceeds total invoices ({pkg.total_invoices})")
+
+        # Warnings
+        if pkg.years_active > 100:
+            warnings.append(f"Unusually high business age: {pkg.years_active} years")
+        if pkg.revenue > 100_000_000:
+            warnings.append(f"Unusually high revenue: R{pkg.revenue:,}")
+
+        return ValidationResult(is_valid=len(errors) == 0, errors=errors, warnings=warnings)
 
 
 # ── Output ────────────────────────────────────────────────────────────────────

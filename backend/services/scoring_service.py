@@ -1,8 +1,9 @@
 """
-services/scoring_service.py — DB adapter. Track B update.
+services/scoring_service.py
 
-Change: builds FounderSignalInput from the FounderProfile record
-when it exists, passes None otherwise (engine handles gracefully).
+Updated to use the Assessment Engine as the primary scoring path.
+The legacy calculate_score() path is preserved for backward compatibility
+but assess() is now the authoritative entry point.
 """
 from __future__ import annotations
 from datetime import datetime, timezone
@@ -12,13 +13,14 @@ from models.invoice import Invoice
 from models.verification import Verification
 from models.sme import SME
 from models.founder_profile import FounderProfile
-from core.scoring import (
-    ScoringInput, ScoringResult, FounderSignalInput,
-    calculate_score, INTENT_BASE_POINTS,
-)
+from core.scoring import EvidencePackage, FounderSignalInput, INTENT_BASE_POINTS
+from core.assessment_engine import AssessmentResult, assess
 
 
-def build_scoring_input(sme: SME, db: Session) -> ScoringInput:
+def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
+    """
+    Pull all signals for an SME from the database and return an EvidencePackage.
+    """
     # ── Invoice signals ───────────────────────────────────────────────────────
     invoices = db.query(Invoice).filter(Invoice.sme_id == sme.id).all()
     total_invoices  = len(invoices)
@@ -47,7 +49,7 @@ def build_scoring_input(sme: SME, db: Session) -> ScoringInput:
                 "loi_counterparty_known": latest.loi_counterparty_known,
             }
 
-    # ── Revenue: parsed > self-reported ──────────────────────────────────────
+    # ── Revenue ───────────────────────────────────────────────────────────────
     revenue = float(sme.bs_parsed_revenue) if sme.bs_parsed_revenue is not None \
               else float(sme.revenue or 0)
 
@@ -68,7 +70,7 @@ def build_scoring_input(sme: SME, db: Session) -> ScoringInput:
             reference_provided        = bool(fp.reference_name) if fp.reference_name else None,
         )
 
-    return ScoringInput(
+    return EvidencePackage(
         revenue=revenue,
         years_active=int(sme.years_active or 0),
         industry=sme.industry or "Other",
@@ -85,5 +87,17 @@ def build_scoring_input(sme: SME, db: Session) -> ScoringInput:
     )
 
 
-def score_sme(sme: SME, db: Session) -> ScoringResult:
-    return calculate_score(build_scoring_input(sme, db))
+# Backward compatibility alias
+build_scoring_input = build_evidence_package
+
+
+def score_sme(sme: SME, db: Session) -> AssessmentResult:
+    """
+    Primary entry point. Returns a full AssessmentResult including
+    business profile inference, context-appropriate weights, and confidence score.
+
+    Return type is AssessmentResult which is a superset of ScoringResult —
+    all existing code reading .score, .decision, .breakdown continues to work.
+    """
+    inp = build_evidence_package(sme, db)
+    return assess(inp)
