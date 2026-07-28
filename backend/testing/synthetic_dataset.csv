@@ -1,0 +1,1001 @@
+record_id,industry,province,revenue,years_active,total_invoices,paid_on_time,unpaid_invoices,overdraft_count,income_regularity,months_analysed,cipc_verified,bank_statement_verified,tax_verified,founder_experience,founder_qualification,founder_prior_owner,inferred_stage,assessment_score,assessment_decision,confidence_score,funding_status,business_outcome
+SYN_0001,Retail,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,matric,True,idea,19.8,Declined,20.0,Not Funded,Dormant
+SYN_0002,Education,Gauteng,52473.0,0,3,2,1,-1,-1.0,-1,True,False,False,-1,none,False,startup,39.5,Declined,30.0,Funded,Revenue Declined
+SYN_0003,Manufacturing,Free State,210049.0,2,10,7,3,2,0.74,6,True,True,False,4,postgraduate,True,growth,55.4,Review,75.0,Funded,Revenue Doubled
+SYN_0004,Hospitality,Mpumalanga,2085091.0,13,130,100,30,0,0.88,6,True,True,True,14,postgraduate,True,established,74.2,Review,85.0,Not Funded,Revenue Declined
+SYN_0005,Healthcare,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,postgraduate,True,idea,50.1,Review,25.0,Not Funded,Revenue Declined
+SYN_0006,Manufacturing,Northern Cape,35799.0,1,3,0,3,-1,-1.0,-1,True,True,False,4,diploma,False,growth,31.5,Declined,50.0,Not Funded,Closed
+SYN_0007,Hospitality,Limpopo,379166.0,2,11,9,2,0,0.78,6,True,True,True,7,degree,False,growth,61.6,Review,85.0,Not Funded,Dormant
+SYN_0008,Hospitality,Free State,429212.0,10,104,101,3,0,0.82,6,True,True,True,17,postgraduate,True,established,84.6,Approved,90.0,Funded,Revenue Doubled
+SYN_0009,Agriculture,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,21.6,Declined,10.0,Not Funded,Revenue Declined
+SYN_0010,Logistics,North West,119252.0,0,0,0,0,-1,-1.0,-1,True,False,False,6,degree,True,startup,47.4,Declined,40.0,Not Funded,Dormant
+SYN_0011,Retail,Northern Cape,145442.0,2,24,15,9,0,0.96,6,True,True,False,4,postgraduate,True,established,42.5,Declined,75.0,Not Funded,Dormant
+SYN_0012,Construction,North West,1979954.0,6,76,63,13,0,0.83,6,True,True,True,8,degree,True,established,72.3,Review,85.0,Funded,Revenue Doubled
+SYN_0013,Healthcare,Mpumalanga,26705.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,22.1,Declined,10.0,Funded,Growing
+SYN_0014,Hospitality,Limpopo,68852.0,0,4,0,4,-1,-1.0,-1,True,False,False,7,degree,False,startup,43.7,Declined,40.0,Not Funded,Closed
+SYN_0015,Agriculture,Northern Cape,135624.0,1,16,15,1,0,0.95,6,True,True,True,11,degree,True,growth,61.4,Review,85.0,Funded,Growing
+SYN_0016,Technology,North West,2624733.0,9,85,74,11,0,0.81,6,True,True,True,17,degree,True,established,78.4,Approved,85.0,Funded,Growing
+SYN_0017,Agriculture,North West,36365.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.9,Declined,15.0,Not Funded,Revenue Declined
+SYN_0018,Construction,Eastern Cape,106546.0,1,3,0,3,3,0.53,3,False,True,False,-1,none,False,growth,18.8,Declined,40.0,Not Funded,Closed
+SYN_0019,Professional Services,KwaZulu-Natal,273188.0,2,14,12,2,0,0.96,6,True,True,True,9,diploma,False,growth,65.8,Review,85.0,Not Funded,Revenue Declined
+SYN_0020,Retail,Limpopo,1822574.0,14,129,114,15,0,0.81,6,True,True,True,5,degree,False,established,73.3,Review,90.0,Funded,Revenue Declined
+SYN_0021,Manufacturing,Mpumalanga,10643.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,postgraduate,False,idea,33.4,Declined,25.0,Not Funded,Dormant
+SYN_0022,Education,Mpumalanga,69407.0,1,4,0,4,0,0.69,3,True,True,False,-1,none,False,growth,35.8,Declined,60.0,Not Funded,Dormant
+SYN_0023,Hospitality,Western Cape,438204.0,1,15,10,5,0,0.92,6,True,True,True,12,degree,False,growth,58.0,Review,85.0,Not Funded,Revenue Declined
+SYN_0024,Professional Services,Limpopo,911722.0,8,91,83,8,0,0.92,6,True,True,True,20,postgraduate,True,established,84.6,Approved,90.0,Funded,Revenue Doubled
+SYN_0025,Logistics,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,diploma,False,idea,32.0,Declined,25.0,Not Funded,Dormant
+SYN_0026,Logistics,Free State,27353.0,1,1,1,0,-1,-1.0,-1,True,True,False,6,matric,False,growth,51.5,Review,50.0,Not Funded,Revenue Declined
+SYN_0027,Logistics,Mpumalanga,252387.0,1,19,15,4,1,0.79,6,True,True,False,9,certificate,True,growth,55.3,Review,75.0,Funded,Growing
+SYN_0028,Manufacturing,North West,676118.0,13,99,90,9,0,0.84,6,True,True,True,14,degree,True,established,84.2,Approved,90.0,Funded,Growing
+SYN_0029,Retail,Northern Cape,18703.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,postgraduate,False,idea,22.2,Declined,20.0,Not Funded,Dormant
+SYN_0030,Professional Services,KwaZulu-Natal,92079.0,1,4,2,2,2,0.63,3,True,True,False,-1,none,False,growth,35.6,Declined,55.0,Not Funded,Closed
+SYN_0031,Hospitality,Northern Cape,151446.0,1,24,21,3,0,0.71,6,True,True,True,2,postgraduate,False,established,53.8,Review,85.0,Not Funded,Revenue Declined
+SYN_0032,Manufacturing,Northern Cape,1908392.0,12,142,134,8,1,0.91,6,True,True,True,20,degree,True,established,83.6,Approved,90.0,Not Funded,Revenue Doubled
+SYN_0033,Logistics,Gauteng,38513.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,24.0,Declined,10.0,Not Funded,Closed
+SYN_0034,Manufacturing,KwaZulu-Natal,91546.0,1,0,0,0,-1,-1.0,-1,True,True,False,1,matric,True,startup,44.3,Declined,50.0,Not Funded,Closed
+SYN_0035,Retail,North West,448661.0,2,13,11,2,0,0.89,6,True,True,False,2,certificate,True,growth,62.6,Review,75.0,Funded,Growing
+SYN_0036,Professional Services,Eastern Cape,994824.0,13,26,25,1,0,0.94,6,True,True,True,20,degree,False,established,88.3,Approved,85.0,Funded,Revenue Doubled
+SYN_0037,Education,Gauteng,14258.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,24.0,Declined,10.0,Not Funded,Dormant
+SYN_0038,Hospitality,North West,111490.0,1,1,1,0,3,0.85,3,True,True,False,1,postgraduate,True,growth,58.3,Review,65.0,Not Funded,Growing
+SYN_0039,Agriculture,North West,387411.0,1,7,5,2,2,0.74,6,True,True,True,6,degree,False,growth,61.1,Review,85.0,Not Funded,Growing
+SYN_0040,Education,Gauteng,1441060.0,12,32,31,1,1,0.94,6,True,True,True,11,postgraduate,False,established,89.1,Approved,85.0,Funded,Growing
+SYN_0041,Professional Services,Northern Cape,16086.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,True,idea,33.4,Declined,20.0,Not Funded,Dormant
+SYN_0042,Logistics,Gauteng,69895.0,0,2,0,2,3,0.85,4,True,True,False,6,matric,True,startup,55.2,Review,70.0,Not Funded,Growing
+SYN_0043,Construction,Northern Cape,213084.0,1,10,9,1,1,0.8,6,True,True,True,12,postgraduate,True,growth,62.8,Review,85.0,Funded,Revenue Declined
+SYN_0044,Professional Services,Free State,1129259.0,12,99,93,6,0,0.9,6,True,True,True,11,diploma,False,established,82.1,Approved,90.0,Funded,Revenue Doubled
+SYN_0045,Hospitality,North West,34932.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.3,Declined,15.0,Not Funded,Dormant
+SYN_0046,Hospitality,North West,32108.0,0,4,3,1,-1,-1.0,-1,True,False,False,7,certificate,True,startup,46.1,Declined,40.0,Not Funded,Dormant
+SYN_0047,Education,Western Cape,282754.0,3,23,18,5,0,0.82,6,True,True,True,7,diploma,True,established,63.0,Review,85.0,Not Funded,Revenue Declined
+SYN_0048,Hospitality,Limpopo,1657471.0,8,149,142,7,0,0.86,6,True,True,True,19,degree,True,established,87.1,Approved,90.0,Funded,Revenue Doubled
+SYN_0049,Education,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.0,Declined,15.0,Not Funded,Dormant
+SYN_0050,Hospitality,North West,58275.0,1,3,3,0,0,0.76,3,False,True,False,2,certificate,True,growth,49.4,Declined,50.0,Not Funded,Closed
+SYN_0051,Hospitality,Limpopo,406991.0,2,5,3,2,0,0.87,6,True,True,True,3,certificate,False,growth,52.6,Review,85.0,Funded,Defaulted
+SYN_0052,Technology,Eastern Cape,1417273.0,10,83,74,9,0,1.0,6,True,True,True,17,postgraduate,False,established,77.0,Approved,90.0,Funded,Growing
+SYN_0053,Healthcare,North West,44887.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,diploma,False,idea,30.5,Declined,20.0,Not Funded,Dormant
+SYN_0054,Retail,North West,52554.0,1,4,2,2,-1,-1.0,-1,True,False,False,8,postgraduate,False,growth,30.8,Declined,35.0,Not Funded,Dormant
+SYN_0055,Agriculture,Gauteng,294989.0,3,19,11,8,2,0.96,6,True,True,True,5,certificate,False,established,54.3,Review,85.0,Funded,Revenue Declined
+SYN_0056,Education,Free State,885396.0,12,82,63,19,0,0.84,6,True,True,True,12,degree,False,established,71.0,Review,90.0,Funded,Defaulted
+SYN_0057,Logistics,Western Cape,21677.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,21.1,Declined,10.0,Not Funded,Closed
+SYN_0058,Manufacturing,Northern Cape,87419.0,1,1,0,1,-1,-1.0,-1,True,False,False,1,matric,True,growth,34.0,Declined,40.0,Not Funded,Dormant
+SYN_0059,Healthcare,North West,390694.0,2,9,5,4,0,0.95,6,True,True,False,6,postgraduate,False,growth,57.1,Review,75.0,Funded,Defaulted
+SYN_0060,Technology,Western Cape,2117327.0,3,64,51,13,0,0.91,6,True,True,True,16,postgraduate,True,established,76.3,Approved,90.0,Funded,Growing
+SYN_0061,Technology,Limpopo,35129.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,matric,False,idea,31.0,Declined,25.0,Not Funded,Dormant
+SYN_0062,Hospitality,North West,76574.0,0,3,2,1,1,0.53,4,True,True,False,6,matric,False,startup,47.0,Declined,70.0,Not Funded,Dormant
+SYN_0063,Retail,Gauteng,437803.0,3,17,16,1,1,0.87,6,True,True,True,6,diploma,True,established,79.8,Approved,85.0,Funded,Revenue Doubled
+SYN_0064,Manufacturing,Eastern Cape,482448.0,12,77,70,7,0,0.83,6,True,True,True,6,postgraduate,True,established,82.9,Approved,90.0,Funded,Revenue Doubled
+SYN_0065,Manufacturing,Northern Cape,28604.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,19.7,Declined,15.0,Not Funded,Revenue Declined
+SYN_0066,Professional Services,Gauteng,32780.0,1,4,3,1,1,0.64,4,True,True,False,7,certificate,False,growth,51.1,Review,65.0,Funded,Growing
+SYN_0067,Professional Services,Limpopo,409008.0,3,18,17,1,1,0.84,6,True,True,True,6,degree,False,established,77.2,Approved,85.0,Funded,Growing
+SYN_0068,Retail,KwaZulu-Natal,733076.0,14,123,121,2,1,0.87,6,True,True,True,19,degree,True,established,88.5,Approved,85.0,Funded,Revenue Doubled
+SYN_0069,Retail,Limpopo,16136.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,none,False,idea,23.2,Declined,25.0,Funded,Revenue Doubled
+SYN_0070,Education,Northern Cape,24373.0,0,0,0,0,-1,-1.0,-1,True,True,False,8,degree,False,startup,41.4,Declined,50.0,Not Funded,Closed
+SYN_0071,Logistics,Western Cape,403530.0,3,10,7,3,0,0.72,6,True,True,False,8,degree,True,established,66.3,Review,75.0,Not Funded,Dormant
+SYN_0072,Professional Services,Gauteng,1151432.0,15,87,79,8,1,0.9,6,True,True,True,12,postgraduate,False,established,86.6,Approved,90.0,Funded,Growing
+SYN_0073,Healthcare,Gauteng,22144.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,diploma,False,idea,38.6,Declined,20.0,Not Funded,Dormant
+SYN_0074,Technology,Western Cape,81819.0,0,1,0,1,-1,-1.0,-1,True,False,False,1,diploma,True,startup,47.1,Declined,40.0,Not Funded,Dormant
+SYN_0075,Hospitality,KwaZulu-Natal,266608.0,2,7,4,3,1,0.82,6,True,True,False,8,degree,True,growth,53.1,Review,75.0,Funded,Revenue Doubled
+SYN_0076,Manufacturing,Free State,1104433.0,8,37,30,7,0,0.94,6,True,True,True,12,postgraduate,True,established,73.2,Review,90.0,Funded,Revenue Declined
+SYN_0077,Education,KwaZulu-Natal,38792.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,none,False,idea,27.1,Declined,20.0,Not Funded,Dormant
+SYN_0078,Professional Services,Free State,50068.0,1,3,0,3,-1,-1.0,-1,True,False,False,3,none,True,growth,31.0,Declined,35.0,Not Funded,Dormant
+SYN_0079,Retail,Free State,124776.0,2,24,17,7,1,0.75,6,True,True,True,9,diploma,True,established,52.9,Review,85.0,Not Funded,Growing
+SYN_0080,Education,Mpumalanga,1360207.0,14,109,83,26,1,0.88,6,True,True,True,19,degree,False,established,71.6,Review,85.0,Not Funded,Revenue Declined
+SYN_0081,Professional Services,Free State,3310.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,24.8,Declined,15.0,Not Funded,Closed
+SYN_0082,Healthcare,Mpumalanga,40556.0,0,1,0,1,-1,-1.0,-1,True,False,False,7,matric,False,startup,33.1,Declined,35.0,Not Funded,Revenue Declined
+SYN_0083,Logistics,Northern Cape,435966.0,3,15,11,4,0,0.73,6,True,True,False,6,degree,False,established,62.1,Review,75.0,Funded,Growing
+SYN_0084,Retail,Mpumalanga,2650024.0,6,134,103,31,0,0.89,6,True,True,True,6,diploma,True,established,72.9,Review,90.0,Funded,Revenue Declined
+SYN_0085,Construction,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,diploma,False,idea,32.5,Declined,25.0,Not Funded,Revenue Declined
+SYN_0086,Hospitality,Eastern Cape,101904.0,1,0,0,0,-1,-1.0,-1,True,True,False,-1,none,False,startup,45.7,Declined,45.0,Not Funded,Revenue Declined
+SYN_0087,Construction,KwaZulu-Natal,211585.0,2,19,15,4,0,0.83,6,True,True,False,12,certificate,True,growth,55.2,Review,75.0,Funded,Revenue Doubled
+SYN_0088,Logistics,KwaZulu-Natal,1597781.0,12,121,115,6,1,0.9,6,True,True,True,14,diploma,True,established,86.6,Approved,90.0,Funded,Growing
+SYN_0089,Education,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,degree,False,idea,24.2,Declined,20.0,Not Funded,Closed
+SYN_0090,Hospitality,Mpumalanga,51247.0,0,3,1,2,3,0.78,4,True,True,False,4,matric,False,startup,31.8,Declined,65.0,Not Funded,Dormant
+SYN_0091,Logistics,Mpumalanga,412892.0,3,20,14,6,2,0.94,6,True,True,False,9,degree,True,established,63.3,Review,75.0,Funded,Growing
+SYN_0092,Logistics,Gauteng,1076194.0,3,33,31,2,0,0.84,6,True,True,True,14,degree,True,established,82.6,Approved,90.0,Funded,Defaulted
+SYN_0093,Education,Northern Cape,23047.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,matric,False,idea,28.5,Declined,25.0,Not Funded,Closed
+SYN_0094,Technology,Free State,85884.0,1,4,0,4,-1,-1.0,-1,True,False,False,1,degree,False,growth,36.2,Declined,40.0,Not Funded,Revenue Declined
+SYN_0095,Education,Limpopo,413208.0,2,23,19,4,1,0.97,6,True,True,True,6,degree,False,established,64.1,Review,85.0,Funded,Revenue Declined
+SYN_0096,Construction,Limpopo,926914.0,3,20,16,4,0,0.81,6,True,True,True,5,postgraduate,False,established,67.2,Review,90.0,Funded,Revenue Declined
+SYN_0097,Healthcare,Western Cape,6362.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,postgraduate,False,idea,43.9,Declined,25.0,Not Funded,Dormant
+SYN_0098,Agriculture,Eastern Cape,26487.0,0,3,0,3,-1,-1.0,-1,True,False,False,5,matric,False,startup,40.9,Declined,40.0,Not Funded,Closed
+SYN_0099,Retail,Mpumalanga,108877.0,3,11,8,3,0,0.98,6,True,True,False,10,certificate,False,established,49.4,Declined,75.0,Not Funded,Revenue Declined
+SYN_0100,Hospitality,KwaZulu-Natal,1658668.0,3,38,34,4,0,0.93,6,True,True,True,15,diploma,False,established,72.1,Review,90.0,Not Funded,Dormant
+SYN_0101,Logistics,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,diploma,False,idea,26.3,Declined,20.0,Not Funded,Dormant
+SYN_0102,Technology,Eastern Cape,38132.0,1,0,0,0,-1,-1.0,-1,True,False,False,6,diploma,True,startup,52.3,Review,40.0,Not Funded,Revenue Declined
+SYN_0103,Education,Gauteng,143844.0,2,18,13,5,0,0.9,6,True,True,False,5,postgraduate,True,growth,59.4,Review,75.0,Funded,Defaulted
+SYN_0104,Technology,North West,2577116.0,6,82,77,5,1,0.94,6,True,True,True,14,postgraduate,False,established,84.9,Approved,90.0,Not Funded,Revenue Doubled
+SYN_0105,Hospitality,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,degree,False,idea,34.2,Declined,25.0,Not Funded,Closed
+SYN_0106,Hospitality,Northern Cape,82838.0,0,0,0,0,2,0.86,3,True,True,False,8,certificate,True,startup,43.7,Declined,65.0,Not Funded,Dormant
+SYN_0107,Logistics,Northern Cape,446375.0,2,5,3,2,0,0.87,6,True,True,False,11,diploma,False,growth,54.4,Review,75.0,Funded,Growing
+SYN_0108,Agriculture,Western Cape,666737.0,5,148,132,16,0,0.88,6,True,True,True,10,postgraduate,True,established,79.0,Approved,90.0,Funded,Revenue Doubled
+SYN_0109,Education,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,degree,False,idea,37.9,Declined,25.0,Not Funded,Dormant
+SYN_0110,Agriculture,KwaZulu-Natal,101722.0,1,3,0,3,1,0.61,4,True,True,False,-1,none,False,growth,31.7,Declined,55.0,Not Funded,Revenue Declined
+SYN_0111,Retail,Western Cape,192418.0,2,16,10,6,0,0.85,6,True,True,False,9,certificate,False,growth,50.1,Review,75.0,Funded,Revenue Declined
+SYN_0112,Construction,Eastern Cape,1635296.0,7,99,81,18,0,0.92,6,True,True,True,14,postgraduate,True,established,71.2,Review,90.0,Funded,Growing
+SYN_0113,Agriculture,Eastern Cape,7934.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,diploma,False,idea,27.0,Declined,25.0,Not Funded,Closed
+SYN_0114,Professional Services,Eastern Cape,40615.0,0,0,0,0,1,0.7,3,True,True,False,8,certificate,True,startup,47.0,Declined,65.0,Not Funded,Closed
+SYN_0115,Healthcare,Free State,440743.0,2,6,4,2,0,0.96,6,True,True,True,7,degree,False,growth,60.7,Review,85.0,Not Funded,Dormant
+SYN_0116,Construction,Limpopo,2879280.0,12,53,42,11,1,0.98,6,True,True,True,12,postgraduate,True,established,71.0,Review,90.0,Funded,Growing
+SYN_0117,Hospitality,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.0,Declined,15.0,Not Funded,Dormant
+SYN_0118,Logistics,Northern Cape,50033.0,0,3,0,3,0,0.79,4,False,True,False,6,diploma,True,startup,31.4,Declined,50.0,Not Funded,Closed
+SYN_0119,Hospitality,Northern Cape,119308.0,3,19,18,1,1,0.81,6,True,True,True,8,certificate,False,established,61.9,Review,85.0,Funded,Growing
+SYN_0120,Agriculture,Free State,1424133.0,8,118,104,14,0,0.94,6,True,True,True,12,diploma,True,established,76.2,Approved,85.0,Funded,Growing
+SYN_0121,Professional Services,Gauteng,4196.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,34.6,Declined,15.0,Not Funded,Closed
+SYN_0122,Agriculture,North West,106877.0,0,4,4,0,-1,-1.0,-1,True,False,False,4,diploma,True,startup,49.2,Declined,40.0,Not Funded,Closed
+SYN_0123,Manufacturing,KwaZulu-Natal,127961.0,2,19,17,2,1,0.75,6,True,True,False,12,diploma,True,growth,58.7,Review,75.0,Not Funded,Dormant
+SYN_0124,Construction,North West,1834075.0,3,45,38,7,0,0.86,6,True,True,True,17,postgraduate,False,established,66.5,Review,90.0,Not Funded,Revenue Declined
+SYN_0125,Logistics,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,13.6,Declined,10.0,Not Funded,Dormant
+SYN_0126,Healthcare,Northern Cape,53612.0,1,1,1,0,-1,-1.0,-1,True,True,False,1,none,True,growth,54.3,Review,50.0,Funded,Growing
+SYN_0127,Education,Gauteng,283926.0,2,9,5,4,2,0.8,6,True,True,False,8,certificate,True,growth,54.2,Review,75.0,Funded,Defaulted
+SYN_0128,Education,KwaZulu-Natal,1939270.0,8,29,23,6,0,0.84,6,True,True,True,13,postgraduate,False,established,73.4,Review,90.0,Funded,Growing
+SYN_0129,Hospitality,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,degree,True,idea,29.3,Declined,20.0,Funded,Defaulted
+SYN_0130,Education,KwaZulu-Natal,104802.0,0,2,0,2,-1,-1.0,-1,True,False,False,1,postgraduate,True,startup,34.4,Declined,35.0,Not Funded,Dormant
+SYN_0131,Logistics,Limpopo,162476.0,1,16,11,5,2,0.71,6,True,True,False,8,certificate,True,growth,43.7,Declined,75.0,Not Funded,Dormant
+SYN_0132,Healthcare,Mpumalanga,463149.0,14,145,141,4,0,0.89,6,True,True,True,10,postgraduate,False,established,86.8,Approved,90.0,Funded,Growing
+SYN_0133,Manufacturing,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,diploma,True,idea,27.1,Declined,20.0,Not Funded,Dormant
+SYN_0134,Agriculture,Free State,117837.0,0,3,3,0,1,0.77,4,True,True,False,2,certificate,False,startup,54.3,Review,70.0,Funded,Defaulted
+SYN_0135,Education,KwaZulu-Natal,400047.0,2,24,17,7,1,0.92,6,True,True,True,3,postgraduate,False,established,64.1,Review,85.0,Not Funded,Revenue Declined
+SYN_0136,Technology,Western Cape,1170244.0,14,96,75,21,1,0.93,6,True,True,True,15,diploma,False,established,75.8,Approved,90.0,Funded,Defaulted
+SYN_0137,Professional Services,KwaZulu-Natal,21565.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,False,idea,37.6,Declined,20.0,Not Funded,Revenue Declined
+SYN_0138,Retail,North West,112071.0,1,3,2,1,1,0.62,3,True,True,False,5,degree,True,growth,48.1,Declined,70.0,Not Funded,Closed
+SYN_0139,Technology,Northern Cape,230350.0,1,10,9,1,0,0.97,6,True,True,False,6,postgraduate,True,growth,66.8,Review,75.0,Funded,Defaulted
+SYN_0140,Manufacturing,Mpumalanga,1467570.0,14,67,58,9,0,0.99,6,True,True,True,13,postgraduate,False,established,76.2,Approved,85.0,Funded,Growing
+SYN_0141,Hospitality,Eastern Cape,39944.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.7,Declined,15.0,Not Funded,Dormant
+SYN_0142,Hospitality,Mpumalanga,99980.0,0,2,2,0,-1,-1.0,-1,True,False,False,3,none,False,startup,47.5,Declined,40.0,Not Funded,Dormant
+SYN_0143,Retail,KwaZulu-Natal,335137.0,2,8,6,2,0,0.86,6,True,True,False,12,certificate,True,growth,62.4,Review,75.0,Funded,Growing
+SYN_0144,Retail,North West,508364.0,5,85,78,7,0,0.95,6,True,True,True,7,degree,False,established,81.7,Approved,90.0,Funded,Growing
+SYN_0145,Agriculture,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,22.2,Declined,15.0,Not Funded,Dormant
+SYN_0146,Professional Services,Western Cape,43926.0,0,3,0,3,-1,-1.0,-1,True,True,False,4,certificate,False,startup,51.7,Review,55.0,Not Funded,Dormant
+SYN_0147,Healthcare,Northern Cape,299122.0,1,23,14,9,0,0.81,6,True,True,False,10,postgraduate,True,established,50.6,Review,75.0,Funded,Growing
+SYN_0148,Professional Services,Northern Cape,2534153.0,9,83,63,20,1,0.8,6,True,True,True,15,degree,False,established,72.7,Review,90.0,Funded,Growing
+SYN_0149,Agriculture,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,13.9,Declined,10.0,Funded,Defaulted
+SYN_0150,Healthcare,Western Cape,100686.0,1,0,0,0,1,0.66,3,True,True,False,6,none,True,growth,54.1,Review,65.0,Not Funded,Growing
+SYN_0151,Technology,Gauteng,311765.0,1,11,8,3,0,0.86,6,True,True,False,8,certificate,False,growth,62.0,Review,75.0,Not Funded,Growing
+SYN_0152,Healthcare,Free State,508186.0,13,113,109,4,0,0.96,6,True,True,True,15,diploma,True,established,88.1,Approved,90.0,Funded,Growing
+SYN_0153,Education,Gauteng,21681.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,degree,False,idea,29.8,Declined,20.0,Not Funded,Closed
+SYN_0154,Hospitality,Eastern Cape,72274.0,1,1,1,0,-1,-1.0,-1,True,False,False,3,postgraduate,True,growth,55.1,Review,40.0,Funded,Acquired
+SYN_0155,Logistics,Northern Cape,443716.0,2,18,14,4,2,0.96,6,True,True,True,7,degree,True,growth,67.1,Review,85.0,Not Funded,Growing
+SYN_0156,Hospitality,Mpumalanga,1106072.0,5,54,40,14,0,0.92,6,True,True,True,17,degree,False,established,72.6,Review,90.0,Not Funded,Dormant
+SYN_0157,Hospitality,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,29.8,Declined,15.0,Not Funded,Closed
+SYN_0158,Retail,Western Cape,20585.0,1,3,2,1,3,0.56,3,True,True,False,8,none,False,growth,36.2,Declined,65.0,Not Funded,Dormant
+SYN_0159,Agriculture,North West,266731.0,1,16,12,4,1,0.86,6,True,True,True,10,certificate,False,growth,54.8,Review,85.0,Funded,Revenue Declined
+SYN_0160,Retail,Northern Cape,2024228.0,3,93,91,2,1,0.95,6,True,True,True,20,degree,False,established,81.7,Approved,90.0,Funded,Growing
+SYN_0161,Healthcare,Free State,39300.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,degree,False,idea,30.2,Declined,20.0,Not Funded,Revenue Declined
+SYN_0162,Technology,Northern Cape,74745.0,1,3,1,2,2,0.75,3,True,True,False,-1,none,False,growth,30.0,Declined,55.0,Not Funded,Closed
+SYN_0163,Hospitality,Limpopo,219096.0,1,17,16,1,1,0.82,6,True,True,True,11,diploma,True,growth,62.3,Review,85.0,Funded,Revenue Declined
+SYN_0164,Healthcare,Limpopo,1382564.0,9,64,50,14,0,0.82,6,True,True,True,11,degree,False,established,73.6,Review,90.0,Not Funded,Revenue Declined
+SYN_0165,Professional Services,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,certificate,True,idea,37.5,Declined,20.0,Not Funded,Closed
+SYN_0166,Hospitality,Mpumalanga,92957.0,0,1,1,0,-1,-1.0,-1,True,False,False,3,certificate,False,startup,41.1,Declined,35.0,Not Funded,Revenue Declined
+SYN_0167,Healthcare,Limpopo,434377.0,1,12,8,4,0,0.73,6,True,True,True,3,certificate,False,growth,54.6,Review,85.0,Not Funded,Growing
+SYN_0168,Logistics,Mpumalanga,2866565.0,3,97,85,12,0,0.91,6,True,True,True,11,degree,False,established,72.3,Review,90.0,Not Funded,Growing
+SYN_0169,Healthcare,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,22.1,Declined,10.0,Not Funded,Revenue Declined
+SYN_0170,Technology,Free State,100551.0,0,3,0,3,-1,-1.0,-1,True,False,False,3,none,True,startup,41.9,Declined,40.0,Not Funded,Revenue Declined
+SYN_0171,Hospitality,Mpumalanga,382530.0,2,22,15,7,0,0.78,6,True,True,True,6,certificate,False,established,53.8,Review,85.0,Not Funded,Growing
+SYN_0172,Technology,KwaZulu-Natal,1580893.0,5,104,84,20,0,0.97,6,True,True,True,6,degree,False,established,76.3,Approved,90.0,Funded,Revenue Doubled
+SYN_0173,Professional Services,Gauteng,9210.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,diploma,False,idea,44.7,Declined,25.0,Not Funded,Closed
+SYN_0174,Hospitality,North West,57368.0,1,3,1,2,-1,-1.0,-1,True,True,False,7,matric,False,growth,38.0,Declined,55.0,Not Funded,Revenue Declined
+SYN_0175,Manufacturing,KwaZulu-Natal,101553.0,1,23,16,7,0,0.95,6,True,True,True,3,certificate,True,established,42.6,Declined,85.0,Not Funded,Dormant
+SYN_0176,Manufacturing,North West,2078568.0,14,140,127,13,1,0.86,6,True,True,True,20,degree,False,established,81.6,Approved,90.0,Funded,Revenue Doubled
+SYN_0177,Technology,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,matric,True,idea,32.4,Declined,20.0,Not Funded,Dormant
+SYN_0178,Technology,North West,25315.0,1,1,0,1,-1,-1.0,-1,True,True,False,8,none,True,growth,44.6,Declined,55.0,Not Funded,Revenue Declined
+SYN_0179,Construction,Free State,397323.0,3,13,10,3,1,0.8,6,True,True,True,10,postgraduate,True,established,64.7,Review,85.0,Not Funded,Revenue Declined
+SYN_0180,Agriculture,Limpopo,1956950.0,10,80,74,6,0,1.0,6,True,True,True,14,postgraduate,False,established,81.1,Approved,85.0,Funded,Revenue Doubled
+SYN_0181,Manufacturing,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,postgraduate,True,idea,36.1,Declined,25.0,Not Funded,Closed
+SYN_0182,Logistics,Mpumalanga,47696.0,1,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,startup,31.2,Declined,15.0,Not Funded,Revenue Declined
+SYN_0183,Agriculture,Eastern Cape,136515.0,3,16,13,3,1,0.79,6,True,True,False,7,certificate,False,established,50.5,Review,75.0,Not Funded,Growing
+SYN_0184,Retail,Eastern Cape,681259.0,13,59,49,10,0,0.93,6,True,True,True,5,diploma,False,established,69.8,Review,90.0,Funded,Revenue Declined
+SYN_0185,Education,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,False,idea,33.7,Declined,25.0,Not Funded,Revenue Declined
+SYN_0186,Technology,Northern Cape,61241.0,1,1,0,1,-1,-1.0,-1,True,False,False,-1,none,False,growth,28.2,Declined,30.0,Not Funded,Revenue Declined
+SYN_0187,Healthcare,Western Cape,319403.0,3,19,14,5,2,0.78,6,True,True,False,2,diploma,False,established,60.2,Review,75.0,Not Funded,Dormant
+SYN_0188,Hospitality,Eastern Cape,1936332.0,8,40,39,1,0,0.89,6,True,True,True,7,postgraduate,True,established,87.6,Approved,85.0,Funded,Revenue Doubled
+SYN_0189,Healthcare,Eastern Cape,17565.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.8,Declined,10.0,Not Funded,Dormant
+SYN_0190,Agriculture,Mpumalanga,33120.0,0,0,0,0,-1,-1.0,-1,True,False,False,4,none,False,startup,39.9,Declined,40.0,Not Funded,Closed
+SYN_0191,Logistics,Northern Cape,114493.0,1,17,10,7,0,0.88,6,True,True,True,8,degree,True,growth,45.9,Declined,85.0,Not Funded,Revenue Declined
+SYN_0192,Professional Services,Free State,545888.0,11,149,116,33,0,0.86,6,True,True,True,9,degree,True,established,75.9,Approved,90.0,Not Funded,Growing
+SYN_0193,Retail,Gauteng,32605.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,29.2,Declined,15.0,Not Funded,Closed
+SYN_0194,Technology,Limpopo,33409.0,1,0,0,0,-1,-1.0,-1,True,False,False,3,matric,True,startup,47.7,Declined,40.0,Not Funded,Dormant
+SYN_0195,Manufacturing,Gauteng,410536.0,1,15,11,4,0,0.81,6,True,True,False,12,postgraduate,False,growth,65.5,Review,75.0,Not Funded,Growing
+SYN_0196,Manufacturing,Western Cape,927379.0,14,123,113,10,0,0.97,6,True,True,True,18,degree,True,established,85.4,Approved,90.0,Funded,Revenue Doubled
+SYN_0197,Retail,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,17.8,Declined,15.0,Not Funded,Closed
+SYN_0198,Education,KwaZulu-Natal,73109.0,1,1,1,0,0,0.73,3,True,True,False,1,degree,False,growth,60.6,Review,70.0,Funded,Growing
+SYN_0199,Education,Western Cape,153650.0,1,15,10,5,1,0.92,6,True,True,False,5,certificate,False,growth,46.0,Declined,75.0,Not Funded,Closed
+SYN_0200,Education,Free State,1312191.0,4,83,67,16,0,0.87,6,True,True,True,19,degree,False,established,68.8,Review,90.0,Funded,Revenue Declined
+SYN_0201,Logistics,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,degree,False,idea,30.1,Declined,25.0,Not Funded,Dormant
+SYN_0202,Manufacturing,Northern Cape,82004.0,1,3,3,0,-1,-1.0,-1,True,False,False,2,none,False,growth,44.5,Declined,35.0,Not Funded,Dormant
+SYN_0203,Healthcare,Western Cape,147962.0,3,15,12,3,2,0.81,6,True,True,False,4,diploma,False,established,55.0,Review,75.0,Funded,Growing
+SYN_0204,Manufacturing,Northern Cape,2590897.0,10,32,24,8,0,0.87,6,True,True,True,18,postgraduate,False,established,72.1,Review,85.0,Not Funded,Revenue Declined
+SYN_0205,Agriculture,Northern Cape,33281.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,none,False,idea,19.7,Declined,25.0,Not Funded,Closed
+SYN_0206,Technology,Limpopo,24432.0,0,2,0,2,-1,-1.0,-1,True,False,False,2,certificate,False,startup,31.0,Declined,35.0,Not Funded,Dormant
+SYN_0207,Professional Services,Free State,149783.0,3,21,18,3,0,0.9,6,True,True,False,2,diploma,False,established,55.9,Review,75.0,Not Funded,Revenue Declined
+SYN_0208,Logistics,Eastern Cape,638116.0,5,87,70,17,0,0.93,6,True,True,True,17,diploma,True,established,72.8,Review,90.0,Funded,Growing
+SYN_0209,Retail,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,23.5,Declined,10.0,Funded,Defaulted
+SYN_0210,Retail,North West,104155.0,0,2,0,2,2,0.5,3,True,True,False,3,diploma,False,startup,43.1,Declined,70.0,Not Funded,Revenue Declined
+SYN_0211,Education,Limpopo,325389.0,1,15,11,4,0,0.83,6,True,True,False,12,postgraduate,False,growth,55.3,Review,75.0,Funded,Growing
+SYN_0212,Agriculture,North West,1762357.0,14,69,66,3,0,0.89,6,True,True,True,8,postgraduate,True,established,87.7,Approved,85.0,Funded,Revenue Doubled
+SYN_0213,Healthcare,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,matric,False,idea,25.8,Declined,20.0,Not Funded,Dormant
+SYN_0214,Retail,Limpopo,56142.0,1,3,3,0,-1,-1.0,-1,True,False,False,8,degree,False,growth,53.6,Review,40.0,Funded,Revenue Declined
+SYN_0215,Professional Services,Gauteng,345338.0,1,5,3,2,2,0.88,6,True,True,True,7,postgraduate,False,growth,59.4,Review,85.0,Funded,Growing
+SYN_0216,Agriculture,Western Cape,1936963.0,15,107,87,20,1,1.0,6,True,True,True,5,diploma,True,established,74.0,Review,90.0,Not Funded,Revenue Declined
+SYN_0217,Retail,Gauteng,9333.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,postgraduate,False,idea,32.2,Declined,20.0,Not Funded,Closed
+SYN_0218,Hospitality,Mpumalanga,103940.0,1,4,3,1,-1,-1.0,-1,True,False,False,-1,none,False,growth,33.1,Declined,25.0,Not Funded,Dormant
+SYN_0219,Manufacturing,Northern Cape,205446.0,3,13,8,5,0,0.95,6,True,True,False,12,postgraduate,True,established,48.0,Declined,75.0,Not Funded,Dormant
+SYN_0220,Hospitality,North West,2141622.0,13,33,27,6,0,0.98,6,True,True,True,6,postgraduate,False,established,71.0,Review,90.0,Funded,Growing
+SYN_0221,Logistics,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.2,Declined,10.0,Not Funded,Dormant
+SYN_0222,Manufacturing,Northern Cape,22489.0,0,1,0,1,3,0.7,3,True,True,False,6,certificate,False,startup,34.9,Declined,65.0,Not Funded,Revenue Declined
+SYN_0223,Retail,Limpopo,213197.0,2,14,10,4,0,0.77,6,True,True,False,9,certificate,False,growth,51.4,Review,75.0,Funded,Revenue Doubled
+SYN_0224,Education,Gauteng,822875.0,9,111,104,7,0,0.85,6,True,True,True,14,degree,True,established,85.8,Approved,90.0,Not Funded,Revenue Doubled
+SYN_0225,Construction,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,degree,False,idea,22.4,Declined,20.0,Not Funded,Revenue Declined
+SYN_0226,Hospitality,KwaZulu-Natal,47350.0,1,3,3,0,-1,-1.0,-1,True,False,False,2,postgraduate,True,growth,58.2,Review,40.0,Not Funded,Revenue Declined
+SYN_0227,Retail,KwaZulu-Natal,209972.0,1,21,16,5,2,0.77,6,True,True,False,12,certificate,True,established,52.6,Review,75.0,Not Funded,Dormant
+SYN_0228,Retail,North West,782645.0,13,84,70,14,0,0.9,6,True,True,True,13,postgraduate,True,established,72.3,Review,85.0,Funded,Growing
+SYN_0229,Healthcare,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,matric,False,idea,24.2,Declined,20.0,Not Funded,Closed
+SYN_0230,Manufacturing,Gauteng,54134.0,1,1,0,1,-1,-1.0,-1,True,False,False,2,degree,False,growth,38.6,Declined,40.0,Not Funded,Revenue Declined
+SYN_0231,Construction,Gauteng,147461.0,1,21,18,3,0,0.93,6,True,True,False,5,degree,False,established,55.0,Review,75.0,Not Funded,Revenue Declined
+SYN_0232,Education,Western Cape,1236731.0,5,96,74,22,1,0.81,6,True,True,True,18,degree,False,established,73.3,Review,90.0,Not Funded,Growing
+SYN_0233,Education,KwaZulu-Natal,44463.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,none,False,idea,27.1,Declined,25.0,Not Funded,Revenue Declined
+SYN_0234,Hospitality,Western Cape,102764.0,0,2,1,1,0,0.6,3,True,True,False,4,diploma,False,startup,40.3,Declined,65.0,Not Funded,Dormant
+SYN_0235,Technology,Northern Cape,221326.0,1,20,15,5,0,0.77,6,True,True,True,2,postgraduate,True,established,57.0,Review,85.0,Funded,Growing
+SYN_0236,Manufacturing,Northern Cape,2324955.0,12,149,126,23,0,0.89,6,True,True,True,13,diploma,True,established,71.5,Review,90.0,Not Funded,Revenue Declined
+SYN_0237,Education,Free State,37571.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.0,Declined,15.0,Not Funded,Closed
+SYN_0238,Construction,North West,30925.0,0,4,0,4,-1,-1.0,-1,True,True,False,6,diploma,True,startup,41.4,Declined,55.0,Not Funded,Revenue Declined
+SYN_0239,Construction,Limpopo,330235.0,2,8,5,3,2,0.94,6,True,True,True,6,diploma,True,growth,52.4,Review,85.0,Not Funded,Dormant
+SYN_0240,Agriculture,Gauteng,860022.0,4,66,56,10,0,0.82,6,True,True,True,15,degree,True,established,73.0,Review,85.0,Not Funded,Dormant
+SYN_0241,Professional Services,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,19.7,Declined,10.0,Not Funded,Closed
+SYN_0242,Technology,Eastern Cape,64236.0,0,4,4,0,-1,-1.0,-1,False,False,False,5,postgraduate,False,idea,48.4,Declined,25.0,Not Funded,Revenue Declined
+SYN_0243,Professional Services,Northern Cape,318669.0,1,6,5,1,0,0.81,6,True,True,False,2,degree,False,growth,55.9,Review,75.0,Not Funded,Dormant
+SYN_0244,Hospitality,KwaZulu-Natal,559518.0,6,115,99,16,0,0.96,6,True,True,True,5,postgraduate,False,established,75.3,Approved,90.0,Funded,Acquired
+SYN_0245,Healthcare,Limpopo,2236.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,25.2,Declined,15.0,Not Funded,Closed
+SYN_0246,Construction,Limpopo,101212.0,1,2,1,1,3,0.67,4,True,True,False,6,certificate,True,growth,39.3,Declined,65.0,Not Funded,Revenue Declined
+SYN_0247,Technology,Mpumalanga,300111.0,2,14,11,3,0,0.76,6,True,True,True,5,certificate,False,growth,63.9,Review,85.0,Not Funded,Dormant
+SYN_0248,Construction,Western Cape,1002139.0,14,27,26,1,0,1.0,6,True,True,True,10,diploma,True,established,87.0,Approved,85.0,Funded,Growing
+SYN_0249,Hospitality,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,18.4,Declined,10.0,Not Funded,Revenue Declined
+SYN_0250,Healthcare,North West,24802.0,1,3,2,1,-1,-1.0,-1,True,False,False,2,diploma,True,growth,33.0,Declined,35.0,Not Funded,Revenue Declined
+SYN_0251,Technology,Free State,423465.0,1,17,10,7,0,0.83,6,True,True,False,12,postgraduate,True,growth,59.6,Review,75.0,Not Funded,Growing
+SYN_0252,Manufacturing,Eastern Cape,1797797.0,3,112,106,6,0,0.85,6,True,True,True,15,degree,False,established,78.8,Approved,90.0,Funded,Revenue Doubled
+SYN_0253,Technology,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,diploma,True,idea,50.7,Review,25.0,Funded,Revenue Doubled
+SYN_0254,Construction,Western Cape,48337.0,1,0,0,0,-1,-1.0,-1,True,False,False,6,degree,False,startup,40.2,Declined,35.0,Not Funded,Revenue Declined
+SYN_0255,Agriculture,Mpumalanga,390123.0,3,13,8,5,0,0.78,6,True,True,True,7,postgraduate,False,established,57.1,Review,85.0,Not Funded,Growing
+SYN_0256,Manufacturing,KwaZulu-Natal,1595163.0,5,33,25,8,0,0.84,6,True,True,True,14,degree,True,established,75.1,Approved,90.0,Not Funded,Growing
+SYN_0257,Manufacturing,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,certificate,False,idea,26.2,Declined,20.0,Not Funded,Dormant
+SYN_0258,Logistics,KwaZulu-Natal,51958.0,1,4,0,4,-1,-1.0,-1,True,False,False,1,none,True,growth,32.7,Declined,40.0,Not Funded,Dormant
+SYN_0259,Logistics,Gauteng,314224.0,1,10,8,2,1,0.78,6,True,True,True,2,certificate,False,growth,59.0,Review,85.0,Not Funded,Growing
+SYN_0260,Manufacturing,Limpopo,1574766.0,4,96,76,20,0,0.97,6,True,True,True,9,degree,False,established,69.2,Review,90.0,Funded,Revenue Doubled
+SYN_0261,Hospitality,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.0,Declined,15.0,Not Funded,Closed
+SYN_0262,Professional Services,Mpumalanga,78269.0,1,1,1,0,-1,-1.0,-1,True,False,False,3,degree,True,growth,58.1,Review,40.0,Not Funded,Dormant
+SYN_0263,Technology,Limpopo,386612.0,3,21,20,1,0,0.71,6,True,True,False,7,degree,False,established,78.1,Approved,75.0,Funded,Revenue Doubled
+SYN_0264,Professional Services,Western Cape,2568481.0,7,30,27,3,1,0.91,6,True,True,True,13,degree,True,established,88.2,Approved,85.0,Funded,Revenue Doubled
+SYN_0265,Construction,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,postgraduate,False,idea,25.3,Declined,20.0,Funded,Defaulted
+SYN_0266,Logistics,Limpopo,62259.0,0,0,0,0,-1,-1.0,-1,True,False,False,1,diploma,True,startup,40.4,Declined,40.0,Not Funded,Closed
+SYN_0267,Education,Limpopo,272248.0,3,25,15,10,0,0.8,6,True,True,True,10,certificate,False,established,48.5,Declined,85.0,Not Funded,Dormant
+SYN_0268,Agriculture,North West,2833284.0,7,20,15,5,0,0.98,6,True,True,True,17,postgraduate,True,established,72.9,Review,85.0,Not Funded,Revenue Declined
+SYN_0269,Manufacturing,Eastern Cape,15940.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,22.7,Declined,15.0,Not Funded,Closed
+SYN_0270,Logistics,Northern Cape,115342.0,1,0,0,0,-1,-1.0,-1,False,False,False,3,certificate,False,startup,36.7,Declined,25.0,Not Funded,Revenue Declined
+SYN_0271,Retail,KwaZulu-Natal,424887.0,2,22,14,8,0,0.81,6,True,True,True,6,degree,True,established,59.7,Review,85.0,Not Funded,Dormant
+SYN_0272,Construction,Free State,2719781.0,4,49,44,5,0,0.87,6,True,True,True,19,diploma,True,established,70.6,Review,90.0,Funded,Revenue Doubled
+SYN_0273,Manufacturing,Free State,12167.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,none,False,idea,24.2,Declined,25.0,Not Funded,Closed
+SYN_0274,Retail,Gauteng,37641.0,1,0,0,0,3,0.64,4,True,True,False,-1,none,False,growth,39.5,Declined,55.0,Not Funded,Closed
+SYN_0275,Technology,KwaZulu-Natal,178083.0,2,5,4,1,0,0.81,6,True,True,True,8,certificate,False,growth,59.4,Review,85.0,Funded,Revenue Declined
+SYN_0276,Technology,North West,2579657.0,9,143,107,36,0,0.83,6,True,True,True,12,postgraduate,True,established,75.5,Approved,85.0,Funded,Revenue Doubled
+SYN_0277,Professional Services,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,17.4,Declined,10.0,Funded,Growing
+SYN_0278,Construction,North West,91526.0,1,3,3,0,1,0.86,3,True,True,False,4,none,True,growth,55.1,Review,65.0,Not Funded,Revenue Declined
+SYN_0279,Technology,Northern Cape,154648.0,1,11,8,3,0,0.71,6,True,True,False,7,postgraduate,True,growth,56.2,Review,75.0,Funded,Revenue Declined
+SYN_0280,Hospitality,North West,2024517.0,11,27,24,3,1,0.96,6,True,True,True,16,postgraduate,True,established,76.6,Approved,90.0,Funded,Defaulted
+SYN_0281,Logistics,Northern Cape,43263.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,none,False,idea,24.1,Declined,25.0,Not Funded,Revenue Declined
+SYN_0282,Professional Services,Eastern Cape,43304.0,1,2,2,0,2,0.73,3,True,True,False,7,postgraduate,True,growth,64.3,Review,70.0,Funded,Growing
+SYN_0283,Technology,Northern Cape,215635.0,1,8,6,2,2,0.91,6,True,True,False,6,diploma,False,growth,53.5,Review,75.0,Funded,Revenue Doubled
+SYN_0284,Logistics,Gauteng,1206613.0,6,59,46,13,0,0.93,6,True,True,True,12,degree,False,established,75.4,Approved,90.0,Funded,Growing
+SYN_0285,Technology,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,none,False,idea,26.2,Declined,20.0,Not Funded,Dormant
+SYN_0286,Logistics,KwaZulu-Natal,32319.0,1,0,0,0,2,0.54,3,True,True,False,8,none,True,growth,45.0,Declined,65.0,Not Funded,Revenue Declined
+SYN_0287,Education,Mpumalanga,180749.0,2,18,17,1,0,0.95,6,True,True,True,7,diploma,False,growth,63.9,Review,85.0,Funded,Revenue Declined
+SYN_0288,Construction,North West,1559490.0,12,75,60,15,1,0.85,6,True,True,True,11,degree,False,established,70.7,Review,90.0,Not Funded,Dormant
+SYN_0289,Education,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,none,False,idea,19.2,Declined,20.0,Not Funded,Dormant
+SYN_0290,Agriculture,KwaZulu-Natal,37461.0,1,4,0,4,-1,-1.0,-1,False,True,False,-1,none,False,growth,21.8,Declined,25.0,Not Funded,Closed
+SYN_0291,Professional Services,Mpumalanga,144649.0,3,9,5,4,1,0.78,6,True,True,False,2,degree,True,established,46.1,Declined,75.0,Not Funded,Dormant
+SYN_0292,Professional Services,Limpopo,1253187.0,3,53,48,5,0,0.89,6,True,True,True,7,diploma,False,established,78.6,Approved,90.0,Funded,Revenue Doubled
+SYN_0293,Professional Services,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,none,True,idea,29.5,Declined,20.0,Not Funded,Closed
+SYN_0294,Technology,Free State,76134.0,0,0,0,0,-1,-1.0,-1,True,False,False,1,degree,True,startup,49.7,Declined,40.0,Not Funded,Dormant
+SYN_0295,Education,Western Cape,423536.0,1,23,14,9,0,0.89,6,True,True,True,6,certificate,True,established,56.3,Review,85.0,Not Funded,Revenue Declined
+SYN_0296,Retail,Free State,2736208.0,14,40,38,2,1,0.95,6,True,True,True,16,postgraduate,False,established,85.4,Approved,90.0,Funded,Growing
+SYN_0297,Manufacturing,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,25.3,Declined,10.0,Not Funded,Dormant
+SYN_0298,Retail,Northern Cape,68448.0,1,4,4,0,1,0.86,3,True,True,False,7,none,False,growth,52.3,Review,65.0,Funded,Revenue Declined
+SYN_0299,Logistics,Northern Cape,137506.0,1,6,5,1,0,0.89,6,True,True,True,7,degree,False,growth,52.6,Review,85.0,Not Funded,Growing
+SYN_0300,Manufacturing,Gauteng,1990727.0,11,56,50,6,0,0.84,6,True,True,True,14,diploma,False,established,76.7,Approved,85.0,Not Funded,Growing
+SYN_0301,Agriculture,North West,34574.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,postgraduate,False,idea,29.6,Declined,20.0,Not Funded,Closed
+SYN_0302,Agriculture,Eastern Cape,64850.0,0,3,1,2,-1,-1.0,-1,True,False,False,6,certificate,True,startup,34.6,Declined,35.0,Not Funded,Dormant
+SYN_0303,Professional Services,Eastern Cape,249347.0,1,6,5,1,2,0.88,6,True,True,False,3,degree,False,growth,55.1,Review,75.0,Not Funded,Dormant
+SYN_0304,Healthcare,Limpopo,1946425.0,9,143,117,26,0,0.9,6,True,True,True,17,diploma,True,established,74.1,Review,90.0,Not Funded,Revenue Declined
+SYN_0305,Logistics,Gauteng,3945.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,matric,True,idea,38.5,Declined,20.0,Not Funded,Revenue Declined
+SYN_0306,Professional Services,Limpopo,24728.0,0,3,1,2,0,0.75,3,True,True,False,3,degree,True,startup,50.2,Review,70.0,Not Funded,Growing
+SYN_0307,Healthcare,Limpopo,259591.0,3,24,16,8,1,0.89,6,True,True,False,3,degree,True,established,49.9,Declined,75.0,Funded,Closed
+SYN_0308,Hospitality,Gauteng,1796326.0,11,134,124,10,0,0.99,6,True,True,True,6,postgraduate,False,established,84.2,Approved,90.0,Funded,Revenue Doubled
+SYN_0309,Hospitality,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,matric,True,idea,26.5,Declined,20.0,Not Funded,Closed
+SYN_0310,Logistics,North West,59042.0,1,1,1,0,-1,-1.0,-1,True,True,False,5,certificate,True,growth,55.1,Review,50.0,Funded,Growing
+SYN_0311,Agriculture,Northern Cape,206796.0,2,23,22,1,0,0.71,6,True,True,False,7,degree,True,established,69.8,Review,75.0,Funded,Defaulted
+SYN_0312,Logistics,Eastern Cape,703785.0,9,85,77,8,0,0.88,6,True,True,True,20,degree,False,established,82.2,Approved,85.0,Funded,Revenue Doubled
+SYN_0313,Professional Services,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,matric,True,idea,37.8,Declined,25.0,Not Funded,Revenue Declined
+SYN_0314,Logistics,Gauteng,112298.0,1,0,0,0,-1,-1.0,-1,True,False,False,2,postgraduate,True,startup,52.8,Review,40.0,Not Funded,Revenue Declined
+SYN_0315,Agriculture,Free State,373229.0,1,6,5,1,1,0.85,6,True,True,True,6,degree,True,growth,62.8,Review,85.0,Not Funded,Revenue Declined
+SYN_0316,Retail,Limpopo,782876.0,10,139,127,12,0,0.81,6,True,True,True,9,postgraduate,True,established,83.0,Approved,90.0,Funded,Revenue Doubled
+SYN_0317,Agriculture,Eastern Cape,36504.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,diploma,True,idea,35.7,Declined,25.0,Not Funded,Dormant
+SYN_0318,Healthcare,North West,94179.0,0,4,4,0,-1,-1.0,-1,True,False,False,7,none,False,startup,55.9,Review,40.0,Funded,Growing
+SYN_0319,Retail,Northern Cape,385107.0,3,17,12,5,0,0.92,6,True,True,False,7,postgraduate,True,established,63.0,Review,75.0,Not Funded,Dormant
+SYN_0320,Logistics,Limpopo,1837010.0,3,128,122,6,0,0.95,6,True,True,True,9,diploma,False,established,80.2,Approved,90.0,Funded,Growing
+SYN_0321,Manufacturing,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,matric,False,idea,38.6,Declined,25.0,Not Funded,Closed
+SYN_0322,Logistics,Northern Cape,105617.0,1,1,0,1,3,0.5,4,True,True,False,-1,none,False,growth,33.0,Declined,60.0,Not Funded,Revenue Declined
+SYN_0323,Retail,Northern Cape,103439.0,1,25,18,7,1,0.76,6,True,True,False,4,certificate,True,established,45.9,Declined,75.0,Not Funded,Revenue Declined
+SYN_0324,Retail,Northern Cape,1723015.0,11,89,84,5,0,0.82,6,True,True,True,10,postgraduate,True,established,81.6,Approved,85.0,Not Funded,Revenue Doubled
+SYN_0325,Manufacturing,Mpumalanga,6607.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,23.3,Declined,15.0,Not Funded,Revenue Declined
+SYN_0326,Construction,Northern Cape,42847.0,0,2,1,1,-1,-1.0,-1,True,False,False,8,diploma,False,startup,38.2,Declined,40.0,Not Funded,Dormant
+SYN_0327,Construction,Gauteng,307088.0,3,18,15,3,2,0.8,6,True,True,True,8,degree,True,established,64.5,Review,85.0,Funded,Revenue Declined
+SYN_0328,Professional Services,Eastern Cape,477066.0,5,148,131,17,1,0.94,6,True,True,True,8,diploma,False,established,75.5,Approved,85.0,Funded,Revenue Doubled
+SYN_0329,Agriculture,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,13.9,Declined,10.0,Not Funded,Revenue Declined
+SYN_0330,Professional Services,North West,108220.0,0,1,1,0,1,0.61,4,True,True,False,6,matric,False,startup,52.1,Review,65.0,Funded,Growing
+SYN_0331,Education,Northern Cape,210300.0,1,11,6,5,1,0.95,6,True,True,False,11,diploma,False,growth,43.7,Declined,75.0,Funded,Closed
+SYN_0332,Logistics,Free State,1773717.0,8,109,86,23,1,0.98,6,True,True,True,17,postgraduate,True,established,72.6,Review,90.0,Funded,Growing
+SYN_0333,Logistics,KwaZulu-Natal,18688.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,postgraduate,True,idea,45.9,Declined,25.0,Not Funded,Revenue Declined
+SYN_0334,Logistics,Gauteng,53280.0,1,4,1,3,2,0.53,4,True,True,False,7,postgraduate,False,growth,38.6,Declined,65.0,Not Funded,Closed
+SYN_0335,Technology,Eastern Cape,298652.0,1,19,17,2,2,0.71,6,True,True,True,6,degree,True,growth,64.9,Review,85.0,Funded,Revenue Declined
+SYN_0336,Agriculture,Western Cape,2022379.0,11,87,70,17,0,0.95,6,True,True,True,18,postgraduate,True,established,76.2,Approved,85.0,Not Funded,Revenue Doubled
+SYN_0337,Construction,Western Cape,26616.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,23.6,Declined,15.0,Not Funded,Closed
+SYN_0338,Education,Free State,110447.0,1,3,3,0,-1,-1.0,-1,True,True,False,1,diploma,True,growth,57.6,Review,55.0,Funded,Growing
+SYN_0339,Healthcare,Gauteng,232587.0,2,25,18,7,0,0.87,6,True,True,False,9,degree,True,established,63.0,Review,75.0,Not Funded,Dormant
+SYN_0340,Healthcare,Mpumalanga,1848306.0,11,68,63,5,1,0.89,6,True,True,True,20,degree,True,established,87.0,Approved,90.0,Funded,Revenue Doubled
+SYN_0341,Professional Services,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,degree,False,idea,33.8,Declined,25.0,Not Funded,Revenue Declined
+SYN_0342,Hospitality,Northern Cape,95987.0,1,4,1,3,-1,-1.0,-1,True,False,False,4,matric,True,growth,29.4,Declined,35.0,Not Funded,Dormant
+SYN_0343,Construction,Western Cape,416428.0,2,13,11,2,2,0.83,6,True,True,False,8,postgraduate,True,growth,63.4,Review,75.0,Not Funded,Revenue Declined
+SYN_0344,Professional Services,Eastern Cape,1951646.0,5,94,72,22,0,0.93,6,True,True,True,15,diploma,False,established,72.4,Review,90.0,Funded,Growing
+SYN_0345,Education,Free State,5266.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,postgraduate,True,idea,25.9,Declined,20.0,Not Funded,Dormant
+SYN_0346,Hospitality,Northern Cape,118960.0,0,0,0,0,-1,-1.0,-1,True,False,False,2,degree,False,startup,42.3,Declined,40.0,Not Funded,Revenue Declined
+SYN_0347,Manufacturing,KwaZulu-Natal,165065.0,1,6,4,2,2,0.74,6,True,True,False,10,postgraduate,True,growth,47.7,Declined,75.0,Not Funded,Closed
+SYN_0348,Education,North West,2266824.0,12,96,88,8,1,0.85,6,True,True,True,8,degree,True,established,83.6,Approved,85.0,Funded,Defaulted
+SYN_0349,Professional Services,Free State,42773.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,matric,True,idea,37.8,Declined,25.0,Funded,Defaulted
+SYN_0350,Education,Eastern Cape,23683.0,1,2,2,0,1,0.69,3,True,True,False,6,none,False,growth,56.6,Review,70.0,Funded,Growing
+SYN_0351,Construction,Gauteng,240552.0,1,25,19,6,2,0.72,6,True,True,True,12,diploma,False,established,55.0,Review,85.0,Funded,Growing
+SYN_0352,Agriculture,Eastern Cape,926481.0,11,108,94,14,0,0.99,6,True,True,True,9,postgraduate,True,established,77.0,Approved,90.0,Funded,Growing
+SYN_0353,Retail,KwaZulu-Natal,31898.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,matric,True,idea,32.3,Declined,20.0,Not Funded,Closed
+SYN_0354,Logistics,Eastern Cape,20547.0,1,3,1,2,-1,-1.0,-1,True,False,False,1,matric,False,growth,26.0,Declined,40.0,Not Funded,Revenue Declined
+SYN_0355,Agriculture,Mpumalanga,251563.0,1,8,7,1,0,0.81,6,True,True,True,12,certificate,False,growth,59.9,Review,85.0,Not Funded,Revenue Declined
+SYN_0356,Hospitality,Limpopo,2317964.0,4,44,42,2,1,0.94,6,True,True,True,16,diploma,False,established,81.3,Approved,90.0,Funded,Revenue Doubled
+SYN_0357,Construction,Limpopo,1750.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,none,True,idea,21.0,Declined,20.0,Not Funded,Closed
+SYN_0358,Education,Eastern Cape,87745.0,0,2,0,2,-1,-1.0,-1,True,False,False,2,none,False,startup,39.0,Declined,40.0,Not Funded,Revenue Declined
+SYN_0359,Construction,Free State,339024.0,1,22,13,9,0,0.75,6,True,True,True,3,degree,True,established,49.0,Declined,85.0,Not Funded,Revenue Declined
+SYN_0360,Hospitality,KwaZulu-Natal,1728250.0,5,43,32,11,0,0.96,6,True,True,True,19,diploma,False,established,71.3,Review,90.0,Funded,Revenue Declined
+SYN_0361,Logistics,North West,4151.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,True,idea,30.5,Declined,20.0,Not Funded,Closed
+SYN_0362,Hospitality,KwaZulu-Natal,92471.0,1,1,0,1,-1,-1.0,-1,True,False,False,5,diploma,True,growth,33.0,Declined,35.0,Not Funded,Revenue Declined
+SYN_0363,Hospitality,Eastern Cape,102004.0,2,20,15,5,0,0.88,6,True,True,False,10,diploma,False,established,49.0,Declined,75.0,Not Funded,Dormant
+SYN_0364,Education,Northern Cape,449821.0,8,146,132,14,0,0.89,6,True,True,True,10,diploma,False,established,77.2,Approved,90.0,Not Funded,Growing
+SYN_0365,Agriculture,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,diploma,True,idea,35.9,Declined,25.0,Funded,Growing
+SYN_0366,Professional Services,Northern Cape,58264.0,1,2,2,0,-1,-1.0,-1,True,True,False,8,certificate,False,growth,61.3,Review,55.0,Not Funded,Revenue Declined
+SYN_0367,Education,Western Cape,136392.0,3,6,5,1,1,0.79,6,True,True,False,6,certificate,False,established,51.2,Review,75.0,Funded,Growing
+SYN_0368,Hospitality,Gauteng,1466988.0,3,98,78,20,0,0.9,6,True,True,True,18,degree,False,established,72.2,Review,90.0,Not Funded,Revenue Declined
+SYN_0369,Manufacturing,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,degree,True,idea,44.3,Declined,25.0,Not Funded,Closed
+SYN_0370,Retail,Northern Cape,100051.0,0,3,2,1,2,0.75,4,False,True,False,-1,none,False,startup,20.3,Declined,40.0,Not Funded,Revenue Declined
+SYN_0371,Hospitality,Gauteng,275789.0,2,15,14,1,0,0.78,6,True,True,True,4,certificate,True,growth,71.6,Review,85.0,Not Funded,Growing
+SYN_0372,Hospitality,Eastern Cape,2468673.0,7,143,120,23,1,0.97,6,True,True,True,17,degree,True,established,72.8,Review,90.0,Not Funded,Dormant
+SYN_0373,Education,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.0,Declined,15.0,Not Funded,Dormant
+SYN_0374,Healthcare,North West,93268.0,1,4,4,0,-1,-1.0,-1,False,False,False,3,matric,False,growth,44.7,Declined,20.0,Not Funded,Closed
+SYN_0375,Logistics,KwaZulu-Natal,181817.0,1,7,5,2,0,0.81,6,True,True,False,11,diploma,True,growth,53.8,Review,75.0,Not Funded,Growing
+SYN_0376,Retail,Northern Cape,1082651.0,7,49,40,9,0,0.95,6,True,True,True,10,degree,True,established,72.7,Review,85.0,Not Funded,Revenue Declined
+SYN_0377,Technology,KwaZulu-Natal,9005.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,degree,False,idea,38.7,Declined,20.0,Not Funded,Dormant
+SYN_0378,Retail,Free State,95415.0,0,1,0,1,-1,-1.0,-1,True,False,False,6,postgraduate,False,startup,42.3,Declined,40.0,Not Funded,Dormant
+SYN_0379,Healthcare,Eastern Cape,180441.0,2,5,4,1,0,0.9,6,True,True,False,2,postgraduate,False,growth,55.7,Review,75.0,Funded,Growing
+SYN_0380,Education,Western Cape,1608965.0,4,61,46,15,1,0.92,6,True,True,True,12,diploma,False,established,69.0,Review,85.0,Not Funded,Dormant
+SYN_0381,Logistics,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,18.4,Declined,15.0,Funded,Defaulted
+SYN_0382,Technology,Mpumalanga,33553.0,0,3,3,0,-1,-1.0,-1,True,False,False,2,diploma,False,startup,55.4,Review,40.0,Funded,Acquired
+SYN_0383,Technology,Free State,391116.0,3,17,14,3,0,0.97,6,True,True,True,5,postgraduate,False,established,66.3,Review,85.0,Not Funded,Revenue Declined
+SYN_0384,Construction,Limpopo,1351966.0,5,77,63,14,0,0.84,6,True,True,True,6,postgraduate,False,established,70.4,Review,90.0,Funded,Growing
+SYN_0385,Retail,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,19.8,Declined,15.0,Not Funded,Dormant
+SYN_0386,Technology,Limpopo,32618.0,0,4,0,4,0,0.7,4,False,True,False,2,postgraduate,False,startup,43.5,Declined,55.0,Not Funded,Closed
+SYN_0387,Professional Services,Eastern Cape,412479.0,3,7,4,3,2,0.73,6,True,True,False,4,postgraduate,True,established,55.8,Review,75.0,Not Funded,Dormant
+SYN_0388,Technology,Limpopo,436895.0,14,54,50,4,1,0.88,6,True,True,True,6,degree,True,established,82.6,Approved,85.0,Funded,Growing
+SYN_0389,Education,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,matric,True,idea,21.8,Declined,20.0,Not Funded,Revenue Declined
+SYN_0390,Hospitality,Western Cape,110867.0,0,4,2,2,-1,-1.0,-1,True,False,False,2,none,True,startup,42.2,Declined,40.0,Not Funded,Closed
+SYN_0391,Manufacturing,Free State,415652.0,1,21,15,6,2,0.78,6,True,True,False,4,diploma,True,established,59.3,Review,75.0,Not Funded,Dormant
+SYN_0392,Construction,Western Cape,2234212.0,6,38,37,1,0,0.96,6,True,True,True,13,degree,False,established,86.5,Approved,90.0,Funded,Growing
+SYN_0393,Hospitality,Limpopo,24099.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,matric,False,idea,22.3,Declined,20.0,Not Funded,Revenue Declined
+SYN_0394,Technology,Eastern Cape,83942.0,0,1,1,0,-1,-1.0,-1,True,False,False,7,none,False,startup,44.8,Declined,35.0,Not Funded,Revenue Declined
+SYN_0395,Agriculture,KwaZulu-Natal,217452.0,2,9,7,2,0,0.88,6,True,True,False,12,certificate,True,growth,58.2,Review,75.0,Not Funded,Revenue Declined
+SYN_0396,Hospitality,Northern Cape,1688376.0,13,139,111,28,0,0.88,6,True,True,True,16,degree,True,established,73.0,Review,85.0,Funded,Revenue Declined
+SYN_0397,Retail,North West,24922.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,none,False,idea,25.5,Declined,25.0,Not Funded,Dormant
+SYN_0398,Hospitality,Northern Cape,39650.0,0,2,0,2,-1,-1.0,-1,True,False,False,-1,none,False,startup,26.7,Declined,30.0,Not Funded,Revenue Declined
+SYN_0399,Logistics,Free State,328724.0,3,12,9,3,1,0.83,6,True,True,True,9,diploma,False,established,59.8,Review,85.0,Not Funded,Growing
+SYN_0400,Education,Eastern Cape,2637897.0,9,83,79,4,0,0.85,6,True,True,True,8,diploma,True,established,85.4,Approved,90.0,Funded,Growing
+SYN_0401,Manufacturing,Mpumalanga,2758.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,diploma,True,idea,30.5,Declined,20.0,Not Funded,Revenue Declined
+SYN_0402,Technology,KwaZulu-Natal,118236.0,1,1,0,1,-1,-1.0,-1,True,False,False,4,certificate,False,growth,39.0,Declined,40.0,Not Funded,Dormant
+SYN_0403,Manufacturing,Limpopo,169604.0,2,15,9,6,0,0.8,6,True,True,False,4,postgraduate,False,growth,45.2,Declined,75.0,Not Funded,Revenue Declined
+SYN_0404,Retail,North West,788237.0,5,103,79,24,1,0.91,6,True,True,True,6,diploma,False,established,69.6,Review,90.0,Funded,Revenue Doubled
+SYN_0405,Agriculture,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,matric,False,idea,30.3,Declined,20.0,Not Funded,Dormant
+SYN_0406,Technology,Free State,66079.0,0,3,1,2,-1,-1.0,-1,True,True,False,3,certificate,True,startup,49.0,Declined,55.0,Not Funded,Dormant
+SYN_0407,Hospitality,Eastern Cape,396553.0,3,19,16,3,0,0.83,6,True,True,False,9,degree,False,established,63.0,Review,75.0,Not Funded,Dormant
+SYN_0408,Technology,Mpumalanga,2249152.0,5,137,129,8,0,0.8,6,True,True,True,6,postgraduate,False,established,84.4,Approved,90.0,Not Funded,Growing
+SYN_0409,Retail,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,23.6,Declined,15.0,Not Funded,Revenue Declined
+SYN_0410,Hospitality,Gauteng,69169.0,1,2,2,0,-1,-1.0,-1,True,False,False,2,postgraduate,True,growth,54.5,Review,35.0,Funded,Revenue Declined
+SYN_0411,Retail,Limpopo,393616.0,1,13,8,5,1,0.83,6,True,True,True,7,degree,False,growth,52.6,Review,85.0,Funded,Growing
+SYN_0412,Education,Free State,1157810.0,9,84,78,6,0,0.91,6,True,True,True,14,diploma,False,established,79.8,Approved,85.0,Funded,Acquired
+SYN_0413,Manufacturing,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,15.9,Declined,10.0,Not Funded,Dormant
+SYN_0414,Professional Services,Eastern Cape,31933.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,37.1,Declined,15.0,Not Funded,Dormant
+SYN_0415,Technology,Eastern Cape,106909.0,3,20,13,7,2,0.87,6,True,True,False,12,postgraduate,True,established,45.8,Declined,75.0,Not Funded,Closed
+SYN_0416,Manufacturing,North West,1808528.0,9,136,109,27,0,0.86,6,True,True,True,14,postgraduate,True,established,74.3,Review,90.0,Funded,Revenue Declined
+SYN_0417,Manufacturing,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,diploma,True,idea,36.3,Declined,25.0,Not Funded,Closed
+SYN_0418,Manufacturing,Eastern Cape,101719.0,1,3,3,0,-1,-1.0,-1,True,False,False,1,degree,True,growth,59.4,Review,40.0,Funded,Revenue Doubled
+SYN_0419,Construction,KwaZulu-Natal,364544.0,1,14,8,6,1,0.87,6,True,True,True,4,certificate,True,growth,51.5,Review,85.0,Not Funded,Dormant
+SYN_0420,Retail,Gauteng,1523199.0,5,136,118,18,0,0.99,6,True,True,True,17,postgraduate,False,established,77.9,Approved,90.0,Funded,Growing
+SYN_0421,Construction,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,postgraduate,False,idea,27.9,Declined,20.0,Not Funded,Dormant
+SYN_0422,Healthcare,North West,46600.0,1,0,0,0,-1,-1.0,-1,False,False,False,5,degree,False,startup,44.7,Declined,25.0,Not Funded,Revenue Declined
+SYN_0423,Education,Western Cape,262196.0,1,7,6,1,1,0.8,6,True,True,True,3,postgraduate,True,growth,63.9,Review,85.0,Funded,Defaulted
+SYN_0424,Technology,Eastern Cape,1771816.0,15,103,88,15,1,0.83,6,True,True,True,20,postgraduate,True,established,78.6,Approved,90.0,Funded,Growing
+SYN_0425,Hospitality,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,19.3,Declined,15.0,Not Funded,Dormant
+SYN_0426,Healthcare,KwaZulu-Natal,111267.0,1,0,0,0,1,0.55,4,True,True,False,5,postgraduate,False,growth,50.2,Review,65.0,Not Funded,Revenue Declined
+SYN_0427,Manufacturing,Northern Cape,335919.0,3,16,12,4,1,0.73,6,True,True,False,2,postgraduate,False,established,57.0,Review,75.0,Funded,Revenue Doubled
+SYN_0428,Construction,North West,637883.0,10,33,25,8,0,1.0,6,True,True,True,18,diploma,True,established,70.2,Review,85.0,Funded,Revenue Declined
+SYN_0429,Hospitality,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,26.8,Declined,15.0,Not Funded,Dormant
+SYN_0430,Technology,Free State,47722.0,1,2,2,0,0,0.66,4,True,True,False,5,degree,False,growth,65.2,Review,70.0,Funded,Growing
+SYN_0431,Education,Western Cape,418209.0,3,20,15,5,2,0.75,6,True,True,True,3,diploma,False,established,65.0,Review,85.0,Not Funded,Dormant
+SYN_0432,Agriculture,Mpumalanga,904400.0,8,122,115,7,1,0.9,6,True,True,True,17,degree,True,established,84.0,Approved,90.0,Funded,Growing
+SYN_0433,Education,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.9,Declined,10.0,Not Funded,Revenue Declined
+SYN_0434,Hospitality,Eastern Cape,43164.0,0,2,1,1,-1,-1.0,-1,True,False,False,4,matric,True,startup,29.1,Declined,35.0,Not Funded,Closed
+SYN_0435,Logistics,Mpumalanga,105436.0,2,18,17,1,1,0.96,6,True,True,False,6,diploma,True,growth,61.0,Review,75.0,Funded,Growing
+SYN_0436,Healthcare,Western Cape,2146519.0,11,125,96,29,1,0.93,6,True,True,True,15,postgraduate,False,established,76.6,Approved,85.0,Funded,Growing
+SYN_0437,Agriculture,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,none,False,idea,24.8,Declined,25.0,Not Funded,Closed
+SYN_0438,Education,KwaZulu-Natal,42144.0,1,1,0,1,-1,-1.0,-1,True,False,False,2,certificate,False,growth,28.2,Declined,35.0,Not Funded,Dormant
+SYN_0439,Education,KwaZulu-Natal,223776.0,3,16,9,7,2,0.8,6,True,True,False,3,certificate,True,established,46.6,Declined,75.0,Not Funded,Revenue Declined
+SYN_0440,Logistics,Eastern Cape,2083551.0,13,106,98,8,0,0.98,6,True,True,True,17,postgraduate,False,established,82.2,Approved,90.0,Funded,Defaulted
+SYN_0441,Agriculture,Limpopo,25346.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,postgraduate,False,idea,24.8,Declined,20.0,Not Funded,Closed
+SYN_0442,Professional Services,Mpumalanga,55228.0,1,3,2,1,2,0.88,4,False,True,False,5,matric,False,growth,38.2,Declined,55.0,Not Funded,Revenue Declined
+SYN_0443,Logistics,KwaZulu-Natal,157318.0,1,18,14,4,1,0.92,6,True,True,False,5,degree,True,growth,55.5,Review,75.0,Not Funded,Revenue Declined
+SYN_0444,Healthcare,KwaZulu-Natal,2298589.0,10,85,79,6,0,0.93,6,True,True,True,19,diploma,True,established,86.8,Approved,90.0,Funded,Acquired
+SYN_0445,Agriculture,North West,18516.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,certificate,False,idea,28.2,Declined,25.0,Not Funded,Revenue Declined
+SYN_0446,Manufacturing,North West,85149.0,0,0,0,0,-1,-1.0,-1,True,False,False,6,postgraduate,True,startup,50.3,Review,40.0,Funded,Growing
+SYN_0447,Healthcare,Western Cape,227982.0,1,14,11,3,2,0.85,6,True,True,True,10,degree,True,growth,64.6,Review,85.0,Not Funded,Revenue Declined
+SYN_0448,Professional Services,Gauteng,589850.0,13,55,52,3,0,0.9,6,True,True,True,16,degree,True,established,88.2,Approved,90.0,Funded,Revenue Doubled
+SYN_0449,Construction,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,postgraduate,True,idea,33.9,Declined,20.0,Not Funded,Closed
+SYN_0450,Hospitality,KwaZulu-Natal,23011.0,0,3,3,0,-1,-1.0,-1,True,True,False,1,diploma,True,startup,58.9,Review,55.0,Not Funded,Dormant
+SYN_0451,Healthcare,Free State,130774.0,1,6,5,1,1,0.97,6,True,True,True,7,postgraduate,True,growth,59.1,Review,85.0,Funded,Revenue Doubled
+SYN_0452,Construction,Western Cape,991596.0,4,63,51,12,1,0.9,6,True,True,True,7,diploma,False,established,68.5,Review,90.0,Funded,Growing
+SYN_0453,Logistics,Eastern Cape,32591.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.9,Declined,10.0,Not Funded,Dormant
+SYN_0454,Hospitality,Mpumalanga,72656.0,1,4,3,1,-1,-1.0,-1,True,False,False,6,degree,True,growth,42.5,Declined,35.0,Not Funded,Closed
+SYN_0455,Hospitality,Gauteng,167039.0,2,14,9,5,1,0.73,6,True,True,False,6,postgraduate,False,growth,51.3,Review,75.0,Not Funded,Dormant
+SYN_0456,Hospitality,Northern Cape,2528187.0,11,137,115,22,0,0.82,6,True,True,True,6,postgraduate,True,established,73.0,Review,85.0,Not Funded,Dormant
+SYN_0457,Construction,Northern Cape,4232.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,degree,False,idea,26.7,Declined,25.0,Not Funded,Dormant
+SYN_0458,Construction,Free State,29299.0,0,1,0,1,-1,-1.0,-1,True,False,False,5,diploma,False,startup,37.5,Declined,40.0,Not Funded,Dormant
+SYN_0459,Hospitality,Eastern Cape,111543.0,1,9,8,1,0,0.98,6,True,True,True,11,postgraduate,True,growth,57.7,Review,85.0,Funded,Revenue Doubled
+SYN_0460,Education,Limpopo,953268.0,5,53,40,13,0,0.83,6,True,True,True,18,degree,False,established,71.8,Review,90.0,Funded,Defaulted
+SYN_0461,Agriculture,Limpopo,35526.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.7,Declined,10.0,Not Funded,Closed
+SYN_0462,Agriculture,Northern Cape,60506.0,1,3,2,1,-1,-1.0,-1,True,False,False,5,degree,False,growth,31.8,Declined,35.0,Not Funded,Closed
+SYN_0463,Technology,North West,186290.0,2,15,9,6,0,0.81,6,True,True,False,6,postgraduate,False,growth,52.2,Review,75.0,Funded,Growing
+SYN_0464,Healthcare,Northern Cape,2898101.0,6,39,35,4,0,0.93,6,True,True,True,10,postgraduate,False,established,76.2,Approved,90.0,Funded,Growing
+SYN_0465,Manufacturing,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,certificate,True,idea,33.5,Declined,20.0,Not Funded,Closed
+SYN_0466,Healthcare,North West,96416.0,0,1,0,1,-1,-1.0,-1,True,False,False,3,matric,False,startup,42.8,Declined,40.0,Not Funded,Revenue Declined
+SYN_0467,Agriculture,Gauteng,387573.0,1,8,5,3,2,0.75,6,True,True,True,3,certificate,True,growth,58.2,Review,85.0,Not Funded,Dormant
+SYN_0468,Logistics,Limpopo,2390911.0,12,43,38,5,0,0.92,6,True,True,True,18,diploma,False,established,73.6,Review,90.0,Funded,Defaulted
+SYN_0469,Agriculture,Eastern Cape,36523.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,matric,False,idea,25.5,Declined,20.0,Not Funded,Dormant
+SYN_0470,Agriculture,Limpopo,85719.0,0,0,0,0,-1,-1.0,-1,True,False,False,1,diploma,True,startup,33.5,Declined,35.0,Not Funded,Revenue Declined
+SYN_0471,Construction,Northern Cape,382340.0,2,12,7,5,2,0.81,6,True,True,False,3,degree,True,growth,49.8,Declined,75.0,Not Funded,Dormant
+SYN_0472,Professional Services,Eastern Cape,2483383.0,11,83,79,4,0,0.94,6,True,True,True,10,postgraduate,True,established,88.9,Approved,85.0,Funded,Defaulted
+SYN_0473,Education,KwaZulu-Natal,37360.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,matric,False,idea,35.8,Declined,25.0,Not Funded,Dormant
+SYN_0474,Retail,Western Cape,57995.0,1,2,0,2,-1,-1.0,-1,True,False,False,6,none,True,growth,31.3,Declined,35.0,Not Funded,Closed
+SYN_0475,Healthcare,Northern Cape,428125.0,1,7,6,1,0,0.76,6,True,True,True,12,diploma,False,growth,64.6,Review,85.0,Funded,Growing
+SYN_0476,Professional Services,KwaZulu-Natal,462153.0,3,106,88,18,0,0.88,6,True,True,True,8,degree,False,established,71.0,Review,90.0,Funded,Revenue Doubled
+SYN_0477,Agriculture,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,18.5,Declined,10.0,Not Funded,Dormant
+SYN_0478,Manufacturing,Mpumalanga,46142.0,0,3,2,1,-1,-1.0,-1,True,True,False,4,none,True,startup,44.5,Declined,55.0,Not Funded,Dormant
+SYN_0479,Healthcare,Mpumalanga,289113.0,1,19,13,6,2,0.83,6,True,True,False,3,diploma,False,growth,49.4,Declined,75.0,Not Funded,Closed
+SYN_0480,Manufacturing,Western Cape,2961328.0,6,150,136,14,0,0.82,6,True,True,True,16,postgraduate,True,established,85.4,Approved,85.0,Funded,Revenue Doubled
+SYN_0481,Hospitality,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,degree,True,idea,42.8,Declined,20.0,Not Funded,Closed
+SYN_0482,Professional Services,KwaZulu-Natal,65403.0,1,0,0,0,-1,-1.0,-1,True,False,False,5,none,False,startup,47.7,Declined,40.0,Funded,Dormant
+SYN_0483,Professional Services,Eastern Cape,296267.0,2,23,13,10,0,0.77,6,True,True,True,3,postgraduate,False,established,53.4,Review,85.0,Not Funded,Revenue Declined
+SYN_0484,Professional Services,Western Cape,1130432.0,15,112,103,9,1,0.99,6,True,True,True,10,diploma,False,established,84.4,Approved,85.0,Funded,Revenue Doubled
+SYN_0485,Construction,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,certificate,False,idea,30.9,Declined,25.0,Not Funded,Dormant
+SYN_0486,Technology,Eastern Cape,52476.0,0,4,0,4,-1,-1.0,-1,True,False,False,3,postgraduate,False,startup,43.8,Declined,40.0,Not Funded,Closed
+SYN_0487,Hospitality,KwaZulu-Natal,153921.0,1,6,4,2,1,0.87,6,True,True,True,7,certificate,False,growth,46.0,Declined,85.0,Not Funded,Closed
+SYN_0488,Technology,Western Cape,2998556.0,4,47,36,11,0,0.94,6,True,True,True,15,postgraduate,True,established,76.3,Approved,85.0,Funded,Revenue Doubled
+SYN_0489,Agriculture,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,30.3,Declined,15.0,Not Funded,Dormant
+SYN_0490,Healthcare,Eastern Cape,36884.0,0,0,0,0,1,0.62,4,True,True,False,-1,none,False,startup,36.9,Declined,55.0,Not Funded,Closed
+SYN_0491,Healthcare,Northern Cape,312030.0,1,19,18,1,0,0.95,6,True,True,False,9,diploma,True,growth,66.2,Review,75.0,Not Funded,Growing
+SYN_0492,Technology,Free State,1769376.0,6,109,100,9,1,0.88,6,True,True,True,7,postgraduate,False,established,83.8,Approved,90.0,Funded,Acquired
+SYN_0493,Healthcare,KwaZulu-Natal,30034.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,matric,True,idea,37.3,Declined,20.0,Not Funded,Closed
+SYN_0494,Hospitality,Gauteng,27727.0,0,3,0,3,-1,-1.0,-1,True,False,False,6,diploma,True,startup,47.2,Declined,40.0,Not Funded,Closed
+SYN_0495,Retail,Limpopo,365629.0,3,10,7,3,0,0.82,6,True,True,True,10,diploma,False,established,60.7,Review,85.0,Funded,Growing
+SYN_0496,Education,Limpopo,2591082.0,13,27,24,3,0,0.92,6,True,True,True,18,degree,False,established,74.6,Review,85.0,Funded,Growing
+SYN_0497,Technology,KwaZulu-Natal,4669.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,none,True,idea,32.9,Declined,20.0,Funded,Revenue Declined
+SYN_0498,Hospitality,Free State,80225.0,1,1,1,0,2,0.71,3,False,True,False,6,matric,True,growth,53.6,Review,55.0,Not Funded,Growing
+SYN_0499,Manufacturing,Free State,273883.0,1,19,18,1,0,0.84,6,True,True,True,12,postgraduate,False,growth,66.0,Review,85.0,Funded,Growing
+SYN_0500,Professional Services,Free State,2127961.0,7,98,85,13,0,0.93,6,True,True,True,18,diploma,False,established,76.2,Approved,90.0,Funded,Growing
+SYN_0501,Retail,Gauteng,15170.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,degree,True,idea,43.7,Declined,25.0,Not Funded,Closed
+SYN_0502,Manufacturing,Western Cape,102798.0,1,2,2,0,3,0.6,4,True,True,False,2,none,False,growth,56.5,Review,65.0,Not Funded,Revenue Declined
+SYN_0503,Healthcare,Eastern Cape,231723.0,1,9,8,1,0,0.82,6,True,True,False,6,diploma,True,growth,59.8,Review,75.0,Funded,Revenue Declined
+SYN_0504,Construction,Limpopo,1249583.0,10,36,29,7,1,0.88,6,True,True,True,17,diploma,False,established,69.4,Review,90.0,Not Funded,Revenue Declined
+SYN_0505,Logistics,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,certificate,False,idea,25.2,Declined,20.0,Not Funded,Dormant
+SYN_0506,Agriculture,North West,33605.0,1,4,0,4,-1,-1.0,-1,True,False,False,4,postgraduate,True,growth,37.5,Declined,40.0,Not Funded,Dormant
+SYN_0507,Agriculture,Mpumalanga,132366.0,2,10,9,1,0,0.87,6,True,True,True,5,degree,True,growth,67.5,Review,85.0,Not Funded,Growing
+SYN_0508,Technology,KwaZulu-Natal,2739729.0,14,86,72,14,0,0.93,6,True,True,True,13,postgraduate,False,established,76.3,Approved,90.0,Funded,Growing
+SYN_0509,Retail,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,False,idea,33.2,Declined,25.0,Not Funded,Dormant
+SYN_0510,Technology,Limpopo,79736.0,0,3,2,1,0,0.7,4,False,True,False,3,matric,True,startup,48.0,Declined,55.0,Not Funded,Closed
+SYN_0511,Healthcare,Northern Cape,235689.0,3,23,22,1,1,0.8,6,True,True,False,9,certificate,False,established,69.6,Review,75.0,Funded,Revenue Doubled
+SYN_0512,Agriculture,North West,2635680.0,4,98,89,9,0,0.98,6,True,True,True,20,diploma,True,established,79.6,Approved,85.0,Funded,Revenue Doubled
+SYN_0513,Construction,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,True,idea,33.8,Declined,20.0,Not Funded,Dormant
+SYN_0514,Hospitality,Mpumalanga,91170.0,0,3,0,3,2,0.51,4,False,True,False,8,degree,False,startup,32.3,Declined,50.0,Not Funded,Dormant
+SYN_0515,Hospitality,Eastern Cape,345841.0,1,14,9,5,0,0.95,6,True,True,False,8,diploma,False,growth,49.8,Declined,75.0,Not Funded,Dormant
+SYN_0516,Logistics,North West,1372941.0,7,76,72,4,0,0.98,6,True,True,True,8,postgraduate,True,established,82.6,Approved,90.0,Funded,Growing
+SYN_0517,Healthcare,Gauteng,26327.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,none,False,idea,40.0,Declined,25.0,Not Funded,Closed
+SYN_0518,Healthcare,North West,97974.0,0,3,1,2,0,0.88,3,False,True,False,5,matric,False,startup,44.4,Declined,55.0,Not Funded,Revenue Declined
+SYN_0519,Technology,Free State,323066.0,1,8,7,1,0,0.86,6,True,True,True,6,postgraduate,True,growth,67.7,Review,85.0,Funded,Acquired
+SYN_0520,Education,KwaZulu-Natal,2202097.0,13,88,73,15,0,0.88,6,True,True,True,17,postgraduate,False,established,73.4,Review,90.0,Not Funded,Revenue Declined
+SYN_0521,Education,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,diploma,True,idea,24.2,Declined,20.0,Not Funded,Closed
+SYN_0522,Manufacturing,North West,93130.0,1,0,0,0,3,0.76,3,False,True,False,5,diploma,False,growth,37.1,Declined,50.0,Not Funded,Dormant
+SYN_0523,Construction,Limpopo,385466.0,3,13,11,2,2,0.89,6,True,True,True,8,degree,False,established,62.6,Review,85.0,Not Funded,Revenue Declined
+SYN_0524,Healthcare,Limpopo,2107500.0,6,39,32,7,0,0.84,6,True,True,True,10,postgraduate,True,established,75.2,Approved,85.0,Not Funded,Revenue Doubled
+SYN_0525,Logistics,Limpopo,43948.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,none,True,idea,29.5,Declined,25.0,Not Funded,Revenue Declined
+SYN_0526,Hospitality,Northern Cape,23514.0,1,0,0,0,-1,-1.0,-1,True,False,False,4,none,False,startup,38.2,Declined,40.0,Not Funded,Dormant
+SYN_0527,Education,North West,321551.0,1,8,7,1,1,0.8,6,True,True,False,9,certificate,True,growth,58.2,Review,75.0,Not Funded,Growing
+SYN_0528,Construction,Eastern Cape,1872220.0,12,31,27,4,0,0.97,6,True,True,True,11,postgraduate,True,established,74.1,Review,90.0,Funded,Revenue Doubled
+SYN_0529,Healthcare,Gauteng,44962.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,certificate,False,idea,41.4,Declined,25.0,Not Funded,Dormant
+SYN_0530,Logistics,North West,105639.0,1,4,0,4,2,0.7,3,True,True,False,-1,none,False,growth,28.3,Declined,55.0,Funded,Closed
+SYN_0531,Retail,Free State,308867.0,2,12,8,4,0,0.92,6,True,True,False,8,diploma,False,growth,48.9,Declined,75.0,Funded,Defaulted
+SYN_0532,Agriculture,Eastern Cape,967786.0,4,132,128,4,0,0.86,6,True,True,True,15,postgraduate,False,established,83.0,Approved,90.0,Funded,Growing
+SYN_0533,Professional Services,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,none,True,idea,36.2,Declined,25.0,Not Funded,Revenue Declined
+SYN_0534,Healthcare,Eastern Cape,68224.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,diploma,False,idea,25.1,Declined,20.0,Not Funded,Revenue Declined
+SYN_0535,Technology,Western Cape,203018.0,1,19,17,2,1,0.94,6,True,True,True,4,degree,False,growth,62.6,Review,85.0,Funded,Acquired
+SYN_0536,Hospitality,Eastern Cape,2651347.0,4,67,51,16,1,0.93,6,True,True,True,8,diploma,True,established,69.6,Review,90.0,Funded,Revenue Declined
+SYN_0537,Construction,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,17.7,Declined,15.0,Not Funded,Revenue Declined
+SYN_0538,Manufacturing,Limpopo,43383.0,0,4,4,0,3,0.55,4,True,True,False,1,degree,False,startup,41.6,Declined,65.0,Not Funded,Revenue Declined
+SYN_0539,Manufacturing,Northern Cape,113334.0,2,19,13,6,0,0.82,6,True,True,True,8,certificate,False,growth,46.6,Declined,85.0,Not Funded,Dormant
+SYN_0540,Logistics,Free State,1453824.0,13,54,49,5,1,0.81,6,True,True,True,5,postgraduate,False,established,80.9,Approved,90.0,Funded,Growing
+SYN_0541,Manufacturing,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,none,True,idea,39.8,Declined,25.0,Funded,Revenue Declined
+SYN_0542,Healthcare,Northern Cape,112394.0,1,0,0,0,0,0.82,4,True,True,False,5,matric,True,growth,51.9,Review,65.0,Not Funded,Dormant
+SYN_0543,Professional Services,Eastern Cape,368535.0,1,24,15,9,1,0.72,6,True,True,True,5,diploma,True,established,55.4,Review,85.0,Funded,Revenue Doubled
+SYN_0544,Professional Services,Western Cape,1217546.0,3,55,48,7,1,0.88,6,True,True,True,16,diploma,True,established,75.8,Approved,85.0,Funded,Growing
+SYN_0545,Agriculture,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,19.7,Declined,15.0,Funded,Defaulted
+SYN_0546,Construction,Mpumalanga,83052.0,1,0,0,0,3,0.72,4,True,True,False,6,certificate,False,growth,43.3,Declined,65.0,Not Funded,Dormant
+SYN_0547,Retail,Western Cape,325863.0,2,14,12,2,0,0.98,6,True,True,True,9,postgraduate,True,growth,68.0,Review,85.0,Funded,Defaulted
+SYN_0548,Technology,Western Cape,2226772.0,4,36,31,5,1,0.96,6,True,True,True,10,degree,False,established,77.6,Approved,90.0,Funded,Revenue Doubled
+SYN_0549,Healthcare,Western Cape,28373.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,postgraduate,True,idea,49.8,Declined,25.0,Not Funded,Revenue Declined
+SYN_0550,Manufacturing,Gauteng,68909.0,0,1,1,0,0,0.83,4,True,True,False,5,matric,False,startup,63.3,Review,70.0,Funded,Growing
+SYN_0551,Education,Eastern Cape,346363.0,1,7,6,1,1,0.77,6,True,True,True,3,degree,True,growth,63.6,Review,85.0,Funded,Growing
+SYN_0552,Agriculture,Eastern Cape,1333484.0,12,113,103,10,1,0.81,6,True,True,True,11,degree,True,established,83.0,Approved,90.0,Funded,Revenue Doubled
+SYN_0553,Construction,Mpumalanga,36274.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.2,Declined,10.0,Not Funded,Revenue Declined
+SYN_0554,Professional Services,North West,36245.0,0,2,2,0,0,0.72,3,True,True,False,2,postgraduate,False,startup,59.4,Review,70.0,Not Funded,Revenue Declined
+SYN_0555,Retail,Free State,199952.0,2,17,15,2,0,0.72,6,True,True,True,5,certificate,False,growth,58.2,Review,85.0,Not Funded,Dormant
+SYN_0556,Education,Gauteng,2652663.0,8,72,58,14,0,0.84,6,True,True,True,18,postgraduate,False,established,74.3,Review,90.0,Not Funded,Dormant
+SYN_0557,Healthcare,Mpumalanga,25616.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,none,True,idea,32.2,Declined,20.0,Not Funded,Dormant
+SYN_0558,Construction,KwaZulu-Natal,62487.0,1,1,0,1,-1,-1.0,-1,False,False,False,7,certificate,True,growth,27.2,Declined,25.0,Not Funded,Revenue Declined
+SYN_0559,Technology,North West,154736.0,2,22,15,7,0,0.96,6,True,True,True,12,postgraduate,True,established,50.7,Review,85.0,Not Funded,Revenue Declined
+SYN_0560,Professional Services,KwaZulu-Natal,1347243.0,7,148,118,30,0,0.81,6,True,True,True,12,diploma,False,established,73.6,Review,90.0,Funded,Growing
+SYN_0561,Professional Services,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,diploma,True,idea,37.6,Declined,25.0,Not Funded,Dormant
+SYN_0562,Manufacturing,Northern Cape,80053.0,0,1,0,1,0,0.86,4,True,True,False,4,none,False,startup,40.1,Declined,70.0,Not Funded,Dormant
+SYN_0563,Professional Services,Eastern Cape,359344.0,1,6,4,2,2,0.92,6,True,True,True,9,postgraduate,True,growth,57.8,Review,85.0,Funded,Revenue Declined
+SYN_0564,Retail,North West,1132985.0,7,114,95,19,0,1.0,6,True,True,True,19,diploma,False,established,70.7,Review,90.0,Funded,Revenue Declined
+SYN_0565,Healthcare,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,diploma,False,idea,31.5,Declined,20.0,Not Funded,Closed
+SYN_0566,Agriculture,Eastern Cape,98016.0,0,0,0,0,1,0.62,3,False,True,False,3,diploma,True,startup,44.8,Declined,55.0,Not Funded,Revenue Declined
+SYN_0567,Education,Mpumalanga,405476.0,3,20,14,6,0,0.96,6,True,True,True,7,diploma,True,established,66.2,Review,85.0,Funded,Revenue Declined
+SYN_0568,Healthcare,KwaZulu-Natal,635830.0,13,41,31,10,1,0.91,6,True,True,True,7,diploma,True,established,75.8,Approved,90.0,Funded,Revenue Doubled
+SYN_0569,Agriculture,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,diploma,True,idea,43.4,Declined,20.0,Not Funded,Closed
+SYN_0570,Healthcare,Northern Cape,46081.0,0,2,2,0,-1,-1.0,-1,True,False,False,1,degree,False,startup,47.7,Declined,40.0,Not Funded,Revenue Declined
+SYN_0571,Education,Western Cape,198293.0,2,5,3,2,0,0.71,6,True,True,True,5,postgraduate,True,growth,55.1,Review,85.0,Not Funded,Dormant
+SYN_0572,Hospitality,Eastern Cape,1627171.0,12,85,70,15,0,0.99,6,True,True,True,20,postgraduate,True,established,72.8,Review,85.0,Funded,Defaulted
+SYN_0573,Retail,Mpumalanga,11667.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,15.7,Declined,10.0,Funded,Dormant
+SYN_0574,Technology,Gauteng,97324.0,1,3,0,3,3,0.66,4,True,True,False,8,degree,False,growth,43.5,Declined,65.0,Not Funded,Closed
+SYN_0575,Healthcare,Eastern Cape,403806.0,3,24,23,1,0,0.81,6,True,True,True,7,degree,True,established,82.4,Approved,85.0,Funded,Growing
+SYN_0576,Retail,Mpumalanga,2615239.0,4,22,19,3,0,0.82,6,True,True,True,14,diploma,False,established,69.8,Review,90.0,Not Funded,Growing
+SYN_0577,Construction,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,certificate,True,idea,26.5,Declined,20.0,Not Funded,Revenue Declined
+SYN_0578,Retail,Mpumalanga,33807.0,0,0,0,0,-1,-1.0,-1,True,True,False,7,matric,True,startup,50.9,Review,55.0,Funded,Revenue Doubled
+SYN_0579,Logistics,North West,327615.0,3,8,4,4,1,0.83,6,True,True,False,8,postgraduate,False,established,50.6,Review,75.0,Funded,Revenue Doubled
+SYN_0580,Logistics,Limpopo,973826.0,4,91,89,2,0,0.87,6,True,True,True,16,degree,True,established,82.9,Approved,90.0,Funded,Revenue Doubled
+SYN_0581,Logistics,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,postgraduate,False,idea,32.8,Declined,25.0,Not Funded,Dormant
+SYN_0582,Technology,KwaZulu-Natal,68024.0,1,4,0,4,-1,-1.0,-1,True,True,False,5,none,False,growth,37.4,Declined,50.0,Not Funded,Revenue Declined
+SYN_0583,Agriculture,Mpumalanga,373525.0,2,10,9,1,1,0.71,6,True,True,False,3,degree,True,growth,70.1,Review,75.0,Not Funded,Growing
+SYN_0584,Hospitality,Gauteng,457865.0,12,119,106,13,0,0.84,6,True,True,True,17,postgraduate,True,established,77.1,Approved,90.0,Funded,Acquired
+SYN_0585,Retail,Western Cape,25229.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,26.3,Declined,15.0,Not Funded,Closed
+SYN_0586,Manufacturing,Eastern Cape,106552.0,1,1,1,0,-1,-1.0,-1,True,False,False,1,matric,True,growth,56.3,Review,40.0,Not Funded,Revenue Declined
+SYN_0587,Construction,Gauteng,367559.0,3,22,15,7,0,0.73,6,True,True,True,2,degree,False,established,55.4,Review,85.0,Not Funded,Growing
+SYN_0588,Healthcare,Western Cape,2366908.0,8,30,25,5,1,0.98,6,True,True,True,9,postgraduate,True,established,78.2,Approved,90.0,Funded,Growing
+SYN_0589,Professional Services,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,25.9,Declined,10.0,Not Funded,Revenue Declined
+SYN_0590,Technology,Gauteng,48702.0,1,3,2,1,-1,-1.0,-1,False,False,False,3,degree,False,growth,33.0,Declined,20.0,Not Funded,Closed
+SYN_0591,Agriculture,Limpopo,105961.0,3,20,18,2,2,0.71,6,True,True,False,6,degree,False,established,58.3,Review,75.0,Funded,Growing
+SYN_0592,Education,Western Cape,826088.0,14,135,105,30,0,0.84,6,True,True,True,10,postgraduate,True,established,75.9,Approved,85.0,Funded,Acquired
+SYN_0593,Logistics,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,diploma,True,idea,28.0,Declined,20.0,Not Funded,Dormant
+SYN_0594,Education,KwaZulu-Natal,66405.0,1,4,0,4,-1,-1.0,-1,True,False,False,2,certificate,False,growth,34.0,Declined,40.0,Not Funded,Revenue Declined
+SYN_0595,Education,KwaZulu-Natal,227903.0,3,22,21,1,0,0.87,6,True,True,True,5,certificate,False,established,71.0,Review,85.0,Funded,Revenue Declined
+SYN_0596,Hospitality,Gauteng,2210184.0,5,140,109,31,0,0.85,6,True,True,True,9,postgraduate,False,established,74.3,Review,90.0,Not Funded,Growing
+SYN_0597,Logistics,Eastern Cape,10513.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.7,Declined,15.0,Not Funded,Revenue Declined
+SYN_0598,Healthcare,Limpopo,22745.0,1,1,1,0,-1,-1.0,-1,True,True,False,2,none,True,growth,62.6,Review,55.0,Funded,Revenue Doubled
+SYN_0599,Construction,Limpopo,381572.0,1,9,7,2,2,0.76,6,True,True,False,3,diploma,False,growth,51.8,Review,75.0,Not Funded,Revenue Declined
+SYN_0600,Construction,North West,2535670.0,10,98,95,3,0,0.98,6,True,True,True,6,postgraduate,True,established,85.0,Approved,90.0,Not Funded,Revenue Doubled
+SYN_0601,Logistics,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,19.3,Declined,15.0,Not Funded,Closed
+SYN_0602,Construction,Mpumalanga,75261.0,0,1,0,1,-1,-1.0,-1,True,True,False,3,none,False,startup,31.8,Declined,50.0,Not Funded,Revenue Declined
+SYN_0603,Construction,Free State,206789.0,1,22,19,3,0,0.96,6,True,True,True,11,postgraduate,True,established,56.5,Review,85.0,Funded,Growing
+SYN_0604,Logistics,Northern Cape,2414936.0,10,102,84,18,0,0.91,6,True,True,True,8,postgraduate,True,established,72.0,Review,90.0,Funded,Growing
+SYN_0605,Retail,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,matric,False,idea,21.7,Declined,20.0,Funded,Defaulted
+SYN_0606,Professional Services,Eastern Cape,48690.0,0,3,3,0,-1,-1.0,-1,True,False,False,8,certificate,False,startup,49.4,Declined,40.0,Not Funded,Closed
+SYN_0607,Technology,Eastern Cape,152087.0,3,25,19,6,0,0.94,6,True,True,False,12,degree,True,established,56.6,Review,75.0,Funded,Growing
+SYN_0608,Professional Services,KwaZulu-Natal,1761174.0,11,68,66,2,0,0.95,6,True,True,True,6,degree,True,established,91.1,Approved,90.0,Funded,Growing
+SYN_0609,Healthcare,KwaZulu-Natal,35865.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,certificate,True,idea,40.2,Declined,20.0,Not Funded,Dormant
+SYN_0610,Technology,Gauteng,118264.0,1,3,3,0,1,0.52,3,True,True,False,-1,none,False,growth,63.6,Review,60.0,Not Funded,Growing
+SYN_0611,Healthcare,North West,131547.0,1,7,5,2,2,0.84,6,True,True,True,4,diploma,False,growth,53.8,Review,85.0,Not Funded,Dormant
+SYN_0612,Professional Services,North West,518862.0,15,35,31,4,1,0.91,6,True,True,True,14,degree,True,established,78.9,Approved,85.0,Funded,Revenue Doubled
+SYN_0613,Construction,KwaZulu-Natal,35773.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.9,Declined,15.0,Not Funded,Revenue Declined
+SYN_0614,Healthcare,North West,95783.0,1,4,0,4,3,0.6,3,True,True,False,6,postgraduate,False,growth,41.2,Declined,65.0,Not Funded,Revenue Declined
+SYN_0615,Professional Services,Northern Cape,143065.0,3,10,8,2,2,0.83,6,True,True,True,11,diploma,True,established,55.8,Review,85.0,Funded,Growing
+SYN_0616,Retail,Limpopo,1465826.0,13,118,109,9,0,0.94,6,True,True,True,14,degree,True,established,81.9,Approved,90.0,Funded,Growing
+SYN_0617,Education,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,certificate,True,idea,35.3,Declined,25.0,Not Funded,Dormant
+SYN_0618,Construction,Mpumalanga,68639.0,0,4,2,2,1,0.66,3,True,True,False,6,postgraduate,True,startup,41.7,Declined,65.0,Not Funded,Revenue Declined
+SYN_0619,Logistics,Mpumalanga,331042.0,1,5,3,2,2,0.81,6,True,True,True,6,diploma,False,growth,52.2,Review,85.0,Not Funded,Growing
+SYN_0620,Logistics,Mpumalanga,2586381.0,7,123,118,5,1,0.84,6,True,True,True,6,postgraduate,False,established,86.4,Approved,90.0,Funded,Revenue Doubled
+SYN_0621,Manufacturing,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,diploma,False,idea,31.4,Declined,25.0,Not Funded,Closed
+SYN_0622,Professional Services,Mpumalanga,40283.0,1,0,0,0,-1,-1.0,-1,False,False,False,5,matric,True,startup,44.7,Declined,25.0,Funded,Defaulted
+SYN_0623,Healthcare,Limpopo,198347.0,1,7,6,1,1,0.97,6,True,True,False,10,diploma,False,growth,54.9,Review,75.0,Not Funded,Dormant
+SYN_0624,Agriculture,Eastern Cape,2904718.0,7,54,52,2,0,0.93,6,True,True,True,15,degree,True,established,86.8,Approved,90.0,Funded,Revenue Doubled
+SYN_0625,Construction,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,none,False,idea,15.7,Declined,20.0,Not Funded,Dormant
+SYN_0626,Hospitality,Northern Cape,61456.0,0,2,0,2,-1,-1.0,-1,True,False,False,-1,none,False,startup,31.0,Declined,30.0,Not Funded,Revenue Declined
+SYN_0627,Retail,Limpopo,317372.0,2,22,15,7,0,0.72,6,True,True,True,10,certificate,False,established,50.0,Review,85.0,Funded,Growing
+SYN_0628,Manufacturing,Eastern Cape,1233594.0,14,66,56,10,0,0.94,6,True,True,True,16,diploma,False,established,71.0,Review,85.0,Not Funded,Dormant
+SYN_0629,Technology,North West,37757.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,26.2,Declined,15.0,Not Funded,Dormant
+SYN_0630,Construction,Free State,64466.0,1,1,0,1,-1,-1.0,-1,False,False,False,6,matric,False,growth,17.0,Declined,20.0,Not Funded,Closed
+SYN_0631,Retail,Mpumalanga,321460.0,1,18,13,5,1,0.85,6,True,True,False,3,degree,False,growth,53.8,Review,75.0,Funded,Revenue Doubled
+SYN_0632,Logistics,KwaZulu-Natal,639820.0,11,75,65,10,0,0.88,6,True,True,True,20,diploma,False,established,74.2,Review,90.0,Not Funded,Dormant
+SYN_0633,Healthcare,Free State,43497.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,postgraduate,True,idea,40.3,Declined,25.0,Not Funded,Revenue Declined
+SYN_0634,Healthcare,Mpumalanga,68065.0,1,0,0,0,-1,-1.0,-1,True,True,False,6,postgraduate,False,startup,59.0,Review,55.0,Funded,Growing
+SYN_0635,Construction,KwaZulu-Natal,127927.0,1,24,14,10,1,0.89,6,True,True,False,9,degree,False,established,39.0,Declined,75.0,Not Funded,Revenue Declined
+SYN_0636,Healthcare,KwaZulu-Natal,1381402.0,10,44,40,4,0,0.85,6,True,True,True,19,degree,True,established,86.8,Approved,90.0,Funded,Growing
+SYN_0637,Manufacturing,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,28.2,Declined,15.0,Not Funded,Dormant
+SYN_0638,Hospitality,Limpopo,24219.0,1,4,2,2,-1,-1.0,-1,True,False,False,1,matric,False,growth,28.4,Declined,40.0,Not Funded,Revenue Declined
+SYN_0639,Healthcare,KwaZulu-Natal,176238.0,2,23,18,5,1,0.94,6,True,True,True,6,postgraduate,False,established,59.1,Review,85.0,Not Funded,Dormant
+SYN_0640,Agriculture,Eastern Cape,1765610.0,5,35,31,4,0,0.91,6,True,True,True,15,postgraduate,False,established,75.4,Approved,85.0,Not Funded,Growing
+SYN_0641,Professional Services,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,diploma,True,idea,42.0,Declined,25.0,Not Funded,Closed
+SYN_0642,Construction,North West,75772.0,0,0,0,0,-1,-1.0,-1,True,False,False,8,postgraduate,True,startup,46.1,Declined,40.0,Not Funded,Dormant
+SYN_0643,Professional Services,Gauteng,400988.0,1,5,4,1,0,0.75,6,True,True,True,6,postgraduate,False,growth,69.5,Review,85.0,Not Funded,Growing
+SYN_0644,Healthcare,Mpumalanga,2332001.0,7,33,31,2,1,0.85,6,True,True,True,15,diploma,False,established,83.3,Approved,90.0,Funded,Growing
+SYN_0645,Education,Mpumalanga,24597.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,none,False,idea,22.0,Declined,20.0,Not Funded,Closed
+SYN_0646,Education,North West,32449.0,1,0,0,0,-1,-1.0,-1,True,True,False,-1,none,False,startup,39.8,Declined,45.0,Not Funded,Revenue Declined
+SYN_0647,Hospitality,Northern Cape,145493.0,1,11,8,3,2,0.77,6,True,True,True,9,diploma,True,growth,51.3,Review,85.0,Funded,Growing
+SYN_0648,Manufacturing,Mpumalanga,1416422.0,12,139,119,20,0,0.93,6,True,True,True,17,postgraduate,True,established,76.7,Approved,90.0,Not Funded,Growing
+SYN_0649,Construction,North West,5460.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,diploma,False,idea,27.8,Declined,25.0,Not Funded,Closed
+SYN_0650,Professional Services,Northern Cape,39887.0,0,1,0,1,-1,-1.0,-1,True,False,False,4,diploma,True,startup,40.3,Declined,40.0,Not Funded,Dormant
+SYN_0651,Retail,Eastern Cape,118093.0,2,18,14,4,0,0.87,6,True,True,False,8,degree,True,growth,53.8,Review,75.0,Not Funded,Dormant
+SYN_0652,Construction,North West,1018722.0,7,34,29,5,0,0.82,6,True,True,True,20,degree,False,established,72.6,Review,85.0,Funded,Defaulted
+SYN_0653,Logistics,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,certificate,True,idea,29.2,Declined,25.0,Not Funded,Revenue Declined
+SYN_0654,Retail,Mpumalanga,33226.0,0,2,0,2,-1,-1.0,-1,False,False,False,8,none,True,idea,27.3,Declined,20.0,Not Funded,Revenue Declined
+SYN_0655,Agriculture,Mpumalanga,286177.0,1,14,13,1,0,0.71,6,True,True,True,11,diploma,True,growth,68.4,Review,85.0,Not Funded,Growing
+SYN_0656,Technology,North West,1372643.0,3,128,115,13,0,0.83,6,True,True,True,12,diploma,True,established,74.1,Review,90.0,Not Funded,Revenue Declined
+SYN_0657,Retail,Northern Cape,37659.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,17.8,Declined,15.0,Not Funded,Closed
+SYN_0658,Logistics,Northern Cape,81430.0,0,0,0,0,-1,-1.0,-1,True,False,False,-1,none,False,startup,32.3,Declined,30.0,Not Funded,Closed
+SYN_0659,Professional Services,KwaZulu-Natal,412506.0,2,7,5,2,1,0.7,6,True,True,False,7,certificate,False,growth,62.8,Review,75.0,Not Funded,Dormant
+SYN_0660,Professional Services,Gauteng,872033.0,14,46,37,9,0,0.98,6,True,True,True,8,diploma,True,established,78.2,Approved,85.0,Funded,Revenue Doubled
+SYN_0661,Healthcare,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,matric,False,idea,37.2,Declined,20.0,Funded,Growing
+SYN_0662,Logistics,Western Cape,119209.0,1,2,0,2,-1,-1.0,-1,True,False,False,6,certificate,True,growth,40.8,Declined,40.0,Not Funded,Closed
+SYN_0663,Retail,Free State,279870.0,2,15,11,4,0,0.9,6,True,True,True,4,postgraduate,True,growth,60.8,Review,85.0,Not Funded,Growing
+SYN_0664,Retail,Free State,959101.0,9,53,46,7,0,0.84,6,True,True,True,17,degree,False,established,73.5,Review,85.0,Not Funded,Dormant
+SYN_0665,Construction,Free State,4585.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,degree,False,idea,22.6,Declined,20.0,Funded,Closed
+SYN_0666,Healthcare,KwaZulu-Natal,108657.0,1,4,2,2,-1,-1.0,-1,True,False,False,3,postgraduate,False,growth,37.5,Declined,35.0,Not Funded,Closed
+SYN_0667,Healthcare,Eastern Cape,145044.0,1,7,5,2,1,0.77,6,True,True,True,8,degree,False,growth,57.5,Review,85.0,Not Funded,Growing
+SYN_0668,Professional Services,Mpumalanga,991310.0,11,23,18,5,0,0.9,6,True,True,True,7,degree,False,established,75.0,Approved,90.0,Funded,Growing
+SYN_0669,Technology,Mpumalanga,24370.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,matric,True,idea,33.7,Declined,20.0,Not Funded,Dormant
+SYN_0670,Logistics,Mpumalanga,88718.0,1,3,3,0,-1,-1.0,-1,True,False,False,3,degree,True,growth,55.4,Review,40.0,Funded,Revenue Declined
+SYN_0671,Retail,Eastern Cape,405880.0,2,23,15,8,1,0.84,6,True,True,False,6,degree,True,established,55.2,Review,75.0,Not Funded,Revenue Declined
+SYN_0672,Technology,Mpumalanga,913225.0,9,141,134,7,0,0.95,6,True,True,True,17,degree,True,established,90.9,Approved,90.0,Funded,Acquired
+SYN_0673,Technology,Limpopo,10741.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,19.5,Declined,10.0,Not Funded,Closed
+SYN_0674,Education,KwaZulu-Natal,44524.0,0,0,0,0,-1,-1.0,-1,True,False,False,7,matric,False,startup,45.7,Declined,40.0,Not Funded,Dormant
+SYN_0675,Healthcare,Limpopo,257110.0,3,14,11,3,0,0.94,6,True,True,False,5,degree,True,established,60.4,Review,75.0,Not Funded,Revenue Declined
+SYN_0676,Education,Mpumalanga,2837320.0,4,149,133,16,0,0.83,6,True,True,True,11,diploma,True,established,72.9,Review,90.0,Funded,Growing
+SYN_0677,Construction,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,diploma,True,idea,36.0,Declined,25.0,Not Funded,Closed
+SYN_0678,Logistics,KwaZulu-Natal,50297.0,0,2,2,0,-1,-1.0,-1,True,False,False,1,postgraduate,False,startup,49.6,Declined,40.0,Funded,Defaulted
+SYN_0679,Retail,Western Cape,347552.0,3,22,16,6,0,0.84,6,True,True,True,6,degree,True,established,65.3,Review,85.0,Funded,Revenue Declined
+SYN_0680,Logistics,Western Cape,1786159.0,15,89,71,18,0,0.89,6,True,True,True,11,diploma,False,established,72.2,Review,90.0,Funded,Revenue Declined
+SYN_0681,Manufacturing,Mpumalanga,16321.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,none,True,idea,30.5,Declined,20.0,Not Funded,Closed
+SYN_0682,Hospitality,Gauteng,105308.0,1,1,1,0,-1,-1.0,-1,True,False,False,7,matric,True,growth,60.6,Review,40.0,Funded,Growing
+SYN_0683,Professional Services,North West,101748.0,2,8,7,1,2,0.77,6,True,True,True,10,degree,True,growth,60.2,Review,85.0,Funded,Growing
+SYN_0684,Professional Services,Limpopo,1881497.0,11,110,93,17,0,0.92,6,True,True,True,14,diploma,True,established,73.5,Review,90.0,Not Funded,Growing
+SYN_0685,Hospitality,Mpumalanga,3045.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,diploma,True,idea,33.6,Declined,20.0,Not Funded,Dormant
+SYN_0686,Healthcare,Limpopo,64467.0,1,2,1,1,1,0.88,3,True,True,False,1,postgraduate,False,growth,44.9,Declined,70.0,Not Funded,Closed
+SYN_0687,Logistics,Mpumalanga,445922.0,1,18,11,7,2,0.73,6,True,True,False,2,degree,False,growth,51.6,Review,75.0,Funded,Revenue Doubled
+SYN_0688,Professional Services,North West,2906316.0,8,94,80,14,1,0.89,6,True,True,True,14,diploma,False,established,76.2,Approved,90.0,Funded,Revenue Doubled
+SYN_0689,Retail,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,none,True,idea,37.9,Declined,25.0,Funded,Closed
+SYN_0690,Professional Services,Northern Cape,42044.0,1,2,0,2,-1,-1.0,-1,True,False,False,2,matric,True,growth,33.4,Declined,40.0,Not Funded,Revenue Declined
+SYN_0691,Education,Free State,374355.0,2,17,16,1,0,0.76,6,True,True,True,10,postgraduate,False,growth,70.8,Review,85.0,Funded,Growing
+SYN_0692,Technology,Mpumalanga,1274896.0,5,129,102,27,0,0.84,6,True,True,True,7,diploma,True,established,76.1,Approved,85.0,Funded,Growing
+SYN_0693,Construction,Free State,8998.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,degree,True,idea,29.8,Declined,20.0,Not Funded,Dormant
+SYN_0694,Technology,Limpopo,65512.0,0,4,0,4,-1,-1.0,-1,True,True,False,8,matric,False,startup,38.3,Declined,50.0,Funded,Revenue Declined
+SYN_0695,Professional Services,North West,413630.0,1,17,12,5,1,0.79,6,True,True,False,6,degree,False,growth,60.2,Review,75.0,Funded,Revenue Declined
+SYN_0696,Retail,Free State,1501484.0,13,135,104,31,0,0.81,6,True,True,True,17,postgraduate,True,established,73.3,Review,90.0,Not Funded,Growing
+SYN_0697,Healthcare,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,diploma,True,idea,33.9,Declined,20.0,Not Funded,Revenue Declined
+SYN_0698,Technology,Free State,72960.0,1,0,0,0,1,0.63,4,True,True,False,3,degree,True,growth,50.9,Review,65.0,Funded,Growing
+SYN_0699,Healthcare,North West,281051.0,1,18,11,7,0,0.84,6,True,True,True,3,postgraduate,True,growth,54.2,Review,85.0,Funded,Growing
+SYN_0700,Retail,Free State,1921642.0,3,89,83,6,1,0.94,6,True,True,True,16,degree,False,established,77.4,Approved,90.0,Funded,Growing
+SYN_0701,Logistics,Western Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,matric,True,idea,31.2,Declined,20.0,Not Funded,Revenue Declined
+SYN_0702,Agriculture,Limpopo,34065.0,0,1,0,1,-1,-1.0,-1,False,False,False,-1,none,False,idea,26.3,Declined,15.0,Not Funded,Revenue Declined
+SYN_0703,Logistics,Western Cape,342029.0,3,8,7,1,0,0.8,6,True,True,False,10,postgraduate,True,established,67.4,Review,75.0,Not Funded,Dormant
+SYN_0704,Manufacturing,North West,1607910.0,10,87,74,13,0,0.88,6,True,True,True,16,degree,True,established,77.2,Approved,90.0,Funded,Growing
+SYN_0705,Logistics,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,matric,False,idea,26.4,Declined,25.0,Funded,Defaulted
+SYN_0706,Construction,Gauteng,108371.0,1,1,0,1,-1,-1.0,-1,True,True,False,7,none,True,growth,39.8,Declined,50.0,Not Funded,Dormant
+SYN_0707,Hospitality,Gauteng,345494.0,2,10,7,3,1,0.79,6,True,True,False,2,certificate,True,growth,61.3,Review,75.0,Not Funded,Growing
+SYN_0708,Agriculture,Mpumalanga,993213.0,9,109,100,9,1,0.98,6,True,True,True,16,postgraduate,True,established,85.0,Approved,90.0,Funded,Growing
+SYN_0709,Technology,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,degree,True,idea,38.7,Declined,25.0,Not Funded,Closed
+SYN_0710,Education,KwaZulu-Natal,69494.0,0,4,3,1,0,0.55,3,True,True,False,-1,none,False,startup,42.8,Declined,60.0,Not Funded,Dormant
+SYN_0711,Construction,Limpopo,313806.0,3,11,7,4,0,0.79,6,True,True,True,8,postgraduate,False,established,51.0,Review,85.0,Funded,Growing
+SYN_0712,Professional Services,Eastern Cape,837561.0,12,138,128,10,0,0.82,6,True,True,True,12,degree,True,established,85.0,Approved,90.0,Funded,Revenue Doubled
+SYN_0713,Retail,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,none,False,idea,25.8,Declined,20.0,Not Funded,Revenue Declined
+SYN_0714,Agriculture,KwaZulu-Natal,43892.0,0,0,0,0,-1,-1.0,-1,True,False,False,-1,none,False,startup,39.9,Declined,30.0,Not Funded,Closed
+SYN_0715,Healthcare,Western Cape,148279.0,2,6,5,1,0,0.95,6,True,True,True,3,postgraduate,False,growth,60.4,Review,85.0,Not Funded,Dormant
+SYN_0716,Technology,Free State,2646562.0,9,73,64,9,0,0.87,6,True,True,True,19,degree,False,established,76.7,Approved,85.0,Funded,Revenue Doubled
+SYN_0717,Retail,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,17.8,Declined,15.0,Not Funded,Revenue Declined
+SYN_0718,Agriculture,Gauteng,116662.0,1,0,0,0,-1,-1.0,-1,True,False,False,2,none,True,startup,41.0,Declined,35.0,Not Funded,Closed
+SYN_0719,Agriculture,Western Cape,301665.0,1,21,19,2,0,0.76,6,True,True,True,7,degree,False,established,71.0,Review,85.0,Not Funded,Growing
+SYN_0720,Hospitality,Eastern Cape,1482026.0,12,145,128,17,0,0.95,6,True,True,True,20,postgraduate,True,established,75.7,Approved,90.0,Funded,Growing
+SYN_0721,Professional Services,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,degree,False,idea,42.0,Declined,25.0,Not Funded,Closed
+SYN_0722,Agriculture,Northern Cape,55009.0,1,3,3,0,-1,-1.0,-1,True,False,False,-1,none,False,growth,47.4,Declined,30.0,Not Funded,Revenue Declined
+SYN_0723,Healthcare,Limpopo,403813.0,3,20,18,2,0,0.85,6,True,True,False,10,certificate,False,established,73.4,Review,75.0,Not Funded,Growing
+SYN_0724,Logistics,Northern Cape,2700846.0,6,64,54,10,1,0.92,6,True,True,True,7,degree,True,established,73.0,Review,85.0,Funded,Revenue Declined
+SYN_0725,Manufacturing,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,none,False,idea,16.8,Declined,20.0,Not Funded,Dormant
+SYN_0726,Retail,Limpopo,63500.0,0,4,4,0,0,0.71,3,True,True,False,3,none,True,startup,52.3,Review,70.0,Not Funded,Dormant
+SYN_0727,Technology,Western Cape,268961.0,3,22,21,1,2,0.97,6,True,True,False,4,degree,True,established,76.6,Approved,75.0,Funded,Growing
+SYN_0728,Agriculture,Northern Cape,1033958.0,12,82,67,15,1,0.84,6,True,True,True,9,postgraduate,False,established,71.9,Review,90.0,Not Funded,Revenue Declined
+SYN_0729,Retail,North West,30259.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,none,False,idea,18.4,Declined,20.0,Not Funded,Dormant
+SYN_0730,Healthcare,Western Cape,70288.0,1,1,0,1,0,0.64,3,False,True,False,-1,none,False,growth,33.2,Declined,45.0,Not Funded,Dormant
+SYN_0731,Healthcare,Northern Cape,425775.0,1,22,17,5,0,0.81,6,True,True,True,8,degree,False,established,64.7,Review,85.0,Funded,Growing
+SYN_0732,Education,Eastern Cape,584655.0,11,108,105,3,1,0.92,6,True,True,True,19,degree,False,established,85.0,Approved,85.0,Funded,Growing
+SYN_0733,Logistics,KwaZulu-Natal,42539.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,degree,False,idea,25.7,Declined,20.0,Not Funded,Closed
+SYN_0734,Logistics,Gauteng,99590.0,1,4,3,1,2,0.87,4,True,True,False,4,matric,False,growth,52.2,Review,70.0,Not Funded,Revenue Declined
+SYN_0735,Hospitality,Western Cape,352567.0,1,9,6,3,2,0.79,6,True,True,False,8,degree,False,growth,52.6,Review,75.0,Funded,Revenue Declined
+SYN_0736,Hospitality,Western Cape,546888.0,5,31,28,3,1,0.84,6,True,True,True,17,diploma,False,established,82.1,Approved,90.0,Funded,Acquired
+SYN_0737,Construction,Limpopo,7760.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,10.9,Declined,10.0,Not Funded,Revenue Declined
+SYN_0738,Construction,Eastern Cape,31155.0,1,0,0,0,3,0.86,3,True,True,False,4,matric,False,growth,42.9,Declined,70.0,Not Funded,Closed
+SYN_0739,Technology,Free State,440377.0,2,7,4,3,0,0.96,6,True,True,False,7,postgraduate,False,growth,60.2,Review,75.0,Funded,Growing
+SYN_0740,Technology,Mpumalanga,2849763.0,8,58,49,9,1,0.9,6,True,True,True,11,diploma,False,established,73.4,Review,90.0,Funded,Defaulted
+SYN_0741,Agriculture,Gauteng,1729.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,matric,True,idea,39.0,Declined,20.0,Not Funded,Dormant
+SYN_0742,Agriculture,Gauteng,85029.0,0,3,0,3,-1,-1.0,-1,True,False,False,4,certificate,True,startup,50.3,Review,40.0,Not Funded,Revenue Declined
+SYN_0743,Education,Eastern Cape,338504.0,1,9,5,4,1,0.83,6,True,True,False,8,certificate,True,growth,51.3,Review,75.0,Not Funded,Revenue Declined
+SYN_0744,Professional Services,Limpopo,679536.0,8,141,133,8,0,0.94,6,True,True,True,10,degree,False,established,83.0,Approved,90.0,Not Funded,Growing
+SYN_0745,Healthcare,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,27.8,Declined,15.0,Funded,Revenue Declined
+SYN_0746,Construction,Northern Cape,108482.0,0,4,2,2,-1,-1.0,-1,True,False,False,1,none,True,startup,34.2,Declined,40.0,Not Funded,Dormant
+SYN_0747,Manufacturing,Western Cape,411252.0,2,12,8,4,0,0.87,6,True,True,True,9,certificate,True,growth,61.2,Review,85.0,Funded,Growing
+SYN_0748,Education,Gauteng,2771726.0,6,31,28,3,0,0.81,6,True,True,True,8,diploma,False,established,83.1,Approved,90.0,Not Funded,Revenue Doubled
+SYN_0749,Construction,Free State,40249.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,matric,False,idea,19.7,Declined,25.0,Not Funded,Revenue Declined
+SYN_0750,Professional Services,Limpopo,80958.0,0,2,0,2,-1,-1.0,-1,True,False,False,4,matric,True,startup,41.0,Declined,40.0,Not Funded,Closed
+SYN_0751,Professional Services,KwaZulu-Natal,396658.0,3,11,10,1,1,0.81,6,True,True,False,4,certificate,False,established,72.6,Review,75.0,Funded,Revenue Declined
+SYN_0752,Technology,Gauteng,1432953.0,14,22,20,2,0,0.92,6,True,True,True,18,postgraduate,True,established,88.7,Approved,90.0,Funded,Revenue Doubled
+SYN_0753,Manufacturing,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,none,False,idea,18.5,Declined,20.0,Not Funded,Closed
+SYN_0754,Technology,North West,95265.0,0,1,0,1,3,0.53,3,True,True,False,5,degree,False,startup,48.3,Declined,70.0,Not Funded,Closed
+SYN_0755,Agriculture,Gauteng,155029.0,2,11,8,3,0,0.7,6,True,True,False,11,degree,False,growth,58.6,Review,75.0,Not Funded,Revenue Declined
+SYN_0756,Education,North West,1619304.0,9,20,17,3,0,0.9,6,True,True,True,6,degree,True,established,75.5,Approved,90.0,Funded,Growing
+SYN_0757,Agriculture,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,diploma,True,idea,27.7,Declined,20.0,Not Funded,Dormant
+SYN_0758,Retail,North West,100965.0,1,1,0,1,1,0.56,4,True,True,False,-1,none,False,growth,34.2,Declined,60.0,Not Funded,Closed
+SYN_0759,Professional Services,Western Cape,165165.0,2,20,14,6,1,0.8,6,True,True,True,3,degree,True,established,60.6,Review,85.0,Funded,Revenue Declined
+SYN_0760,Education,Free State,2606776.0,6,41,37,4,0,0.91,6,True,True,True,5,degree,True,established,82.5,Approved,90.0,Funded,Defaulted
+SYN_0761,Construction,Free State,31043.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,matric,False,idea,28.4,Declined,25.0,Funded,Revenue Declined
+SYN_0762,Logistics,Mpumalanga,44157.0,1,3,3,0,-1,-1.0,-1,True,False,False,8,degree,False,growth,54.9,Review,40.0,Funded,Revenue Declined
+SYN_0763,Agriculture,Gauteng,211221.0,2,9,8,1,0,0.73,6,True,True,False,4,degree,False,growth,59.5,Review,75.0,Not Funded,Dormant
+SYN_0764,Manufacturing,Gauteng,1338576.0,10,121,92,29,0,0.94,6,True,True,True,20,postgraduate,False,established,75.0,Approved,85.0,Funded,Revenue Doubled
+SYN_0765,Agriculture,Western Cape,34927.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,degree,True,idea,34.7,Declined,20.0,Not Funded,Dormant
+SYN_0766,Retail,Free State,44673.0,0,4,3,1,-1,-1.0,-1,True,False,False,2,diploma,False,startup,42.8,Declined,40.0,Not Funded,Dormant
+SYN_0767,Technology,Northern Cape,374007.0,1,22,14,8,1,0.87,6,True,True,True,6,degree,True,established,56.5,Review,85.0,Not Funded,Growing
+SYN_0768,Logistics,Eastern Cape,1816678.0,5,130,109,21,1,0.88,6,True,True,True,17,diploma,True,established,71.7,Review,85.0,Not Funded,Dormant
+SYN_0769,Construction,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,matric,True,idea,29.3,Declined,20.0,Not Funded,Closed
+SYN_0770,Agriculture,Limpopo,118200.0,0,4,2,2,-1,-1.0,-1,True,False,False,8,matric,True,startup,45.1,Declined,40.0,Funded,Defaulted
+SYN_0771,Education,KwaZulu-Natal,134980.0,3,15,10,5,1,0.83,6,True,True,True,2,diploma,True,established,45.2,Declined,85.0,Not Funded,Dormant
+SYN_0772,Construction,Gauteng,1484673.0,14,138,136,2,0,0.96,6,True,True,True,14,postgraduate,False,established,87.5,Approved,85.0,Not Funded,Growing
+SYN_0773,Healthcare,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,postgraduate,True,idea,38.3,Declined,20.0,Not Funded,Closed
+SYN_0774,Technology,Northern Cape,24642.0,0,0,0,0,0,0.68,4,True,True,False,1,matric,False,startup,48.2,Declined,70.0,Not Funded,Closed
+SYN_0775,Hospitality,Gauteng,165471.0,3,9,7,2,2,0.71,6,True,True,False,8,diploma,False,established,52.8,Review,75.0,Not Funded,Dormant
+SYN_0776,Education,Limpopo,2154804.0,9,92,76,16,0,0.86,6,True,True,True,11,degree,True,established,73.4,Review,85.0,Funded,Growing
+SYN_0777,Hospitality,Free State,6811.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,degree,False,idea,34.5,Declined,25.0,Not Funded,Revenue Declined
+SYN_0778,Logistics,Eastern Cape,60073.0,1,1,0,1,-1,-1.0,-1,True,False,False,1,diploma,True,growth,30.5,Declined,40.0,Not Funded,Closed
+SYN_0779,Manufacturing,Western Cape,136912.0,3,7,4,3,1,0.95,6,True,True,True,7,degree,False,established,48.4,Declined,85.0,Not Funded,Closed
+SYN_0780,Agriculture,Western Cape,2666224.0,4,75,58,17,0,0.93,6,True,True,True,18,degree,False,established,70.3,Review,85.0,Funded,Growing
+SYN_0781,Education,Gauteng,27012.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,False,idea,44.2,Declined,25.0,Not Funded,Closed
+SYN_0782,Professional Services,Free State,46612.0,0,4,2,2,-1,-1.0,-1,True,False,False,4,postgraduate,True,startup,49.7,Declined,40.0,Not Funded,Revenue Declined
+SYN_0783,Logistics,Limpopo,167020.0,1,6,4,2,2,0.88,6,True,True,True,7,postgraduate,False,growth,47.3,Declined,85.0,Not Funded,Revenue Declined
+SYN_0784,Agriculture,North West,1529073.0,15,39,31,8,0,0.84,6,True,True,True,19,degree,False,established,71.3,Review,90.0,Not Funded,Revenue Declined
+SYN_0785,Hospitality,KwaZulu-Natal,33059.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,18.4,Declined,10.0,Not Funded,Closed
+SYN_0786,Retail,Eastern Cape,64290.0,1,3,2,1,-1,-1.0,-1,True,True,False,7,none,False,growth,38.8,Declined,55.0,Not Funded,Closed
+SYN_0787,Hospitality,Northern Cape,101943.0,3,5,4,1,0,0.75,6,True,True,False,11,certificate,True,established,50.3,Review,75.0,Not Funded,Revenue Declined
+SYN_0788,Healthcare,Free State,2358251.0,4,58,44,14,1,0.98,6,True,True,True,12,degree,False,established,71.7,Review,90.0,Funded,Growing
+SYN_0789,Education,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.9,Declined,10.0,Not Funded,Dormant
+SYN_0790,Technology,KwaZulu-Natal,84607.0,1,3,2,1,-1,-1.0,-1,True,False,False,4,degree,False,growth,36.0,Declined,35.0,Not Funded,Dormant
+SYN_0791,Professional Services,Free State,302566.0,3,25,16,9,2,0.73,6,True,True,True,10,diploma,True,established,54.3,Review,85.0,Funded,Revenue Doubled
+SYN_0792,Construction,KwaZulu-Natal,1554092.0,10,86,83,3,0,0.88,6,True,True,True,10,diploma,False,established,83.4,Approved,90.0,Funded,Revenue Doubled
+SYN_0793,Logistics,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,postgraduate,True,idea,33.4,Declined,20.0,Not Funded,Revenue Declined
+SYN_0794,Education,KwaZulu-Natal,38870.0,0,4,1,3,-1,-1.0,-1,True,True,False,2,certificate,True,startup,47.3,Declined,55.0,Not Funded,Dormant
+SYN_0795,Professional Services,Northern Cape,141515.0,2,19,13,6,0,0.77,6,True,True,True,6,postgraduate,True,growth,53.8,Review,85.0,Not Funded,Revenue Declined
+SYN_0796,Logistics,Northern Cape,2129630.0,9,140,123,17,0,0.85,6,True,True,True,10,degree,False,established,73.3,Review,85.0,Funded,Revenue Declined
+SYN_0797,Education,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.2,Declined,10.0,Not Funded,Closed
+SYN_0798,Professional Services,Western Cape,89147.0,0,4,4,0,3,0.56,3,False,True,False,8,matric,True,startup,47.6,Declined,50.0,Not Funded,Revenue Declined
+SYN_0799,Manufacturing,Free State,232312.0,1,5,4,1,1,0.78,6,True,True,False,8,certificate,False,growth,50.5,Review,75.0,Not Funded,Dormant
+SYN_0800,Retail,Northern Cape,452468.0,13,120,99,21,1,0.93,6,True,True,True,19,degree,True,established,70.8,Review,90.0,Funded,Revenue Declined
+SYN_0801,Healthcare,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,none,True,idea,36.8,Declined,25.0,Not Funded,Closed
+SYN_0802,Retail,North West,104891.0,1,3,1,2,3,0.89,3,True,True,False,3,degree,True,growth,43.9,Declined,70.0,Not Funded,Revenue Declined
+SYN_0803,Retail,Western Cape,363449.0,3,25,16,9,0,0.86,6,True,True,False,12,postgraduate,True,established,55.2,Review,75.0,Not Funded,Dormant
+SYN_0804,Agriculture,Mpumalanga,742281.0,12,146,130,16,0,0.85,6,True,True,True,8,postgraduate,False,established,75.4,Approved,85.0,Funded,Growing
+SYN_0805,Professional Services,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,postgraduate,False,idea,35.8,Declined,25.0,Not Funded,Closed
+SYN_0806,Manufacturing,Free State,99833.0,1,0,0,0,3,0.55,4,True,True,False,3,none,False,growth,43.8,Declined,70.0,Not Funded,Revenue Declined
+SYN_0807,Manufacturing,Eastern Cape,412977.0,3,25,20,5,2,0.83,6,True,True,False,9,degree,False,established,63.2,Review,75.0,Funded,Growing
+SYN_0808,Professional Services,Northern Cape,2925690.0,10,54,40,14,0,0.97,6,True,True,True,15,diploma,True,established,74.3,Review,90.0,Funded,Revenue Doubled
+SYN_0809,Hospitality,Eastern Cape,9451.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,False,idea,32.3,Declined,25.0,Not Funded,Revenue Declined
+SYN_0810,Hospitality,Northern Cape,93354.0,1,2,1,1,1,0.74,4,True,True,False,7,degree,False,growth,37.8,Declined,65.0,Not Funded,Dormant
+SYN_0811,Agriculture,Free State,183311.0,1,23,15,8,1,0.86,6,True,True,False,9,certificate,False,established,41.0,Declined,75.0,Not Funded,Closed
+SYN_0812,Construction,Mpumalanga,2665771.0,3,56,54,2,1,0.9,6,True,True,True,16,diploma,True,established,82.6,Approved,90.0,Funded,Revenue Doubled
+SYN_0813,Manufacturing,Western Cape,7592.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,matric,False,idea,36.8,Declined,25.0,Not Funded,Revenue Declined
+SYN_0814,Agriculture,Gauteng,75472.0,0,4,3,1,-1,-1.0,-1,True,False,False,7,none,True,startup,43.7,Declined,35.0,Funded,Growing
+SYN_0815,Retail,KwaZulu-Natal,422760.0,3,18,12,6,2,0.87,6,True,True,True,9,postgraduate,True,established,59.6,Review,85.0,Not Funded,Dormant
+SYN_0816,Professional Services,Eastern Cape,2261887.0,13,20,15,5,0,0.83,6,True,True,True,14,degree,False,established,74.6,Review,90.0,Not Funded,Revenue Declined
+SYN_0817,Healthcare,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,degree,True,idea,40.9,Declined,20.0,Not Funded,Closed
+SYN_0818,Technology,Eastern Cape,107748.0,1,1,0,1,-1,-1.0,-1,True,False,False,6,matric,True,growth,40.2,Declined,40.0,Not Funded,Closed
+SYN_0819,Professional Services,Mpumalanga,280398.0,1,19,15,4,2,0.95,6,True,True,True,12,certificate,False,growth,60.2,Review,85.0,Not Funded,Dormant
+SYN_0820,Technology,Northern Cape,2274548.0,13,110,83,27,0,0.81,6,True,True,True,11,diploma,True,established,74.9,Review,90.0,Funded,Growing
+SYN_0821,Professional Services,Free State,36836.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,certificate,False,idea,29.1,Declined,20.0,Not Funded,Revenue Declined
+SYN_0822,Hospitality,North West,39101.0,1,0,0,0,-1,-1.0,-1,False,False,False,8,postgraduate,False,startup,30.7,Declined,20.0,Not Funded,Closed
+SYN_0823,Logistics,Western Cape,259112.0,2,12,9,3,2,0.71,6,True,True,False,5,certificate,False,growth,55.6,Review,75.0,Funded,Revenue Doubled
+SYN_0824,Retail,North West,1852487.0,3,135,113,22,0,0.96,6,True,True,True,11,postgraduate,True,established,69.1,Review,85.0,Funded,Growing
+SYN_0825,Retail,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,matric,False,idea,21.6,Declined,20.0,Not Funded,Closed
+SYN_0826,Technology,Eastern Cape,25546.0,0,4,4,0,-1,-1.0,-1,False,True,False,3,none,False,idea,32.1,Declined,35.0,Not Funded,Revenue Declined
+SYN_0827,Construction,Limpopo,185378.0,3,18,11,7,0,0.83,6,True,True,True,8,postgraduate,False,established,45.8,Declined,85.0,Not Funded,Dormant
+SYN_0828,Technology,Eastern Cape,2170148.0,10,56,46,10,0,0.99,6,True,True,True,8,degree,False,established,75.1,Approved,90.0,Funded,Growing
+SYN_0829,Construction,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,degree,True,idea,26.7,Declined,20.0,Not Funded,Revenue Declined
+SYN_0830,Education,Mpumalanga,31285.0,0,1,1,0,-1,-1.0,-1,True,False,False,8,none,False,startup,48.6,Declined,40.0,Not Funded,Dormant
+SYN_0831,Professional Services,Western Cape,224552.0,1,8,7,1,0,0.92,6,True,True,True,11,degree,False,growth,64.9,Review,85.0,Not Funded,Revenue Declined
+SYN_0832,Manufacturing,North West,2732643.0,10,143,111,32,0,0.96,6,True,True,True,17,diploma,True,established,73.3,Review,85.0,Not Funded,Growing
+SYN_0833,Logistics,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.6,Declined,10.0,Not Funded,Closed
+SYN_0834,Agriculture,Mpumalanga,74807.0,0,0,0,0,1,0.59,4,True,True,False,4,degree,True,startup,46.5,Declined,65.0,Not Funded,Closed
+SYN_0835,Agriculture,Eastern Cape,268015.0,3,16,10,6,2,0.83,6,True,True,False,8,diploma,True,established,47.4,Declined,75.0,Not Funded,Revenue Declined
+SYN_0836,Education,Free State,2151594.0,9,144,135,9,0,0.87,6,True,True,True,19,postgraduate,False,established,81.9,Approved,90.0,Not Funded,Growing
+SYN_0837,Professional Services,Northern Cape,12946.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,certificate,False,idea,30.4,Declined,25.0,Not Funded,Closed
+SYN_0838,Education,Northern Cape,55026.0,0,4,1,3,3,0.71,3,False,True,False,5,none,False,startup,30.5,Declined,55.0,Not Funded,Closed
+SYN_0839,Manufacturing,Gauteng,287716.0,3,7,6,1,2,0.88,6,True,True,False,4,postgraduate,True,established,63.4,Review,75.0,Funded,Revenue Declined
+SYN_0840,Logistics,Mpumalanga,2416433.0,3,22,18,4,0,0.87,6,True,True,True,18,postgraduate,False,established,68.4,Review,90.0,Funded,Growing
+SYN_0841,Retail,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,14.3,Declined,10.0,Not Funded,Closed
+SYN_0842,Hospitality,KwaZulu-Natal,46870.0,1,0,0,0,0,0.66,4,True,True,False,4,postgraduate,False,growth,46.8,Declined,65.0,Not Funded,Revenue Declined
+SYN_0843,Hospitality,Western Cape,348353.0,3,18,17,1,1,0.73,6,True,True,True,6,certificate,False,established,72.8,Review,85.0,Not Funded,Growing
+SYN_0844,Hospitality,Mpumalanga,760142.0,12,115,97,18,1,0.83,6,True,True,True,6,diploma,False,established,71.6,Review,90.0,Not Funded,Growing
+SYN_0845,Construction,Gauteng,34358.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,matric,True,idea,33.8,Declined,25.0,Not Funded,Dormant
+SYN_0846,Logistics,Northern Cape,81438.0,0,3,3,0,0,0.63,4,True,True,False,7,none,False,startup,45.1,Declined,65.0,Not Funded,Dormant
+SYN_0847,Education,Northern Cape,232504.0,1,15,10,5,0,0.8,6,True,True,False,6,certificate,True,growth,45.9,Declined,75.0,Not Funded,Dormant
+SYN_0848,Construction,Western Cape,2088372.0,4,31,24,7,0,0.85,6,True,True,True,7,postgraduate,True,established,70.1,Review,85.0,Funded,Revenue Declined
+SYN_0849,Retail,Mpumalanga,30168.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,degree,False,idea,37.4,Declined,25.0,Not Funded,Dormant
+SYN_0850,Retail,Mpumalanga,111460.0,0,2,1,1,-1,-1.0,-1,True,True,False,-1,none,False,startup,41.6,Declined,45.0,Not Funded,Closed
+SYN_0851,Healthcare,Western Cape,389777.0,2,10,9,1,0,0.78,6,True,True,True,8,postgraduate,True,growth,79.6,Approved,85.0,Funded,Growing
+SYN_0852,Healthcare,Limpopo,2839435.0,9,140,127,13,0,0.86,6,True,True,True,16,diploma,False,established,82.4,Approved,90.0,Funded,Revenue Doubled
+SYN_0853,Hospitality,Western Cape,14403.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,certificate,False,idea,37.0,Declined,25.0,Not Funded,Dormant
+SYN_0854,Healthcare,Eastern Cape,29636.0,1,4,0,4,-1,-1.0,-1,True,False,False,6,none,False,growth,28.1,Declined,35.0,Not Funded,Closed
+SYN_0855,Construction,Northern Cape,339065.0,1,23,16,7,2,0.85,6,True,True,True,2,degree,True,established,49.6,Declined,85.0,Not Funded,Revenue Declined
+SYN_0856,Technology,Western Cape,1994400.0,14,52,48,4,0,0.9,6,True,True,True,14,diploma,False,established,85.7,Approved,85.0,Funded,Revenue Doubled
+SYN_0857,Logistics,Gauteng,40342.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,24.0,Declined,10.0,Not Funded,Dormant
+SYN_0858,Logistics,North West,77067.0,1,1,1,0,3,0.6,4,True,True,False,5,postgraduate,False,growth,60.7,Review,70.0,Not Funded,Dormant
+SYN_0859,Manufacturing,Free State,306102.0,2,24,21,3,1,0.83,6,True,True,True,7,certificate,True,established,65.1,Review,85.0,Not Funded,Revenue Declined
+SYN_0860,Manufacturing,Eastern Cape,1281525.0,14,125,111,14,0,0.91,6,True,True,True,15,postgraduate,True,established,77.6,Approved,90.0,Funded,Acquired
+SYN_0861,Retail,Western Cape,27792.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,none,True,idea,35.0,Declined,25.0,Not Funded,Dormant
+SYN_0862,Construction,Eastern Cape,83349.0,0,0,0,0,-1,-1.0,-1,True,False,False,2,matric,False,startup,36.3,Declined,40.0,Not Funded,Dormant
+SYN_0863,Construction,Free State,412281.0,1,10,6,4,2,0.89,6,True,True,True,8,degree,False,growth,53.4,Review,85.0,Funded,Defaulted
+SYN_0864,Construction,KwaZulu-Natal,2080027.0,6,122,115,7,0,0.99,6,True,True,True,7,diploma,True,established,81.2,Approved,90.0,Funded,Defaulted
+SYN_0865,Professional Services,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,degree,True,idea,37.6,Declined,25.0,Funded,Closed
+SYN_0866,Technology,Limpopo,36160.0,1,0,0,0,2,0.71,3,False,True,False,1,certificate,False,growth,40.8,Declined,55.0,Not Funded,Revenue Declined
+SYN_0867,Agriculture,Eastern Cape,263372.0,1,21,18,3,0,0.86,6,True,True,False,10,certificate,False,established,57.4,Review,75.0,Funded,Growing
+SYN_0868,Manufacturing,Northern Cape,495660.0,8,62,54,8,0,0.8,6,True,True,True,9,diploma,False,established,73.8,Review,90.0,Not Funded,Dormant
+SYN_0869,Healthcare,KwaZulu-Natal,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,diploma,True,idea,34.3,Declined,20.0,Not Funded,Closed
+SYN_0870,Logistics,Limpopo,98709.0,1,4,1,3,-1,-1.0,-1,True,False,False,1,none,False,growth,27.8,Declined,40.0,Not Funded,Dormant
+SYN_0871,Agriculture,Gauteng,323848.0,3,19,13,6,1,0.71,6,True,True,False,9,diploma,True,established,52.8,Review,75.0,Not Funded,Dormant
+SYN_0872,Professional Services,Gauteng,1548219.0,6,92,78,14,0,0.93,6,True,True,True,19,degree,True,established,78.2,Approved,90.0,Funded,Revenue Doubled
+SYN_0873,Education,Gauteng,33241.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,degree,False,idea,42.8,Declined,25.0,Not Funded,Revenue Declined
+SYN_0874,Healthcare,Gauteng,50454.0,1,4,0,4,3,0.62,4,False,True,False,7,postgraduate,True,growth,44.0,Declined,55.0,Not Funded,Dormant
+SYN_0875,Healthcare,KwaZulu-Natal,149931.0,2,13,9,4,0,0.73,6,True,True,True,7,certificate,True,growth,54.2,Review,85.0,Not Funded,Revenue Declined
+SYN_0876,Technology,Western Cape,2851014.0,14,81,63,18,0,0.93,6,True,True,True,10,degree,True,established,78.5,Approved,85.0,Funded,Revenue Doubled
+SYN_0877,Manufacturing,KwaZulu-Natal,12518.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,27.0,Declined,15.0,Funded,Defaulted
+SYN_0878,Technology,Free State,107640.0,0,1,0,1,0,0.9,4,False,True,False,6,degree,True,startup,41.3,Declined,50.0,Not Funded,Revenue Declined
+SYN_0879,Construction,KwaZulu-Natal,169005.0,2,5,3,2,0,0.72,6,True,True,False,2,degree,True,growth,48.0,Declined,75.0,Not Funded,Dormant
+SYN_0880,Education,Eastern Cape,753976.0,10,114,91,23,0,0.88,6,True,True,True,17,diploma,True,established,72.8,Review,85.0,Funded,Acquired
+SYN_0881,Healthcare,Limpopo,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,25.2,Declined,15.0,Not Funded,Revenue Declined
+SYN_0882,Professional Services,Free State,83233.0,1,3,1,2,-1,-1.0,-1,False,True,False,7,matric,True,growth,37.8,Declined,40.0,Not Funded,Dormant
+SYN_0883,Manufacturing,Limpopo,246789.0,2,17,16,1,2,0.8,6,True,True,False,8,certificate,False,growth,62.1,Review,75.0,Funded,Growing
+SYN_0884,Logistics,Western Cape,1940235.0,6,87,79,8,0,0.98,6,True,True,True,12,degree,True,established,84.8,Approved,85.0,Funded,Revenue Doubled
+SYN_0885,Technology,Northern Cape,11035.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,24.2,Declined,15.0,Not Funded,Dormant
+SYN_0886,Construction,Mpumalanga,102673.0,0,1,0,1,-1,-1.0,-1,True,True,False,3,none,True,startup,44.6,Declined,55.0,Not Funded,Closed
+SYN_0887,Construction,North West,317666.0,3,13,12,1,2,0.86,6,True,True,True,5,certificate,False,established,69.1,Review,85.0,Funded,Growing
+SYN_0888,Construction,KwaZulu-Natal,2278761.0,14,102,101,1,0,0.82,6,True,True,True,7,diploma,True,established,85.0,Approved,90.0,Funded,Revenue Doubled
+SYN_0889,Hospitality,Western Cape,20358.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,diploma,False,idea,32.7,Declined,20.0,Not Funded,Revenue Declined
+SYN_0890,Education,North West,104189.0,0,1,0,1,-1,-1.0,-1,True,False,False,8,diploma,True,startup,41.4,Declined,40.0,Not Funded,Revenue Declined
+SYN_0891,Logistics,Gauteng,145175.0,2,11,7,4,2,0.82,6,True,True,True,6,certificate,True,growth,54.9,Review,85.0,Funded,Defaulted
+SYN_0892,Professional Services,Eastern Cape,1065163.0,14,120,110,10,0,0.9,6,True,True,True,13,diploma,True,established,85.0,Approved,85.0,Funded,Revenue Doubled
+SYN_0893,Construction,Gauteng,29101.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,none,True,idea,32.3,Declined,25.0,Not Funded,Dormant
+SYN_0894,Technology,North West,53225.0,0,4,2,2,-1,-1.0,-1,True,False,False,3,degree,False,startup,41.2,Declined,40.0,Not Funded,Dormant
+SYN_0895,Education,Gauteng,126474.0,3,25,22,3,0,0.74,6,True,True,False,8,postgraduate,True,established,59.1,Review,75.0,Funded,Growing
+SYN_0896,Construction,Eastern Cape,2309559.0,7,89,75,14,0,0.99,6,True,True,True,7,degree,True,established,72.2,Review,85.0,Not Funded,Growing
+SYN_0897,Technology,Western Cape,24033.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,none,False,idea,34.7,Declined,20.0,Not Funded,Closed
+SYN_0898,Construction,Mpumalanga,54997.0,0,3,2,1,2,0.88,3,True,True,False,6,matric,False,startup,45.5,Declined,70.0,Not Funded,Revenue Declined
+SYN_0899,Hospitality,Free State,256765.0,1,19,17,2,1,0.74,6,True,True,False,5,postgraduate,True,growth,58.5,Review,75.0,Not Funded,Growing
+SYN_0900,Hospitality,Free State,2648967.0,13,70,56,14,1,0.89,6,True,True,True,8,diploma,False,established,71.0,Review,90.0,Not Funded,Growing
+SYN_0901,Construction,Free State,36374.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,postgraduate,False,idea,27.0,Declined,20.0,Not Funded,Revenue Declined
+SYN_0902,Technology,Mpumalanga,31551.0,1,0,0,0,-1,-1.0,-1,True,True,False,4,diploma,False,startup,45.0,Declined,50.0,Not Funded,Dormant
+SYN_0903,Hospitality,North West,350005.0,3,14,8,6,0,0.95,6,True,True,False,10,diploma,True,established,52.7,Review,75.0,Funded,Acquired
+SYN_0904,Logistics,Western Cape,2728212.0,14,21,17,4,1,0.91,6,True,True,True,8,postgraduate,False,established,74.3,Review,90.0,Funded,Defaulted
+SYN_0905,Hospitality,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,postgraduate,True,idea,48.6,Declined,25.0,Funded,Defaulted
+SYN_0906,Agriculture,Eastern Cape,114731.0,1,2,0,2,3,0.89,4,False,True,False,-1,none,False,growth,22.8,Declined,40.0,Funded,Revenue Declined
+SYN_0907,Agriculture,North West,236713.0,2,22,19,3,0,0.73,6,True,True,True,9,postgraduate,False,established,61.4,Review,85.0,Funded,Revenue Declined
+SYN_0908,Healthcare,Limpopo,1315349.0,4,74,65,9,0,0.97,6,True,True,True,9,postgraduate,False,established,73.3,Review,85.0,Not Funded,Dormant
+SYN_0909,Manufacturing,Mpumalanga,42044.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,none,True,idea,33.5,Declined,20.0,Not Funded,Revenue Declined
+SYN_0910,Manufacturing,Limpopo,36558.0,0,0,0,0,2,0.71,3,True,True,False,1,degree,True,startup,49.8,Declined,70.0,Not Funded,Revenue Declined
+SYN_0911,Healthcare,Northern Cape,100753.0,1,6,4,2,1,0.9,6,True,True,False,7,postgraduate,True,growth,46.2,Declined,75.0,Not Funded,Dormant
+SYN_0912,Agriculture,Free State,2263049.0,13,78,70,8,0,0.83,6,True,True,True,6,diploma,True,established,75.1,Approved,90.0,Funded,Growing
+SYN_0913,Agriculture,Eastern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,21.2,Declined,15.0,Not Funded,Closed
+SYN_0914,Retail,Northern Cape,35542.0,0,0,0,0,2,0.89,3,True,True,False,5,diploma,False,startup,46.5,Declined,70.0,Not Funded,Revenue Declined
+SYN_0915,Retail,North West,416651.0,2,14,10,4,0,0.77,6,True,True,False,3,diploma,True,growth,59.3,Review,75.0,Funded,Growing
+SYN_0916,Hospitality,Gauteng,684765.0,10,86,76,10,0,0.86,6,True,True,True,17,diploma,False,established,76.1,Approved,90.0,Funded,Revenue Doubled
+SYN_0917,Manufacturing,Northern Cape,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,degree,True,idea,29.9,Declined,20.0,Not Funded,Dormant
+SYN_0918,Logistics,Limpopo,99154.0,1,2,1,1,-1,-1.0,-1,True,False,False,1,certificate,False,growth,28.2,Declined,35.0,Not Funded,Closed
+SYN_0919,Construction,Limpopo,316898.0,1,22,17,5,2,0.84,6,True,True,False,4,degree,False,established,52.1,Review,75.0,Funded,Growing
+SYN_0920,Logistics,Mpumalanga,535010.0,10,70,63,7,0,0.84,6,True,True,True,15,degree,True,established,84.2,Approved,90.0,Funded,Growing
+SYN_0921,Technology,Free State,14795.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.1,Declined,10.0,Not Funded,Closed
+SYN_0922,Agriculture,Eastern Cape,61973.0,1,0,0,0,-1,-1.0,-1,True,False,False,1,certificate,True,startup,46.9,Declined,40.0,Not Funded,Dormant
+SYN_0923,Manufacturing,Mpumalanga,404134.0,2,6,5,1,1,0.75,6,True,True,False,3,degree,True,growth,61.8,Review,75.0,Funded,Growing
+SYN_0924,Construction,Eastern Cape,1643808.0,9,99,87,12,0,0.94,6,True,True,True,18,postgraduate,True,established,74.1,Review,90.0,Not Funded,Dormant
+SYN_0925,Hospitality,Western Cape,8440.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,certificate,False,idea,28.4,Declined,20.0,Not Funded,Closed
+SYN_0926,Construction,KwaZulu-Natal,60990.0,1,4,3,1,-1,-1.0,-1,True,False,False,3,degree,False,growth,42.2,Declined,40.0,Not Funded,Revenue Declined
+SYN_0927,Agriculture,KwaZulu-Natal,213433.0,3,11,10,1,0,0.78,6,True,True,True,3,degree,True,established,68.7,Review,85.0,Not Funded,Dormant
+SYN_0928,Professional Services,Free State,834364.0,8,128,105,23,0,0.91,6,True,True,True,7,postgraduate,True,established,74.9,Review,85.0,Not Funded,Revenue Declined
+SYN_0929,Manufacturing,Gauteng,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,matric,True,idea,41.2,Declined,25.0,Not Funded,Revenue Declined
+SYN_0930,Logistics,Northern Cape,104515.0,1,1,1,0,-1,-1.0,-1,True,False,False,6,matric,True,growth,50.0,Review,35.0,Not Funded,Growing
+SYN_0931,Professional Services,Gauteng,257095.0,1,13,12,1,1,0.96,6,True,True,False,3,diploma,True,growth,68.7,Review,75.0,Not Funded,Revenue Declined
+SYN_0932,Education,North West,2044883.0,15,36,34,2,0,0.83,6,True,True,True,10,postgraduate,False,established,81.0,Approved,90.0,Funded,Revenue Doubled
+SYN_0933,Healthcare,Western Cape,19489.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,diploma,False,idea,36.7,Declined,20.0,Not Funded,Closed
+SYN_0934,Agriculture,Eastern Cape,104789.0,1,2,2,0,-1,-1.0,-1,True,False,False,-1,none,False,growth,43.4,Declined,25.0,Not Funded,Revenue Declined
+SYN_0935,Manufacturing,Western Cape,376830.0,3,23,14,9,0,0.74,6,True,True,True,3,postgraduate,True,established,57.4,Review,85.0,Not Funded,Revenue Declined
+SYN_0936,Healthcare,KwaZulu-Natal,2327785.0,13,69,67,2,0,0.89,6,True,True,True,5,postgraduate,False,established,90.1,Approved,90.0,Funded,Growing
+SYN_0937,Professional Services,Free State,32201.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,diploma,True,idea,32.1,Declined,20.0,Not Funded,Revenue Declined
+SYN_0938,Construction,Limpopo,57770.0,0,1,0,1,-1,-1.0,-1,False,True,False,1,postgraduate,False,idea,45.3,Declined,40.0,Not Funded,Dormant
+SYN_0939,Hospitality,Limpopo,391463.0,3,5,4,1,1,0.89,6,True,True,False,3,diploma,True,established,60.1,Review,75.0,Not Funded,Growing
+SYN_0940,Agriculture,Northern Cape,2982273.0,14,29,22,7,0,0.94,6,True,True,True,7,postgraduate,True,established,73.5,Review,90.0,Not Funded,Dormant
+SYN_0941,Agriculture,North West,32951.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.9,Declined,15.0,Not Funded,Closed
+SYN_0942,Professional Services,Mpumalanga,60264.0,1,2,1,1,-1,-1.0,-1,False,False,False,1,certificate,False,growth,27.5,Declined,25.0,Not Funded,Dormant
+SYN_0943,Hospitality,Free State,200304.0,1,22,20,2,1,0.83,6,True,True,True,11,postgraduate,True,established,65.9,Review,85.0,Funded,Acquired
+SYN_0944,Retail,Limpopo,650970.0,4,107,93,14,0,0.83,6,True,True,True,11,degree,False,established,71.1,Review,90.0,Not Funded,Dormant
+SYN_0945,Hospitality,KwaZulu-Natal,6803.0,0,0,0,0,-1,-1.0,-1,False,False,False,2,postgraduate,True,idea,37.2,Declined,20.0,Not Funded,Dormant
+SYN_0946,Technology,Eastern Cape,115178.0,0,4,3,1,-1,-1.0,-1,True,False,False,6,matric,False,startup,40.2,Declined,35.0,Not Funded,Revenue Declined
+SYN_0947,Logistics,Eastern Cape,237532.0,2,12,7,5,0,0.79,6,True,True,True,2,degree,True,growth,53.4,Review,85.0,Not Funded,Growing
+SYN_0948,Retail,KwaZulu-Natal,1111571.0,13,135,101,34,0,0.97,6,True,True,True,12,degree,True,established,74.7,Review,90.0,Funded,Growing
+SYN_0949,Logistics,Gauteng,14519.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,degree,False,idea,39.9,Declined,25.0,Not Funded,Closed
+SYN_0950,Technology,Western Cape,21706.0,1,4,1,3,-1,-1.0,-1,True,False,False,8,matric,True,growth,43.8,Declined,40.0,Not Funded,Dormant
+SYN_0951,Retail,Mpumalanga,264130.0,3,5,4,1,1,0.82,6,True,True,True,3,postgraduate,False,established,58.6,Review,85.0,Funded,Growing
+SYN_0952,Hospitality,North West,1618240.0,7,30,26,4,1,0.9,6,True,True,True,11,diploma,True,established,74.4,Review,85.0,Not Funded,Dormant
+SYN_0953,Retail,KwaZulu-Natal,11278.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,23.6,Declined,15.0,Not Funded,Revenue Declined
+SYN_0954,Education,Northern Cape,108785.0,0,1,0,1,-1,-1.0,-1,True,True,False,-1,none,False,startup,34.6,Declined,45.0,Not Funded,Closed
+SYN_0955,Agriculture,Eastern Cape,341364.0,3,14,11,3,0,0.83,6,True,True,False,5,degree,True,established,62.6,Review,75.0,Not Funded,Dormant
+SYN_0956,Logistics,KwaZulu-Natal,670965.0,13,33,32,1,1,0.84,6,True,True,True,17,degree,False,established,87.2,Approved,85.0,Funded,Growing
+SYN_0957,Logistics,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,matric,False,idea,23.3,Declined,25.0,Not Funded,Closed
+SYN_0958,Education,North West,56881.0,0,3,3,0,-1,-1.0,-1,True,False,False,8,degree,True,startup,51.4,Review,40.0,Funded,Growing
+SYN_0959,Retail,Eastern Cape,147413.0,3,22,17,5,2,0.77,6,True,True,False,4,degree,False,established,49.8,Declined,75.0,Not Funded,Revenue Declined
+SYN_0960,Hospitality,Western Cape,1421208.0,14,24,23,1,1,0.99,6,True,True,True,19,degree,True,established,88.6,Approved,90.0,Funded,Growing
+SYN_0961,Construction,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,certificate,False,idea,25.8,Declined,25.0,Funded,Growing
+SYN_0962,Technology,Gauteng,46910.0,1,4,4,0,-1,-1.0,-1,True,False,False,2,postgraduate,False,growth,60.0,Review,40.0,Not Funded,Revenue Declined
+SYN_0963,Hospitality,Eastern Cape,184974.0,3,19,12,7,2,0.89,6,True,True,False,8,postgraduate,True,established,45.0,Declined,75.0,Not Funded,Closed
+SYN_0964,Agriculture,KwaZulu-Natal,2694280.0,15,114,96,18,1,0.8,6,True,True,True,10,postgraduate,False,established,74.0,Review,90.0,Funded,Growing
+SYN_0965,Logistics,Western Cape,14477.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,matric,True,idea,34.1,Declined,20.0,Not Funded,Revenue Declined
+SYN_0966,Professional Services,KwaZulu-Natal,55055.0,0,2,2,0,-1,-1.0,-1,True,True,False,5,matric,False,startup,50.4,Review,50.0,Funded,Defaulted
+SYN_0967,Education,Eastern Cape,167629.0,3,16,12,4,0,0.83,6,True,True,True,7,certificate,False,established,54.7,Review,85.0,Not Funded,Growing
+SYN_0968,Education,Gauteng,1255931.0,13,52,48,4,1,0.89,6,True,True,True,20,postgraduate,True,established,86.9,Approved,90.0,Funded,Revenue Doubled
+SYN_0969,Professional Services,Free State,2577.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,degree,False,idea,30.7,Declined,20.0,Not Funded,Closed
+SYN_0970,Professional Services,Gauteng,22223.0,0,0,0,0,2,0.79,3,True,True,False,-1,none,False,startup,40.7,Declined,55.0,Not Funded,Revenue Declined
+SYN_0971,Education,Mpumalanga,256834.0,3,22,15,7,0,0.93,6,True,True,True,3,diploma,True,established,50.3,Review,85.0,Funded,Revenue Declined
+SYN_0972,Retail,Mpumalanga,2747080.0,3,132,109,23,1,0.82,6,True,True,True,13,postgraduate,True,established,70.7,Review,90.0,Not Funded,Revenue Declined
+SYN_0973,Agriculture,Mpumalanga,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,3,diploma,True,idea,38.7,Declined,25.0,Not Funded,Closed
+SYN_0974,Healthcare,North West,61137.0,1,0,0,0,-1,-1.0,-1,True,False,False,8,diploma,False,startup,51.7,Review,40.0,Not Funded,Growing
+SYN_0975,Retail,Northern Cape,113731.0,2,9,8,1,0,0.9,6,True,True,True,3,postgraduate,True,growth,57.0,Review,85.0,Not Funded,Revenue Declined
+SYN_0976,Retail,Mpumalanga,1390403.0,7,113,100,13,0,0.99,6,True,True,True,17,diploma,False,established,74.2,Review,90.0,Funded,Growing
+SYN_0977,Education,Limpopo,33683.0,0,0,0,0,-1,-1.0,-1,False,False,False,0,matric,False,idea,19.3,Declined,20.0,Not Funded,Closed
+SYN_0978,Agriculture,Limpopo,49951.0,1,1,1,0,3,0.71,3,True,True,False,8,diploma,False,growth,53.4,Review,65.0,Not Funded,Growing
+SYN_0979,Manufacturing,Gauteng,166601.0,1,6,5,1,0,0.86,6,True,True,False,6,diploma,True,growth,58.6,Review,75.0,Funded,Growing
+SYN_0980,Retail,Western Cape,2970371.0,3,25,20,5,0,0.93,6,True,True,True,11,diploma,False,established,68.6,Review,90.0,Not Funded,Revenue Declined
+SYN_0981,Professional Services,Western Cape,9030.0,0,0,0,0,-1,-1.0,-1,False,False,False,5,matric,True,idea,38.9,Declined,20.0,Not Funded,Closed
+SYN_0982,Construction,Gauteng,21526.0,1,3,1,2,0,0.57,4,True,True,False,6,certificate,False,growth,39.7,Declined,70.0,Not Funded,Dormant
+SYN_0983,Technology,Mpumalanga,419988.0,3,16,14,2,2,0.73,6,True,True,True,8,degree,False,established,70.3,Review,85.0,Not Funded,Dormant
+SYN_0984,Construction,Gauteng,1709343.0,7,36,29,7,0,0.86,6,True,True,True,5,degree,False,established,73.8,Review,90.0,Funded,Growing
+SYN_0985,Technology,Free State,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,25.9,Declined,15.0,Not Funded,Closed
+SYN_0986,Agriculture,KwaZulu-Natal,50549.0,1,1,0,1,-1,-1.0,-1,True,False,False,4,certificate,False,growth,32.7,Declined,40.0,Not Funded,Dormant
+SYN_0987,Education,Northern Cape,341694.0,1,5,3,2,1,0.98,6,True,True,True,10,degree,False,growth,52.4,Review,85.0,Not Funded,Revenue Declined
+SYN_0988,Education,Western Cape,1236093.0,11,22,18,4,0,0.95,6,True,True,True,15,degree,True,established,75.9,Approved,90.0,Funded,Revenue Doubled
+SYN_0989,Manufacturing,North West,0.0,0,0,0,0,-1,-1.0,-1,False,False,False,4,degree,False,idea,26.0,Declined,20.0,Not Funded,Revenue Declined
+SYN_0990,Agriculture,Western Cape,34192.0,1,1,1,0,-1,-1.0,-1,True,False,False,4,matric,False,growth,56.2,Review,40.0,Not Funded,Dormant
+SYN_0991,Healthcare,Northern Cape,392451.0,2,21,15,6,0,0.92,6,True,True,True,5,postgraduate,True,established,67.4,Review,85.0,Not Funded,Revenue Declined
+SYN_0992,Agriculture,North West,816708.0,12,105,95,10,0,0.81,6,True,True,True,5,postgraduate,False,established,81.2,Approved,90.0,Funded,Revenue Doubled
+SYN_0993,Agriculture,North West,1618.0,0,0,0,0,-1,-1.0,-1,False,False,False,-1,none,False,idea,20.9,Declined,15.0,Funded,Revenue Declined
+SYN_0994,Healthcare,Free State,36496.0,1,3,0,3,2,0.86,4,True,True,False,5,none,False,growth,34.3,Declined,65.0,Not Funded,Revenue Declined
+SYN_0995,Agriculture,Gauteng,367452.0,3,20,16,4,2,0.88,6,True,True,True,3,certificate,False,established,63.9,Review,85.0,Funded,Revenue Declined
+SYN_0996,Education,Mpumalanga,2803018.0,4,129,120,9,0,0.97,6,True,True,True,17,diploma,False,established,77.2,Approved,85.0,Funded,Revenue Doubled
+SYN_0997,Hospitality,Limpopo,34429.0,0,0,0,0,-1,-1.0,-1,False,False,False,1,matric,True,idea,29.5,Declined,25.0,Not Funded,Dormant
+SYN_0998,Construction,Northern Cape,72080.0,1,1,0,1,3,0.83,3,True,True,False,7,none,True,growth,32.2,Declined,65.0,Funded,Revenue Declined
+SYN_0999,Hospitality,Western Cape,395801.0,2,13,11,2,2,0.87,6,True,True,False,3,postgraduate,True,growth,64.6,Review,75.0,Funded,Growing
+SYN_1000,Manufacturing,Western Cape,2565043.0,9,43,36,7,0,0.87,6,True,True,True,9,postgraduate,True,established,75.5,Approved,90.0,Funded,Acquired

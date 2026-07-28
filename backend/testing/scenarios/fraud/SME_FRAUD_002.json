@@ -1,0 +1,23 @@
+{
+  "id": "SME_FRAUD_002",
+  "name": "Negative Years Active",
+  "description": "Validation failure check: Negative Years Active",
+  "category": "fraud",
+  "is_valid_evidence": false,
+  "evidence": {
+    "revenue": 50000.0,
+    "years_active": -1,
+    "industry": "Technology",
+    "total_invoices": 10,
+    "paid_on_time": 8,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng",
+    "months_analysed": 6,
+    "income_regularity": 0.8,
+    "overdraft_count": 0
+  },
+  "expected": {}
+}

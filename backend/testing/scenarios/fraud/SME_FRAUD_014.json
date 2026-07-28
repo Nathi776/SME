@@ -1,0 +1,22 @@
+{
+  "id": "SME_FRAUD_014",
+  "name": "Impossible Revenue",
+  "description": "R1 billion revenue but active for 0 years and no invoices.",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1000000000.0,
+    "years_active": 0,
+    "industry": "Retail",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {}
+  },
+  "expected": {
+    "profile": "idea",
+    "warnings_contain": [
+      "Unusually high revenue"
+    ]
+  }
+}

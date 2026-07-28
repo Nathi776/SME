@@ -1,0 +1,23 @@
+{
+  "id": "SME_FRAUD_004",
+  "name": "Negative Paid Invoices",
+  "description": "Validation failure check: Negative Paid Invoices",
+  "category": "fraud",
+  "is_valid_evidence": false,
+  "evidence": {
+    "revenue": 50000.0,
+    "years_active": 2,
+    "industry": "Technology",
+    "total_invoices": 10,
+    "paid_on_time": -1,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng",
+    "months_analysed": 6,
+    "income_regularity": 0.8,
+    "overdraft_count": 0
+  },
+  "expected": {}
+}

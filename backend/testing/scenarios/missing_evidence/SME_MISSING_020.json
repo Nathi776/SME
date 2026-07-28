@@ -1,0 +1,34 @@
+{
+  "id": "SME_MISSING_020",
+  "name": "Partial Evidence 16",
+  "description": "Permutation 20: CIPC=True, Founder=True, Bank=False, Invoices=True",
+  "category": "missing_evidence",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 100000.0,
+    "years_active": 1,
+    "industry": "Retail",
+    "total_invoices": 8,
+    "paid_on_time": 7,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "months_analysed": null,
+    "income_regularity": null,
+    "overdraft_count": null,
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": false
+    }
+  },
+  "expected": {
+    "score_range": [
+      5.0,
+      95.0
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "SME_FRAUD_013",
+  "name": "Contradictory Founder",
+  "description": "10 years business age but founder has 0 years experience.",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 100000.0,
+    "years_active": 10,
+    "industry": "Retail",
+    "total_invoices": 5,
+    "paid_on_time": 5,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "founder": {
+      "years_industry_experience": 0,
+      "highest_qualification": "matric"
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      15.0,
+      60.0
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "SME_FRAUD_016",
+  "name": "Impossible Age",
+  "description": "Business age is 120 years.",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 50000.0,
+    "years_active": 120,
+    "industry": "Retail",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {}
+  },
+  "expected": {
+    "profile": "established",
+    "warnings_contain": [
+      "Unusually high business age"
+    ]
+  }
+}

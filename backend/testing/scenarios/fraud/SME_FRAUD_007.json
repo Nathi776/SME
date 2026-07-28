@@ -1,0 +1,23 @@
+{
+  "id": "SME_FRAUD_007",
+  "name": "Unpaid exceeds total",
+  "description": "Validation failure check: Unpaid exceeds total",
+  "category": "fraud",
+  "is_valid_evidence": false,
+  "evidence": {
+    "revenue": 50000.0,
+    "years_active": 2,
+    "industry": "Technology",
+    "total_invoices": 5,
+    "paid_on_time": 8,
+    "unpaid_invoices": 6,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng",
+    "months_analysed": 6,
+    "income_regularity": 0.8,
+    "overdraft_count": 0
+  },
+  "expected": {}
+}

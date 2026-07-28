@@ -1,0 +1,27 @@
+{
+  "id": "SME_BOUNDARY_005",
+  "name": "Invoices 19",
+  "description": "Growth stage when age is 1 year and invoices are 19.",
+  "category": "boundary",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 150000.0,
+    "years_active": 1,
+    "industry": "Retail",
+    "total_invoices": 19,
+    "paid_on_time": 18,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng"
+  },
+  "expected": {
+    "profile": "growth",
+    "decision": "Declined",
+    "score_range": [
+      40.0,
+      75.0
+    ]
+  }
+}

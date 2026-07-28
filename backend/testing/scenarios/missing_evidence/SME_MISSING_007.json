@@ -1,0 +1,26 @@
+{
+  "id": "SME_MISSING_007",
+  "name": "Partial Evidence 3",
+  "description": "Permutation 7: CIPC=False, Founder=False, Bank=False, Invoices=True",
+  "category": "missing_evidence",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 100000.0,
+    "years_active": 1,
+    "industry": "Retail",
+    "total_invoices": 8,
+    "paid_on_time": 7,
+    "unpaid_invoices": 1,
+    "verifications": {},
+    "months_analysed": null,
+    "income_regularity": null,
+    "overdraft_count": null,
+    "founder": null
+  },
+  "expected": {
+    "score_range": [
+      5.0,
+      95.0
+    ]
+  }
+}

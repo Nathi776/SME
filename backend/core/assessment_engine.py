@@ -745,6 +745,10 @@ def assess(inp: EvidencePackage) -> AssessmentResult:
     # 4. Score Calculation
     breakdown, raw_score, applicable_max = ScoreCalculator.calculate(inp, strategy, profile_res.unavailable_factors)
 
+    # Guard against division by zero
+    if applicable_max == 0:
+        applicable_max = strategy.raw_max
+
     # 5. Confidence Calculation
     confidence = ConfidenceCalculator.calculate(inp)
 

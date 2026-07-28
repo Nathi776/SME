@@ -1,0 +1,3539 @@
+[
+  {
+    "id": "SME_IDEA_001",
+    "name": "Early Agriculture Concept",
+    "description": "An entrepreneur with an early-stage concept in the Agriculture sector based in Gauteng.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Agriculture",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_002",
+    "name": "Early Construction Concept",
+    "description": "An entrepreneur with an early-stage concept in the Construction sector based in Western Cape.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Construction",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Western Cape",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_003",
+    "name": "Early Retail Concept",
+    "description": "An entrepreneur with an early-stage concept in the Retail sector based in KwaZulu-Natal.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "KwaZulu-Natal",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_004",
+    "name": "Early Manufacturing Concept",
+    "description": "An entrepreneur with an early-stage concept in the Manufacturing sector based in Eastern Cape.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Manufacturing",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Eastern Cape",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_005",
+    "name": "Early Technology Concept",
+    "description": "An entrepreneur with an early-stage concept in the Technology sector based in Limpopo.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Limpopo",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_006",
+    "name": "Early Hospitality Concept",
+    "description": "An entrepreneur with an early-stage concept in the Hospitality sector based in Mpumalanga.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Hospitality",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Mpumalanga",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_007",
+    "name": "Early Logistics Concept",
+    "description": "An entrepreneur with an early-stage concept in the Logistics sector based in North West.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Logistics",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "North West",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_008",
+    "name": "Early Healthcare Concept",
+    "description": "An entrepreneur with an early-stage concept in the Healthcare sector based in Free State.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Healthcare",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Free State",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_009",
+    "name": "Early Education Concept",
+    "description": "An entrepreneur with an early-stage concept in the Education sector based in Northern Cape.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Education",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Northern Cape",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_IDEA_010",
+    "name": "Early Professional Services Concept",
+    "description": "An entrepreneur with an early-stage concept in the Professional Services sector based in Gauteng.",
+    "category": "idea",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Professional Services",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "intent_doc_details": {},
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 3,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "score_range": [
+        15.0,
+        50.0
+      ],
+      "confidence_range": [
+        15.0,
+        30.0
+      ],
+      "recommendations_contain": [
+        "CIPC",
+        "Bank Statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_001",
+    "name": "Registered Agriculture Startup",
+    "description": "A formally registered Agriculture startup in Western Cape with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Agriculture",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Western Cape",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Review",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_002",
+    "name": "Registered Construction Startup",
+    "description": "A formally registered Construction startup in KwaZulu-Natal with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Construction",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "KwaZulu-Natal",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_003",
+    "name": "Registered Retail Startup",
+    "description": "A formally registered Retail startup in Eastern Cape with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Eastern Cape",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_004",
+    "name": "Registered Manufacturing Startup",
+    "description": "A formally registered Manufacturing startup in Limpopo with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Manufacturing",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Limpopo",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_005",
+    "name": "Registered Technology Startup",
+    "description": "A formally registered Technology startup in Mpumalanga with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Mpumalanga",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Review",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_006",
+    "name": "Registered Hospitality Startup",
+    "description": "A formally registered Hospitality startup in North West with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Hospitality",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "North West",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_007",
+    "name": "Registered Logistics Startup",
+    "description": "A formally registered Logistics startup in Free State with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Logistics",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Free State",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_008",
+    "name": "Registered Healthcare Startup",
+    "description": "A formally registered Healthcare startup in Northern Cape with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Healthcare",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Northern Cape",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Review",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_009",
+    "name": "Registered Education Startup",
+    "description": "A formally registered Education startup in Gauteng with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Education",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Review",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_STARTUP_010",
+    "name": "Registered Professional Services Startup",
+    "description": "A formally registered Professional Services startup in Western Cape with CIPC verified.",
+    "category": "startup",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 45000.0,
+      "years_active": 0,
+      "industry": "Professional Services",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": null,
+      "income_regularity": null,
+      "months_analysed": null,
+      "province": "Western Cape",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": false,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Review",
+      "score_range": [
+        40.0,
+        75.0
+      ],
+      "confidence_range": [
+        30.0,
+        60.0
+      ],
+      "recommendations_contain": [
+        "bank",
+        "statement"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_001",
+    "name": "Growing Agriculture Enterprise",
+    "description": "An active Agriculture enterprise in KwaZulu-Natal with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Agriculture",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "KwaZulu-Natal",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_002",
+    "name": "Growing Construction Enterprise",
+    "description": "An active Construction enterprise in Eastern Cape with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Construction",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "Eastern Cape",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_003",
+    "name": "Growing Retail Enterprise",
+    "description": "An active Retail enterprise in Limpopo with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "Limpopo",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_004",
+    "name": "Growing Manufacturing Enterprise",
+    "description": "An active Manufacturing enterprise in Mpumalanga with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Manufacturing",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "Mpumalanga",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_005",
+    "name": "Growing Technology Enterprise",
+    "description": "An active Technology enterprise in North West with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Technology",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "North West",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_006",
+    "name": "Growing Hospitality Enterprise",
+    "description": "An active Hospitality enterprise in Free State with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Hospitality",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "Free State",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_007",
+    "name": "Growing Logistics Enterprise",
+    "description": "An active Logistics enterprise in Northern Cape with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Logistics",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "Northern Cape",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_008",
+    "name": "Growing Healthcare Enterprise",
+    "description": "An active Healthcare enterprise in Gauteng with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Healthcare",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_009",
+    "name": "Growing Education Enterprise",
+    "description": "An active Education enterprise in Western Cape with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Education",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "Western Cape",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_GROWTH_010",
+    "name": "Growing Professional Services Enterprise",
+    "description": "An active Professional Services enterprise in KwaZulu-Natal with 1.5 years of experience, trading invoices.",
+    "category": "growth",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 180000.0,
+      "years_active": 1,
+      "industry": "Professional Services",
+      "total_invoices": 12,
+      "paid_on_time": 10,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "intent_doc_details": {},
+      "overdraft_count": 0,
+      "income_regularity": 0.85,
+      "months_analysed": 6,
+      "province": "KwaZulu-Natal",
+      "founder": {
+        "years_industry_experience": 7,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Review",
+      "score_range": [
+        50.0,
+        75.0
+      ],
+      "confidence_range": [
+        65.0,
+        95.0
+      ],
+      "recommendations_contain": [
+        "SARS",
+        "unpaid"
+      ]
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_001",
+    "name": "Established Agriculture Corporate",
+    "description": "A long-standing Agriculture company in Eastern Cape with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Agriculture",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "Eastern Cape",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_002",
+    "name": "Established Construction Corporate",
+    "description": "A long-standing Construction company in Limpopo with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Construction",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "Limpopo",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_003",
+    "name": "Established Retail Corporate",
+    "description": "A long-standing Retail company in Mpumalanga with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Retail",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "Mpumalanga",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_004",
+    "name": "Established Manufacturing Corporate",
+    "description": "A long-standing Manufacturing company in North West with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Manufacturing",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "North West",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_005",
+    "name": "Established Technology Corporate",
+    "description": "A long-standing Technology company in Free State with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Technology",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "Free State",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_006",
+    "name": "Established Hospitality Corporate",
+    "description": "A long-standing Hospitality company in Northern Cape with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Hospitality",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "Northern Cape",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_007",
+    "name": "Established Logistics Corporate",
+    "description": "A long-standing Logistics company in Gauteng with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Logistics",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_008",
+    "name": "Established Healthcare Corporate",
+    "description": "A long-standing Healthcare company in Western Cape with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Healthcare",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "Western Cape",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_009",
+    "name": "Established Education Corporate",
+    "description": "A long-standing Education company in KwaZulu-Natal with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Education",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "KwaZulu-Natal",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_ESTABLISHED_010",
+    "name": "Established Professional Services Corporate",
+    "description": "A long-standing Professional Services company in Eastern Cape with robust compliance and history.",
+    "category": "established",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 650000.0,
+      "years_active": 5,
+      "industry": "Professional Services",
+      "total_invoices": 45,
+      "paid_on_time": 42,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved",
+        "tax_clearance": "approved",
+        "registration_docs": "approved"
+      },
+      "intent_doc_details": {
+        "letter_of_intent": {
+          "status": "approved",
+          "loi_counterparty_known": true
+        }
+      },
+      "overdraft_count": 0,
+      "income_regularity": 0.95,
+      "months_analysed": 6,
+      "province": "Eastern Cape",
+      "founder": {
+        "years_industry_experience": 12,
+        "highest_qualification": "postgraduate",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Approved",
+      "score_range": [
+        80.0,
+        100.0
+      ],
+      "confidence_range": [
+        90.0,
+        100.0
+      ],
+      "recommendations_contain": []
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_001",
+    "name": "Age 0.99 Years active",
+    "description": "Startup stage because age is slightly below 1 year, even with invoices.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 5,
+      "paid_on_time": 5,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "startup",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        60.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_002",
+    "name": "Age 1.0 Years active with invoices",
+    "description": "Transitions to Growth because age is exactly 1 and there are invoices.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 1,
+      "industry": "Technology",
+      "total_invoices": 5,
+      "paid_on_time": 5,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        65.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_003",
+    "name": "Age 2.99 Years",
+    "description": "Growth stage because age is slightly below 3 years.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 150000.0,
+      "years_active": 2,
+      "industry": "Retail",
+      "total_invoices": 10,
+      "paid_on_time": 9,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        70.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_004",
+    "name": "Age 3.0 Years",
+    "description": "Established stage because age is exactly 3 years.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 150000.0,
+      "years_active": 3,
+      "industry": "Retail",
+      "total_invoices": 10,
+      "paid_on_time": 9,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Review",
+      "score_range": [
+        40.0,
+        75.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_005",
+    "name": "Invoices 19",
+    "description": "Growth stage when age is 1 year and invoices are 19.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 150000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 19,
+      "paid_on_time": 18,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "decision": "Declined",
+      "score_range": [
+        40.0,
+        75.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_006",
+    "name": "Invoices 20",
+    "description": "Established stage because invoices are exactly 20, even if age is 1.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 150000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 20,
+      "paid_on_time": 19,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "established",
+      "decision": "Review",
+      "score_range": [
+        40.0,
+        75.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_007",
+    "name": "Revenue Boundary R0",
+    "description": "Testing the exact revenue threshold of R0 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_008",
+    "name": "Revenue Boundary R49,999",
+    "description": "Testing the exact revenue threshold of R49,999 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 49999.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_009",
+    "name": "Revenue Boundary R50,000",
+    "description": "Testing the exact revenue threshold of R50,000 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_010",
+    "name": "Revenue Boundary R99,999",
+    "description": "Testing the exact revenue threshold of R99,999 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 99999.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_011",
+    "name": "Revenue Boundary R100,000",
+    "description": "Testing the exact revenue threshold of R100,000 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_012",
+    "name": "Revenue Boundary R199,999",
+    "description": "Testing the exact revenue threshold of R199,999 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 199999.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_013",
+    "name": "Revenue Boundary R200,000",
+    "description": "Testing the exact revenue threshold of R200,000 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 200000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_014",
+    "name": "Revenue Boundary R499,999",
+    "description": "Testing the exact revenue threshold of R499,999 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 499999.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_015",
+    "name": "Revenue Boundary R500,000",
+    "description": "Testing the exact revenue threshold of R500,000 under Growth stage.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 500000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng"
+    },
+    "expected": {
+      "profile": "growth",
+      "score_range": [
+        10.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_016",
+    "name": "Founder Experience 0 years",
+    "description": "Idea stage with founder years experience exactly 0.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 0,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "score_range": [
+        15.0,
+        60.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_017",
+    "name": "Founder Experience 1 years",
+    "description": "Idea stage with founder years experience exactly 1.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 1,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "score_range": [
+        15.0,
+        60.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_018",
+    "name": "Founder Experience 2 years",
+    "description": "Idea stage with founder years experience exactly 2.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 2,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "score_range": [
+        15.0,
+        60.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_019",
+    "name": "Founder Experience 5 years",
+    "description": "Idea stage with founder years experience exactly 5.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "score_range": [
+        15.0,
+        60.0
+      ]
+    }
+  },
+  {
+    "id": "SME_BOUNDARY_020",
+    "name": "Founder Experience 60 years",
+    "description": "Idea stage with founder years experience exactly 60.",
+    "category": "boundary",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "province": "Gauteng",
+      "founder": {
+        "years_industry_experience": 60,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "score_range": [
+        15.0,
+        60.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_001",
+    "name": "Founder Profile Only",
+    "description": "Only founder profile completed. All other evidence fields are zero/missing.",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Technology",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "founder": {
+        "years_industry_experience": 5,
+        "highest_qualification": "degree",
+        "prior_business_owner": true,
+        "trade_association_member": true,
+        "reference_provided": true
+      }
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "confidence_range": [
+        15.0,
+        25.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_002",
+    "name": "Bank Statement Only",
+    "description": "Only bank statement parsed, no founder, no CIPC, no invoices.",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 85000.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "months_analysed": 6,
+      "income_regularity": 0.9,
+      "overdraft_count": 0
+    },
+    "expected": {
+      "profile": "startup",
+      "confidence_range": [
+        30.0,
+        50.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_003",
+    "name": "Invoices Only",
+    "description": "Only invoices uploaded. No CIPC, no founder, no bank statement, no years active.",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 10,
+      "paid_on_time": 10,
+      "unpaid_invoices": 0,
+      "verifications": {}
+    },
+    "expected": {
+      "profile": "idea",
+      "confidence_range": [
+        5.0,
+        20.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_004",
+    "name": "Completely Blank Profile",
+    "description": "No evidence whatsoever has been provided.",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Other",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {}
+    },
+    "expected": {
+      "profile": "idea",
+      "decision": "Declined",
+      "confidence_range": [
+        5.0,
+        15.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_005",
+    "name": "Partial Evidence 1",
+    "description": "Permutation 5: CIPC=False, Founder=True, Bank=False, Invoices=True",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 8,
+      "paid_on_time": 7,
+      "unpaid_invoices": 1,
+      "verifications": {},
+      "months_analysed": null,
+      "income_regularity": null,
+      "overdraft_count": null,
+      "founder": {
+        "years_industry_experience": 4,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_006",
+    "name": "Partial Evidence 2",
+    "description": "Permutation 6: CIPC=True, Founder=False, Bank=False, Invoices=True",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 8,
+      "paid_on_time": 7,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "months_analysed": null,
+      "income_regularity": null,
+      "overdraft_count": null,
+      "founder": null
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_007",
+    "name": "Partial Evidence 3",
+    "description": "Permutation 7: CIPC=False, Founder=False, Bank=False, Invoices=True",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 8,
+      "paid_on_time": 7,
+      "unpaid_invoices": 1,
+      "verifications": {},
+      "months_analysed": null,
+      "income_regularity": null,
+      "overdraft_count": null,
+      "founder": null
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_008",
+    "name": "Partial Evidence 4",
+    "description": "Permutation 8: CIPC=True, Founder=True, Bank=True, Invoices=False",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "months_analysed": 6,
+      "income_regularity": 0.85,
+      "overdraft_count": 0,
+      "founder": {
+        "years_industry_experience": 4,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_009",
+    "name": "Partial Evidence 5",
+    "description": "Permutation 9: CIPC=False, Founder=True, Bank=True, Invoices=False",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "bank_statement": "approved"
+      },
+      "months_analysed": 6,
+      "income_regularity": 0.85,
+      "overdraft_count": 0,
+      "founder": {
+        "years_industry_experience": 4,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_010",
+    "name": "Partial Evidence 6",
+    "description": "Permutation 10: CIPC=True, Founder=False, Bank=True, Invoices=False",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "months_analysed": 6,
+      "income_regularity": 0.85,
+      "overdraft_count": 0,
+      "founder": null
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_011",
+    "name": "Partial Evidence 7",
+    "description": "Permutation 11: CIPC=False, Founder=False, Bank=True, Invoices=False",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "bank_statement": "approved"
+      },
+      "months_analysed": 6,
+      "income_regularity": 0.85,
+      "overdraft_count": 0,
+      "founder": null
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_012",
+    "name": "Partial Evidence 8",
+    "description": "Permutation 12: CIPC=True, Founder=True, Bank=False, Invoices=False",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "months_analysed": null,
+      "income_regularity": null,
+      "overdraft_count": null,
+      "founder": {
+        "years_industry_experience": 4,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_013",
+    "name": "Partial Evidence 9",
+    "description": "Permutation 13: CIPC=False, Founder=True, Bank=False, Invoices=False",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "months_analysed": null,
+      "income_regularity": null,
+      "overdraft_count": null,
+      "founder": {
+        "years_industry_experience": 4,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_014",
+    "name": "Partial Evidence 10",
+    "description": "Permutation 14: CIPC=True, Founder=False, Bank=False, Invoices=False",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "months_analysed": null,
+      "income_regularity": null,
+      "overdraft_count": null,
+      "founder": null
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_015",
+    "name": "Partial Evidence 11",
+    "description": "Permutation 15: CIPC=False, Founder=False, Bank=False, Invoices=False",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 0.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "months_analysed": null,
+      "income_regularity": null,
+      "overdraft_count": null,
+      "founder": null
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_016",
+    "name": "Partial Evidence 12",
+    "description": "Permutation 16: CIPC=True, Founder=True, Bank=True, Invoices=True",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 8,
+      "paid_on_time": 7,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "months_analysed": 6,
+      "income_regularity": 0.85,
+      "overdraft_count": 0,
+      "founder": {
+        "years_industry_experience": 4,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_017",
+    "name": "Partial Evidence 13",
+    "description": "Permutation 17: CIPC=False, Founder=True, Bank=True, Invoices=True",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 8,
+      "paid_on_time": 7,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "bank_statement": "approved"
+      },
+      "months_analysed": 6,
+      "income_regularity": 0.85,
+      "overdraft_count": 0,
+      "founder": {
+        "years_industry_experience": 4,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_018",
+    "name": "Partial Evidence 14",
+    "description": "Permutation 18: CIPC=True, Founder=False, Bank=True, Invoices=True",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 8,
+      "paid_on_time": 7,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved",
+        "bank_statement": "approved"
+      },
+      "months_analysed": 6,
+      "income_regularity": 0.85,
+      "overdraft_count": 0,
+      "founder": null
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_019",
+    "name": "Partial Evidence 15",
+    "description": "Permutation 19: CIPC=False, Founder=False, Bank=True, Invoices=True",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 8,
+      "paid_on_time": 7,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "bank_statement": "approved"
+      },
+      "months_analysed": 6,
+      "income_regularity": 0.85,
+      "overdraft_count": 0,
+      "founder": null
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_MISSING_020",
+    "name": "Partial Evidence 16",
+    "description": "Permutation 20: CIPC=True, Founder=True, Bank=False, Invoices=True",
+    "category": "missing_evidence",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 1,
+      "industry": "Retail",
+      "total_invoices": 8,
+      "paid_on_time": 7,
+      "unpaid_invoices": 1,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "months_analysed": null,
+      "income_regularity": null,
+      "overdraft_count": null,
+      "founder": {
+        "years_industry_experience": 4,
+        "highest_qualification": "diploma",
+        "prior_business_owner": false,
+        "trade_association_member": false,
+        "reference_provided": false
+      }
+    },
+    "expected": {
+      "score_range": [
+        5.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_FRAUD_001",
+    "name": "Negative Revenue",
+    "description": "Validation failure check: Negative Revenue",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": -100.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 8,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_002",
+    "name": "Negative Years Active",
+    "description": "Validation failure check: Negative Years Active",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": -1,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 8,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_003",
+    "name": "Negative Invoices",
+    "description": "Validation failure check: Negative Invoices",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": -5,
+      "paid_on_time": 8,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_004",
+    "name": "Negative Paid Invoices",
+    "description": "Validation failure check: Negative Paid Invoices",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": -1,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_005",
+    "name": "Negative Unpaid Invoices",
+    "description": "Validation failure check: Negative Unpaid Invoices",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 8,
+      "unpaid_invoices": -1,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_006",
+    "name": "Paid exceeds total",
+    "description": "Validation failure check: Paid exceeds total",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 5,
+      "paid_on_time": 6,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_007",
+    "name": "Unpaid exceeds total",
+    "description": "Validation failure check: Unpaid exceeds total",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 5,
+      "paid_on_time": 8,
+      "unpaid_invoices": 6,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_008",
+    "name": "Sum of paid/unpaid exceeds total",
+    "description": "Validation failure check: Sum of paid/unpaid exceeds total",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 6,
+      "unpaid_invoices": 5,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_009",
+    "name": "Negative months analyzed",
+    "description": "Validation failure check: Negative months analyzed",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 8,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": -3,
+      "income_regularity": 0.8,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_010",
+    "name": "Negative overdraft",
+    "description": "Validation failure check: Negative overdraft",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 8,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 0.8,
+      "overdraft_count": -1
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_011",
+    "name": "Regularity too high",
+    "description": "Validation failure check: Regularity too high",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 8,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": 1.1,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_012",
+    "name": "Regularity too low",
+    "description": "Validation failure check: Regularity too low",
+    "category": "fraud",
+    "is_valid_evidence": false,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 2,
+      "industry": "Technology",
+      "total_invoices": 10,
+      "paid_on_time": 8,
+      "unpaid_invoices": 2,
+      "verifications": {
+        "cipc": "approved"
+      },
+      "province": "Gauteng",
+      "months_analysed": 6,
+      "income_regularity": -0.1,
+      "overdraft_count": 0
+    },
+    "expected": {}
+  },
+  {
+    "id": "SME_FRAUD_013",
+    "name": "Contradictory Founder",
+    "description": "10 years business age but founder has 0 years experience.",
+    "category": "fraud",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 100000.0,
+      "years_active": 10,
+      "industry": "Retail",
+      "total_invoices": 5,
+      "paid_on_time": 5,
+      "unpaid_invoices": 0,
+      "verifications": {},
+      "founder": {
+        "years_industry_experience": 0,
+        "highest_qualification": "matric"
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "score_range": [
+        15.0,
+        60.0
+      ]
+    }
+  },
+  {
+    "id": "SME_FRAUD_014",
+    "name": "Impossible Revenue",
+    "description": "R1 billion revenue but active for 0 years and no invoices.",
+    "category": "fraud",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 1000000000.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {}
+    },
+    "expected": {
+      "profile": "idea",
+      "warnings_contain": [
+        "Unusually high revenue"
+      ]
+    }
+  },
+  {
+    "id": "SME_FRAUD_015",
+    "name": "Impossible Invoices",
+    "description": "3 months active (Startup) but 400 invoices.",
+    "category": "fraud",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 200000.0,
+      "years_active": 0,
+      "industry": "Retail",
+      "total_invoices": 400,
+      "paid_on_time": 390,
+      "unpaid_invoices": 10,
+      "verifications": {
+        "cipc": "approved"
+      }
+    },
+    "expected": {
+      "profile": "established",
+      "score_range": [
+        50.0,
+        95.0
+      ]
+    }
+  },
+  {
+    "id": "SME_FRAUD_016",
+    "name": "Impossible Age",
+    "description": "Business age is 120 years.",
+    "category": "fraud",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 50000.0,
+      "years_active": 120,
+      "industry": "Retail",
+      "total_invoices": 0,
+      "paid_on_time": 0,
+      "unpaid_invoices": 0,
+      "verifications": {}
+    },
+    "expected": {
+      "profile": "established",
+      "warnings_contain": [
+        "Unusually high business age"
+      ]
+    }
+  },
+  {
+    "id": "SME_FRAUD_017",
+    "name": "Fraud Permutation 1",
+    "description": "Contradictory revenue/invoice ratio 1",
+    "category": "fraud",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 250000000.0,
+      "years_active": 1,
+      "industry": "Manufacturing",
+      "total_invoices": 1,
+      "paid_on_time": 0,
+      "unpaid_invoices": 1,
+      "verifications": {}
+    },
+    "expected": {
+      "profile": "growth",
+      "warnings_contain": [
+        "Unusually high revenue"
+      ]
+    }
+  },
+  {
+    "id": "SME_FRAUD_018",
+    "name": "Fraud Permutation 2",
+    "description": "Contradictory revenue/invoice ratio 2",
+    "category": "fraud",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 250000000.0,
+      "years_active": 1,
+      "industry": "Manufacturing",
+      "total_invoices": 1,
+      "paid_on_time": 0,
+      "unpaid_invoices": 1,
+      "verifications": {}
+    },
+    "expected": {
+      "profile": "growth",
+      "warnings_contain": [
+        "Unusually high revenue"
+      ]
+    }
+  },
+  {
+    "id": "SME_FRAUD_019",
+    "name": "Fraud Permutation 3",
+    "description": "Contradictory revenue/invoice ratio 3",
+    "category": "fraud",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 250000000.0,
+      "years_active": 1,
+      "industry": "Manufacturing",
+      "total_invoices": 1,
+      "paid_on_time": 0,
+      "unpaid_invoices": 1,
+      "verifications": {}
+    },
+    "expected": {
+      "profile": "growth",
+      "warnings_contain": [
+        "Unusually high revenue"
+      ]
+    }
+  },
+  {
+    "id": "SME_FRAUD_020",
+    "name": "Fraud Permutation 4",
+    "description": "Contradictory revenue/invoice ratio 4",
+    "category": "fraud",
+    "is_valid_evidence": true,
+    "evidence": {
+      "revenue": 250000000.0,
+      "years_active": 1,
+      "industry": "Manufacturing",
+      "total_invoices": 1,
+      "paid_on_time": 0,
+      "unpaid_invoices": 1,
+      "verifications": {}
+    },
+    "expected": {
+      "profile": "growth",
+      "warnings_contain": [
+        "Unusually high revenue"
+      ]
+    }
+  }
+]

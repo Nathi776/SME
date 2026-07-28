@@ -1,0 +1,27 @@
+{
+  "id": "SME_BOUNDARY_002",
+  "name": "Age 1.0 Years active with invoices",
+  "description": "Transitions to Growth because age is exactly 1 and there are invoices.",
+  "category": "boundary",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 50000.0,
+    "years_active": 1,
+    "industry": "Technology",
+    "total_invoices": 5,
+    "paid_on_time": 5,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng"
+  },
+  "expected": {
+    "profile": "growth",
+    "decision": "Declined",
+    "score_range": [
+      40.0,
+      65.0
+    ]
+  }
+}

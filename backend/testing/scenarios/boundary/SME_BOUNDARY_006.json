@@ -1,0 +1,27 @@
+{
+  "id": "SME_BOUNDARY_006",
+  "name": "Invoices 20",
+  "description": "Established stage because invoices are exactly 20, even if age is 1.",
+  "category": "boundary",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 150000.0,
+    "years_active": 1,
+    "industry": "Retail",
+    "total_invoices": 20,
+    "paid_on_time": 19,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng"
+  },
+  "expected": {
+    "profile": "established",
+    "decision": "Review",
+    "score_range": [
+      40.0,
+      75.0
+    ]
+  }
+}

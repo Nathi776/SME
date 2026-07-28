@@ -1,0 +1,22 @@
+{
+  "id": "SME_FRAUD_018",
+  "name": "Fraud Permutation 2",
+  "description": "Contradictory revenue/invoice ratio 2",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 250000000.0,
+    "years_active": 1,
+    "industry": "Manufacturing",
+    "total_invoices": 1,
+    "paid_on_time": 0,
+    "unpaid_invoices": 1,
+    "verifications": {}
+  },
+  "expected": {
+    "profile": "growth",
+    "warnings_contain": [
+      "Unusually high revenue"
+    ]
+  }
+}

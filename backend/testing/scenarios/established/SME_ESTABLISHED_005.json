@@ -1,0 +1,51 @@
+{
+  "id": "SME_ESTABLISHED_005",
+  "name": "Established Technology Corporate",
+  "description": "A long-standing Technology company in Free State with robust compliance and history.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 650000.0,
+    "years_active": 5,
+    "industry": "Technology",
+    "total_invoices": 45,
+    "paid_on_time": 42,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {
+      "letter_of_intent": {
+        "status": "approved",
+        "loi_counterparty_known": true
+      }
+    },
+    "overdraft_count": 0,
+    "income_regularity": 0.95,
+    "months_analysed": 6,
+    "province": "Free State",
+    "founder": {
+      "years_industry_experience": 12,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "decision": "Approved",
+    "score_range": [
+      80.0,
+      100.0
+    ],
+    "confidence_range": [
+      90.0,
+      100.0
+    ],
+    "recommendations_contain": []
+  }
+}

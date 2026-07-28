@@ -1,0 +1,31 @@
+{
+  "id": "SME_BOUNDARY_020",
+  "name": "Founder Experience 60 years",
+  "description": "Idea stage with founder years experience exactly 60.",
+  "category": "boundary",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 0.0,
+    "years_active": 0,
+    "industry": "Technology",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 60,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": false
+    }
+  },
+  "expected": {
+    "profile": "idea",
+    "score_range": [
+      15.0,
+      60.0
+    ]
+  }
+}

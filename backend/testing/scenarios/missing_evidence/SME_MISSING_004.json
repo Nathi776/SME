@@ -1,0 +1,24 @@
+{
+  "id": "SME_MISSING_004",
+  "name": "Completely Blank Profile",
+  "description": "No evidence whatsoever has been provided.",
+  "category": "missing_evidence",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 0.0,
+    "years_active": 0,
+    "industry": "Other",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {}
+  },
+  "expected": {
+    "profile": "idea",
+    "decision": "Declined",
+    "confidence_range": [
+      5.0,
+      15.0
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "SME_BOUNDARY_003",
+  "name": "Age 2.99 Years",
+  "description": "Growth stage because age is slightly below 3 years.",
+  "category": "boundary",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 150000.0,
+    "years_active": 2,
+    "industry": "Retail",
+    "total_invoices": 10,
+    "paid_on_time": 9,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng"
+  },
+  "expected": {
+    "profile": "growth",
+    "decision": "Declined",
+    "score_range": [
+      40.0,
+      70.0
+    ]
+  }
+}

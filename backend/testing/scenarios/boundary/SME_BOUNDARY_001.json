@@ -1,0 +1,27 @@
+{
+  "id": "SME_BOUNDARY_001",
+  "name": "Age 0.99 Years active",
+  "description": "Startup stage because age is slightly below 1 year, even with invoices.",
+  "category": "boundary",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 50000.0,
+    "years_active": 0,
+    "industry": "Technology",
+    "total_invoices": 5,
+    "paid_on_time": 5,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng"
+  },
+  "expected": {
+    "profile": "startup",
+    "decision": "Declined",
+    "score_range": [
+      40.0,
+      60.0
+    ]
+  }
+}

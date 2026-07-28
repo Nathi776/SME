@@ -1,0 +1,23 @@
+{
+  "id": "SME_MISSING_003",
+  "name": "Invoices Only",
+  "description": "Only invoices uploaded. No CIPC, no founder, no bank statement, no years active.",
+  "category": "missing_evidence",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 0.0,
+    "years_active": 0,
+    "industry": "Retail",
+    "total_invoices": 10,
+    "paid_on_time": 10,
+    "unpaid_invoices": 0,
+    "verifications": {}
+  },
+  "expected": {
+    "profile": "idea",
+    "confidence_range": [
+      5.0,
+      20.0
+    ]
+  }
+}

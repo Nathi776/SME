@@ -430,4 +430,33 @@ class TestAssessmentEngine:
         assert meta["inference_version"] == "v1"
         assert meta["strategy_version"] == "v1"
 
+    def test_zero_division_guard_when_all_factors_unavailable(self, monkeypatch):
+        from core.assessment_engine import ProfileInferenceService
+        
+        all_nine = {
+            "Revenue Tier", "Invoice Timeliness", "Business Age",
+            "Unpaid Invoice Ratio", "Industry Risk", "Market Viability",
+            "Compliance Documents", "Intent Documents", "Founder Signal"
+        }
+        
+        inp = EvidencePackage(
+            revenue=0, years_active=0, industry="Technology",
+            total_invoices=0, paid_on_time=0, unpaid_invoices=0,
+            verifications={}, province=None
+        )
+        
+        # Monkeypatch ProfileInferenceService.detect to return all 9 factors as unavailable
+        original_detect = ProfileInferenceService.detect
+        def mock_detect(package):
+            res = original_detect(package)
+            res.unavailable_factors = all_nine
+            return res
+            
+        monkeypatch.setattr(ProfileInferenceService, "detect", mock_detect)
+        
+        res = assess(inp)
+        assert res is not None
+        assert res.score == 0.0
+
+
 

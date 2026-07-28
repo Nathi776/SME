@@ -1,0 +1,26 @@
+{
+  "id": "SME_BOUNDARY_013",
+  "name": "Revenue Boundary R200,000",
+  "description": "Testing the exact revenue threshold of R200,000 under Growth stage.",
+  "category": "boundary",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 200000.0,
+    "years_active": 2,
+    "industry": "Technology",
+    "total_invoices": 10,
+    "paid_on_time": 10,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng"
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      10.0,
+      95.0
+    ]
+  }
+}
