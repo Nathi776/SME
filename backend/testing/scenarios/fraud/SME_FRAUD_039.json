@@ -1,0 +1,33 @@
+{
+  "id": "SME_FRAUD_039",
+  "name": "Impossible: Impossible Business Age",
+  "description": "Checking economic validation and warnings for Impossible Business Age.",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 100000.0,
+    "years_active": 150,
+    "industry": "Technology",
+    "total_invoices": 10,
+    "paid_on_time": 8,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng",
+    "months_analysed": 6,
+    "income_regularity": 0.8,
+    "overdraft_count": 0,
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "degree"
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      30.0,
+      80.0
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_083",
+  "name": "Established Retail Corp 83",
+  "description": "Long-standing Retail corporation in Western Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2057945.0,
+    "years_active": 14,
+    "industry": "Retail",
+    "total_invoices": 109,
+    "paid_on_time": 105,
+    "unpaid_invoices": 4,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.97,
+    "months_analysed": 6,
+    "province": "Western Cape",
+    "founder": {
+      "years_industry_experience": 7,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

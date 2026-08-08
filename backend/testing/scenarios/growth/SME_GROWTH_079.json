@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_079",
+  "name": "Growing Education Firm 79",
+  "description": "A trading Education SME in North West with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 123265.0,
+    "years_active": 2,
+    "industry": "Education",
+    "total_invoices": 10,
+    "paid_on_time": 7,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.93,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 8,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

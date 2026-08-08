@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_077",
+  "name": "Established Logistics Corp 77",
+  "description": "Long-standing Logistics corporation in Limpopo with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1399584.0,
+    "years_active": 13,
+    "industry": "Logistics",
+    "total_invoices": 115,
+    "paid_on_time": 110,
+    "unpaid_invoices": 5,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.96,
+    "months_analysed": 6,
+    "province": "Limpopo",
+    "founder": {
+      "years_industry_experience": 21,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

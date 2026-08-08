@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_058",
+  "name": "Established Healthcare Corp 58",
+  "description": "Long-standing Healthcare corporation in Eastern Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1324238.0,
+    "years_active": 8,
+    "industry": "Healthcare",
+    "total_invoices": 75,
+    "paid_on_time": 74,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.91,
+    "months_analysed": 6,
+    "province": "Eastern Cape",
+    "founder": {
+      "years_industry_experience": 22,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

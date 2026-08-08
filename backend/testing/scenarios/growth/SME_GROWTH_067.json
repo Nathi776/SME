@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_067",
+  "name": "Growing Logistics Firm 67",
+  "description": "A trading Logistics SME in Eastern Cape with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 111813.0,
+    "years_active": 2,
+    "industry": "Logistics",
+    "total_invoices": 5,
+    "paid_on_time": 4,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.69,
+    "months_analysed": 6,
+    "province": "Eastern Cape",
+    "founder": {
+      "years_industry_experience": 8,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

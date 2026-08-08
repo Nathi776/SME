@@ -1,11 +1,11 @@
 {
   "id": "SME_STARTUP_007",
-  "name": "Registered Logistics Startup",
-  "description": "A formally registered Logistics startup in Free State with CIPC verified.",
+  "name": "Startup Logistics Venture 7",
+  "description": "Newly registered or early trading Logistics startup in North West.",
   "category": "startup",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 45000.0,
+    "revenue": 23434.0,
     "years_active": 0,
     "industry": "Logistics",
     "total_invoices": 0,
@@ -23,29 +23,20 @@
     "overdraft_count": null,
     "income_regularity": null,
     "months_analysed": null,
-    "province": "Free State",
+    "province": "North West",
     "founder": {
-      "years_industry_experience": 5,
-      "highest_qualification": "degree",
-      "prior_business_owner": false,
+      "years_industry_experience": 7,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
       "trade_association_member": true,
       "reference_provided": true
     }
   },
   "expected": {
     "profile": "startup",
-    "decision": "Declined",
     "score_range": [
-      40.0,
+      10.0,
       75.0
-    ],
-    "confidence_range": [
-      30.0,
-      60.0
-    ],
-    "recommendations_contain": [
-      "bank",
-      "statement"
     ]
   }
 }

@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_047",
+  "name": "Established Logistics Corp 47",
+  "description": "Long-standing Logistics corporation in Western Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1279631.0,
+    "years_active": 6,
+    "industry": "Logistics",
+    "total_invoices": 93,
+    "paid_on_time": 90,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.81,
+    "months_analysed": 6,
+    "province": "Western Cape",
+    "founder": {
+      "years_industry_experience": 11,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

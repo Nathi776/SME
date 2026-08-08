@@ -1,47 +1,38 @@
 {
   "id": "SME_GROWTH_010",
-  "name": "Growing Professional Services Enterprise",
-  "description": "An active Professional Services enterprise in KwaZulu-Natal with 1.5 years of experience, trading invoices.",
+  "name": "Growing Professional Services Firm 10",
+  "description": "A trading Professional Services SME in Gauteng with 2 years operational history.",
   "category": "growth",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 180000.0,
-    "years_active": 1,
+    "revenue": 161714.0,
+    "years_active": 2,
     "industry": "Professional Services",
-    "total_invoices": 12,
-    "paid_on_time": 10,
+    "total_invoices": 8,
+    "paid_on_time": 7,
     "unpaid_invoices": 1,
     "verifications": {
       "cipc": "approved",
       "bank_statement": "approved"
     },
     "intent_doc_details": {},
-    "overdraft_count": 0,
-    "income_regularity": 0.85,
+    "overdraft_count": 1,
+    "income_regularity": 0.95,
     "months_analysed": 6,
-    "province": "KwaZulu-Natal",
+    "province": "Gauteng",
     "founder": {
-      "years_industry_experience": 7,
-      "highest_qualification": "degree",
-      "prior_business_owner": true,
-      "trade_association_member": true,
+      "years_industry_experience": 11,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": false,
+      "trade_association_member": false,
       "reference_provided": true
     }
   },
   "expected": {
     "profile": "growth",
-    "decision": "Review",
     "score_range": [
-      50.0,
-      75.0
-    ],
-    "confidence_range": [
-      65.0,
-      95.0
-    ],
-    "recommendations_contain": [
-      "SARS",
-      "unpaid"
+      30.0,
+      85.0
     ]
   }
 }

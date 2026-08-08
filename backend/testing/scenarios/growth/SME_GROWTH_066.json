@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_066",
+  "name": "Growing Hospitality Firm 66",
+  "description": "A trading Hospitality SME in KwaZulu-Natal with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 191449.0,
+    "years_active": 1,
+    "industry": "Hospitality",
+    "total_invoices": 19,
+    "paid_on_time": 19,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.7,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 7,
+      "highest_qualification": "matric",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

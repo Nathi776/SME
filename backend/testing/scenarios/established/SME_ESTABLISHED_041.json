@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_041",
+  "name": "Established Agriculture Corp 41",
+  "description": "Long-standing Agriculture corporation in Limpopo with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2612173.0,
+    "years_active": 10,
+    "industry": "Agriculture",
+    "total_invoices": 51,
+    "paid_on_time": 48,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.87,
+    "months_analysed": 6,
+    "province": "Limpopo",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

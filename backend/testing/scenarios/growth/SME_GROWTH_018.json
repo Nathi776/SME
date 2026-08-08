@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_018",
+  "name": "Growing Healthcare Firm 18",
+  "description": "A trading Healthcare SME in Northern Cape with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 129862.0,
+    "years_active": 1,
+    "industry": "Healthcare",
+    "total_invoices": 8,
+    "paid_on_time": 7,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 2,
+    "income_regularity": 0.78,
+    "months_analysed": 6,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 7,
+      "highest_qualification": "matric",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

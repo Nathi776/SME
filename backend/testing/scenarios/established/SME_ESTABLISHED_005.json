@@ -1,35 +1,30 @@
 {
   "id": "SME_ESTABLISHED_005",
-  "name": "Established Technology Corporate",
-  "description": "A long-standing Technology company in Free State with robust compliance and history.",
+  "name": "Established Technology Corp 5",
+  "description": "Long-standing Technology corporation in Limpopo with stable trading profile.",
   "category": "established",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 650000.0,
-    "years_active": 5,
+    "revenue": 2547576.0,
+    "years_active": 6,
     "industry": "Technology",
-    "total_invoices": 45,
-    "paid_on_time": 42,
-    "unpaid_invoices": 1,
+    "total_invoices": 60,
+    "paid_on_time": 60,
+    "unpaid_invoices": 0,
     "verifications": {
       "cipc": "approved",
       "bank_statement": "approved",
       "tax_clearance": "approved",
       "registration_docs": "approved"
     },
-    "intent_doc_details": {
-      "letter_of_intent": {
-        "status": "approved",
-        "loi_counterparty_known": true
-      }
-    },
+    "intent_doc_details": {},
     "overdraft_count": 0,
-    "income_regularity": 0.95,
+    "income_regularity": 0.84,
     "months_analysed": 6,
-    "province": "Free State",
+    "province": "Limpopo",
     "founder": {
-      "years_industry_experience": 12,
-      "highest_qualification": "postgraduate",
+      "years_industry_experience": 9,
+      "highest_qualification": "matric",
       "prior_business_owner": true,
       "trade_association_member": true,
       "reference_provided": true
@@ -37,15 +32,9 @@
   },
   "expected": {
     "profile": "established",
-    "decision": "Approved",
     "score_range": [
-      80.0,
+      50.0,
       100.0
-    ],
-    "confidence_range": [
-      90.0,
-      100.0
-    ],
-    "recommendations_contain": []
+    ]
   }
 }

@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_090",
+  "name": "Established Professional Services Corp 90",
+  "description": "Long-standing Professional Services corporation in Northern Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1205765.0,
+    "years_active": 11,
+    "industry": "Professional Services",
+    "total_invoices": 46,
+    "paid_on_time": 42,
+    "unpaid_invoices": 4,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.86,
+    "months_analysed": 6,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 14,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

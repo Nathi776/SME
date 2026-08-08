@@ -1,7 +1,7 @@
 {
   "id": "SME_FRAUD_004",
-  "name": "Negative Paid Invoices",
-  "description": "Validation failure check: Negative Paid Invoices",
+  "name": "Invalid Evidence: Negative Paid Invoices",
+  "description": "Validation should fail due to Negative Paid Invoices.",
   "category": "fraud",
   "is_valid_evidence": false,
   "evidence": {
@@ -9,7 +9,7 @@
     "years_active": 2,
     "industry": "Technology",
     "total_invoices": 10,
-    "paid_on_time": -1,
+    "paid_on_time": -3,
     "unpaid_invoices": 2,
     "verifications": {
       "cipc": "approved"

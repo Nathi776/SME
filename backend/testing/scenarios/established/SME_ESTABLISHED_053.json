@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_053",
+  "name": "Established Retail Corp 53",
+  "description": "Long-standing Retail corporation in Free State with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1678103.0,
+    "years_active": 9,
+    "industry": "Retail",
+    "total_invoices": 103,
+    "paid_on_time": 103,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.98,
+    "months_analysed": 6,
+    "province": "Free State",
+    "founder": {
+      "years_industry_experience": 17,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

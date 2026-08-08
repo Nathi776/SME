@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_060",
+  "name": "Growing Professional Services Firm 60",
+  "description": "A trading Professional Services SME in Mpumalanga with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 195909.0,
+    "years_active": 2,
+    "industry": "Professional Services",
+    "total_invoices": 12,
+    "paid_on_time": 9,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 2,
+    "income_regularity": 0.71,
+    "months_analysed": 6,
+    "province": "Mpumalanga",
+    "founder": {
+      "years_industry_experience": 13,
+      "highest_qualification": "matric",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

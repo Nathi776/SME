@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_021",
+  "name": "Established Agriculture Corp 21",
+  "description": "Long-standing Agriculture corporation in KwaZulu-Natal with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1129713.0,
+    "years_active": 13,
+    "industry": "Agriculture",
+    "total_invoices": 95,
+    "paid_on_time": 90,
+    "unpaid_invoices": 5,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.82,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_030",
+  "name": "Growing Professional Services Firm 30",
+  "description": "A trading Professional Services SME in KwaZulu-Natal with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 114308.0,
+    "years_active": 1,
+    "industry": "Professional Services",
+    "total_invoices": 9,
+    "paid_on_time": 6,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 2,
+    "income_regularity": 0.84,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 7,
+      "highest_qualification": "matric",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

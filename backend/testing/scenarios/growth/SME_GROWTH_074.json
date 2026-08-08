@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_074",
+  "name": "Growing Manufacturing Firm 74",
+  "description": "A trading Manufacturing SME in Western Cape with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 186849.0,
+    "years_active": 1,
+    "industry": "Manufacturing",
+    "total_invoices": 6,
+    "paid_on_time": 3,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.81,
+    "months_analysed": 6,
+    "province": "Western Cape",
+    "founder": {
+      "years_industry_experience": 3,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

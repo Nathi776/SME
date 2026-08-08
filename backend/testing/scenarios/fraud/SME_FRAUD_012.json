@@ -1,7 +1,7 @@
 {
   "id": "SME_FRAUD_012",
-  "name": "Regularity too low",
-  "description": "Validation failure check: Regularity too low",
+  "name": "Invalid Evidence: Regularity too low",
+  "description": "Validation should fail due to Regularity too low.",
   "category": "fraud",
   "is_valid_evidence": false,
   "evidence": {
@@ -16,7 +16,7 @@
     },
     "province": "Gauteng",
     "months_analysed": 6,
-    "income_regularity": -0.1,
+    "income_regularity": -0.05,
     "overdraft_count": 0
   },
   "expected": {}

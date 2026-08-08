@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_063",
+  "name": "Established Retail Corp 63",
+  "description": "Long-standing Retail corporation in Northern Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2979903.0,
+    "years_active": 8,
+    "industry": "Retail",
+    "total_invoices": 95,
+    "paid_on_time": 93,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.93,
+    "months_analysed": 6,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 7,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

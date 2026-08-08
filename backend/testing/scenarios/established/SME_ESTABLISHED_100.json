@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_100",
+  "name": "Established Professional Services Corp 100",
+  "description": "Long-standing Professional Services corporation in Gauteng with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1453500.0,
+    "years_active": 5,
+    "industry": "Professional Services",
+    "total_invoices": 28,
+    "paid_on_time": 27,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.87,
+    "months_analysed": 6,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 24,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

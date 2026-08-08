@@ -1,7 +1,7 @@
 {
   "id": "SME_IDEA_002",
-  "name": "Early Construction Concept",
-  "description": "An entrepreneur with an early-stage concept in the Construction sector based in Western Cape.",
+  "name": "Idea Construction Concept 2",
+  "description": "Early stage Construction concept in Western Cape.",
   "category": "idea",
   "is_valid_evidence": true,
   "evidence": {
@@ -18,8 +18,8 @@
     "months_analysed": null,
     "province": "Western Cape",
     "founder": {
-      "years_industry_experience": 3,
-      "highest_qualification": "diploma",
+      "years_industry_experience": 1,
+      "highest_qualification": "matric",
       "prior_business_owner": false,
       "trade_association_member": false,
       "reference_provided": false
@@ -29,16 +29,8 @@
     "profile": "idea",
     "decision": "Declined",
     "score_range": [
-      15.0,
+      5.0,
       50.0
-    ],
-    "confidence_range": [
-      15.0,
-      30.0
-    ],
-    "recommendations_contain": [
-      "CIPC",
-      "Bank Statement"
     ]
   }
 }

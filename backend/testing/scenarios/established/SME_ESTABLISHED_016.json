@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_016",
+  "name": "Established Hospitality Corp 16",
+  "description": "Long-standing Hospitality corporation in North West with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 716215.0,
+    "years_active": 12,
+    "industry": "Hospitality",
+    "total_invoices": 27,
+    "paid_on_time": 23,
+    "unpaid_invoices": 4,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.92,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 20,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

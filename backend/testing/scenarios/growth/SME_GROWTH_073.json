@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_073",
+  "name": "Growing Retail Firm 73",
+  "description": "A trading Retail SME in Gauteng with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 140623.0,
+    "years_active": 1,
+    "industry": "Retail",
+    "total_invoices": 7,
+    "paid_on_time": 6,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.86,
+    "months_analysed": 6,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 2,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

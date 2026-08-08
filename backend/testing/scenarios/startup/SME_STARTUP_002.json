@@ -1,51 +1,35 @@
 {
   "id": "SME_STARTUP_002",
-  "name": "Registered Construction Startup",
-  "description": "A formally registered Construction startup in KwaZulu-Natal with CIPC verified.",
+  "name": "Startup Construction Venture 2",
+  "description": "Newly registered or early trading Construction startup in Western Cape.",
   "category": "startup",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 45000.0,
+    "revenue": 13278.0,
     "years_active": 0,
     "industry": "Construction",
     "total_invoices": 0,
     "paid_on_time": 0,
     "unpaid_invoices": 0,
-    "verifications": {
-      "cipc": "approved"
-    },
-    "intent_doc_details": {
-      "letter_of_intent": {
-        "status": "approved",
-        "loi_counterparty_known": true
-      }
-    },
-    "overdraft_count": null,
-    "income_regularity": null,
-    "months_analysed": null,
-    "province": "KwaZulu-Natal",
+    "verifications": {},
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 3,
+    "province": "Western Cape",
     "founder": {
-      "years_industry_experience": 5,
-      "highest_qualification": "degree",
+      "years_industry_experience": 2,
+      "highest_qualification": "certificate",
       "prior_business_owner": false,
-      "trade_association_member": true,
+      "trade_association_member": false,
       "reference_provided": true
     }
   },
   "expected": {
     "profile": "startup",
-    "decision": "Declined",
     "score_range": [
-      40.0,
+      10.0,
       75.0
-    ],
-    "confidence_range": [
-      30.0,
-      60.0
-    ],
-    "recommendations_contain": [
-      "bank",
-      "statement"
     ]
   }
 }

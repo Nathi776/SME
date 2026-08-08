@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_013",
+  "name": "Established Retail Corp 13",
+  "description": "Long-standing Retail corporation in Eastern Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 657274.0,
+    "years_active": 15,
+    "industry": "Retail",
+    "total_invoices": 92,
+    "paid_on_time": 90,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.82,
+    "months_analysed": 6,
+    "province": "Eastern Cape",
+    "founder": {
+      "years_industry_experience": 17,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

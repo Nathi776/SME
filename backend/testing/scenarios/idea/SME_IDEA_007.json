@@ -1,7 +1,7 @@
 {
   "id": "SME_IDEA_007",
-  "name": "Early Logistics Concept",
-  "description": "An entrepreneur with an early-stage concept in the Logistics sector based in North West.",
+  "name": "Idea Logistics Concept 7",
+  "description": "Early stage Logistics concept in North West.",
   "category": "idea",
   "is_valid_evidence": true,
   "evidence": {
@@ -18,10 +18,10 @@
     "months_analysed": null,
     "province": "North West",
     "founder": {
-      "years_industry_experience": 3,
-      "highest_qualification": "diploma",
-      "prior_business_owner": false,
-      "trade_association_member": false,
+      "years_industry_experience": 6,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": true,
       "reference_provided": false
     }
   },
@@ -29,16 +29,8 @@
     "profile": "idea",
     "decision": "Declined",
     "score_range": [
-      15.0,
+      5.0,
       50.0
-    ],
-    "confidence_range": [
-      15.0,
-      30.0
-    ],
-    "recommendations_contain": [
-      "CIPC",
-      "Bank Statement"
     ]
   }
 }

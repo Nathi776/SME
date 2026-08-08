@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_043",
+  "name": "Established Retail Corp 43",
+  "description": "Long-standing Retail corporation in North West with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2429606.0,
+    "years_active": 15,
+    "industry": "Retail",
+    "total_invoices": 73,
+    "paid_on_time": 71,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.96,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 7,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

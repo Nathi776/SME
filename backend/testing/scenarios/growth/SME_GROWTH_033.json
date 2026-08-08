@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_033",
+  "name": "Growing Retail Firm 33",
+  "description": "A trading Retail SME in Mpumalanga with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 144037.0,
+    "years_active": 2,
+    "industry": "Retail",
+    "total_invoices": 19,
+    "paid_on_time": 19,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.74,
+    "months_analysed": 6,
+    "province": "Mpumalanga",
+    "founder": {
+      "years_industry_experience": 10,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

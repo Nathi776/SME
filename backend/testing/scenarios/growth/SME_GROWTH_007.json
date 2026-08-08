@@ -1,47 +1,38 @@
 {
   "id": "SME_GROWTH_007",
-  "name": "Growing Logistics Enterprise",
-  "description": "An active Logistics enterprise in Northern Cape with 1.5 years of experience, trading invoices.",
+  "name": "Growing Logistics Firm 7",
+  "description": "A trading Logistics SME in North West with 2 years operational history.",
   "category": "growth",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 180000.0,
-    "years_active": 1,
+    "revenue": 142770.0,
+    "years_active": 2,
     "industry": "Logistics",
-    "total_invoices": 12,
-    "paid_on_time": 10,
-    "unpaid_invoices": 1,
+    "total_invoices": 19,
+    "paid_on_time": 17,
+    "unpaid_invoices": 2,
     "verifications": {
       "cipc": "approved",
       "bank_statement": "approved"
     },
     "intent_doc_details": {},
     "overdraft_count": 0,
-    "income_regularity": 0.85,
+    "income_regularity": 0.72,
     "months_analysed": 6,
-    "province": "Northern Cape",
+    "province": "North West",
     "founder": {
-      "years_industry_experience": 7,
-      "highest_qualification": "degree",
+      "years_industry_experience": 8,
+      "highest_qualification": "certificate",
       "prior_business_owner": true,
-      "trade_association_member": true,
+      "trade_association_member": false,
       "reference_provided": true
     }
   },
   "expected": {
     "profile": "growth",
-    "decision": "Review",
     "score_range": [
-      50.0,
-      75.0
-    ],
-    "confidence_range": [
-      65.0,
-      95.0
-    ],
-    "recommendations_contain": [
-      "SARS",
-      "unpaid"
+      30.0,
+      85.0
     ]
   }
 }

@@ -1,47 +1,38 @@
 {
   "id": "SME_GROWTH_002",
-  "name": "Growing Construction Enterprise",
-  "description": "An active Construction enterprise in Eastern Cape with 1.5 years of experience, trading invoices.",
+  "name": "Growing Construction Firm 2",
+  "description": "A trading Construction SME in Western Cape with 1 years operational history.",
   "category": "growth",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 180000.0,
+    "revenue": 220763.0,
     "years_active": 1,
     "industry": "Construction",
-    "total_invoices": 12,
-    "paid_on_time": 10,
-    "unpaid_invoices": 1,
+    "total_invoices": 15,
+    "paid_on_time": 15,
+    "unpaid_invoices": 0,
     "verifications": {
       "cipc": "approved",
       "bank_statement": "approved"
     },
     "intent_doc_details": {},
-    "overdraft_count": 0,
-    "income_regularity": 0.85,
+    "overdraft_count": 1,
+    "income_regularity": 0.88,
     "months_analysed": 6,
-    "province": "Eastern Cape",
+    "province": "Western Cape",
     "founder": {
-      "years_industry_experience": 7,
-      "highest_qualification": "degree",
-      "prior_business_owner": true,
-      "trade_association_member": true,
+      "years_industry_experience": 3,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
       "reference_provided": true
     }
   },
   "expected": {
     "profile": "growth",
-    "decision": "Review",
     "score_range": [
-      50.0,
-      75.0
-    ],
-    "confidence_range": [
-      65.0,
-      95.0
-    ],
-    "recommendations_contain": [
-      "SARS",
-      "unpaid"
+      30.0,
+      85.0
     ]
   }
 }

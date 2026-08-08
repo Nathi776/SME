@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_034",
+  "name": "Established Manufacturing Corp 34",
+  "description": "Long-standing Manufacturing corporation in North West with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 527348.0,
+    "years_active": 11,
+    "industry": "Manufacturing",
+    "total_invoices": 79,
+    "paid_on_time": 76,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.9,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 18,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

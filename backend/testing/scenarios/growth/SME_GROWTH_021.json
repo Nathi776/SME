@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_021",
+  "name": "Growing Agriculture Firm 21",
+  "description": "A trading Agriculture SME in KwaZulu-Natal with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 123597.0,
+    "years_active": 1,
+    "industry": "Agriculture",
+    "total_invoices": 6,
+    "paid_on_time": 5,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.8,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 10,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

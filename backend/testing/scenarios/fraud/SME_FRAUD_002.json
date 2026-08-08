@@ -1,12 +1,12 @@
 {
   "id": "SME_FRAUD_002",
-  "name": "Negative Years Active",
-  "description": "Validation failure check: Negative Years Active",
+  "name": "Invalid Evidence: Negative Years Active",
+  "description": "Validation should fail due to Negative Years Active.",
   "category": "fraud",
   "is_valid_evidence": false,
   "evidence": {
     "revenue": 50000.0,
-    "years_active": -1,
+    "years_active": -2,
     "industry": "Technology",
     "total_invoices": 10,
     "paid_on_time": 8,

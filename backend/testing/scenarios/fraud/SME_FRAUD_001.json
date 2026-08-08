@@ -1,11 +1,11 @@
 {
   "id": "SME_FRAUD_001",
-  "name": "Negative Revenue",
-  "description": "Validation failure check: Negative Revenue",
+  "name": "Invalid Evidence: Negative Revenue",
+  "description": "Validation should fail due to Negative Revenue.",
   "category": "fraud",
   "is_valid_evidence": false,
   "evidence": {
-    "revenue": -100.0,
+    "revenue": -500.0,
     "years_active": 2,
     "industry": "Technology",
     "total_invoices": 10,

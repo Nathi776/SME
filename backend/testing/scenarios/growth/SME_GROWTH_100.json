@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_100",
+  "name": "Growing Professional Services Firm 100",
+  "description": "A trading Professional Services SME in Gauteng with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 204804.0,
+    "years_active": 2,
+    "industry": "Professional Services",
+    "total_invoices": 12,
+    "paid_on_time": 11,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 2,
+    "income_regularity": 0.86,
+    "months_analysed": 6,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

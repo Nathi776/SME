@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_017",
+  "name": "Established Logistics Corp 17",
+  "description": "Long-standing Logistics corporation in Free State with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 958745.0,
+    "years_active": 7,
+    "industry": "Logistics",
+    "total_invoices": 104,
+    "paid_on_time": 104,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.83,
+    "months_analysed": 6,
+    "province": "Free State",
+    "founder": {
+      "years_industry_experience": 21,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

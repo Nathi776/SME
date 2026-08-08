@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_097",
+  "name": "Established Logistics Corp 97",
+  "description": "Long-standing Logistics corporation in North West with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2487124.0,
+    "years_active": 12,
+    "industry": "Logistics",
+    "total_invoices": 25,
+    "paid_on_time": 20,
+    "unpaid_invoices": 5,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.89,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 21,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

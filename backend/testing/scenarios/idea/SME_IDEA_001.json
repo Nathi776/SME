@@ -1,7 +1,7 @@
 {
   "id": "SME_IDEA_001",
-  "name": "Early Agriculture Concept",
-  "description": "An entrepreneur with an early-stage concept in the Agriculture sector based in Gauteng.",
+  "name": "Idea Agriculture Concept 1",
+  "description": "Early stage Agriculture concept in Gauteng.",
   "category": "idea",
   "is_valid_evidence": true,
   "evidence": {
@@ -18,27 +18,19 @@
     "months_analysed": null,
     "province": "Gauteng",
     "founder": {
-      "years_industry_experience": 3,
-      "highest_qualification": "diploma",
-      "prior_business_owner": false,
-      "trade_association_member": false,
-      "reference_provided": false
+      "years_industry_experience": 0,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
     }
   },
   "expected": {
     "profile": "idea",
     "decision": "Declined",
     "score_range": [
-      15.0,
+      5.0,
       50.0
-    ],
-    "confidence_range": [
-      15.0,
-      30.0
-    ],
-    "recommendations_contain": [
-      "CIPC",
-      "Bank Statement"
     ]
   }
 }

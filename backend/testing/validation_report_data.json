@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-07-28 21:50:43",
-  "total_scenarios": 100,
-  "passed": 100,
+  "timestamp": "2026-08-08 18:52:27",
+  "total_scenarios": 850,
+  "passed": 850,
   "failed": 0,
-  "avg_duration_ms": 0.14,
-  "total_duration_ms": 13.91,
+  "avg_duration_ms": 0.32,
+  "total_duration_ms": 272.63,
   "stage_accuracy": {
     "idea": 100.0,
     "startup": 100.0,

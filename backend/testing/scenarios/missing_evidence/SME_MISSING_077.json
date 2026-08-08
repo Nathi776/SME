@@ -1,0 +1,35 @@
+{
+  "id": "SME_MISSING_077",
+  "name": "Missing Evidence Permutation 77",
+  "description": "Missing variables checks: CIPC=True, Founder=True, Bank=False, Invoices=False",
+  "category": "missing_evidence",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 0.0,
+    "years_active": 0,
+    "industry": "Logistics",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "months_analysed": null,
+    "income_regularity": null,
+    "overdraft_count": null,
+    "province": "Limpopo",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "score_range": [
+      0.0,
+      100.0
+    ]
+  }
+}

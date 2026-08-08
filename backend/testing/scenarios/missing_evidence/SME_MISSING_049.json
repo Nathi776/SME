@@ -1,0 +1,36 @@
+{
+  "id": "SME_MISSING_049",
+  "name": "Missing Evidence Permutation 49",
+  "description": "Missing variables checks: CIPC=True, Founder=True, Bank=True, Invoices=True",
+  "category": "missing_evidence",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 120000.0,
+    "years_active": 2,
+    "industry": "Education",
+    "total_invoices": 15,
+    "paid_on_time": 13,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "months_analysed": 6,
+    "income_regularity": 0.85,
+    "overdraft_count": 0,
+    "province": null,
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "score_range": [
+      0.0,
+      100.0
+    ]
+  }
+}

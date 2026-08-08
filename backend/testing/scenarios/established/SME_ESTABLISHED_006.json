@@ -1,51 +1,40 @@
 {
   "id": "SME_ESTABLISHED_006",
-  "name": "Established Hospitality Corporate",
-  "description": "A long-standing Hospitality company in Northern Cape with robust compliance and history.",
+  "name": "Established Hospitality Corp 6",
+  "description": "Long-standing Hospitality corporation in Mpumalanga with stable trading profile.",
   "category": "established",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 650000.0,
-    "years_active": 5,
+    "revenue": 2772906.0,
+    "years_active": 14,
     "industry": "Hospitality",
-    "total_invoices": 45,
-    "paid_on_time": 42,
-    "unpaid_invoices": 1,
+    "total_invoices": 81,
+    "paid_on_time": 79,
+    "unpaid_invoices": 2,
     "verifications": {
       "cipc": "approved",
       "bank_statement": "approved",
       "tax_clearance": "approved",
       "registration_docs": "approved"
     },
-    "intent_doc_details": {
-      "letter_of_intent": {
-        "status": "approved",
-        "loi_counterparty_known": true
-      }
-    },
-    "overdraft_count": 0,
-    "income_regularity": 0.95,
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.99,
     "months_analysed": 6,
-    "province": "Northern Cape",
+    "province": "Mpumalanga",
     "founder": {
-      "years_industry_experience": 12,
-      "highest_qualification": "postgraduate",
+      "years_industry_experience": 10,
+      "highest_qualification": "certificate",
       "prior_business_owner": true,
-      "trade_association_member": true,
+      "trade_association_member": false,
       "reference_provided": true
     }
   },
   "expected": {
     "profile": "established",
-    "decision": "Approved",
     "score_range": [
-      80.0,
+      50.0,
       100.0
-    ],
-    "confidence_range": [
-      90.0,
-      100.0
-    ],
-    "recommendations_contain": []
+    ]
   }
 }

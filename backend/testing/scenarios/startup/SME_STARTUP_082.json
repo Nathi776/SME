@@ -1,0 +1,35 @@
+{
+  "id": "SME_STARTUP_082",
+  "name": "Startup Construction Venture 82",
+  "description": "Newly registered or early trading Construction startup in Gauteng.",
+  "category": "startup",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 70142.0,
+    "years_active": 0,
+    "industry": "Construction",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 3,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 2,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "startup",
+    "score_range": [
+      10.0,
+      75.0
+    ]
+  }
+}

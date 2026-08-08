@@ -1,23 +1,30 @@
 {
   "id": "SME_MISSING_003",
-  "name": "Invoices Only",
-  "description": "Only invoices uploaded. No CIPC, no founder, no bank statement, no years active.",
+  "name": "Missing Evidence Permutation 3",
+  "description": "Missing variables checks: CIPC=True, Founder=False, Bank=True, Invoices=True",
   "category": "missing_evidence",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 0.0,
-    "years_active": 0,
+    "revenue": 120000.0,
+    "years_active": 2,
     "industry": "Retail",
-    "total_invoices": 10,
-    "paid_on_time": 10,
-    "unpaid_invoices": 0,
-    "verifications": {}
+    "total_invoices": 15,
+    "paid_on_time": 13,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "months_analysed": 6,
+    "income_regularity": 0.85,
+    "overdraft_count": 0,
+    "province": "KwaZulu-Natal",
+    "founder": null
   },
   "expected": {
-    "profile": "idea",
-    "confidence_range": [
-      5.0,
-      20.0
+    "score_range": [
+      0.0,
+      100.0
     ]
   }
 }

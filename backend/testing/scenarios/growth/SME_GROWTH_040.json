@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_040",
+  "name": "Growing Professional Services Firm 40",
+  "description": "A trading Professional Services SME in Eastern Cape with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 109327.0,
+    "years_active": 2,
+    "industry": "Professional Services",
+    "total_invoices": 13,
+    "paid_on_time": 13,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.93,
+    "months_analysed": 6,
+    "province": "Eastern Cape",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

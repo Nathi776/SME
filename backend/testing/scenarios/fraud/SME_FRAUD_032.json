@@ -1,0 +1,31 @@
+{
+  "id": "SME_FRAUD_032",
+  "name": "Impossible: Impossible High Revenue",
+  "description": "Checking economic validation and warnings for Impossible High Revenue.",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 150000000.0,
+    "years_active": 0,
+    "industry": "Technology",
+    "total_invoices": 0,
+    "paid_on_time": 13,
+    "unpaid_invoices": 2,
+    "verifications": {},
+    "province": "Gauteng",
+    "months_analysed": null,
+    "income_regularity": 0.8,
+    "overdraft_count": 0,
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "degree"
+    }
+  },
+  "expected": {
+    "profile": "idea",
+    "score_range": [
+      10.0,
+      50.0
+    ]
+  }
+}

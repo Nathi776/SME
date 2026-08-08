@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_034",
+  "name": "Growing Manufacturing Firm 34",
+  "description": "A trading Manufacturing SME in North West with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 240347.0,
+    "years_active": 2,
+    "industry": "Manufacturing",
+    "total_invoices": 18,
+    "paid_on_time": 16,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 2,
+    "income_regularity": 0.81,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 11,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

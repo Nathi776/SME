@@ -1,25 +1,23 @@
 {
   "id": "SME_FRAUD_015",
-  "name": "Impossible Invoices",
-  "description": "3 months active (Startup) but 400 invoices.",
+  "name": "Invalid Evidence: Negative Invoices",
+  "description": "Validation should fail due to Negative Invoices.",
   "category": "fraud",
-  "is_valid_evidence": true,
+  "is_valid_evidence": false,
   "evidence": {
-    "revenue": 200000.0,
-    "years_active": 0,
-    "industry": "Retail",
-    "total_invoices": 400,
-    "paid_on_time": 390,
-    "unpaid_invoices": 10,
+    "revenue": 50000.0,
+    "years_active": 2,
+    "industry": "Technology",
+    "total_invoices": -10,
+    "paid_on_time": 8,
+    "unpaid_invoices": 2,
     "verifications": {
       "cipc": "approved"
-    }
+    },
+    "province": "Gauteng",
+    "months_analysed": 6,
+    "income_regularity": 0.8,
+    "overdraft_count": 0
   },
-  "expected": {
-    "profile": "established",
-    "score_range": [
-      50.0,
-      95.0
-    ]
-  }
+  "expected": {}
 }

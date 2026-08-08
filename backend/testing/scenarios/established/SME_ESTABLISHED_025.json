@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_025",
+  "name": "Established Technology Corp 25",
+  "description": "Long-standing Technology corporation in North West with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2808347.0,
+    "years_active": 10,
+    "industry": "Technology",
+    "total_invoices": 76,
+    "paid_on_time": 76,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.97,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 9,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

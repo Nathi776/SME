@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_048",
+  "name": "Growing Healthcare Firm 48",
+  "description": "A trading Healthcare SME in KwaZulu-Natal with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 139662.0,
+    "years_active": 2,
+    "industry": "Healthcare",
+    "total_invoices": 10,
+    "paid_on_time": 8,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.66,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 13,
+      "highest_qualification": "matric",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

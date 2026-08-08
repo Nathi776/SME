@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_057",
+  "name": "Borderline Logistics Business 57",
+  "description": "Moderate performing Logistics business in KwaZulu-Natal.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 235660.0,
+    "years_active": 2,
+    "industry": "Logistics",
+    "total_invoices": 17,
+    "paid_on_time": 15,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

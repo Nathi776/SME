@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_088",
+  "name": "Growing Healthcare Firm 88",
+  "description": "A trading Healthcare SME in North West with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 161536.0,
+    "years_active": 1,
+    "industry": "Healthcare",
+    "total_invoices": 17,
+    "paid_on_time": 16,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.82,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

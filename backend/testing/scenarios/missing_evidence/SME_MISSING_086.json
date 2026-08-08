@@ -1,0 +1,33 @@
+{
+  "id": "SME_MISSING_086",
+  "name": "Missing Evidence Permutation 86",
+  "description": "Missing variables checks: CIPC=False, Founder=True, Bank=False, Invoices=True",
+  "category": "missing_evidence",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 120000.0,
+    "years_active": 2,
+    "industry": "Hospitality",
+    "total_invoices": 15,
+    "paid_on_time": 13,
+    "unpaid_invoices": 2,
+    "verifications": {},
+    "months_analysed": null,
+    "income_regularity": null,
+    "overdraft_count": null,
+    "province": null,
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "score_range": [
+      0.0,
+      100.0
+    ]
+  }
+}

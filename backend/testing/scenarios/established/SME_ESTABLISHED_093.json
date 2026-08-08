@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_093",
+  "name": "Established Retail Corp 93",
+  "description": "Long-standing Retail corporation in KwaZulu-Natal with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1802577.0,
+    "years_active": 3,
+    "industry": "Retail",
+    "total_invoices": 36,
+    "paid_on_time": 36,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.91,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 17,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

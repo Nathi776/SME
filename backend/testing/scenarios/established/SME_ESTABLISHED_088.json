@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_088",
+  "name": "Established Healthcare Corp 88",
+  "description": "Long-standing Healthcare corporation in North West with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 389579.0,
+    "years_active": 13,
+    "industry": "Healthcare",
+    "total_invoices": 101,
+    "paid_on_time": 97,
+    "unpaid_invoices": 4,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.95,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 12,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_071",
+  "name": "Established Agriculture Corp 71",
+  "description": "Long-standing Agriculture corporation in Free State with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1537782.0,
+    "years_active": 14,
+    "industry": "Agriculture",
+    "total_invoices": 36,
+    "paid_on_time": 36,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.94,
+    "months_analysed": 6,
+    "province": "Free State",
+    "founder": {
+      "years_industry_experience": 15,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

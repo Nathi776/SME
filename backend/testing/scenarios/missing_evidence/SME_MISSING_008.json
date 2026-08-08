@@ -1,35 +1,27 @@
 {
   "id": "SME_MISSING_008",
-  "name": "Partial Evidence 4",
-  "description": "Permutation 8: CIPC=True, Founder=True, Bank=True, Invoices=False",
+  "name": "Missing Evidence Permutation 8",
+  "description": "Missing variables checks: CIPC=False, Founder=False, Bank=False, Invoices=True",
   "category": "missing_evidence",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 100000.0,
-    "years_active": 0,
-    "industry": "Retail",
-    "total_invoices": 0,
-    "paid_on_time": 0,
-    "unpaid_invoices": 0,
-    "verifications": {
-      "cipc": "approved",
-      "bank_statement": "approved"
-    },
-    "months_analysed": 6,
-    "income_regularity": 0.85,
-    "overdraft_count": 0,
-    "founder": {
-      "years_industry_experience": 4,
-      "highest_qualification": "diploma",
-      "prior_business_owner": false,
-      "trade_association_member": false,
-      "reference_provided": false
-    }
+    "revenue": 120000.0,
+    "years_active": 2,
+    "industry": "Healthcare",
+    "total_invoices": 15,
+    "paid_on_time": 13,
+    "unpaid_invoices": 2,
+    "verifications": {},
+    "months_analysed": null,
+    "income_regularity": null,
+    "overdraft_count": null,
+    "province": "Free State",
+    "founder": null
   },
   "expected": {
     "score_range": [
-      5.0,
-      95.0
+      0.0,
+      100.0
     ]
   }
 }

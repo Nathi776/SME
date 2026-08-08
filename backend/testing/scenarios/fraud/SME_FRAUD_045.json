@@ -1,0 +1,33 @@
+{
+  "id": "SME_FRAUD_045",
+  "name": "Impossible: Huge Revenue No Invoices",
+  "description": "Checking economic validation and warnings for Huge Revenue No Invoices.",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 500000000.0,
+    "years_active": 0,
+    "industry": "Technology",
+    "total_invoices": 0,
+    "paid_on_time": 13,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng",
+    "months_analysed": null,
+    "income_regularity": 0.8,
+    "overdraft_count": 0,
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "degree"
+    }
+  },
+  "expected": {
+    "profile": "startup",
+    "score_range": [
+      20.0,
+      75.0
+    ]
+  }
+}

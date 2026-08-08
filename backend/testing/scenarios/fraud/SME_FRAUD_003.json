@@ -1,14 +1,14 @@
 {
   "id": "SME_FRAUD_003",
-  "name": "Negative Invoices",
-  "description": "Validation failure check: Negative Invoices",
+  "name": "Invalid Evidence: Negative Invoices",
+  "description": "Validation should fail due to Negative Invoices.",
   "category": "fraud",
   "is_valid_evidence": false,
   "evidence": {
     "revenue": 50000.0,
     "years_active": 2,
     "industry": "Technology",
-    "total_invoices": -5,
+    "total_invoices": -10,
     "paid_on_time": 8,
     "unpaid_invoices": 2,
     "verifications": {

@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_008",
+  "name": "Borderline Healthcare Business 8",
+  "description": "Moderate performing Healthcare business in Free State.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 154138.0,
+    "years_active": 3,
+    "industry": "Healthcare",
+    "total_invoices": 19,
+    "paid_on_time": 17,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "Free State",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

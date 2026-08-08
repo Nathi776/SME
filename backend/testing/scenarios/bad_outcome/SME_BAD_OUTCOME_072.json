@@ -1,0 +1,38 @@
+{
+  "id": "SME_BAD_OUTCOME_072",
+  "name": "High Risk Construction Entity 72",
+  "description": "Under-performing Construction business in Northern Cape with high default rates.",
+  "category": "bad_outcome",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 10609.0,
+    "years_active": 1,
+    "industry": "Construction",
+    "total_invoices": 9,
+    "paid_on_time": 1,
+    "unpaid_invoices": 8,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 5,
+    "income_regularity": 0.25,
+    "months_analysed": 3,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 0,
+      "highest_qualification": "none",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": false
+    }
+  },
+  "expected": {
+    "decision": "Declined",
+    "score_range": [
+      0.0,
+      49.9
+    ]
+  }
+}

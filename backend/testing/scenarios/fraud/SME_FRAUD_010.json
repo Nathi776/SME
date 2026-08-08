@@ -1,7 +1,7 @@
 {
   "id": "SME_FRAUD_010",
-  "name": "Negative overdraft",
-  "description": "Validation failure check: Negative overdraft",
+  "name": "Invalid Evidence: Negative overdraft",
+  "description": "Validation should fail due to Negative overdraft.",
   "category": "fraud",
   "is_valid_evidence": false,
   "evidence": {
@@ -17,7 +17,7 @@
     "province": "Gauteng",
     "months_analysed": 6,
     "income_regularity": 0.8,
-    "overdraft_count": -1
+    "overdraft_count": -2
   },
   "expected": {}
 }

@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_096",
+  "name": "Established Hospitality Corp 96",
+  "description": "Long-standing Hospitality corporation in Mpumalanga with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 757405.0,
+    "years_active": 8,
+    "industry": "Hospitality",
+    "total_invoices": 85,
+    "paid_on_time": 81,
+    "unpaid_invoices": 4,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.9,
+    "months_analysed": 6,
+    "province": "Mpumalanga",
+    "founder": {
+      "years_industry_experience": 20,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

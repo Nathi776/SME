@@ -1,11 +1,11 @@
 {
   "id": "SME_STARTUP_001",
-  "name": "Registered Agriculture Startup",
-  "description": "A formally registered Agriculture startup in Western Cape with CIPC verified.",
+  "name": "Startup Agriculture Venture 1",
+  "description": "Newly registered or early trading Agriculture startup in Gauteng.",
   "category": "startup",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 45000.0,
+    "revenue": 24592.0,
     "years_active": 0,
     "industry": "Agriculture",
     "total_invoices": 0,
@@ -23,29 +23,20 @@
     "overdraft_count": null,
     "income_regularity": null,
     "months_analysed": null,
-    "province": "Western Cape",
+    "province": "Gauteng",
     "founder": {
-      "years_industry_experience": 5,
-      "highest_qualification": "degree",
-      "prior_business_owner": false,
+      "years_industry_experience": 1,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
       "trade_association_member": true,
       "reference_provided": true
     }
   },
   "expected": {
     "profile": "startup",
-    "decision": "Review",
     "score_range": [
-      40.0,
+      10.0,
       75.0
-    ],
-    "confidence_range": [
-      30.0,
-      60.0
-    ],
-    "recommendations_contain": [
-      "bank",
-      "statement"
     ]
   }
 }

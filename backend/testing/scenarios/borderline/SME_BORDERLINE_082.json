@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_082",
+  "name": "Borderline Construction Business 82",
+  "description": "Moderate performing Construction business in Gauteng.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 197139.0,
+    "years_active": 3,
+    "industry": "Construction",
+    "total_invoices": 24,
+    "paid_on_time": 21,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

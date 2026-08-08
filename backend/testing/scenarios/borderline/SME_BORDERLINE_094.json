@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_094",
+  "name": "Borderline Manufacturing Business 94",
+  "description": "Moderate performing Manufacturing business in Eastern Cape.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 230980.0,
+    "years_active": 3,
+    "industry": "Manufacturing",
+    "total_invoices": 26,
+    "paid_on_time": 24,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "Eastern Cape",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

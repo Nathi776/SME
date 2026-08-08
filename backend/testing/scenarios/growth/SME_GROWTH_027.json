@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_027",
+  "name": "Growing Logistics Firm 27",
+  "description": "A trading Logistics SME in Northern Cape with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 229336.0,
+    "years_active": 1,
+    "industry": "Logistics",
+    "total_invoices": 11,
+    "paid_on_time": 11,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.82,
+    "months_analysed": 6,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

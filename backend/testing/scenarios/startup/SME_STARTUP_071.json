@@ -1,0 +1,42 @@
+{
+  "id": "SME_STARTUP_071",
+  "name": "Startup Agriculture Venture 71",
+  "description": "Newly registered or early trading Agriculture startup in Free State.",
+  "category": "startup",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 40021.0,
+    "years_active": 0,
+    "industry": "Agriculture",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "intent_doc_details": {
+      "letter_of_intent": {
+        "status": "approved",
+        "loi_counterparty_known": false
+      }
+    },
+    "overdraft_count": null,
+    "income_regularity": null,
+    "months_analysed": null,
+    "province": "Free State",
+    "founder": {
+      "years_industry_experience": 7,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": false,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "startup",
+    "score_range": [
+      10.0,
+      75.0
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_074",
+  "name": "Established Manufacturing Corp 74",
+  "description": "Long-standing Manufacturing corporation in Western Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 615828.0,
+    "years_active": 8,
+    "industry": "Manufacturing",
+    "total_invoices": 34,
+    "paid_on_time": 31,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.94,
+    "months_analysed": 6,
+    "province": "Western Cape",
+    "founder": {
+      "years_industry_experience": 18,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

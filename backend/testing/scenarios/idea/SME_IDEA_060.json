@@ -1,0 +1,36 @@
+{
+  "id": "SME_IDEA_060",
+  "name": "Idea Professional Services Concept 60",
+  "description": "Early stage Professional Services concept in Mpumalanga.",
+  "category": "idea",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 0.0,
+    "years_active": 0,
+    "industry": "Professional Services",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "intent_doc_details": {},
+    "overdraft_count": null,
+    "income_regularity": null,
+    "months_analysed": null,
+    "province": "Mpumalanga",
+    "founder": {
+      "years_industry_experience": 9,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": false
+    }
+  },
+  "expected": {
+    "profile": "idea",
+    "decision": "Declined",
+    "score_range": [
+      5.0,
+      50.0
+    ]
+  }
+}

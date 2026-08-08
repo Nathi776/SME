@@ -1,0 +1,36 @@
+{
+  "id": "SME_IDEA_031",
+  "name": "Idea Agriculture Concept 31",
+  "description": "Early stage Agriculture concept in Eastern Cape.",
+  "category": "idea",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 0.0,
+    "years_active": 0,
+    "industry": "Agriculture",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "intent_doc_details": {},
+    "overdraft_count": null,
+    "income_regularity": null,
+    "months_analysed": null,
+    "province": "Eastern Cape",
+    "founder": {
+      "years_industry_experience": 0,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": false
+    }
+  },
+  "expected": {
+    "profile": "idea",
+    "decision": "Declined",
+    "score_range": [
+      5.0,
+      50.0
+    ]
+  }
+}

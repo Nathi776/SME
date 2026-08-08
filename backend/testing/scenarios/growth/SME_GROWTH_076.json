@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_076",
+  "name": "Growing Hospitality Firm 76",
+  "description": "A trading Hospitality SME in Eastern Cape with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 205037.0,
+    "years_active": 1,
+    "industry": "Hospitality",
+    "total_invoices": 18,
+    "paid_on_time": 15,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.93,
+    "months_analysed": 6,
+    "province": "Eastern Cape",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

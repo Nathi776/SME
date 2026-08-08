@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_030",
+  "name": "Established Professional Services Corp 30",
+  "description": "Long-standing Professional Services corporation in KwaZulu-Natal with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1697996.0,
+    "years_active": 10,
+    "industry": "Professional Services",
+    "total_invoices": 64,
+    "paid_on_time": 61,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.93,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 14,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

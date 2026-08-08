@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_072",
+  "name": "Established Construction Corp 72",
+  "description": "Long-standing Construction corporation in Northern Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2562440.0,
+    "years_active": 5,
+    "industry": "Construction",
+    "total_invoices": 45,
+    "paid_on_time": 44,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.9,
+    "months_analysed": 6,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 16,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

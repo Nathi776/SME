@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_078",
+  "name": "Growing Healthcare Firm 78",
+  "description": "A trading Healthcare SME in Mpumalanga with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 151548.0,
+    "years_active": 1,
+    "industry": "Healthcare",
+    "total_invoices": 12,
+    "paid_on_time": 11,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.8,
+    "months_analysed": 6,
+    "province": "Mpumalanga",
+    "founder": {
+      "years_industry_experience": 7,
+      "highest_qualification": "matric",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

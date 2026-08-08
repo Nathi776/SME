@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_091",
+  "name": "Established Agriculture Corp 91",
+  "description": "Long-standing Agriculture corporation in Gauteng with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 311893.0,
+    "years_active": 5,
+    "industry": "Agriculture",
+    "total_invoices": 120,
+    "paid_on_time": 116,
+    "unpaid_invoices": 4,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.96,
+    "months_analysed": 6,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 15,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

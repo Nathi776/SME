@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_063",
+  "name": "Borderline Retail Business 63",
+  "description": "Moderate performing Retail business in Northern Cape.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 163224.0,
+    "years_active": 3,
+    "industry": "Retail",
+    "total_invoices": 21,
+    "paid_on_time": 19,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "SME_STARTUP_037",
+  "name": "Startup Logistics Venture 37",
+  "description": "Newly registered or early trading Logistics startup in Gauteng.",
+  "category": "startup",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 15695.0,
+    "years_active": 0,
+    "industry": "Logistics",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "intent_doc_details": {
+      "letter_of_intent": {
+        "status": "approved",
+        "loi_counterparty_known": true
+      }
+    },
+    "overdraft_count": null,
+    "income_regularity": null,
+    "months_analysed": null,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "startup",
+    "score_range": [
+      10.0,
+      75.0
+    ]
+  }
+}

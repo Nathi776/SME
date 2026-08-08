@@ -1,0 +1,45 @@
+{
+  "id": "SME_GOOD_OUTCOME_021",
+  "name": "Prime Agriculture Partner 21",
+  "description": "Strong performing Agriculture business in KwaZulu-Natal with pristine credentials.",
+  "category": "good_outcome",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2892358.0,
+    "years_active": 8,
+    "industry": "Agriculture",
+    "total_invoices": 53,
+    "paid_on_time": 53,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {
+      "letter_of_intent": {
+        "status": "approved",
+        "loi_counterparty_known": true
+      }
+    },
+    "overdraft_count": 0,
+    "income_regularity": 0.98,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 10,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Approved",
+    "score_range": [
+      75.0,
+      100.0
+    ]
+  }
+}

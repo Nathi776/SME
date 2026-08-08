@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_057",
+  "name": "Growing Logistics Firm 57",
+  "description": "A trading Logistics SME in KwaZulu-Natal with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 157504.0,
+    "years_active": 2,
+    "industry": "Logistics",
+    "total_invoices": 10,
+    "paid_on_time": 7,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 2,
+    "income_regularity": 0.69,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 10,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

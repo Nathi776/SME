@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_099",
+  "name": "Growing Education Firm 99",
+  "description": "A trading Education SME in Northern Cape with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 215430.0,
+    "years_active": 2,
+    "industry": "Education",
+    "total_invoices": 13,
+    "paid_on_time": 13,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.68,
+    "months_analysed": 6,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

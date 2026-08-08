@@ -1,0 +1,45 @@
+{
+  "id": "SME_GOOD_OUTCOME_028",
+  "name": "Prime Healthcare Partner 28",
+  "description": "Strong performing Healthcare business in Gauteng with pristine credentials.",
+  "category": "good_outcome",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1312671.0,
+    "years_active": 4,
+    "industry": "Healthcare",
+    "total_invoices": 71,
+    "paid_on_time": 71,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {
+      "letter_of_intent": {
+        "status": "approved",
+        "loi_counterparty_known": true
+      }
+    },
+    "overdraft_count": 0,
+    "income_regularity": 0.98,
+    "months_analysed": 6,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 10,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Approved",
+    "score_range": [
+      75.0,
+      100.0
+    ]
+  }
+}

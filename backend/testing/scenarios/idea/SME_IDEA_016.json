@@ -1,0 +1,36 @@
+{
+  "id": "SME_IDEA_016",
+  "name": "Idea Hospitality Concept 16",
+  "description": "Early stage Hospitality concept in North West.",
+  "category": "idea",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 0.0,
+    "years_active": 0,
+    "industry": "Hospitality",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "intent_doc_details": {},
+    "overdraft_count": null,
+    "income_regularity": null,
+    "months_analysed": null,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": true,
+      "reference_provided": false
+    }
+  },
+  "expected": {
+    "profile": "idea",
+    "decision": "Declined",
+    "score_range": [
+      5.0,
+      50.0
+    ]
+  }
+}

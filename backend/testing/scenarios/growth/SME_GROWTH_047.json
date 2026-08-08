@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_047",
+  "name": "Growing Logistics Firm 47",
+  "description": "A trading Logistics SME in Western Cape with 1 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 203388.0,
+    "years_active": 1,
+    "industry": "Logistics",
+    "total_invoices": 11,
+    "paid_on_time": 11,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.71,
+    "months_analysed": 6,
+    "province": "Western Cape",
+    "founder": {
+      "years_industry_experience": 12,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

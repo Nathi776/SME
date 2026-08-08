@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_088",
+  "name": "Borderline Healthcare Business 88",
+  "description": "Moderate performing Healthcare business in North West.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 244838.0,
+    "years_active": 3,
+    "industry": "Healthcare",
+    "total_invoices": 23,
+    "paid_on_time": 20,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

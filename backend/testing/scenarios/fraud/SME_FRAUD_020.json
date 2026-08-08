@@ -1,22 +1,23 @@
 {
   "id": "SME_FRAUD_020",
-  "name": "Fraud Permutation 4",
-  "description": "Contradictory revenue/invoice ratio 4",
+  "name": "Invalid Evidence: Sum of paid/unpaid exceeds total",
+  "description": "Validation should fail due to Sum of paid/unpaid exceeds total.",
   "category": "fraud",
-  "is_valid_evidence": true,
+  "is_valid_evidence": false,
   "evidence": {
-    "revenue": 250000000.0,
-    "years_active": 1,
-    "industry": "Manufacturing",
-    "total_invoices": 1,
-    "paid_on_time": 0,
-    "unpaid_invoices": 1,
-    "verifications": {}
+    "revenue": 50000.0,
+    "years_active": 2,
+    "industry": "Technology",
+    "total_invoices": 10,
+    "paid_on_time": 8,
+    "unpaid_invoices": 4,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng",
+    "months_analysed": 6,
+    "income_regularity": 0.8,
+    "overdraft_count": 0
   },
-  "expected": {
-    "profile": "growth",
-    "warnings_contain": [
-      "Unusually high revenue"
-    ]
-  }
+  "expected": {}
 }

@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_020",
+  "name": "Borderline Professional Services Business 20",
+  "description": "Moderate performing Professional Services business in Western Cape.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 176485.0,
+    "years_active": 3,
+    "industry": "Professional Services",
+    "total_invoices": 30,
+    "paid_on_time": 28,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "Western Cape",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

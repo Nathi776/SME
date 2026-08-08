@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_059",
+  "name": "Established Education Corp 59",
+  "description": "Long-standing Education corporation in Limpopo with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1034294.0,
+    "years_active": 15,
+    "industry": "Education",
+    "total_invoices": 43,
+    "paid_on_time": 42,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.92,
+    "months_analysed": 6,
+    "province": "Limpopo",
+    "founder": {
+      "years_industry_experience": 23,
+      "highest_qualification": "matric",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

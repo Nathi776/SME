@@ -1,26 +1,29 @@
 {
   "id": "SME_MISSING_015",
-  "name": "Partial Evidence 11",
-  "description": "Permutation 15: CIPC=False, Founder=False, Bank=False, Invoices=False",
+  "name": "Missing Evidence Permutation 15",
+  "description": "Missing variables checks: CIPC=True, Founder=False, Bank=False, Invoices=False",
   "category": "missing_evidence",
   "is_valid_evidence": true,
   "evidence": {
     "revenue": 0.0,
     "years_active": 0,
-    "industry": "Retail",
+    "industry": "Technology",
     "total_invoices": 0,
     "paid_on_time": 0,
     "unpaid_invoices": 0,
-    "verifications": {},
+    "verifications": {
+      "cipc": "approved"
+    },
     "months_analysed": null,
     "income_regularity": null,
     "overdraft_count": null,
+    "province": "Mpumalanga",
     "founder": null
   },
   "expected": {
     "score_range": [
-      5.0,
-      95.0
+      0.0,
+      100.0
     ]
   }
 }

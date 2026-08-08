@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_068",
+  "name": "Established Healthcare Corp 68",
+  "description": "Long-standing Healthcare corporation in Limpopo with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2846215.0,
+    "years_active": 7,
+    "industry": "Healthcare",
+    "total_invoices": 119,
+    "paid_on_time": 118,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.84,
+    "months_analysed": 6,
+    "province": "Limpopo",
+    "founder": {
+      "years_industry_experience": 12,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

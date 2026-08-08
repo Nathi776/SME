@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_085",
+  "name": "Established Technology Corp 85",
+  "description": "Long-standing Technology corporation in Eastern Cape with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1854115.0,
+    "years_active": 7,
+    "industry": "Technology",
+    "total_invoices": 24,
+    "paid_on_time": 19,
+    "unpaid_invoices": 5,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.88,
+    "months_analysed": 6,
+    "province": "Eastern Cape",
+    "founder": {
+      "years_industry_experience": 9,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

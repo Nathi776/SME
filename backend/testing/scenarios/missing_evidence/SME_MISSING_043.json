@@ -1,0 +1,30 @@
+{
+  "id": "SME_MISSING_043",
+  "name": "Missing Evidence Permutation 43",
+  "description": "Missing variables checks: CIPC=True, Founder=False, Bank=True, Invoices=False",
+  "category": "missing_evidence",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 120000.0,
+    "years_active": 0,
+    "industry": "Retail",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "months_analysed": 6,
+    "income_regularity": 0.85,
+    "overdraft_count": 0,
+    "province": "North West",
+    "founder": null
+  },
+  "expected": {
+    "score_range": [
+      0.0,
+      100.0
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_055",
+  "name": "Established Technology Corp 55",
+  "description": "Long-standing Technology corporation in Gauteng with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1505354.0,
+    "years_active": 6,
+    "industry": "Technology",
+    "total_invoices": 100,
+    "paid_on_time": 95,
+    "unpaid_invoices": 5,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.94,
+    "months_analysed": 6,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 19,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

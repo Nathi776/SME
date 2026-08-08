@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_044",
+  "name": "Established Manufacturing Corp 44",
+  "description": "Long-standing Manufacturing corporation in Free State with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 2761795.0,
+    "years_active": 7,
+    "industry": "Manufacturing",
+    "total_invoices": 112,
+    "paid_on_time": 110,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.96,
+    "months_analysed": 6,
+    "province": "Free State",
+    "founder": {
+      "years_industry_experience": 8,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

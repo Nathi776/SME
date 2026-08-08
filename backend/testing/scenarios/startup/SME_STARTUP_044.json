@@ -1,0 +1,35 @@
+{
+  "id": "SME_STARTUP_044",
+  "name": "Startup Manufacturing Venture 44",
+  "description": "Newly registered or early trading Manufacturing startup in Free State.",
+  "category": "startup",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 35203.0,
+    "years_active": 0,
+    "industry": "Manufacturing",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 3,
+    "province": "Free State",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "certificate",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "startup",
+    "score_range": [
+      10.0,
+      75.0
+    ]
+  }
+}

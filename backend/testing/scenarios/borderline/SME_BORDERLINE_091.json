@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_091",
+  "name": "Borderline Agriculture Business 91",
+  "description": "Moderate performing Agriculture business in Gauteng.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 237584.0,
+    "years_active": 1,
+    "industry": "Agriculture",
+    "total_invoices": 16,
+    "paid_on_time": 14,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "Gauteng",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

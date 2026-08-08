@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_052",
+  "name": "Borderline Construction Business 52",
+  "description": "Moderate performing Construction business in North West.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 183352.0,
+    "years_active": 1,
+    "industry": "Construction",
+    "total_invoices": 15,
+    "paid_on_time": 12,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Declined",
+    "score_range": [
+      10.0,
+      49.9
+    ]
+  }
+}

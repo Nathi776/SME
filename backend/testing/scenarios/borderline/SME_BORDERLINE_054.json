@@ -1,0 +1,39 @@
+{
+  "id": "SME_BORDERLINE_054",
+  "name": "Borderline Manufacturing Business 54",
+  "description": "Moderate performing Manufacturing business in Northern Cape.",
+  "category": "borderline",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 211875.0,
+    "years_active": 1,
+    "industry": "Manufacturing",
+    "total_invoices": 16,
+    "paid_on_time": 14,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "pending"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.85,
+    "months_analysed": 6,
+    "province": "Northern Cape",
+    "founder": {
+      "years_industry_experience": 4,
+      "highest_qualification": "diploma",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "decision": "Review",
+    "score_range": [
+      50.0,
+      74.9
+    ]
+  }
+}

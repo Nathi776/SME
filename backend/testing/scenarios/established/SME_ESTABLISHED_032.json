@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_032",
+  "name": "Established Construction Corp 32",
+  "description": "Long-standing Construction corporation in Limpopo with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 453918.0,
+    "years_active": 9,
+    "industry": "Construction",
+    "total_invoices": 117,
+    "paid_on_time": 113,
+    "unpaid_invoices": 4,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.82,
+    "months_analysed": 6,
+    "province": "Limpopo",
+    "founder": {
+      "years_industry_experience": 16,
+      "highest_qualification": "degree",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

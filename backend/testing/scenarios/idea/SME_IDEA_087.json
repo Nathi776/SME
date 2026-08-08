@@ -1,0 +1,36 @@
+{
+  "id": "SME_IDEA_087",
+  "name": "Idea Logistics Concept 87",
+  "description": "Early stage Logistics concept in Mpumalanga.",
+  "category": "idea",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 0.0,
+    "years_active": 0,
+    "industry": "Logistics",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "intent_doc_details": {},
+    "overdraft_count": null,
+    "income_regularity": null,
+    "months_analysed": null,
+    "province": "Mpumalanga",
+    "founder": {
+      "years_industry_experience": 6,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": false
+    }
+  },
+  "expected": {
+    "profile": "idea",
+    "decision": "Declined",
+    "score_range": [
+      5.0,
+      50.0
+    ]
+  }
+}

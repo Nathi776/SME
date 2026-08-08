@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_051",
+  "name": "Established Agriculture Corp 51",
+  "description": "Long-standing Agriculture corporation in Mpumalanga with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 904631.0,
+    "years_active": 10,
+    "industry": "Agriculture",
+    "total_invoices": 21,
+    "paid_on_time": 16,
+    "unpaid_invoices": 5,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.97,
+    "months_analysed": 6,
+    "province": "Mpumalanga",
+    "founder": {
+      "years_industry_experience": 15,
+      "highest_qualification": "postgraduate",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

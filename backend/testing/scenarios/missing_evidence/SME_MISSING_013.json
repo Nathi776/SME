@@ -1,7 +1,7 @@
 {
   "id": "SME_MISSING_013",
-  "name": "Partial Evidence 9",
-  "description": "Permutation 13: CIPC=False, Founder=True, Bank=False, Invoices=False",
+  "name": "Missing Evidence Permutation 13",
+  "description": "Missing variables checks: CIPC=True, Founder=True, Bank=False, Invoices=False",
   "category": "missing_evidence",
   "is_valid_evidence": true,
   "evidence": {
@@ -11,22 +11,25 @@
     "total_invoices": 0,
     "paid_on_time": 0,
     "unpaid_invoices": 0,
-    "verifications": {},
+    "verifications": {
+      "cipc": "approved"
+    },
     "months_analysed": null,
     "income_regularity": null,
     "overdraft_count": null,
+    "province": "Eastern Cape",
     "founder": {
-      "years_industry_experience": 4,
+      "years_industry_experience": 5,
       "highest_qualification": "diploma",
-      "prior_business_owner": false,
+      "prior_business_owner": true,
       "trade_association_member": false,
-      "reference_provided": false
+      "reference_provided": true
     }
   },
   "expected": {
     "score_range": [
-      5.0,
-      95.0
+      0.0,
+      100.0
     ]
   }
 }

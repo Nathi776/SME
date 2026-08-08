@@ -1,27 +1,27 @@
 {
   "id": "SME_GROWTH_009",
-  "name": "Growing Education Enterprise",
-  "description": "An active Education enterprise in Western Cape with 1.5 years of experience, trading invoices.",
+  "name": "Growing Education Firm 9",
+  "description": "A trading Education SME in Northern Cape with 1 years operational history.",
   "category": "growth",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 180000.0,
+    "revenue": 224127.0,
     "years_active": 1,
     "industry": "Education",
-    "total_invoices": 12,
-    "paid_on_time": 10,
-    "unpaid_invoices": 1,
+    "total_invoices": 15,
+    "paid_on_time": 12,
+    "unpaid_invoices": 3,
     "verifications": {
       "cipc": "approved",
       "bank_statement": "approved"
     },
     "intent_doc_details": {},
     "overdraft_count": 0,
-    "income_regularity": 0.85,
+    "income_regularity": 0.73,
     "months_analysed": 6,
-    "province": "Western Cape",
+    "province": "Northern Cape",
     "founder": {
-      "years_industry_experience": 7,
+      "years_industry_experience": 10,
       "highest_qualification": "degree",
       "prior_business_owner": true,
       "trade_association_member": true,
@@ -30,18 +30,9 @@
   },
   "expected": {
     "profile": "growth",
-    "decision": "Review",
     "score_range": [
-      50.0,
-      75.0
-    ],
-    "confidence_range": [
-      65.0,
-      95.0
-    ],
-    "recommendations_contain": [
-      "SARS",
-      "unpaid"
+      30.0,
+      85.0
     ]
   }
 }

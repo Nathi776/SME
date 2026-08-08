@@ -1,0 +1,35 @@
+{
+  "id": "SME_STARTUP_078",
+  "name": "Startup Healthcare Venture 78",
+  "description": "Newly registered or early trading Healthcare startup in Mpumalanga.",
+  "category": "startup",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 51245.0,
+    "years_active": 0,
+    "industry": "Healthcare",
+    "total_invoices": 0,
+    "paid_on_time": 0,
+    "unpaid_invoices": 0,
+    "verifications": {},
+    "intent_doc_details": {},
+    "overdraft_count": 0,
+    "income_regularity": 0.85,
+    "months_analysed": 3,
+    "province": "Mpumalanga",
+    "founder": {
+      "years_industry_experience": 6,
+      "highest_qualification": "none",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "startup",
+    "score_range": [
+      10.0,
+      75.0
+    ]
+  }
+}

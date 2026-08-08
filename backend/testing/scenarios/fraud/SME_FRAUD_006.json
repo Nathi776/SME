@@ -1,15 +1,15 @@
 {
   "id": "SME_FRAUD_006",
-  "name": "Paid exceeds total",
-  "description": "Validation failure check: Paid exceeds total",
+  "name": "Invalid Evidence: Paid exceeds total",
+  "description": "Validation should fail due to Paid exceeds total.",
   "category": "fraud",
   "is_valid_evidence": false,
   "evidence": {
     "revenue": 50000.0,
     "years_active": 2,
     "industry": "Technology",
-    "total_invoices": 5,
-    "paid_on_time": 6,
+    "total_invoices": 10,
+    "paid_on_time": 12,
     "unpaid_invoices": 2,
     "verifications": {
       "cipc": "approved"

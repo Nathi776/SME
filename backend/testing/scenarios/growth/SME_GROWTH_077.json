@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_077",
+  "name": "Growing Logistics Firm 77",
+  "description": "A trading Logistics SME in Limpopo with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 189843.0,
+    "years_active": 2,
+    "industry": "Logistics",
+    "total_invoices": 17,
+    "paid_on_time": 14,
+    "unpaid_invoices": 3,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 2,
+    "income_regularity": 0.87,
+    "months_analysed": 6,
+    "province": "Limpopo",
+    "founder": {
+      "years_industry_experience": 6,
+      "highest_qualification": "none",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "SME_BAD_OUTCOME_007",
+  "name": "High Risk Logistics Entity 7",
+  "description": "Under-performing Logistics business in North West with high default rates.",
+  "category": "bad_outcome",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 16455.0,
+    "years_active": 0,
+    "industry": "Logistics",
+    "total_invoices": 19,
+    "paid_on_time": 1,
+    "unpaid_invoices": 18,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 11,
+    "income_regularity": 0.25,
+    "months_analysed": 3,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 0,
+      "highest_qualification": "none",
+      "prior_business_owner": false,
+      "trade_association_member": false,
+      "reference_provided": false
+    }
+  },
+  "expected": {
+    "decision": "Declined",
+    "score_range": [
+      0.0,
+      49.9
+    ]
+  }
+}

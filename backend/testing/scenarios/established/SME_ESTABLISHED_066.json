@@ -1,0 +1,40 @@
+{
+  "id": "SME_ESTABLISHED_066",
+  "name": "Established Hospitality Corp 66",
+  "description": "Long-standing Hospitality corporation in KwaZulu-Natal with stable trading profile.",
+  "category": "established",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 1960129.0,
+    "years_active": 7,
+    "industry": "Hospitality",
+    "total_invoices": 22,
+    "paid_on_time": 17,
+    "unpaid_invoices": 5,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved",
+      "tax_clearance": "approved",
+      "registration_docs": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.8,
+    "months_analysed": 6,
+    "province": "KwaZulu-Natal",
+    "founder": {
+      "years_industry_experience": 10,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": false,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      50.0,
+      100.0
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "SME_GROWTH_061",
+  "name": "Growing Agriculture Firm 61",
+  "description": "A trading Agriculture SME in North West with 2 years operational history.",
+  "category": "growth",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 102228.0,
+    "years_active": 2,
+    "industry": "Agriculture",
+    "total_invoices": 17,
+    "paid_on_time": 16,
+    "unpaid_invoices": 1,
+    "verifications": {
+      "cipc": "approved",
+      "bank_statement": "approved"
+    },
+    "intent_doc_details": {},
+    "overdraft_count": 1,
+    "income_regularity": 0.8,
+    "months_analysed": 6,
+    "province": "North West",
+    "founder": {
+      "years_industry_experience": 2,
+      "highest_qualification": "certificate",
+      "prior_business_owner": true,
+      "trade_association_member": true,
+      "reference_provided": true
+    }
+  },
+  "expected": {
+    "profile": "growth",
+    "score_range": [
+      30.0,
+      85.0
+    ]
+  }
+}

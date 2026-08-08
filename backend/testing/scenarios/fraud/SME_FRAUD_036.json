@@ -1,0 +1,33 @@
+{
+  "id": "SME_FRAUD_036",
+  "name": "Impossible: Contradictory Experience",
+  "description": "Checking economic validation and warnings for Contradictory Experience.",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 100000.0,
+    "years_active": 10,
+    "industry": "Technology",
+    "total_invoices": 15,
+    "paid_on_time": 13,
+    "unpaid_invoices": 2,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng",
+    "months_analysed": 6,
+    "income_regularity": 0.8,
+    "overdraft_count": 0,
+    "founder": {
+      "years_industry_experience": 0,
+      "highest_qualification": "none"
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      10.0,
+      70.0
+    ]
+  }
+}

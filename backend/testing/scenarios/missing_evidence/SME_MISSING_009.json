@@ -1,34 +1,36 @@
 {
   "id": "SME_MISSING_009",
-  "name": "Partial Evidence 5",
-  "description": "Permutation 9: CIPC=False, Founder=True, Bank=True, Invoices=False",
+  "name": "Missing Evidence Permutation 9",
+  "description": "Missing variables checks: CIPC=True, Founder=True, Bank=True, Invoices=False",
   "category": "missing_evidence",
   "is_valid_evidence": true,
   "evidence": {
-    "revenue": 100000.0,
+    "revenue": 120000.0,
     "years_active": 0,
-    "industry": "Retail",
+    "industry": "Education",
     "total_invoices": 0,
     "paid_on_time": 0,
     "unpaid_invoices": 0,
     "verifications": {
+      "cipc": "approved",
       "bank_statement": "approved"
     },
     "months_analysed": 6,
     "income_regularity": 0.85,
     "overdraft_count": 0,
+    "province": "Northern Cape",
     "founder": {
-      "years_industry_experience": 4,
+      "years_industry_experience": 5,
       "highest_qualification": "diploma",
-      "prior_business_owner": false,
+      "prior_business_owner": true,
       "trade_association_member": false,
-      "reference_provided": false
+      "reference_provided": true
     }
   },
   "expected": {
     "score_range": [
-      5.0,
-      95.0
+      0.0,
+      100.0
     ]
   }
 }

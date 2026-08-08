@@ -1,0 +1,33 @@
+{
+  "id": "SME_FRAUD_028",
+  "name": "Impossible: Impossible Invoice Velocity",
+  "description": "Checking economic validation and warnings for Impossible Invoice Velocity.",
+  "category": "fraud",
+  "is_valid_evidence": true,
+  "evidence": {
+    "revenue": 100000.0,
+    "years_active": 0,
+    "industry": "Technology",
+    "total_invoices": 500,
+    "paid_on_time": 490,
+    "unpaid_invoices": 10,
+    "verifications": {
+      "cipc": "approved"
+    },
+    "province": "Gauteng",
+    "months_analysed": 6,
+    "income_regularity": 0.8,
+    "overdraft_count": 0,
+    "founder": {
+      "years_industry_experience": 5,
+      "highest_qualification": "degree"
+    }
+  },
+  "expected": {
+    "profile": "established",
+    "score_range": [
+      40.0,
+      95.0
+    ]
+  }
+}
