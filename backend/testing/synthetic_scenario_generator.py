@@ -1,7 +1,7 @@
 """
-testing/generate_synthetic_training.py
+testing/synthetic_scenario_generator.py
 
-Generates 1,000+ synthetic SME profiles covering various stages,
+Generates 1,000+ synthetic SME scenarios covering various stages,
 scores them using the Assessment Engine, and simulates realistic outcomes
 (Funded, Defaulted, Revenue Doubled, Closed, etc.) statistically based on the score.
 Exports the resulting dataset to synthetic_dataset.json and synthetic_dataset.csv.
@@ -57,7 +57,6 @@ def generate_random_sme(stage_choice):
         verifications = {}
         intent_doc_details = {}
         if random.random() > 0.5:
-            # Maybe a supply quote or lease agreement
             intent_doc_details["supplier_quote"] = {"status": "approved"}
         overdraft_count = None
         income_regularity = None
@@ -127,7 +126,7 @@ def generate_random_sme(stage_choice):
         
         founder = FounderSignalInput(
             years_industry_experience=random.randint(2, 12),
-            highest_qualification=random.choice(QUALIFICATIONS[2:]), # usually has certificate+
+            highest_qualification=random.choice(QUALIFICATIONS[2:]),
             prior_business_owner=random.choice([True, False]),
             trade_association_member=random.choice([True, False]),
             reference_provided=True
@@ -155,7 +154,7 @@ def generate_random_sme(stage_choice):
         
         founder = FounderSignalInput(
             years_industry_experience=random.randint(5, 20),
-            highest_qualification=random.choice(QUALIFICATIONS[3:]), # diploma+
+            highest_qualification=random.choice(QUALIFICATIONS[3:]),
             prior_business_owner=random.choice([True, False]),
             trade_association_member=random.choice([True, False]),
             reference_provided=True
@@ -194,10 +193,8 @@ def simulate_outcome(score):
 
     if not funded:
         decision_outcome = "Not Funded"
-        # Business performance outcome without funding
-        perf_rand = random.random()
         if score >= 75.0:
-            business_outcome = random.choice(["Growing", "Revenue Doubled", "Growing"]) # thrives anyway
+            business_outcome = random.choice(["Growing", "Revenue Doubled", "Growing"])
         elif score >= 50.0:
             business_outcome = random.choice(["Growing", "Dormant", "Revenue Declined"])
         else:
@@ -207,7 +204,6 @@ def simulate_outcome(score):
         perf_rand = random.random()
         
         if score >= 75.0:
-            # 93% success rate with funding
             if perf_rand < 0.40:
                 business_outcome = "Revenue Doubled"
             elif perf_rand < 0.80:
@@ -215,9 +211,8 @@ def simulate_outcome(score):
             elif perf_rand < 0.93:
                 business_outcome = "Acquired"
             else:
-                business_outcome = "Defaulted" # rare
+                business_outcome = "Defaulted"
         elif score >= 50.0:
-            # 70% success rate with funding
             if perf_rand < 0.15:
                 business_outcome = "Revenue Doubled"
             elif perf_rand < 0.65:
@@ -229,7 +224,6 @@ def simulate_outcome(score):
             else:
                 business_outcome = "Defaulted"
         else:
-            # 35% success rate with funding
             if perf_rand < 0.05:
                 business_outcome = "Revenue Doubled"
             elif perf_rand < 0.30:
@@ -251,10 +245,9 @@ def main():
     
     stages = ["idea", "startup", "growth", "established"]
     
-    print(f"Generating {total_count} synthetic SME records...")
+    print(f"Generating {total_count} synthetic SME scenario records...")
     
     for i in range(total_count):
-        # Even distribution of stage profiles
         target_stage = stages[i % len(stages)]
         pkg = generate_random_sme(target_stage)
         
