@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import { FounderApi, type FounderProfile } from "../api/founderApi";
 
@@ -256,7 +256,7 @@ export default function FounderProfilePage() {
           </div>
           <div>
             <label className={LABEL}>Reference Company</label>
-            <input className={INPUT} value={form.reference_company || ""} placeholder="e.g. Nkosi Logistics"
+            <input className ={INPUT} value={form.reference_company || ""} placeholder="e.g. Nkosi Logistics"
               onChange={(e) => set("reference_company", e.target.value)} />
           </div>
           <div>
