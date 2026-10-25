@@ -189,7 +189,7 @@ def run_scenario(sc):
         
     return res_details
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(description="Assessment Engine Regression Runner")
     parser.path = os.path.join(TESTING_DIR, "gold_dataset.json")
     parser.add_argument("--update-expected", action="store_true", help="Overwrite expected_results.json with current results as baseline")
@@ -331,5 +331,11 @@ def main():
         if regression_changes:
             print(f"Regression changes detected in {len(regression_changes)} scenarios!")
 
+    # Non-zero exit makes CI fail on any failed scenario or unexpected score drift
+    # (refresh the baseline deliberately with --update-expected).
+    if failed_count or (regression_changes and not args.update_expected):
+        return 1
+    return 0
+
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
