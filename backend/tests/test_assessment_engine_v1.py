@@ -24,7 +24,7 @@ def load(mod_name, path):
     spec.loader.exec_module(mod)
     return mod
 
-BASE = os.path.dirname(os.path.abspath(__file__))
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # backend/
 
 load("services.market_data_service", f"{BASE}/services/market_data_service.py")
 load("core.scoring",                 f"{BASE}/core/scoring.py")

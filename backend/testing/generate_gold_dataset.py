@@ -89,6 +89,9 @@ for i in range(100):
     verifs = {}
     if has_cipc:
         verifs["cipc"] = "approved"
+    if has_bank:
+        # Bank metrics only count as evidence once the statement is approved.
+        verifs["bank_statement"] = "approved"
     
     scenarios.append({
         "id": s_id,

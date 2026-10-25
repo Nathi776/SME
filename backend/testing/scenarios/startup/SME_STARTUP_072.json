@@ -11,7 +11,9 @@
     "total_invoices": 0,
     "paid_on_time": 0,
     "unpaid_invoices": 0,
-    "verifications": {},
+    "verifications": {
+      "bank_statement": "approved"
+    },
     "intent_doc_details": {},
     "overdraft_count": 0,
     "income_regularity": 0.85,
