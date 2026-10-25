@@ -140,6 +140,7 @@ def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
         income_regularity=income_regularity,
         months_analysed=months_analysed,
         bank_statement_verification_id=bank_evidence.verification_id,
+        bank_statement_newer_pending=bank_evidence.newer_unreviewed,
         province=sme.province or None,
         founder=founder,
     )
@@ -190,6 +191,7 @@ def _build_assessment_snapshot_data(inp, result: AssessmentResult) -> dict:
         "months_analysed": inp.months_analysed,
         # Provenance: the verification record the bank signals came from.
         "bank_statement_verification_id": inp.bank_statement_verification_id,
+        "bank_statement_newer_pending": inp.bank_statement_newer_pending,
         "province": inp.province,
     }
 

@@ -34,12 +34,26 @@ def test_selection_returns_verification_id_for_approved_latest():
     assert ev.verification_id == 1
 
 
-def test_selection_has_no_id_when_governing_statement_unapproved():
+def test_newer_pending_or_rejected_does_not_displace_older_approved():
+    for status in ("pending", "rejected"):
+        ev = select_bank_statement_evidence(
+            [_v(1, "approved", T0), _v(2, status, T0 + timedelta(days=1))]
+        )
+        assert ev.governing.id == 2
+        assert ev.verification_id == 1
+        assert ev.newer_unreviewed is True
+
+
+def test_latest_approved_wins_among_several_approved():
     ev = select_bank_statement_evidence(
-        [_v(1, "approved", T0), _v(2, "pending", T0 + timedelta(days=1))]
+        [_v(1, "approved", T0), _v(2, "approved", T0 + timedelta(days=1))]
     )
-    assert ev.governing.id == 2
-    assert ev.approved is None and ev.verification_id is None
+    assert ev.verification_id == 2 and ev.newer_unreviewed is False
+
+
+def test_only_unapproved_statements_yield_no_evidence():
+    ev = select_bank_statement_evidence([_v(1, "pending", T0)])
+    assert ev.verification_id is None and ev.newer_unreviewed is False
 
 
 def test_selection_ignores_other_doc_types_and_missing_timestamps():

@@ -7,12 +7,11 @@ service call this, so they can never disagree about which bank statement
 was used, and every consumer can record the verification ID it relied on.
 
 POLICY (change it here, and only here):
-    The *latest submitted* bank statement governs. Its metrics are eligible
-    only if that statement is approved. A newer pending/rejected upload
-    therefore suspends the older approved statement's metrics.
-
-    If you would rather score from "the latest *approved* statement" even
-    while a newer upload is pending, change `_governing_bank_statement`.
+    Scoring uses the *latest approved* bank statement. A newer upload that is
+    still pending (or was rejected) never suppresses an older approved one,
+    so a score is not disturbed while a fresh statement awaits review.
+    `newer_unreviewed` tells callers when a more recent upload exists that is
+    not the one being used, so the evidence can be flagged as possibly stale.
 """
 
 from __future__ import annotations
@@ -25,15 +24,24 @@ BANK_STATEMENT = "bank_statement"
 
 @dataclass(frozen=True)
 class BankStatementEvidence:
-    # The statement that governs eligibility (may be pending/rejected).
+    # The most recent bank statement submitted (any status).
     governing: object | None
-    # The statement whose metrics may be used; None when not eligible.
+    # The statement whose metrics may be used; None when none is approved.
     approved: object | None
 
     @property
     def verification_id(self) -> int | None:
         """ID of the verification record the metrics came from."""
         return self.approved.id if self.approved is not None else None
+
+    @property
+    def newer_unreviewed(self) -> bool:
+        """True when a newer, non-approved upload exists than the one in use."""
+        return (
+            self.governing is not None
+            and self.approved is not None
+            and self.governing is not self.approved
+        )
 
 
 def sort_verifications(verifications: Iterable) -> list:
@@ -44,14 +52,9 @@ def sort_verifications(verifications: Iterable) -> list:
     )
 
 
-def _governing_bank_statement(sorted_verifications: list):
-    return next(
-        (v for v in reversed(sorted_verifications) if v.doc_type == BANK_STATEMENT),
-        None,
-    )
-
-
 def select_bank_statement_evidence(verifications: Iterable) -> BankStatementEvidence:
-    governing = _governing_bank_statement(sort_verifications(verifications))
-    approved = governing if governing is not None and governing.status == "approved" else None
+    ordered = [v for v in reversed(sort_verifications(verifications))
+               if v.doc_type == BANK_STATEMENT]
+    governing = ordered[0] if ordered else None
+    approved = next((v for v in ordered if v.status == "approved"), None)
     return BankStatementEvidence(governing=governing, approved=approved)

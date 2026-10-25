@@ -121,7 +121,7 @@ def test_missing_bank_verification_excludes_stored_bank_metrics():
     assert "bank_statement" not in evidence.verifications
 
 
-def test_latest_pending_verification_overrides_older_approval():
+def test_newer_pending_statement_does_not_suppress_older_approved_one():
     older = datetime(2026, 1, 1, tzinfo=timezone.utc)
     newer = older + timedelta(days=1)
 
@@ -132,8 +132,11 @@ def test_latest_pending_verification_overrides_older_approval():
 
     evidence = build_evidence_package(make_sme(), db)
 
+    # Status map still reports the latest upload...
     assert evidence.verifications["bank_statement"] == "pending"
-    assert evidence.revenue == 10000.0
-    assert evidence.overdraft_count is None
-    assert evidence.income_regularity is None
-    assert evidence.months_analysed is None
+    # ...but metrics come from the latest APPROVED statement, with provenance.
+    assert evidence.revenue == 25000.0
+    assert evidence.overdraft_count == 2
+    assert evidence.bank_statement_verification_id == 1
+    assert evidence.bank_statement_newer_pending is True
+
