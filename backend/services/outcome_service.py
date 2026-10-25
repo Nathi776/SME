@@ -5,7 +5,11 @@ from sqlalchemy.orm import Session
 from models.sme_outcome import SmeOutcome
 from models.finance_request import FinanceRequest
 from models.sme import SME
-from services.scoring_service import score_sme
+from services.scoring_service import (
+    calculate_assessment,
+    score_sme,
+    create_current_business_observation,
+)
 from services.recommendations_service import generate_plan
 
 
@@ -24,8 +28,22 @@ def create_outcome(db: Session, finance_request_id: int) -> SmeOutcome:
     if not sme:
         raise ValueError("SME not found for the finance request")
 
-    score_res = score_sme(sme, db)
-    plan = generate_plan(score_res.breakdown, score_res.score)
+    # Use the assessment the funding decision was actually based on (the
+    # snapshot linked to the finance request). Re-scoring here would create a
+    # second, unrelated snapshot and the outcome would no longer describe the
+    # prediction we want to evaluate. Fall back to a fresh assessment only for
+    # legacy requests that have no linked snapshot.
+    snapshot = req.assessment_snapshot
+    if snapshot is not None:
+        assessed_score = float(snapshot.score)
+        assessed_breakdown = snapshot.factor_breakdown or {}
+    else:
+        fresh = score_sme(sme, db)
+        assessed_score = float(fresh.score)
+        assessed_breakdown = fresh.breakdown
+        req.assessment_snapshot_id = fresh.assessment_snapshot_id
+
+    plan = generate_plan(assessed_breakdown, assessed_score)
 
     # 3. Build outstanding recommendations list for snapshotting
     outstanding = []
@@ -48,7 +66,7 @@ def create_outcome(db: Session, finance_request_id: int) -> SmeOutcome:
     outcome = SmeOutcome(
         finance_request_id=finance_request_id,
         sme_id=sme.id,
-        score_at_funding=float(score_res.score),
+        score_at_funding=assessed_score,
         amount=req.approved_amount or req.amount_requested,
         outstanding_recommendations=outstanding,
         outcome_status="pending",
@@ -133,9 +151,55 @@ def update_checkin(
     else:
         outcome.outcome_status = "pending"
 
+    _write_training_labels(outcome)
+
     db.commit()
     db.refresh(outcome)
+
+    # Record the check-in as a timestamped observation so the longitudinal
+    # dataset (and assessment evaluations) see what the business reported.
+    if outcome.sme is not None:
+        create_current_business_observation(
+            db,
+            outcome.sme,
+            source="outcome_checkin",
+            still_operating=still_operating,
+            additional_data={
+                "outcome_id": outcome.id,
+                "interval_days": interval,
+                "self_reported_revenue": float(Decimal(str(revenue))),
+                "loan_repaid": loan_repaid,
+            },
+        )
     return outcome
+
+
+def _write_training_labels(outcome: SmeOutcome) -> None:
+    """
+    Write the immutable y-labels once the 365-day check-in exists.
+    Labels already set are never changed. y2 (18-month survival) stays NULL
+    until a 540-day check-in exists.
+    """
+    if not outcome.checkin_365_completed:
+        return
+
+    if outcome.y1_survived_12m is None:
+        outcome.y1_survived_12m = outcome.checkin_365_still_operating
+
+    if outcome.y3_reached_100k is None and outcome.checkin_365_revenue is not None:
+        outcome.y3_reached_100k = outcome.checkin_365_revenue >= Decimal("100000")
+
+    if (
+        outcome.y4_revenue_grew is None
+        and outcome.checkin_365_revenue is not None
+        and outcome.checkin_90_revenue is not None
+    ):
+        outcome.y4_revenue_grew = (
+            outcome.checkin_365_revenue > outcome.checkin_90_revenue
+        )
+
+    if outcome.y5_defaulted is None and outcome.checkin_365_loan_repaid is not None:
+        outcome.y5_defaulted = outcome.checkin_365_loan_repaid is False
 
 
 def compute_followed_recommendations(db: Session, outcome: SmeOutcome) -> list[dict]:
@@ -147,8 +211,9 @@ def compute_followed_recommendations(db: Session, outcome: SmeOutcome) -> list[d
     if not sme:
         return []
 
-    # Recalculate current score and plan dynamically
-    score_res = score_sme(sme, db)
+    # Recalculate current score and plan WITHOUT persisting: this runs on GET
+    # requests and must not create observations/snapshots as a side effect.
+    score_res, _ = calculate_assessment(sme, db)
     current_plan = generate_plan(score_res.breakdown, score_res.score)
     current_recs = current_plan.recommendations
 

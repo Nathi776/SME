@@ -52,6 +52,10 @@ class AssessmentSnapshot(Base):
 
     score = Column(Float, nullable=False)
 
+    # Viability Score: business strength independent of compliance paperwork.
+    # `score` is Funding Readiness; `evidence_depth` is Evidence Confidence.
+    viability_score = Column(Float, nullable=True)
+
     decision = Column(String(50), nullable=False)
 
     evidence_depth = Column(Float, nullable=True)
@@ -79,4 +83,4 @@ class AssessmentSnapshot(Base):
     finance_requests = relationship(
         "FinanceRequest",
         back_populates="assessment_snapshot",
-    )
+    )

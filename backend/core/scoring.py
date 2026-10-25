@@ -96,6 +96,8 @@ class EvidencePackage:
     # Verification record the bank-statement signals above were taken from
     # (None when no approved statement supplied them).
     bank_statement_verification_id: int | None = None
+    # A newer bank statement exists that is not yet approved (evidence may be stale).
+    bank_statement_newer_pending: bool = False
 
     # Location
     province: str | None = None

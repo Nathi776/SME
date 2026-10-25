@@ -189,6 +189,21 @@ class AssessmentResult:
     inference_version:   str = "v1"
     strategy_version:    str = "v1"
     assessment_snapshot_id: int | None = None
+    # How strong the business itself looks (0-100), independent of how much
+    # compliance paperwork it has submitted. See ViabilityCalculator.
+    viability_score:     float | None = None
+
+    # The three outputs are distinct measures; these names make that explicit
+    # while `score` and `confidence_score` keep working for existing callers.
+    @property
+    def funding_readiness_score(self) -> float:
+        """Overall readiness for funding right now (same value as `score`)."""
+        return self.score
+
+    @property
+    def evidence_confidence(self) -> float:
+        """How well the inputs are verified (same value as `confidence_score`)."""
+        return self.confidence_score
 
 
 # ── Profile Inference Result ──────────────────────────────────────────────────
@@ -642,6 +657,47 @@ class ScoreCalculator:
         return breakdown, raw, applicable_max
 
 
+# ── Viability Calculator ──────────────────────────────────────────────────────
+
+# Factors that describe the business itself: trading performance, age, sector,
+# location, founder capability and evidenced demand. Compliance Documents are
+# deliberately excluded: they measure paperwork/verification readiness, which
+# is part of Funding Readiness but says little about whether the business is
+# viable. Change this set to move a factor between the two measures.
+VIABILITY_FACTORS = (
+    "Revenue Tier",
+    "Invoice Timeliness",
+    "Unpaid Invoice Ratio",
+    "Business Age",
+    "Industry Risk",
+    "Market Viability",
+    "Intent Documents",
+    "Founder Signal",
+)
+
+
+class ViabilityCalculator:
+    @staticmethod
+    def calculate(breakdown: dict[str, dict]) -> float:
+        """
+        Viability Score (0-100): earned / maximum points over the applicable
+        viability factors only, using the same stage-aware weights as the
+        overall score. It is computed from the inputs as submitted, so read it
+        together with Evidence Confidence, which says how far to trust them.
+        """
+        earned = 0.0
+        maximum = 0.0
+        for name in VIABILITY_FACTORS:
+            factor = breakdown.get(name)
+            if not factor or not factor.get("applicable", True):
+                continue
+            earned += float(factor.get("contribution") or 0.0)
+            maximum += float(factor.get("max") or 0.0)
+        if maximum <= 0:
+            return 0.0
+        return round(min(max(earned / maximum * 100, 0.0), 100.0), 1)
+
+
 # ── Confidence Calculator ─────────────────────────────────────────────────────
 
 class ConfidenceCalculator:
@@ -695,7 +751,8 @@ class AssessmentBuilder:
         strategy: WeightStrategy,
         strategy_ver: str,
         confidence: float,
-        validation_warnings: list[str]
+        validation_warnings: list[str],
+        viability: float | None = None,
     ) -> AssessmentResult:
         """
         Assembles all computed components into an AssessmentResult and attaches audit metadata.
@@ -712,6 +769,7 @@ class AssessmentBuilder:
             "raw_max":            applicable_max,
             "reasoning":          profile_res.reasoning,
             "confidence_score":   confidence,
+            "viability_score":    viability,
             "warnings":           validation_warnings,
             "inference_version":  profile_res.inference_version,
             "strategy_version":   strategy_ver,
@@ -727,6 +785,7 @@ class AssessmentBuilder:
             profile_description= PROFILE_DESCRIPTIONS[profile_res.profile],
             profile_reasoning  = profile_res.reasoning,
             confidence_score   = confidence,
+            viability_score    = viability,
             inference_version  = profile_res.inference_version,
             strategy_version   = strategy_ver,
         )
@@ -760,6 +819,9 @@ def assess(inp: EvidencePackage) -> AssessmentResult:
     # 5. Confidence Calculation
     confidence = ConfidenceCalculator.calculate(inp)
 
+    # 5b. Viability (business strength, independent of paperwork)
+    viability = ViabilityCalculator.calculate(breakdown)
+
     # 6. Rescale & Determine Decision
     score = round(min(max((raw_score / applicable_max) * 100, 0), 100), 1)
     decision = determine_decision(score)
@@ -777,7 +839,8 @@ def assess(inp: EvidencePackage) -> AssessmentResult:
         strategy=strategy,
         strategy_ver=strategy_ver,
         confidence=confidence,
-        validation_warnings=val_res.warnings
+        validation_warnings=val_res.warnings,
+        viability=viability,
     )
 
 

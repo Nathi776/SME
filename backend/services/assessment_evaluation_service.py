@@ -17,6 +17,7 @@ from sqlalchemy.orm import Session
 from models.assessment_snapshot import AssessmentSnapshot
 from models.business_observation import BusinessObservation
 from models.finance_request import FinanceRequest
+from models.sme_outcome import SmeOutcome
 
 
 def _decimal_to_float(value):
@@ -214,4 +215,59 @@ def get_assessment_evaluation(
             "day_365_or_later": nearest_observation(365),
         },
         "finance_outcome": outcome_result,
+    }
+
+
+MIN_RELIABLE_SAMPLE = 30
+
+
+def get_model_calibration(db: Session, band_width: int = 20) -> dict:
+    """
+    Compare initial assessments with realised 12-month outcomes.
+
+    Only outcomes whose 365-day labels exist are used. Results are grouped by
+    strategy version and score band so a new model version can be compared
+    with the previous one. Small groups are flagged rather than hidden; this
+    reports association, not proof that the score causes the outcome.
+    """
+    rows = (
+        db.query(SmeOutcome, FinanceRequest)
+        .join(FinanceRequest, FinanceRequest.id == SmeOutcome.finance_request_id)
+        .filter(SmeOutcome.y1_survived_12m.isnot(None))
+        .all()
+    )
+
+    groups: dict[tuple[str, int], dict] = {}
+    for outcome, request in rows:
+        snapshot = request.assessment_snapshot
+        score = snapshot.score if snapshot is not None else outcome.score_at_funding
+        version = (snapshot.strategy_version if snapshot is not None else None) or "unknown"
+        band = int(score // band_width) * band_width
+        g = groups.setdefault(
+            (version, band),
+            {"n": 0, "survived": 0, "defaulted": 0, "default_known": 0},
+        )
+        g["n"] += 1
+        g["survived"] += 1 if outcome.y1_survived_12m else 0
+        if outcome.y5_defaulted is not None:
+            g["default_known"] += 1
+            g["defaulted"] += 1 if outcome.y5_defaulted else 0
+
+    result = []
+    for (version, band), g in sorted(groups.items()):
+        result.append({
+            "strategy_version": version,
+            "score_band": f"{band}-{band + band_width - 1}",
+            "n": g["n"],
+            "survival_rate_12m": g["survived"] / g["n"],
+            "default_rate_12m": (
+                g["defaulted"] / g["default_known"] if g["default_known"] else None
+            ),
+            "sufficient_sample": g["n"] >= MIN_RELIABLE_SAMPLE,
+        })
+
+    return {
+        "labelled_outcomes": len(rows),
+        "min_reliable_sample": MIN_RELIABLE_SAMPLE,
+        "groups": result,
     }

@@ -16,6 +16,7 @@ def create_assessment_snapshot(
     strategy_version: str | None = None,
     inference_version: str | None = None,
     evidence_depth: float | None = None,
+    viability_score: float | None = None,
     input_snapshot: dict | None = None,
     factor_breakdown: dict | None = None,
     market_context: dict | None = None,
@@ -37,6 +38,7 @@ def create_assessment_snapshot(
         decision=decision,
 
         evidence_depth=evidence_depth,
+        viability_score=viability_score,
 
         input_snapshot=input_snapshot,
         factor_breakdown=factor_breakdown,

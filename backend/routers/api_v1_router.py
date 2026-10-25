@@ -8,7 +8,7 @@ from database import get_db
 from models.sme import SME
 from models.credit_score import CreditScore
 from models.api_key import APIKey
-from services.scoring_service import score_sme
+from services.scoring_service import score_sme, scores_summary
 from services.recommendations_service import generate_plan
 from services.market_data_service import get_market_intelligence
 from services.api_key_service import get_api_key_from_header, generate_api_key
@@ -70,6 +70,7 @@ def get_sme_score(
         "province": sme.province,
         "score": round(result.score, 1),
         "decision": result.decision,
+        "scores": scores_summary(result),
         "score_components": score_components,
         "projected_score": round(plan.projected_score, 1),
         "projected_decision": plan.projected_decision,

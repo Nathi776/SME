@@ -121,24 +121,6 @@ def test_no_bank_statement_excludes_legacy_bank_metrics():
     assert data["months_analysed"] is None
 
 
-def test_latest_pending_statement_overrides_older_approval():
-    older = datetime(2026, 1, 1, tzinfo=timezone.utc)
-    newer = older + timedelta(days=1)
-
-    db = make_db([
-        make_verification("approved", older, 1),
-        make_verification("pending", newer, 2),
-    ])
-
-    data = build_current_observation_data(make_sme(), db)
-
-    assert data["revenue"] == 10000.0
-    assert data["parsed_revenue"] is None
-    assert data["overdraft_count"] is None
-    assert data["income_regularity"] is None
-    assert data["months_analysed"] is None
-
-
 def test_approved_but_unparsed_statement_falls_back_to_sme_revenue():
     submitted_at = datetime(2026, 1, 1, tzinfo=timezone.utc)
     db = make_db([
@@ -166,3 +148,16 @@ def test_approved_but_unparsed_statement_falls_back_to_sme_revenue():
     assert data["overdraft_count"] is None
     assert data["income_regularity"] is None
     assert data["months_analysed"] is None
+
+
+def test_newer_pending_statement_does_not_suppress_older_approved_observation():
+    older = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    db = make_db([
+        make_verification("approved", older, 1),
+        make_verification("pending", older + timedelta(days=1), 2),
+    ])
+
+    data = build_current_observation_data(make_sme(), db)
+
+    assert data["bank_statement_verification_id"] == 1
+    assert data["parsed_revenue"] == 25000.0
