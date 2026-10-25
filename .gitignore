@@ -1,0 +1,24 @@
+# Dependencies / build output
+node_modules/
+**/node_modules/
+dist/
+build/
+*.log
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Local / test databases and uploaded business documents (may contain PII)
+*.db
+*.sqlite*
+uploads/
+**/uploads/

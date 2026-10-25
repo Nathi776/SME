@@ -21,6 +21,7 @@ from models.business_observation import BusinessObservation
 from models.invoice import Invoice
 from models.sme import SME
 from models.verification import Verification
+from services.evidence_selection import select_bank_statement_evidence
 
 
 def _as_float(value):
@@ -89,33 +90,9 @@ def build_current_observation_data(
         .all()
     )
 
-    def _verification_sort_key(v):
-        return (v.submitted_at is not None, v.submitted_at, v.id or 0)
-
-    verifications_sorted = sorted(
-        verifications,
-        key=_verification_sort_key,
-    )
-
-    # Only the latest bank statement determines whether its metrics
-    # are eligible for the current observation.
-    bank_statement_verification = next(
-        (
-            v for v in reversed(verifications_sorted)
-            if v.doc_type == "bank_statement"
-        ),
-        None,
-    )
-
-    bank_statement_approved = (
-        bank_statement_verification is not None
-        and bank_statement_verification.status == "approved"
-    )
-
-    if bank_statement_approved:
-        bank = bank_statement_verification
-    else:
-        bank = None
+    # Same selection rule as scoring (services/evidence_selection.py).
+    bank_evidence = select_bank_statement_evidence(verifications)
+    bank = bank_evidence.approved
 
     # Never use legacy SME bank-statement metrics as authoritative data.
     observed_revenue = (
@@ -157,6 +134,8 @@ def build_current_observation_data(
             bank.bs_parsed_revenue if bank is not None else None
         ),
 
+
+        "bank_statement_verification_id": bank_evidence.verification_id,
 
         "industry": sme.industry,
         "province": sme.province,
@@ -203,6 +182,7 @@ def create_current_business_observation(
         income_regularity=data["income_regularity"],
         months_analysed=data["months_analysed"],
         parsed_revenue=data["parsed_revenue"],
+        bank_statement_verification_id=data["bank_statement_verification_id"],
 
         industry=data["industry"],
         province=data["province"],

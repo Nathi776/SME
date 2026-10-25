@@ -93,6 +93,15 @@ class BusinessObservation(Base):
 
     parsed_revenue = Column(Numeric(18, 2), nullable=True)
 
+    # Provenance: the exact verification record the bank-statement signals
+    # above were taken from. NULL means no approved statement supplied them.
+    bank_statement_verification_id = Column(
+        Integer,
+        ForeignKey("verifications.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+
     # ── Context ───────────────────────────────────────────────────────────────
 
     industry = Column(String, nullable=True)
