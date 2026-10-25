@@ -1,11 +1,12 @@
 from functools import lru_cache
 from decimal import Decimal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    environment: str = "development"  # set ENVIRONMENT=production in deployments
     database_url: str = "postgresql://postgres:system@localhost:5432/credit_db"
     secret_key: str = "change-me-in-production"
     algorithm: str = "HS256"
@@ -29,6 +30,17 @@ class Settings(BaseSettings):
     smtp_use_tls: bool = True
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    @model_validator(mode="after")
+    def _refuse_insecure_production_defaults(self):
+        if self.environment.lower() == "production" and (
+            self.secret_key == "change-me-in-production" or len(self.secret_key) < 32
+        ):
+            raise ValueError(
+                "SECRET_KEY must be set to a random value of at least 32 characters "
+                "when ENVIRONMENT=production."
+            )
+        return self
 
 
 @lru_cache

@@ -5,6 +5,7 @@ psycopg2-binary
 pydantic
 alembic
 passlib[bcrypt]
+bcrypt<4.1  # passlib 1.7.x is incompatible with bcrypt>=4.1 (breaks hashing)
 PyJWT
 joblib
 numpy

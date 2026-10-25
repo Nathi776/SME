@@ -19,6 +19,7 @@ from core.assessment_engine import AssessmentResult, assess
 from services.assessment_snapshot_service import create_assessment_snapshot
 from services.business_observation_service import create_current_business_observation
 from services.market_data_service import normalize_industry
+from services.evidence_selection import select_bank_statement_evidence, sort_verifications
 
 def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
     """
@@ -55,27 +56,15 @@ def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
         .all()
     )
 
-    def _verification_sort_key(v: Verification):
-        return (v.submitted_at is not None, v.submitted_at, v.id or 0)
-
-    verifications_sorted = sorted(verifications, key=_verification_sort_key)
+    verifications_sorted = sort_verifications(verifications)
 
     ver_map: dict[str, str] = {}
     for v in verifications_sorted:
         ver_map[v.doc_type] = v.status
 
-    bank_statement_verification = next(
-        (
-            v for v in reversed(verifications_sorted)
-            if v.doc_type == "bank_statement"
-        ),
-        None,
-    )
-
-    bank_statement_approved = (
-        bank_statement_verification is not None
-        and bank_statement_verification.status == "approved"
-    )
+    bank_evidence = select_bank_statement_evidence(verifications)
+    bank_statement_verification = bank_evidence.approved
+    bank_statement_approved = bank_statement_verification is not None
 
     # ── Intent document details ───────────────────────────────────────────────
     intent_doc_details: dict[str, dict] = {}
@@ -150,6 +139,7 @@ def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
         overdraft_count=overdraft_count,
         income_regularity=income_regularity,
         months_analysed=months_analysed,
+        bank_statement_verification_id=bank_evidence.verification_id,
         province=sme.province or None,
         founder=founder,
     )
@@ -182,6 +172,12 @@ def calculate_assessment(
 def _build_assessment_snapshot_data(inp, result: AssessmentResult) -> dict:
     input_snapshot = {
         "revenue": inp.revenue,
+        # Declared vs verified: lets reviewers see what the revenue figure rests on.
+        "revenue_source": (
+            "verified_bank_statement"
+            if inp.bank_statement_verification_id is not None
+            else "declared"
+        ),
         "years_active": inp.years_active,
         "industry": inp.industry,
         "total_invoices": inp.total_invoices,
@@ -192,6 +188,8 @@ def _build_assessment_snapshot_data(inp, result: AssessmentResult) -> dict:
         "overdraft_count": inp.overdraft_count,
         "income_regularity": inp.income_regularity,
         "months_analysed": inp.months_analysed,
+        # Provenance: the verification record the bank signals came from.
+        "bank_statement_verification_id": inp.bank_statement_verification_id,
         "province": inp.province,
     }
 

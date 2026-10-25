@@ -93,6 +93,9 @@ class EvidencePackage:
     overdraft_count:   int   | None = None
     income_regularity: float | None = None
     months_analysed:   int   | None = None
+    # Verification record the bank-statement signals above were taken from
+    # (None when no approved statement supplied them).
+    bank_statement_verification_id: int | None = None
 
     # Location
     province: str | None = None

@@ -34,6 +34,8 @@ from limiter import limiter
 
 router = APIRouter(prefix="/verifications", tags=["Verifications"])
 
+MAX_UPLOAD_BYTES = 10 * 1024 * 1024  # 10 MB
+
 VALID_DOC_TYPES = {
     # Compliance â€” scored
     "cipc", "bank_statement", "tax_clearance", "registration_docs",
@@ -75,15 +77,9 @@ def _apply_bank_statement_signals(
     ver.bs_months_analysed = signals.months_analysed
     ver.bs_parsed_revenue = signals.parsed_revenue
 
-    # Maintain the legacy SME fields for API compatibility.
-    # Scoring and observations will be updated to use Verification records.
-    sme.bs_avg_monthly_balance = signals.avg_monthly_balance
-    sme.bs_avg_monthly_income = signals.avg_monthly_income
-    sme.bs_avg_monthly_expenses = signals.avg_monthly_expenses
-    sme.bs_overdraft_count = signals.overdraft_count
-    sme.bs_income_regularity = signals.income_regularity
-    sme.bs_months_analysed = signals.months_analysed
-    sme.bs_parsed_revenue = signals.parsed_revenue
+    # NOTE: the legacy SME.bs_* fields are intentionally NOT written here.
+    # Unapproved metrics must not surface on the SME record; they are
+    # mirrored from the approved verification in approve_verification().
 
     return {
         "parsed": True,
@@ -172,6 +168,32 @@ def _apply_cipc_verification(
 
 # â”€â”€ Schemas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
+def _get_pending_verification(db: Session, verification_id: int) -> Verification:
+    ver = db.query(Verification).filter(Verification.id == verification_id).first()
+    if not ver:
+        raise HTTPException(status_code=404, detail="Verification not found")
+    if ver.status != "pending":
+        raise HTTPException(
+            status_code=409,
+            detail=f"Verification already {ver.status}; only pending records can be reviewed.",
+        )
+    return ver
+
+
+def _mirror_bank_metrics_to_sme(ver: Verification, db: Session) -> None:
+    """Legacy-API compatibility: expose only *approved* metrics on the SME."""
+    sme = db.query(SME).filter(SME.id == ver.sme_id).first() if ver.sme_id else None
+    if sme is None:
+        return
+    sme.bs_avg_monthly_balance = ver.bs_avg_monthly_balance
+    sme.bs_avg_monthly_income = ver.bs_avg_monthly_income
+    sme.bs_avg_monthly_expenses = ver.bs_avg_monthly_expenses
+    sme.bs_overdraft_count = ver.bs_overdraft_count
+    sme.bs_income_regularity = ver.bs_income_regularity
+    sme.bs_months_analysed = ver.bs_months_analysed
+    sme.bs_parsed_revenue = ver.bs_parsed_revenue
+
+
 class VerificationOut(BaseModel):
     id:                     int
     doc_type:               str
@@ -226,6 +248,21 @@ async def submit_verification(
             detail="cipc_registration_number is required when uploading a CIPC certificate.",
         )
 
+    if doc_type == "bank_statement" and (
+        not file.filename or not file.filename.lower().endswith(".pdf")
+    ):
+        raise HTTPException(status_code=400, detail="Bank statements must be uploaded as PDF files.")
+
+    # Reject oversize uploads before anything is written to storage.
+    file.file.seek(0, 2)
+    size = file.file.tell()
+    file.file.seek(0)
+    if size > MAX_UPLOAD_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"File too large (max {MAX_UPLOAD_BYTES // (1024 * 1024)} MB).",
+        )
+
     pdf_bytes, document_url = save_uploaded_file(file)
 
     ver = Verification(
@@ -245,8 +282,6 @@ async def submit_verification(
         ver.sme_id = sme.id
 
         if doc_type == "bank_statement":
-            if not file.filename or not file.filename.lower().endswith(".pdf"):
-                raise HTTPException(status_code=400, detail="Bank statements must be uploaded as PDF files.")
             parse_result = _apply_bank_statement_signals(sme, ver, pdf_bytes)
 
         elif doc_type == "cipc":
@@ -331,9 +366,7 @@ def approve_verification(
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Only admins can approve verifications")
 
-    ver = db.query(Verification).filter(Verification.id == verification_id).first()
-    if not ver:
-        raise HTTPException(status_code=404, detail="Verification not found")
+    ver = _get_pending_verification(db, verification_id)
 
     ver.status         = "approved"
     ver.reviewed_at    = utc_now()
@@ -345,6 +378,9 @@ def approve_verification(
         if sme and not sme.cipc_verified_at:
             sme.cipc_verified_at = utc_now()
             sme.cipc_status      = "In Business (manual review)"
+
+    if ver.doc_type == "bank_statement" and ver.bs_parsed_revenue is not None:
+        _mirror_bank_metrics_to_sme(ver, db)
 
     # LOI counterparty flag
     if ver.doc_type == "letter_of_intent" and payload.loi_counterparty_known is not None:
@@ -365,9 +401,7 @@ def reject_verification(
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Only admins can reject verifications")
 
-    ver = db.query(Verification).filter(Verification.id == verification_id).first()
-    if not ver:
-        raise HTTPException(status_code=404, detail="Verification not found")
+    ver = _get_pending_verification(db, verification_id)
 
     ver.status         = "rejected"
     ver.reviewed_at    = utc_now()
