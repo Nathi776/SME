@@ -18,7 +18,8 @@ from core.time_utils import utc_now
 from typing import Optional, List
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, Request
-from pydantic import BaseModel,ConfigDict
+from fastapi.responses import FileResponse, RedirectResponse
+from pydantic import BaseModel, ConfigDict, model_validator
 from sqlalchemy.orm import Session
 
 from database import get_db
@@ -28,7 +29,7 @@ from models.user import User
 from models.verification import Verification
 from services.auth_service import get_current_user
 from services.bank_statement_parser import parse_bank_statement
-from services.storage_service import save_uploaded_file
+from services.storage_service import InvalidUpload, resolve_document, save_uploaded_file
 from services import cipc_service
 from limiter import limiter
 
@@ -168,6 +169,10 @@ def _apply_cipc_verification(
 
 # â”€â”€ Schemas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
+def document_download_path(verification_id: int) -> str:
+    return f"/verifications/{verification_id}/document"
+
+
 def _get_pending_verification(db: Session, verification_id: int) -> Verification:
     ver = db.query(Verification).filter(Verification.id == verification_id).first()
     if not ver:
@@ -207,6 +212,15 @@ class VerificationOut(BaseModel):
     loi_counterparty_known: Optional[bool] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+    @model_validator(mode="after")
+    def _hide_storage_reference(self):
+        # The stored value is an internal reference (or, for legacy rows, a
+        # public URL / server path). Expose only the authorised endpoint.
+        self.document_url = (
+            document_download_path(self.id) if self.document_url else None
+        )
+        return self
 
 
 class ReviewPayload(BaseModel):
@@ -263,7 +277,10 @@ async def submit_verification(
             detail=f"File too large (max {MAX_UPLOAD_BYTES // (1024 * 1024)} MB).",
         )
 
-    pdf_bytes, document_url = save_uploaded_file(file)
+    try:
+        pdf_bytes, document_url = save_uploaded_file(file)
+    except InvalidUpload as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
 
     ver = Verification(
         doc_type=doc_type,
@@ -304,7 +321,7 @@ async def submit_verification(
     response = {
         "id":           ver.id,
         "doc_type":     ver.doc_type,
-        "document_url": ver.document_url,
+        "document_url": document_download_path(ver.id),
         "status":       ver.status,
         "submitted_at": ver.submitted_at,
         "sme_id":       ver.sme_id,
@@ -345,6 +362,41 @@ def list_my_verifications(
 
 
 # â”€â”€ Admin endpoints â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+@router.get("/{verification_id}/document")
+def download_document(
+    verification_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Authorised access to a stored document (owner or admin)."""
+    ver = db.query(Verification).filter(Verification.id == verification_id).first()
+    if not ver:
+        raise HTTPException(status_code=404, detail="Verification not found")
+
+    allowed = current_user.role == "admin"
+    if not allowed and current_user.role == "sme" and ver.sme_id:
+        sme = db.query(SME).filter(SME.id == ver.sme_id).first()
+        allowed = sme is not None and sme.user_id == current_user.id
+    if not allowed and current_user.role == "lender" and ver.lender_id:
+        lender = db.query(Lender).filter(Lender.id == ver.lender_id).first()
+        allowed = lender is not None and lender.user_id == current_user.id
+    if not allowed:
+        # Same response as a missing record: do not reveal that it exists.
+        raise HTTPException(status_code=404, detail="Verification not found")
+
+    access = resolve_document(ver.document_url)
+    if access is None:
+        raise HTTPException(status_code=404, detail="Document not available")
+
+    if access.kind == "redirect":
+        return RedirectResponse(access.location, status_code=307)
+    return FileResponse(
+        access.location,
+        filename=access.filename,
+        content_disposition_type="attachment",
+    )
+
 
 @router.get("/pending", response_model=List[VerificationOut])
 def list_pending_verifications(
