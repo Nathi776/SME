@@ -19,6 +19,7 @@ from services.auth_service import get_current_user
 from services.scoring_service import (
     calculate_assessment,
     create_assessment_for_sme,
+    scores_summary,
 )
 from core.scoring import determine_decision
 
@@ -67,6 +68,7 @@ def generate_credit_score(
         "sme_id": sme_id,
         "score": new_score.score,
         "decision": result.decision,
+        "scores": scores_summary(result),
         "profile": result.profile.value,
         "observation_id": observation_id,
         "assessment_snapshot_id": snapshot_id,
@@ -165,6 +167,7 @@ def get_credit_score_details(
         "sme_id": sme_id,
         "score": result.score,
         "decision": result.decision,
+        "scores": scores_summary(result),
         "breakdown": result.breakdown,
     }
 

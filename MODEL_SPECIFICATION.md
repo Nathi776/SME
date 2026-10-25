@@ -16,6 +16,27 @@ The Assessment Engine v1.0 is designed to measure **SME Funding Readiness**. It 
 
 ---
 
+## 1b. Three Distinct Outputs
+
+An assessment reports three separate measures. They answer different questions and must not be read as one number.
+
+| Output | Question it answers | How it is computed |
+| :--- | :--- | :--- |
+| **Viability Score** (0-100) | How strong is the business itself? | Earned / maximum points over the *viability factors*: Revenue Tier, Invoice Timeliness, Unpaid Invoice Ratio, Business Age, Industry Risk, Market Viability, Intent Documents (evidenced demand) and Founder Signal, using the stage-aware weights in section 4. **Compliance Documents are excluded.** |
+| **Funding Readiness** (0-100) | Is this business ready to be funded right now? | All applicable factors, including Compliance Documents (the existing `score`, and the basis of the decision in section 6). |
+| **Evidence Confidence** (5-100%) | How well verified are the inputs? | Depth of approved evidence (section 5; the existing `confidence_score`). |
+
+Reading them together:
+* High viability, lower readiness: a sound business that has not yet submitted or verified its paperwork. The recommendations explain how to close the gap.
+* High viability, low confidence: promising on declared information that is not yet verified; treat with caution.
+* Submitting more compliance documents raises Funding Readiness and Evidence Confidence but does not change Viability.
+
+API: assessment responses include `scores: {viability_score, funding_readiness_score, evidence_confidence}`. The existing `score` field is unchanged and equals `funding_readiness_score`. Snapshots persist `viability_score` alongside `score` and `evidence_depth`.
+
+Like the rest of the engine, Viability Score is rule-based and uncalibrated: it is not a probability of survival or repayment (see section 1).
+
+---
+
 ## 2. Business Stage Profiles
 
 Rather than using a single flat scoring formula, the engine uses **stage-aware profile inference** to classify the SME into one of four stages. This determines the active weighting strategy:

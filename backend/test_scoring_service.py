@@ -132,11 +132,33 @@ def test_newer_pending_statement_does_not_suppress_older_approved_one():
 
     evidence = build_evidence_package(make_sme(), db)
 
-    # Status map still reports the latest upload...
-    assert evidence.verifications["bank_statement"] == "pending"
-    # ...but metrics come from the latest APPROVED statement, with provenance.
+    # The status map describes the evidence in use (the approved statement),
+    # so compliance points, stage inference and revenue labelling stay
+    # consistent with the metrics. Metrics carry provenance.
+    assert evidence.verifications["bank_statement"] == "approved"
     assert evidence.revenue == 25000.0
     assert evidence.overdraft_count == 2
     assert evidence.bank_statement_verification_id == 1
     assert evidence.bank_statement_newer_pending is True
 
+
+
+def test_newer_pending_upload_does_not_cost_compliance_points():
+    """The engine must see the same bank evidence whose metrics are used."""
+    from core.assessment_engine import assess
+
+    older = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    only_approved = build_evidence_package(
+        make_sme(), make_db([make_verification("approved", older, 1)]))
+    with_pending = build_evidence_package(
+        make_sme(), make_db([
+            make_verification("approved", older, 1),
+            make_verification("pending", older + timedelta(days=1), 2),
+        ]))
+
+    a, b = assess(only_approved), assess(with_pending)
+
+    assert b.breakdown["Compliance Documents"]["contribution"] == \
+        a.breakdown["Compliance Documents"]["contribution"]
+    assert b.score == a.score
+    assert b.confidence_score == a.confidence_score

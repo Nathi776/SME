@@ -214,3 +214,4 @@ def test_reviewed_verification_cannot_be_reviewed_again(env):
                           json={}).status_code == 200
     assert env.client.put(f"/verifications/approve/{vid}", headers=adm_h,
                           json={}).status_code == 409
+

@@ -66,6 +66,12 @@ def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
     bank_statement_verification = bank_evidence.approved
     bank_statement_approved = bank_statement_verification is not None
 
+    # The engine reads verifications["bank_statement"] to award compliance
+    # points, infer the stage and label revenue. It must describe the
+    # statement whose metrics are in use, not a newer unreviewed upload.
+    if bank_statement_approved:
+        ver_map["bank_statement"] = "approved"
+
     # ── Intent document details ───────────────────────────────────────────────
     intent_doc_details: dict[str, dict] = {}
     for doc_type in INTENT_BASE_POINTS:
@@ -148,6 +154,15 @@ def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
 
 # Backward compatibility alias
 build_scoring_input = build_evidence_package
+
+
+def scores_summary(result) -> dict:
+    """The three distinct outputs, named for what they measure."""
+    return {
+        "viability_score": result.viability_score,
+        "funding_readiness_score": result.funding_readiness_score,
+        "evidence_confidence": result.evidence_confidence,
+    }
 
 
 def score_sme(sme: SME, db: Session) -> AssessmentResult:
@@ -243,6 +258,7 @@ def create_assessment_for_sme(
         strategy_version=result.strategy_version,
         inference_version=result.inference_version,
         evidence_depth=result.confidence_score,
+        viability_score=result.viability_score,
         input_snapshot=snapshot_data["input_snapshot"],
         factor_breakdown=result.breakdown,
         market_context=snapshot_data["market_context"],
