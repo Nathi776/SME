@@ -1,5 +1,6 @@
-from decimal import Decimal
+﻿from decimal import Decimal
 from datetime import datetime
+from core.time_utils import utc_now
 from sqlalchemy.orm import Session
 from models.sme_outcome import SmeOutcome
 from models.finance_request import FinanceRequest
@@ -43,7 +44,7 @@ def create_outcome(db: Session, finance_request_id: int) -> SmeOutcome:
 
     # 4. Create and save SmeOutcome
     from datetime import timedelta
-    now = datetime.utcnow()
+    now = utc_now()
     outcome = SmeOutcome(
         finance_request_id=finance_request_id,
         sme_id=sme.id,
@@ -57,7 +58,7 @@ def create_outcome(db: Session, finance_request_id: int) -> SmeOutcome:
     )
 
     db.add(outcome)
-    db.flush()   # write to DB within the caller's transaction — do NOT commit here
+    db.flush()   # write to DB within the caller's transaction â€” do NOT commit here
     return outcome
 
 
@@ -78,19 +79,19 @@ def update_checkin(
 
     if interval == 90:
         outcome.checkin_90_completed = True
-        outcome.checkin_90_date = datetime.utcnow()
+        outcome.checkin_90_date = utc_now()
         outcome.checkin_90_still_operating = still_operating
         outcome.checkin_90_revenue = Decimal(str(revenue))
         outcome.checkin_90_loan_repaid = loan_repaid
     elif interval == 180:
         outcome.checkin_180_completed = True
-        outcome.checkin_180_date = datetime.utcnow()
+        outcome.checkin_180_date = utc_now()
         outcome.checkin_180_still_operating = still_operating
         outcome.checkin_180_revenue = Decimal(str(revenue))
         outcome.checkin_180_loan_repaid = loan_repaid
     elif interval == 365:
         outcome.checkin_365_completed = True
-        outcome.checkin_365_date = datetime.utcnow()
+        outcome.checkin_365_date = utc_now()
         outcome.checkin_365_still_operating = still_operating
         outcome.checkin_365_revenue = Decimal(str(revenue))
         outcome.checkin_365_loan_repaid = loan_repaid
@@ -98,7 +99,7 @@ def update_checkin(
         raise ValueError("Invalid check-in interval. Must be 90, 180, or 365")
 
     # Recompute overall outcome_status.
-    # Order matters: defaulted is checked first — a business that stopped
+    # Order matters: defaulted is checked first â€” a business that stopped
     # operating is defaulted even if an earlier check-in showed repaid=True.
 
     not_operating_at_any_point = (
@@ -173,3 +174,4 @@ def compute_followed_recommendations(db: Session, outcome: SmeOutcome) -> list[d
         })
 
     return result
+

@@ -66,6 +66,61 @@ def test_public_business_assessment():
     data = res.json()
     assert data["viability_label"] == "Challenging — proceed carefully"
 
+
+def test_industry_alias_returns_consistent_intelligence():
+    technology_res = client.get(
+        "/public/business-assessment?industry=Technology&province=Gauteng"
+    )
+    alias_res = client.get(
+        "/public/business-assessment?industry=IT&province=Gauteng"
+    )
+
+    assert technology_res.status_code == 200
+    assert alias_res.status_code == 200
+
+    technology = technology_res.json()
+    alias = alias_res.json()
+
+    # The alias should produce the same market-based viability score.
+    assert alias["viability_score"] == technology["viability_score"]
+
+    # Recognized aliases should use the same category-specific guidance.
+    assert alias["top_risks"] == technology["top_risks"]
+    assert alias["encouragements"] == technology["encouragements"]
+
+    # Preserve the caller's original input in the API response.
+    assert technology["industry"] == "Technology"
+    assert alias["industry"] == "IT"
+
+
+def test_province_alias_returns_consistent_intelligence():
+    canonical = client.get(
+        "/public/business-assessment?industry=Technology&province=Gauteng"
+    )
+    lowercase = client.get(
+        "/public/business-assessment?industry=Technology&province=gauteng"
+    )
+    padded = client.get(
+        "/public/business-assessment?industry=Technology&province=%20Gauteng%20"
+    )
+
+    assert canonical.status_code == 200
+    assert lowercase.status_code == 200
+    assert padded.status_code == 200
+
+    canonical_data = canonical.json()
+    lowercase_data = lowercase.json()
+    padded_data = padded.json()
+
+    assert lowercase_data["viability_score"] == canonical_data["viability_score"]
+    assert padded_data["viability_score"] == canonical_data["viability_score"]
+    assert lowercase_data["top_risks"] == canonical_data["top_risks"]
+    assert padded_data["top_risks"] == canonical_data["top_risks"]
+    assert lowercase_data["encouragements"] == canonical_data["encouragements"]
+    assert padded_data["encouragements"] == canonical_data["encouragements"]
+    assert lowercase_data["province"] == "gauteng"
+
+
 def test_lender_intelligence_endpoints():
     # 1. Register a lender user via API
     unique = uuid.uuid4().hex[:6]

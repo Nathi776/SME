@@ -188,6 +188,7 @@ class AssessmentResult:
     confidence_score:    float
     inference_version:   str = "v1"
     strategy_version:    str = "v1"
+    assessment_snapshot_id: int | None = None
 
 
 # ── Profile Inference Result ──────────────────────────────────────────────────
@@ -197,6 +198,7 @@ class ProfileInferenceResult:
     profile:             BusinessProfile
     reasoning:           list[str]
     unavailable_factors: set[str]
+    assessment_snapshot_id: int | None = None
     inference_version:   str = "v1"
 
 
@@ -211,7 +213,10 @@ class ProfileInferenceService:
         """
         reasoning: list[str] = []
         cipc_verified = inp.verifications.get("cipc") == "approved"
-        has_bank_statement = inp.months_analysed is not None
+        has_bank_statement = (
+            inp.verifications.get("bank_statement") == "approved"
+            and inp.months_analysed is not None
+        )
 
         # 1. ESTABLISHED
         if inp.years_active >= 3 or inp.total_invoices >= 20:
@@ -306,7 +311,14 @@ class ScoreCalculator:
             }
         else:
             applicable_max += strategy.revenue_max
-            revenue_source = "parsed" if inp.months_analysed is not None else "self-reported"
+            bank_statement_approved = (
+                inp.verifications.get("bank_statement") == "approved"
+            )
+            revenue_source = (
+                "parsed"
+                if bank_statement_approved and inp.months_analysed is not None
+                else "self-reported"
+            )
             rev_ratio = min(inp.revenue / 500_000, 1.0)
             rev_pts   = round(_scale(rev_ratio, 0.0, 1.0, 0, strategy.revenue_max), 1)
             if inp.revenue >= 500_000:   rev_label = "≥ R500k"
@@ -484,7 +496,10 @@ class ScoreCalculator:
                     missing_compliance.append(doc_type)
 
             bs_bonus, bs_bonus_detail = 0.0, []
-            if inp.months_analysed is not None:
+            bank_statement_approved = (
+                inp.verifications.get("bank_statement") == "approved"
+            )
+            if bank_statement_approved and inp.months_analysed is not None:
                 bonus_scale = strategy.compliance_max / MAX_COMPLIANCE_POINTS
                 if inp.months_analysed >= 6:
                     bs_bonus += 2 * bonus_scale
@@ -510,7 +525,9 @@ class ScoreCalculator:
                 "label": f"{len(verified_compliance)} of {len(COMPLIANCE_POINTS)} compliance docs verified",
                 "contribution": comp_pts, "max": strategy.compliance_max,
                 "verified": verified_compliance, "missing": missing_compliance,
-                "bank_statement_parsed":  inp.months_analysed is not None,
+                "bank_statement_parsed": (
+                    bank_statement_approved and inp.months_analysed is not None
+                ),
                 "bank_statement_quality": bs_bonus_detail or None,
                 "applicable": True
             }
@@ -638,21 +655,12 @@ class ConfidenceCalculator:
         # Compliance docs verified (max +45%)
         if inp.verifications.get("cipc") == "approved":
             conf += 15.0
-        if inp.verifications.get("bank_statement") == "approved" or inp.months_analysed is not None:
+        if inp.verifications.get("bank_statement") == "approved":
             conf += 15.0
         if inp.verifications.get("tax_clearance") == "approved":
             conf += 10.0
         if inp.verifications.get("registration_docs") == "approved":
             conf += 5.0
-
-        # Data freshness (max +25%)
-        if inp.months_analysed is not None:
-            if inp.months_analysed >= 6:
-                conf += 25.0
-            elif inp.months_analysed >= 3:
-                conf += 15.0
-            else:
-                conf += 5.0
 
         # Founder profile completeness (max +10%)
         if inp.founder is not None:
@@ -783,4 +791,3 @@ def infer_profile(inp: EvidencePackage) -> tuple[BusinessProfile, list[str]]:
 def select_strategy(profile: BusinessProfile) -> WeightStrategy:
     strategy, _ = StrategyFactory.get_strategy(profile)
     return strategy
-

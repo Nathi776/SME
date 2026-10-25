@@ -1,4 +1,4 @@
-import pytest
+﻿import pytest
 from decimal import Decimal
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -33,6 +33,16 @@ def db():
         db_session.close()
         Base.metadata.drop_all(bind=engine)
 
+def _add_approved_verifications(db, sme, *doc_types):
+    for doc_type in doc_types:
+        db.add(
+            Verification(
+                sme_id=sme.id,
+                doc_type=doc_type,
+                status="approved",
+            )
+        )
+    db.flush()
 
 def test_outcome_tracking_flow(db):
     # 1. Seed user and SME
@@ -50,6 +60,29 @@ def test_outcome_tracking_flow(db):
     db.add(sme)
     db.commit()
 
+    # Add supporting evidence without satisfying the CIPC
+    # or bank-statement recommendations.
+    _add_approved_verifications(
+        db,
+        sme,
+        "tax_clearance",
+        "registration_docs",
+        "supplier_quote",
+        "lease_agreement",
+    )
+
+    founder = FounderProfile(
+        sme_id=sme.id,
+        years_industry_experience=5,
+        highest_qualification="diploma",
+        prior_business_owner=True,
+        trade_association_member=True,
+        reference_name="Business Reference",
+    )
+    db.add(founder)
+    db.commit()
+
+
     # Seed a credit score (e.g. 60)
     score = CreditScore(sme_id=sme.id, score=60.0)
     db.add(score)
@@ -62,11 +95,17 @@ def test_outcome_tracking_flow(db):
     db.add(invoice)
     db.commit()
 
+    # Diagnose the live assessment before requesting finance.
+    assessment = score_sme(sme, db)
+    print(f"\nLive score: {assessment.score:.2f}")
+    print(f"Decision: {assessment.decision}")
+    print(f"Breakdown: {assessment.breakdown}")
+
     # Apply for finance
     req = create_finance_request(
         db=db,
         sme_id=sme.id,
-        amount=14000,
+        amount=12000,
         invoice_id=invoice.id,
     )
     assert req.status == "pending"
@@ -86,8 +125,19 @@ def test_outcome_tracking_flow(db):
     db.add(lender)
     db.commit()
 
-    req = approve_finance_request(db, req.id, lender.id, 14000)
+    
+    
+    # Approve the existing finance request.
+    req = approve_finance_request(
+        db=db,
+        request_id=req.id,
+        lender_id=lender.id,
+        approved_amount=12000,
+    )
     assert req.status == "approved"
+
+
+
 
     # Funding request should trigger outcome creation
     req = mark_finance_request_funded(db, req.id)
@@ -104,7 +154,7 @@ def test_outcome_tracking_flow(db):
     # Calculate score live to check snapshot correctness
     expected_score = score_sme(sme, db).score
     assert outcome.score_at_funding == expected_score
-    assert outcome.amount == Decimal("14000")
+    assert outcome.amount == Decimal("12000")
     assert len(outcome.outstanding_recommendations) > 0
 
     # Ensure cipc and bank_statement are in outstanding recommendations
@@ -187,7 +237,7 @@ def test_analytics_calculation(db):
 
     # Requests
     req1 = create_finance_request(db, sme_id=sme1.id, amount=10000, invoice_id=inv1.id)
-    req2 = create_finance_request(db, sme_id=sme2.id, amount=10000, invoice_id=inv2.id)
+    req2 = create_finance_request(db, sme_id=sme2.id, amount=9000, invoice_id=inv2.id)
     db.commit()
 
     # Lender
@@ -199,7 +249,7 @@ def test_analytics_calculation(db):
     db.commit()
 
     req1 = approve_finance_request(db, req1.id, lender.id, 10000)
-    req2 = approve_finance_request(db, req2.id, lender.id, 10000)
+    req2 = approve_finance_request(db, req2.id, lender.id, 9000)
     db.commit()
 
     req1 = mark_finance_request_funded(db, req1.id)
@@ -266,3 +316,59 @@ def test_precedence_bug_repaid_but_not_operating(db):
     assert outcome.outcome_status == "defaulted"
 
 
+def test_diagnose_live_scores(db):
+    cases = [
+        {
+            "name": "Established Technology",
+            "industry": "Technology",
+            "province": None,
+            "revenue": Decimal("300000"),
+            "years_active": 3,
+        },
+        {
+            "name": "Technology",
+            "industry": "Technology",
+            "province": "Gauteng",
+            "revenue": Decimal("300000"),
+            "years_active": 0,
+        },
+        {
+            "name": "Agriculture",
+            "industry": "Agriculture",
+            "province": "Limpopo",
+            "revenue": Decimal("150000"),
+            "years_active": 0,
+        },
+    ]
+
+    for index, case in enumerate(cases):
+        user = User(
+            username=f"diagnostic_{index}",
+            email=f"diagnostic_{index}@test.com",
+            hashed_password="pw",
+            role="sme",
+        )
+        db.add(user)
+        db.commit()
+
+        sme = SME(
+            name=case["name"],
+            industry=case["industry"],
+            province=case["province"],
+            revenue=case["revenue"],
+            years_active=case["years_active"],
+            user_id=user.id,
+        )
+        db.add(sme)
+        db.commit()
+
+        result = score_sme(sme, db)
+
+        print(
+            f"\n{case['name']}: "
+            f"score={result.score:.2f}, "
+            f"profile={result.profile.value}, "
+            f"decision={result.decision}"
+        )
+        for factor, details in result.breakdown.items():
+            print(f"  {factor}: {details}")

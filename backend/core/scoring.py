@@ -27,6 +27,7 @@ from services.market_data_service import (
     sector_survival_score,
     province_market_score,
     get_market_intelligence,
+    normalize_province,
 )
 
 RAW_MAX = 140.0
@@ -167,7 +168,14 @@ def calculate_score(inp: ScoringInput) -> ScoringResult:
     raw = 0.0
 
     # 1. Revenue tier (25 pts) ─────────────────────────────────────────────────
-    revenue_source = "parsed" if inp.months_analysed is not None else "self-reported"
+    bank_statement_approved = (
+        inp.verifications.get("bank_statement") == "approved"
+    )
+    revenue_source = (
+        "parsed"
+        if bank_statement_approved and inp.months_analysed is not None
+        else "self-reported"
+    )
     if inp.revenue >= 500_000:   rev_pts, rev_label = 25, "≥ R500k"
     elif inp.revenue >= 200_000: rev_pts, rev_label = 18, "R200k–R500k"
     elif inp.revenue >= 100_000: rev_pts, rev_label = 12, "R100k–R200k"
@@ -240,15 +248,23 @@ def calculate_score(inp: ScoringInput) -> ScoringResult:
     }
 
     # 6. Market Viability (10 pts) ─────────────────────────────────────────────
-    if inp.province:
-        mkt_score  = province_market_score(inp.province, inp.industry)
+    normalized_province = normalize_province(inp.province)
+    if normalized_province is not None:
+        mkt_score = province_market_score(
+            normalized_province,
+            inp.industry,
+        )
         market_pts = round(_scale(mkt_score, 0.30, 1.00, 3, 10), 1)
         market_label = intel["market_label"]
-        market_note  = None
+        market_note = None
+    elif inp.province and inp.province.strip():
+        mkt_score, market_pts = None, 5.0
+        market_label = "Province not recognized — neutral score applied"
+        market_note = "Enter a recognized South African province"
     else:
         mkt_score, market_pts = None, 5.0
         market_label = "Province not specified — neutral score applied"
-        market_note  = "Add your province to improve this factor"
+        market_note = "Add your province to improve this factor"
 
     raw += market_pts
     breakdown["Market Viability"] = {
@@ -269,17 +285,39 @@ def calculate_score(inp: ScoringInput) -> ScoringResult:
         else:
             missing_compliance.append(doc_type)
 
+    # 7.1. Bank Statement Bonus (Up to 5 pts) ─────────────────────────────────
     bs_bonus, bs_bonus_detail = 0, []
-    if inp.months_analysed is not None:
-        if inp.months_analysed >= 6:   bs_bonus += 2; bs_bonus_detail.append(f"{inp.months_analysed} months of history")
-        elif inp.months_analysed >= 3: bs_bonus += 1; bs_bonus_detail.append(f"{inp.months_analysed} months of history")
+    bank_statement_approved = (
+        inp.verifications.get("bank_statement") == "approved"
+    )
+
+    if bank_statement_approved and inp.months_analysed is not None:
+        if inp.months_analysed >= 6:
+            bs_bonus += 2
+            bs_bonus_detail.append(
+                f"{inp.months_analysed} months of history"
+            )
+        elif inp.months_analysed >= 3:
+            bs_bonus += 1
+            bs_bonus_detail.append(
+                f"{inp.months_analysed} months of history"
+            )
+
         if inp.income_regularity is not None:
-            if inp.income_regularity >= 0.80:   bs_bonus += 2; bs_bonus_detail.append("consistent income pattern")
-            elif inp.income_regularity >= 0.60: bs_bonus += 1; bs_bonus_detail.append("moderate income consistency")
+            if inp.income_regularity >= 0.80:
+                bs_bonus += 2
+                bs_bonus_detail.append("consistent income pattern")
+            elif inp.income_regularity >= 0.60:
+                bs_bonus += 1
+                bs_bonus_detail.append("moderate income consistency")
+
         if inp.overdraft_count:
             penalty = min(inp.overdraft_count, 2)
             bs_bonus -= penalty
-            bs_bonus_detail.append(f"{inp.overdraft_count} overdraft month(s) detected")
+            bs_bonus_detail.append(
+                f"{inp.overdraft_count} overdraft month(s) detected"
+            )
+
 
     comp_pts = min(comp_pts + bs_bonus, MAX_COMPLIANCE_POINTS)
     raw += comp_pts
@@ -288,7 +326,9 @@ def calculate_score(inp: ScoringInput) -> ScoringResult:
         "label": f"{len(verified_compliance)} of {len(COMPLIANCE_POINTS)} compliance docs verified",
         "contribution": comp_pts, "max": MAX_COMPLIANCE_POINTS,
         "verified": verified_compliance, "missing": missing_compliance,
-        "bank_statement_parsed":  inp.months_analysed is not None,
+        "bank_statement_parsed": (
+            bank_statement_approved and inp.months_analysed is not None
+        ),
         "bank_statement_quality": bs_bonus_detail or None,
     }
 

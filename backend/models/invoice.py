@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, Numeric, ForeignKey, DateTime
-from datetime import datetime
+﻿from sqlalchemy import Column, Integer, String, Numeric, ForeignKey, DateTime
+from core.time_utils import utc_now
 from database import Base
 from sqlalchemy.orm import relationship
 
@@ -15,6 +15,7 @@ class Invoice(Base):
     invoice_number = Column(String, nullable=True)
     issue_date = Column(DateTime, nullable=True)
     due_date = Column(DateTime, nullable=True)
+    paid_at = Column(DateTime(timezone=True), nullable=True, index=True)
     currency = Column(String, default="ZAR")
     customer_company = Column(String, nullable=True)
     contact_person = Column(String, nullable=True)
@@ -23,6 +24,7 @@ class Invoice(Base):
     customer_industry = Column(String, nullable=True)
     payment_terms = Column(Integer, nullable=True)
     pdf_url = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now)
     sme = relationship("SME", back_populates="invoices")
     finance_requests = relationship("FinanceRequest", back_populates="invoice", cascade="all, delete-orphan")
+

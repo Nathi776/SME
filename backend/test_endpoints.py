@@ -233,7 +233,7 @@ def test_finance_request_apply(token, invoice_id):
     assert data.get("status") in {"pending", "approved", "funded", "paid", "closed", "completed", "rejected"}
 
 
-def test_finance_request_repayment_lifecycle(token, lender_token):
+def test_finance_request_repayment_lifecycle(token, lender_token, sme_id):
     sme_headers = {"Authorization": f"Bearer {token}"}
     lender_headers = {"Authorization": f"Bearer {lender_token}"}
 
@@ -242,6 +242,8 @@ def test_finance_request_repayment_lifecycle(token, lender_token):
         json={"client_name": "Lifecycle Client", "description": "Lifecycle test", "amount": 12000},
         headers=sme_headers,
     )
+    print("INVOICE STATUS:", invoice_res.status_code)
+    print("INVOICE RESPONSE:", invoice_res.text)
     assert invoice_res.status_code == 200
     invoice = invoice_res.json()["invoice"]
     invoice_id = invoice["id"]
@@ -284,16 +286,24 @@ def test_finance_request_repayment_lifecycle(token, lender_token):
     assert closed_res.json()["status"] == "closed"
 
 
-def test_bank_statement_upload_and_parsing(token):
+def test_bank_statement_upload_and_parsing(token, sme_id):
     headers = {"Authorization": f"Bearer {token}"}
-    pdf_content = b"months_analysed=6\nincome_regularity=0.85\noverdraft_count=1\nparsed_revenue=150000"
+    pdf_content = (
+        b"avg_monthly_balance=5200.00\n"
+        b"avg_monthly_income=12500.00\n"
+        b"avg_monthly_expenses=7500.00\n"
+        b"months_analysed=6\n"
+        b"income_regularity=0.85\n"
+        b"overdraft_count=1\n"
+        b"parsed_revenue=150000"
+    )
     res = requests.post(
         f"{BASE_URL}/verifications/submit",
-        data={"doc_type": "bank_statement"},
+        data={"doc_type": "bank_statement", "sme_id": sme_id},
         files={"file": ("bank_statement.pdf", pdf_content, "application/pdf")},
         headers=headers
     )
-    assert res.status_code == 200
+    assert res.status_code == 200, f"HTTP {res.status_code}: {res.text}"
     data = res.json()
     assert "bank_statement_parsing" in data
     assert data["bank_statement_parsing"]["parsed"] is True

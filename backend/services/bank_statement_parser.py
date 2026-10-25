@@ -1,6 +1,7 @@
-from dataclasses import dataclass
-from decimal import Decimal
+﻿from dataclasses import dataclass
+from decimal import Decimal, InvalidOperation
 import re
+
 
 @dataclass
 class BankStatementSignals:
@@ -12,60 +13,88 @@ class BankStatementSignals:
     months_analysed: int
     parsed_revenue: Decimal
 
+
+REQUIRED_FIELDS = (
+    "avg_monthly_balance",
+    "avg_monthly_income",
+    "avg_monthly_expenses",
+    "overdraft_count",
+    "income_regularity",
+    "months_analysed",
+    "parsed_revenue",
+)
+
+NUMBER_PATTERN = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)"
+
+
 def parse_bank_statement(pdf_bytes: bytes) -> BankStatementSignals | None:
     """
-    Parse text-based PDF bytes and extract key cashflow signals.
-    Supports simple pattern matching for test cases and robust defaults.
+    Extract the application's recognised financial fields from decoded text.
+
+    This is a text-pattern parser, not a general PDF extraction or
+    bank-statement authenticity verification system. Missing or invalid
+    signals cause parsing to fail rather than being replaced with defaults.
     """
+    if not isinstance(pdf_bytes, bytes) or not pdf_bytes:
+        return None
+
     try:
-        text = pdf_bytes.decode('utf-8', errors='ignore')
-    except Exception:
-        text = ""
+        text = pdf_bytes.decode("utf-8", errors="ignore")
+        values = {}
 
-    # Reasonable default signals representing a healthy bank statement profile
-    avg_monthly_balance = Decimal("25000.00")
-    avg_monthly_income = Decimal("45000.00")
-    avg_monthly_expenses = Decimal("35000.00")
-    overdraft_count = 0
-    income_regularity = 0.90
-    months_analysed = 6
-    parsed_revenue = Decimal("540000.00")
+        for field in REQUIRED_FIELDS:
+            match = re.search(
+                rf"(?<!\w){re.escape(field)}\s*[:=]\s*({NUMBER_PATTERN})(?![\w.])",
+                text,
+            )
+            if match is None:
+                return None
+            values[field] = match.group(1)
 
-    # Regular expressions to allow overriding defaults in test files
-    balance_match = re.search(r"avg_monthly_balance\s*[:=]\s*([\d\.]+)", text)
-    if balance_match:
-        avg_monthly_balance = Decimal(balance_match.group(1))
+        balance = Decimal(values["avg_monthly_balance"])
+        income = Decimal(values["avg_monthly_income"])
+        expenses = Decimal(values["avg_monthly_expenses"])
+        revenue = Decimal(values["parsed_revenue"])
+        regularity = Decimal(values["income_regularity"])
 
-    income_match = re.search(r"avg_monthly_income\s*[:=]\s*([\d\.]+)", text)
-    if income_match:
-        avg_monthly_income = Decimal(income_match.group(1))
+        # Reject NaN and infinity before performing range checks.
+        if not all(
+            value.is_finite()
+            for value in (balance, income, expenses, revenue, regularity)
+        ):
+            return None
 
-    expenses_match = re.search(r"avg_monthly_expenses\s*[:=]\s*([\d\.]+)", text)
-    if expenses_match:
-        avg_monthly_expenses = Decimal(expenses_match.group(1))
+        # Financial totals and revenue cannot be negative.
+        if income < 0 or expenses < 0 or revenue < 0:
+            return None
 
-    overdraft_match = re.search(r"overdraft_count\s*[:=]\s*(\d+)", text)
-    if overdraft_match:
-        overdraft_count = int(overdraft_match.group(1))
+        if not Decimal("0") <= regularity <= Decimal("1"):
+            return None
 
-    regularity_match = re.search(r"income_regularity\s*[:=]\s*([\d\.]+)", text)
-    if regularity_match:
-        income_regularity = float(regularity_match.group(1))
+        overdraft_value = Decimal(values["overdraft_count"])
+        months_value = Decimal(values["months_analysed"])
 
-    months_match = re.search(r"months_analysed\s*[:=]\s*(\d+)", text)
-    if months_match:
-        months_analysed = int(months_match.group(1))
+        # Counts and duration must be whole numbers.
+        if overdraft_value != overdraft_value.to_integral_value():
+            return None
+        if months_value != months_value.to_integral_value():
+            return None
 
-    revenue_match = re.search(r"parsed_revenue\s*[:=]\s*([\d\.]+)", text)
-    if revenue_match:
-        parsed_revenue = Decimal(revenue_match.group(1))
+        overdraft_count = int(overdraft_value)
+        months_analysed = int(months_value)
 
-    return BankStatementSignals(
-        avg_monthly_balance=avg_monthly_balance,
-        avg_monthly_income=avg_monthly_income,
-        avg_monthly_expenses=avg_monthly_expenses,
-        overdraft_count=overdraft_count,
-        income_regularity=income_regularity,
-        months_analysed=months_analysed,
-        parsed_revenue=parsed_revenue
-    )
+        if overdraft_count < 0 or months_analysed <= 0:
+            return None
+
+        return BankStatementSignals(
+            avg_monthly_balance=balance,
+            avg_monthly_income=income,
+            avg_monthly_expenses=expenses,
+            overdraft_count=overdraft_count,
+            income_regularity=float(regularity),
+            months_analysed=months_analysed,
+            parsed_revenue=revenue,
+        )
+
+    except (ValueError, InvalidOperation, TypeError, OverflowError):
+        return None

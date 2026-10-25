@@ -76,7 +76,7 @@ class TestProfileInference:
         inp = ScoringInput(
             revenue=80_000, years_active=0, industry="Technology",
             total_invoices=0, paid_on_time=0, unpaid_invoices=0,
-            verifications={}, province="Gauteng",
+            verifications={"bank_statement": "approved"}, province="Gauteng",
             months_analysed=4, income_regularity=0.8, overdraft_count=0,
         )
         profile, _ = infer_profile(inp)
@@ -389,12 +389,43 @@ class TestAssessmentEngine:
         )
         res_high = assess(high_evidence)
         # Base: 10
-        # Verifications: cipc(+15), bank_statement(+15), tax_clearance(+10), registration_docs(+5) = +45
-        # Freshness / months analyzed (6): +25
-        # Founder: +10
-        # Intent docs (2 approved): +10
-        # Total: 10 + 45 + 25 + 10 + 10 = 100%
-        assert res_high.confidence_score == 100.0
+        # Approved documents: +45
+        # Founder profile: +10
+        # Two approved intent documents: +10
+        # Statement coverage does not independently increase confidence.
+        # Total: 10 + 45 + 10 + 10 = 75%
+        assert res_high.confidence_score == 75.0
+
+    def test_pending_bank_statement_does_not_increase_confidence(self):
+        baseline = ScoringInput(
+            revenue=50_000,
+            years_active=1,
+            industry="Retail",
+            total_invoices=0,
+            paid_on_time=0,
+            unpaid_invoices=0,
+            verifications={},
+            province=None,
+        )
+
+        pending_bank = ScoringInput(
+            revenue=50_000,
+            years_active=1,
+            industry="Retail",
+            total_invoices=0,
+            paid_on_time=0,
+            unpaid_invoices=0,
+            verifications={"bank_statement": "pending"},
+            province=None,
+            months_analysed=6,
+            income_regularity=0.95,
+            overdraft_count=0,
+        )
+
+        baseline_result = assess(baseline)
+        pending_result = assess(pending_bank)
+
+        assert pending_result.confidence_score == baseline_result.confidence_score
 
     def test_decomposed_services_and_versioning(self):
         from core.assessment_engine import (

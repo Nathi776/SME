@@ -1,4 +1,5 @@
-from datetime import datetime, timezone
+﻿from datetime import datetime, timezone
+from core.time_utils import utc_now
 from typing import Literal, Optional, List, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
@@ -74,7 +75,7 @@ def get_sme_score(
         "projected_decision": plan.projected_decision,
         "top_gaps": top_gaps,
         "cipc_verified": sme.cipc_verified_at is not None,
-        "assessed_at": datetime.utcnow().isoformat() + "Z"
+        "assessed_at": utc_now().isoformat() + "Z"
     }
 
 @router.get("/market/viability")
@@ -108,9 +109,9 @@ def get_market_viability(
     elif combined_viability >= 0.55:
         viability_label = "Viable with planning"
     elif combined_viability >= 0.40:
-        viability_label = "Challenging — proceed carefully"
+        viability_label = "Challenging â€” proceed carefully"
     else:
-        viability_label = "High risk — thorough research recommended"
+        viability_label = "High risk â€” thorough research recommended"
 
     return {
         "industry": industry,
@@ -192,8 +193,9 @@ def generate_new_api_key(
     db.refresh(new_key)
 
     return {
-        "message": "API key generated. Store this key securely — it will not be shown again.",
+        "message": "API key generated. Store this key securely â€” it will not be shown again.",
         "api_key": raw_key,
         "name": new_key.name,
         "consumer_type": new_key.consumer_type
     }
+

@@ -1,5 +1,5 @@
-"""
-routers/verification_router.py — Component 4 update.
+﻿"""
+routers/verification_router.py â€” Component 4 update.
 
 Changes:
 - CIPC upload now triggers cipc_service.verify() immediately.
@@ -14,10 +14,11 @@ Changes:
 from __future__ import annotations
 
 from datetime import datetime
+from core.time_utils import utc_now
 from typing import Optional, List
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, Request
-from pydantic import BaseModel
+from pydantic import BaseModel,ConfigDict
 from sqlalchemy.orm import Session
 
 from database import get_db
@@ -34,21 +35,27 @@ from limiter import limiter
 router = APIRouter(prefix="/verifications", tags=["Verifications"])
 
 VALID_DOC_TYPES = {
-    # Compliance — scored
+    # Compliance â€” scored
     "cipc", "bank_statement", "tax_clearance", "registration_docs",
-    # Intent — scored
+    # Intent â€” scored
     "letter_of_intent", "supplier_quote", "lease_agreement",
-    # Supporting — stored only
+    # Supporting â€” stored only
     "financial_statements", "vat_certificate", "director_id",
     "bee_certificate", "income_statement", "shareholder_docs",
     "sars_compliance", "proof_of_address", "proof_of_bank_account",
 }
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-def _apply_bank_statement_signals(sme: SME, pdf_bytes: bytes) -> dict:
+
+def _apply_bank_statement_signals(
+    sme: SME,
+    ver: Verification,
+    pdf_bytes: bytes,
+) -> dict:
     signals = parse_bank_statement(pdf_bytes)
+
     if signals is None:
         return {
             "parsed": False,
@@ -58,22 +65,36 @@ def _apply_bank_statement_signals(sme: SME, pdf_bytes: bytes) -> dict:
                 "Ensure it is a text-based PDF (not a scan)."
             ),
         }
-    sme.bs_avg_monthly_balance  = signals.avg_monthly_balance
-    sme.bs_avg_monthly_income   = signals.avg_monthly_income
+
+    # Store the metrics against this specific uploaded statement.
+    ver.bs_avg_monthly_balance = signals.avg_monthly_balance
+    ver.bs_avg_monthly_income = signals.avg_monthly_income
+    ver.bs_avg_monthly_expenses = signals.avg_monthly_expenses
+    ver.bs_overdraft_count = signals.overdraft_count
+    ver.bs_income_regularity = signals.income_regularity
+    ver.bs_months_analysed = signals.months_analysed
+    ver.bs_parsed_revenue = signals.parsed_revenue
+
+    # Maintain the legacy SME fields for API compatibility.
+    # Scoring and observations will be updated to use Verification records.
+    sme.bs_avg_monthly_balance = signals.avg_monthly_balance
+    sme.bs_avg_monthly_income = signals.avg_monthly_income
     sme.bs_avg_monthly_expenses = signals.avg_monthly_expenses
-    sme.bs_overdraft_count      = signals.overdraft_count
-    sme.bs_income_regularity    = signals.income_regularity
-    sme.bs_months_analysed      = signals.months_analysed
-    sme.bs_parsed_revenue       = signals.parsed_revenue
+    sme.bs_overdraft_count = signals.overdraft_count
+    sme.bs_income_regularity = signals.income_regularity
+    sme.bs_months_analysed = signals.months_analysed
+    sme.bs_parsed_revenue = signals.parsed_revenue
+
     return {
-        "parsed":             True,
-        "months_analysed":    signals.months_analysed,
+        "parsed": True,
+        "months_analysed": signals.months_analysed,
         "avg_monthly_income": signals.avg_monthly_income,
-        "avg_monthly_balance":signals.avg_monthly_balance,
-        "overdraft_count":    signals.overdraft_count,
-        "income_regularity":  signals.income_regularity,
-        "parsed_revenue":     signals.parsed_revenue,
+        "avg_monthly_balance": signals.avg_monthly_balance,
+        "overdraft_count": signals.overdraft_count,
+        "income_regularity": signals.income_regularity,
+        "parsed_revenue": signals.parsed_revenue,
     }
+
 
 
 def _apply_cipc_verification(
@@ -93,9 +114,9 @@ def _apply_cipc_verification(
     sme.cipc_registration_number = result.registration_number
 
     if result.verified is False:
-        # Hard failure — number is invalid or company not found
+        # Hard failure â€” number is invalid or company not found
         ver.status         = "rejected"
-        ver.reviewed_at    = datetime.utcnow()
+        ver.reviewed_at    = utc_now()
         ver.reviewer_notes = result.error or "CIPC verification failed"
         return {
             "cipc_verified":         False,
@@ -106,12 +127,12 @@ def _apply_cipc_verification(
         }
 
     if result.verified is True and result.auto_approved:
-        # Live API confirmed — auto-approve the verification
+        # Live API confirmed â€” auto-approve the verification
         ver.status         = "approved"
-        ver.reviewed_at    = datetime.utcnow()
+        ver.reviewed_at    = utc_now()
         ver.reviewer_notes = f"Auto-verified via CIPC API. Status: {result.status}"
 
-        sme.cipc_verified_at   = datetime.utcnow()
+        sme.cipc_verified_at   = utc_now()
         sme.cipc_company_name  = result.company_name
         sme.cipc_status        = result.status
 
@@ -132,7 +153,7 @@ def _apply_cipc_verification(
             response["warning"] = result.error
         return response
 
-    # verified=None — manual review needed
+    # verified=None â€” manual review needed
     # Registration number is stored; admin sees it in the review panel
     ver.status = "pending"
     return {
@@ -142,14 +163,14 @@ def _apply_cipc_verification(
         "source":                result.source,
         "message": (
             "CIPC registration number stored. "
-            "Automatic verification is not available — "
+            "Automatic verification is not available â€” "
             "your document has been queued for manual admin review."
         ),
         "error": result.error,
     }
 
 
-# ── Schemas ───────────────────────────────────────────────────────────────────
+# â”€â”€ Schemas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class VerificationOut(BaseModel):
     id:                     int
@@ -163,8 +184,7 @@ class VerificationOut(BaseModel):
     lender_id:              Optional[int]
     loi_counterparty_known: Optional[bool] = None
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ReviewPayload(BaseModel):
@@ -172,7 +192,7 @@ class ReviewPayload(BaseModel):
     loi_counterparty_known: Optional[bool] = None
 
 
-# ── SME / Lender endpoints ────────────────────────────────────────────────────
+# â”€â”€ SME / Lender endpoints â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @router.post("/submit")
 @limiter.limit("10/minute")
@@ -212,7 +232,7 @@ async def submit_verification(
         doc_type=doc_type,
         document_url=document_url,
         status="pending",
-        submitted_at=datetime.utcnow(),
+        submitted_at=utc_now(),
     )
 
     parse_result:  dict | None = None
@@ -227,7 +247,7 @@ async def submit_verification(
         if doc_type == "bank_statement":
             if not file.filename or not file.filename.lower().endswith(".pdf"):
                 raise HTTPException(status_code=400, detail="Bank statements must be uploaded as PDF files.")
-            parse_result = _apply_bank_statement_signals(sme, pdf_bytes)
+            parse_result = _apply_bank_statement_signals(sme, ver, pdf_bytes)
 
         elif doc_type == "cipc":
             db.add(ver)
@@ -289,7 +309,7 @@ def list_my_verifications(
     raise HTTPException(status_code=403, detail="Unauthorized")
 
 
-# ── Admin endpoints ───────────────────────────────────────────────────────────
+# â”€â”€ Admin endpoints â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @router.get("/pending", response_model=List[VerificationOut])
 def list_pending_verifications(
@@ -316,14 +336,14 @@ def approve_verification(
         raise HTTPException(status_code=404, detail="Verification not found")
 
     ver.status         = "approved"
-    ver.reviewed_at    = datetime.utcnow()
+    ver.reviewed_at    = utc_now()
     ver.reviewer_notes = payload.reviewer_notes
 
     # When admin manually approves a CIPC, record the verified timestamp on the SME
     if ver.doc_type == "cipc" and ver.sme_id:
         sme = db.query(SME).filter(SME.id == ver.sme_id).first()
         if sme and not sme.cipc_verified_at:
-            sme.cipc_verified_at = datetime.utcnow()
+            sme.cipc_verified_at = utc_now()
             sme.cipc_status      = "In Business (manual review)"
 
     # LOI counterparty flag
@@ -350,14 +370,14 @@ def reject_verification(
         raise HTTPException(status_code=404, detail="Verification not found")
 
     ver.status         = "rejected"
-    ver.reviewed_at    = datetime.utcnow()
+    ver.reviewed_at    = utc_now()
     ver.reviewer_notes = payload.reviewer_notes
     db.commit()
     db.refresh(ver)
     return ver
 
 
-# ── CIPC status endpoint (for SME dashboard display) ─────────────────────────
+# â”€â”€ CIPC status endpoint (for SME dashboard display) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @router.get("/cipc-status")
 def get_cipc_status(
@@ -382,3 +402,4 @@ def get_cipc_status(
         "cipc_status":              sme.cipc_status,
         "is_verified":              sme.cipc_verified_at is not None,
     }
+

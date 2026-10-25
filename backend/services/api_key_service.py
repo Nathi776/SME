@@ -1,5 +1,6 @@
-import secrets
+﻿import secrets
 from datetime import datetime
+from core.time_utils import utc_now
 from fastapi import Header, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from database import get_db
@@ -31,7 +32,7 @@ def verify_api_key(raw_key: str, db: Session) -> APIKey | None:
     for key_record in candidates:
         try:
             if pwd_context.verify(raw_key, key_record.key_hash):
-                key_record.last_used_at = datetime.utcnow()
+                key_record.last_used_at = utc_now()
                 db.commit()
                 db.refresh(key_record)
                 return key_record
@@ -54,3 +55,4 @@ def get_api_key_from_header(
             detail="Invalid or inactive API key"
         )
     return key_record
+

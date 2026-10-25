@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, Numeric, ForeignKey, String, DateTime
+﻿from sqlalchemy import Column, Integer, Numeric, ForeignKey, String, DateTime
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from core.time_utils import utc_now
 from database import Base
+from models.assessment_snapshot import AssessmentSnapshot
 
 
 class FinanceRequest(Base):
@@ -21,12 +22,12 @@ class FinanceRequest(Base):
     preferred_payout_date = Column(DateTime, nullable=True)
     additional_notes = Column(String, nullable=True)
 
-    # "invoice_backed" — traditional: tied to an invoice
-    # "pre_invoice"    — early-stage: no invoice yet, scored on business signals
+    # "invoice_backed" â€” traditional: tied to an invoice
+    # "pre_invoice"    â€” early-stage: no invoice yet, scored on business signals
     request_type = Column(String, nullable=False, default="invoice_backed")
 
     lender_id = Column(Integer, ForeignKey("lenders.id"), nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now)
     approved_at = Column(DateTime, nullable=True)
 
     sme_id = Column(Integer, ForeignKey("smes.id"), nullable=False)
@@ -42,6 +43,20 @@ class FinanceRequest(Base):
 
     credit_score_id = Column(Integer, ForeignKey("credit_scores.id"))
     credit_score = relationship("CreditScore", back_populates="finance_requests")
-
+    assessment_snapshot_id = Column(
+        Integer,
+        ForeignKey("assessment_snapshots.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    assessment_snapshot = relationship(
+        "AssessmentSnapshot",
+        back_populates="finance_requests",
+    )
     lender = relationship("Lender", back_populates="approvals")
-    outcome = relationship("SmeOutcome", back_populates="finance_request", uselist=False, cascade="all, delete-orphan")
+    outcome = relationship(
+        "SmeOutcome",
+        back_populates="finance_request",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )

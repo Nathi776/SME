@@ -20,6 +20,7 @@ from services.finance_service import (
     mark_finance_request_paid,
     mark_finance_request_closed,
 )
+from services.scoring_service import calculate_assessment
 
 router = APIRouter(prefix="/finance", tags=["Finance Requests"])
 
@@ -47,6 +48,7 @@ class FinanceRequestResponse(BaseModel):
     id: int
     sme_id: int
     invoice_id: int | None          # nullable — pre-invoice requests have no invoice
+    assessment_snapshot_id: int | None = None
     request_type: str               # "invoice_backed" | "pre_invoice"
     amount_requested: Decimal
     approved_amount: Decimal | None
@@ -83,10 +85,9 @@ def get_pricing_parameters(
     db: Session = Depends(get_db),
 ):
     """
-    Get the fee rate and advance rate based on the credit score.
+    Get the fee rate and advance rate based on a current assessment.
     """
     from models.sme import SME
-    from models.credit_score import CreditScore
 
     if current_user.role == "sme":
         sme = db.query(SME).filter(SME.user_id == current_user.id).first()
@@ -98,13 +99,12 @@ def get_pricing_parameters(
             raise HTTPException(status_code=400, detail="sme_id is required for non-SME users")
         target_sme_id = sme_id
 
-    latest_score = (
-        db.query(CreditScore)
-        .filter(CreditScore.sme_id == target_sme_id)
-        .order_by(CreditScore.created_at.desc())
-        .first()
-    )
-    score_value = int(latest_score.score) if latest_score else None
+    target_sme = db.query(SME).filter(SME.id == target_sme_id).first()
+    if not target_sme:
+        raise HTTPException(status_code=404, detail="SME profile not found")
+
+    assessment_result, _ = calculate_assessment(target_sme, db)
+    score_value = int(assessment_result.score)
 
     fee_rate = calculate_fee_rate(score_value)
     advance_rate = calculate_eligible_amount(1.0, score_value)

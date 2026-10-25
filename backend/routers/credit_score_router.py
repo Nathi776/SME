@@ -1,4 +1,4 @@
-"""
+﻿"""
 routers/credit_score_router.py
 
 All endpoints unchanged from the frontend's perspective.
@@ -8,6 +8,7 @@ Internally, every score now flows through core/scoring.py via scoring_service.
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from datetime import datetime
+from core.time_utils import utc_now
 from limiter import limiter
 
 from database import get_db
@@ -15,7 +16,10 @@ from models.credit_score import CreditScore
 from models.sme import SME
 from models.user import User
 from services.auth_service import get_current_user
-from services.scoring_service import score_sme
+from services.scoring_service import (
+    calculate_assessment,
+    create_assessment_for_sme,
+)
 from core.scoring import determine_decision
 
 router = APIRouter(prefix="/credit-scores", tags=["Credit Scoring"])
@@ -47,12 +51,12 @@ def generate_credit_score(
     check_sme_access(current_user, sme_id, db)
     sme = _get_sme_or_404(sme_id, db)
 
-    result = score_sme(sme, db)
+    result, observation_id, snapshot_id = create_assessment_for_sme(sme, db)
 
     new_score = CreditScore(
         sme_id=sme.id,
         score=result.score,
-        created_at=datetime.utcnow(),
+        created_at=utc_now(),
     )
     db.add(new_score)
     db.commit()
@@ -63,6 +67,9 @@ def generate_credit_score(
         "sme_id": sme_id,
         "score": new_score.score,
         "decision": result.decision,
+        "profile": result.profile.value,
+        "observation_id": observation_id,
+        "assessment_snapshot_id": snapshot_id,
     }
 
 
@@ -152,7 +159,7 @@ def get_credit_score_details(
     check_sme_access(current_user, sme_id, db)
     sme = _get_sme_or_404(sme_id, db)
 
-    result = score_sme(sme, db)
+    result, _ = calculate_assessment(sme, db)
 
     return {
         "sme_id": sme_id,
@@ -160,3 +167,4 @@ def get_credit_score_details(
         "decision": result.decision,
         "breakdown": result.breakdown,
     }
+

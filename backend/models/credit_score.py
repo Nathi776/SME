@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, Float, ForeignKey, DateTime
+﻿from sqlalchemy import Column, Integer, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from database import Base
-from datetime import datetime
+from core.time_utils import utc_now
 
 class CreditScore(Base):
     __tablename__ = "credit_scores"
@@ -9,8 +9,8 @@ class CreditScore(Base):
     id = Column(Integer, primary_key=True, index=True)
     sme_id = Column(Integer, ForeignKey("smes.id", ondelete="CASCADE"), nullable=False)
     score = Column(Float, nullable=False)
-    rating = Column(Integer, nullable=True)  # Optional rating bucket (e.g., 1–5)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    rating = Column(Integer, nullable=True)  # Optional rating bucket (e.g., 1â€“5)
+    created_at = Column(DateTime, default=utc_now)
 
     sme = relationship("SME", back_populates="credit_scores")
 
@@ -18,3 +18,4 @@ class CreditScore(Base):
 
     def __repr__(self):
         return f"<CreditScore(id={self.id}, sme_id={self.sme_id}, score={self.score})>"
+

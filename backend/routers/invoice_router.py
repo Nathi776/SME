@@ -9,7 +9,10 @@ from models.invoice import Invoice
 from models.sme import SME
 from models.user import User
 from services.auth_service import get_current_user
-from services.finance_service import mark_finance_request_paid
+from services.finance_service import (
+    mark_finance_request_paid,
+    mark_invoice_paid as set_invoice_paid,
+)
 
 router = APIRouter(prefix="/invoices", tags=["Invoices"])
 
@@ -144,10 +147,23 @@ def update_invoice(
     if not sme or sme.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="You can only update your own invoices")
 
-    mark_related_finance_requests_paid = request.status == "paid"
+    updates = request.model_dump(exclude_unset=True)
+    requested_status = updates.pop("status", None)
+    mark_related_finance_requests_paid = (
+        requested_status is not None
+        and requested_status.lower() == "paid"
+    )
 
-    for key, value in request.model_dump(exclude_unset=True).items():
+    for key, value in updates.items():
         setattr(invoice, key, value)
+
+    if requested_status is not None:
+        if requested_status.lower() == "paid":
+            set_invoice_paid(invoice)
+        else:
+            invoice.status = requested_status
+            invoice.paid_at = None
+
     db.commit()
     db.refresh(invoice)
 
@@ -171,7 +187,7 @@ def mark_invoice_paid(
     if not sme or sme.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="You can only update your own invoices")
 
-    invoice.status = "paid"
+    set_invoice_paid(invoice)
     db.commit()
     db.refresh(invoice)
 
@@ -197,3 +213,4 @@ def delete_invoice(
     db.delete(invoice)
     db.commit()
     return {"message": "Invoice deleted successfully"}
+

@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException
+﻿from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
 from decimal import Decimal
 from datetime import datetime
+from core.time_utils import utc_now
 
 from models.sme import SME
 from models.user import User
@@ -16,6 +17,7 @@ from typing import List
 from services.auth_service import get_current_user
 from services.scoring_service import score_sme
 from services.finance_service import calculate_eligible_amount
+from services.market_data_service import normalize_industry
 
 
 router = APIRouter(
@@ -109,7 +111,7 @@ class DashboardResponse(BaseModel):
 
 # ---------- CRUD Endpoints ----------
 
-# ✅ Create SME
+# âœ… Create SME
 @router.post("/", response_model=SMECreated)
 def create_sme(
     sme: SMEBase,
@@ -126,7 +128,7 @@ def create_sme(
 
     new_sme = SME(
         name=sme.name,
-        industry=sme.industry,
+        industry=normalize_industry(sme.industry),
         revenue=sme.revenue,
         years_active=sme.years_active,
         province=sme.province,
@@ -141,7 +143,7 @@ def create_sme(
         CreditScore(
             sme_id=new_sme.id,
             score=initial_score,
-            created_at=datetime.utcnow(),
+            created_at=utc_now(),
         )
     )
 
@@ -150,7 +152,7 @@ def create_sme(
     return new_sme
 
 
-# ✅ Dashboad
+# âœ… Dashboad
 @router.get("/dashboard", response_model=DashboardResponse)
 def sme_dashboard(
     current_user: User = Depends(get_current_user),
@@ -314,7 +316,7 @@ def sme_dashboard(
 
 
 
-# ✅ Get all SMEs
+# âœ… Get all SMEs
 @router.get("/", response_model=List[SMECreated])
 def get_all_smes(
     current_user: User = Depends(get_current_user),
@@ -327,7 +329,7 @@ def get_all_smes(
     return smes
 
 
-# ✅ Get SME by ID
+# âœ… Get SME by ID
 @router.get("/{sme_id}", response_model=SMECreated)
 def get_sme(
     sme_id: int,
@@ -343,7 +345,7 @@ def get_sme(
     return sme
 
 
-# ✅ Update SME
+# âœ… Update SME
 @router.put("/{sme_id}", response_model=SMECreated)
 def update_sme(
     sme_id: int,
@@ -358,7 +360,7 @@ def update_sme(
         raise HTTPException(status_code=403, detail="You can only update your own SME profile")
 
     sme.name          = updated_sme.name
-    sme.industry      = updated_sme.industry
+    sme.industry      = normalize_industry(updated_sme.industry)
     sme.revenue       = updated_sme.revenue
     sme.years_active  = updated_sme.years_active
     sme.province      = updated_sme.province
@@ -368,7 +370,7 @@ def update_sme(
     return sme
 
 
-# ✅ Delete SME
+# âœ… Delete SME
 @router.delete("/{sme_id}")
 def delete_sme(
     sme_id: int,

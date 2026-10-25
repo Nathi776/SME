@@ -4,6 +4,7 @@ services/market_data_service.py
 Static market intelligence layer for South Africa.
 Data sources:
   - Stats SA: Quarterly Labour Force Survey, GDP by province (2023/2024)
+  - Stats SA: Mbalo Brief October 2025 — provincial GDP growth rates
   - World Bank: SME survival rates by sector for Sub-Saharan Africa
   - SEDA: Small Enterprise Development Agency sector reports
   - DSBD: Department of Small Business Development annual reports
@@ -47,22 +48,158 @@ SECTOR_SURVIVAL_RATES: dict[str, float] = {
 }
 
 
+# ── Industry name aliases ─────────────────────────────────────────────────────
+# Normalises free-text industry entries to canonical category names.
+# Keys are strip().lower() — values are canonical names matching SECTOR_SURVIVAL_RATES.
+# Two founders describing the same business must receive the same market score.
+
+INDUSTRY_ALIASES: dict[str, str] = {
+    # Technology
+    "technology":           "Technology",
+    "tech":                 "Technology",
+    "it":                   "Technology",
+    "information technology": "Technology",
+    "software":             "Technology",
+    "saas":                 "Technology",
+    "fintech":              "Technology",
+    "e-commerce":           "Technology",
+    "ecommerce":            "Technology",
+
+    # Professional Services
+    "professional services": "Professional Services",
+    "consulting":           "Professional Services",
+    "consultancy":          "Professional Services",
+    "legal":                "Professional Services",
+    "law":                  "Professional Services",
+    "accounting":           "Professional Services",
+    "audit":                "Professional Services",
+    "security":             "Professional Services",   # SA: private security — large SME sector
+    "security company":     "Professional Services",
+
+    # Healthcare
+    "healthcare":           "Healthcare",
+    "health care":          "Healthcare",
+    "medical":              "Healthcare",
+    "pharmacy":             "Healthcare",
+    "clinic":               "Healthcare",
+
+    # Retail
+    "retail":               "Retail",
+    "shop":                 "Retail",
+    "store":                "Retail",
+    "spaza":                "Retail",   # SA: informal convenience store
+    "spaza shop":           "Retail",
+    "tuck shop":            "Retail",   # SA: small informal retail outlet
+    "hawker":               "Retail",   # SA: street vendor / informal trader
+    "general dealer":       "Retail",
+
+    # Food & Beverage
+    "food":                 "Food & Beverage",
+    "food and beverage":    "Food & Beverage",
+    "f&b":                  "Food & Beverage",
+    "restaurant":           "Food & Beverage",
+    "cafe":                 "Food & Beverage",
+    "catering":             "Food & Beverage",
+    "tavern":               "Food & Beverage",   # SA: informal liquor and food establishment
+    "shebeen":              "Food & Beverage",   # SA: informal bar / tavern
+    "fast food":            "Food & Beverage",
+    "bakery":               "Food & Beverage",
+
+    # Agriculture
+    "agriculture":          "Agriculture",
+    "farming":              "Agriculture",
+    "farm":                 "Agriculture",
+    "agri":                 "Agriculture",
+
+    # Manufacturing
+    "manufacturing":        "Manufacturing",
+    "factory":              "Manufacturing",
+    "production":           "Manufacturing",
+    "panel beating":        "Manufacturing",   # SA: auto body repair — common SME sector
+    "auto repair":          "Manufacturing",
+    "welding":              "Manufacturing",
+
+    # Transport & Logistics
+    "transport":            "Transport & Logistics",
+    "logistics":            "Transport & Logistics",
+    "transport & logistics": "Transport & Logistics",
+    "courier":              "Transport & Logistics",
+    "delivery":             "Transport & Logistics",
+    "taxi":                 "Transport & Logistics",   # SA: minibus taxi operators
+
+    # Construction
+    "construction":         "Construction",
+    "building":             "Construction",
+    "contractor":           "Construction",
+    "civil engineering":    "Construction",
+}
+
+
+
+def normalize_industry(industry: str | None) -> str:
+    if not industry or not industry.strip():
+        return "Other"
+
+    key = industry.strip().casefold()
+
+    # Recognize canonical industry names directly.
+    for category in SECTOR_SURVIVAL_RATES:
+        if category.casefold() == key:
+            return category
+
+    # Resolve aliases to their canonical categories.
+    return INDUSTRY_ALIASES.get(key, "Other")
+
+
+
+PROVINCE_ALIASES: dict[str, str] = {
+    "gauteng": "Gauteng",
+    "western cape": "Western Cape",
+    "kwazulu-natal": "KwaZulu-Natal",
+    "kwazulu natal": "KwaZulu-Natal",
+    "kzn": "KwaZulu-Natal",
+    "mpumalanga": "Mpumalanga",
+    "free state": "Free State",
+    "eastern cape": "Eastern Cape",
+    "north west": "North West",
+    "northwest": "North West",
+    "limpopo": "Limpopo",
+    "northern cape": "Northern Cape",
+}
+
+
+def normalize_province(province: str | None) -> str | None:
+    """Normalize a South African province name for consistent lookups."""
+    if not province or not province.strip():
+        return None
+    key = province.strip().lower()
+    return PROVINCE_ALIASES.get(key)
+
+
 # ── Province economic activity index ─────────────────────────────────────────
-# Based on: Stats SA GDP by Province 2023, Municipal economic rankings
+# Based on: Stats SA GDP by Province 2023/2024, Mbalo Brief October 2025
 # Definition: relative economic activity level of the province
 # Scale: 0.0 = minimal formal economic activity; 1.0 = highest activity (Gauteng)
 # These are relative indices, not absolute GDP figures.
+#
+# Mbalo Brief 2025 corrections applied (from Stats SA Mbalo Brief, Oct 2025):
+#   Western Cape:  0.82 → 0.84  (+0.7% growth, 14.2% of GDP)
+#   KwaZulu-Natal: 0.65 → 0.67  (+0.4% growth, 16.1% of GDP)
+#   Limpopo:       0.36 → 0.44  (+0.9% growth — fastest growing province)
+#   Eastern Cape:  0.44 → 0.40  (−0.2% growth — structural decline)
+#   North West:    0.42 → 0.38  (−0.1% growth — mining dependency)
+#   Northern Cape: 0.30 → 0.28  (−0.1% growth — smallest economy)
 
 PROVINCE_ECONOMIC_INDEX: dict[str, float] = {
-    "Gauteng":            1.00,   # ~34% of SA GDP, Johannesburg + Pretoria economic hub
-    "Western Cape":       0.82,   # Cape Town tech and tourism hub, second most active
-    "KwaZulu-Natal":      0.65,   # Durban port, manufacturing, sugar industry
+    "Gauteng":            1.00,   # ~33.2% of SA GDP, Johannesburg + Pretoria economic hub
+    "Western Cape":       0.84,   # Cape Town tech and tourism hub — updated Mbalo Brief 2025
+    "KwaZulu-Natal":      0.67,   # Durban port, manufacturing, sugar — updated Mbalo Brief 2025
     "Mpumalanga":         0.52,   # Mining and energy, Eskom proximity
-    "Eastern Cape":       0.44,   # Port Elizabeth automotive, but structural unemployment
-    "North West":         0.42,   # Mining dependent, Rustenburg
     "Free State":         0.40,   # Agriculture and mining, lower urban density
-    "Limpopo":            0.36,   # Mining and agriculture, lowest formal economy density
-    "Northern Cape":      0.30,   # Largest by area, smallest economy — mining, low population
+    "Eastern Cape":       0.40,   # Port Elizabeth automotive — structural decline, Mbalo Brief 2025
+    "North West":         0.38,   # Mining dependent, Rustenburg — updated Mbalo Brief 2025
+    "Limpopo":            0.44,   # Fastest growing (+0.9%) — updated Mbalo Brief 2025
+    "Northern Cape":      0.28,   # Largest by area, smallest economy — updated Mbalo Brief 2025
 }
 
 
@@ -70,6 +207,7 @@ PROVINCE_ECONOMIC_INDEX: dict[str, float] = {
 # Some industries perform differently in specific provinces due to local conditions.
 # Format: (industry, province) → multiplier applied to the base province index.
 # Only specify notable deviations — default multiplier is 1.0.
+# Keys must use canonical industry names (post-normalization).
 
 INDUSTRY_PROVINCE_ADJUSTMENTS: dict[tuple[str, str], float] = {
     # Technology thrives in Cape Town and Joburg tech hubs
@@ -109,40 +247,62 @@ INDUSTRY_PROVINCE_ADJUSTMENTS: dict[tuple[str, str], float] = {
 def sector_survival_score(industry: str) -> float:
     """
     Returns a 0.0–1.0 survival rate for the given industry.
-    Used to replace the static low/medium/high lookup in the scoring engine.
+    Normalises the industry name before lookup so that 'IT', 'tech',
+    and 'Technology' all return the same score.
     """
+    industry = normalize_industry(industry)
     return SECTOR_SURVIVAL_RATES.get(industry, SECTOR_SURVIVAL_RATES["Other"])
 
 
 def province_market_score(province: str, industry: str) -> float:
     """
-    Returns a 0.0–1.0 market opportunity score for a given province + industry.
-    Applies industry-province interaction adjustments where applicable.
-    Clamps the result to [0.0, 1.0].
+    Returns a 0.0–1.0 market opportunity score for a province + industry.
+    Normalizes province and industry names before lookup.
+    Applies industry-province adjustments and clamps the result to [0.0, 1.0].
     """
-    base = PROVINCE_ECONOMIC_INDEX.get(province)
-    if base is None:
-        # Unknown province — use national median
+    normalized_industry = normalize_industry(industry)
+    normalized_province = normalize_province(province)
+    if normalized_province is None:
         base = 0.52
-
-    adjustment = INDUSTRY_PROVINCE_ADJUSTMENTS.get((industry, province), 1.0)
+        adjustment = 1.0
+    else:
+        base = PROVINCE_ECONOMIC_INDEX[normalized_province]
+        adjustment = INDUSTRY_PROVINCE_ADJUSTMENTS.get(
+            (normalized_industry, normalized_province),
+            1.0,
+        )
     return min(base * adjustment, 1.0)
 
 
-def get_market_intelligence(industry: str, province: str | None) -> dict:
+def get_market_intelligence(
+    industry: str,
+    province: str | None,
+) -> dict:
     """
-    Returns a combined dict of market signals for use in scoring and explainability.
+    Returns market signals for scoring and explainability.
+    Uses canonical industry and province names for calculations.
+    Preserves the supplied province in the returned response.
     """
-    survival = sector_survival_score(industry)
-    market = province_market_score(province or "", industry) if province else None
+    normalized_industry = normalize_industry(industry)
+    normalized_province = normalize_province(province)
+    survival = sector_survival_score(normalized_industry)
+    market = (
+        province_market_score(normalized_province, normalized_industry)
+        if normalized_province
+        else None
+    )
 
     return {
-        "sector_survival_rate":  survival,
+        "sector_survival_rate": survival,
         "province_market_score": market,
-        "province":              province,
-        "industry":              industry,
-        "survival_label":        _survival_label(survival),
-        "market_label":          _market_label(market) if market is not None else "Province not specified",
+        "province": province,
+        "industry": normalized_industry,
+        "survival_label": _survival_label(survival),
+        "market_label": (
+            _market_label(market)
+            if market is not None
+            else "Province not specified"
+        ),
     }
 
 

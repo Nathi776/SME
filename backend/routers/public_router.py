@@ -4,6 +4,8 @@ from services.market_data_service import (
     province_market_score,
     PROVINCE_ECONOMIC_INDEX,
     INDUSTRY_PROVINCE_ADJUSTMENTS,
+    normalize_industry,
+    normalize_province,
 )
 
 router = APIRouter(prefix="/public", tags=["Public"])
@@ -101,38 +103,57 @@ def get_business_assessment(industry: str, province: str):
     else:
         viability_label = "High risk — thorough research recommended"
         
+    normalized_industry = normalize_industry(industry)
+    normalized_province = normalize_province(province)
+    display_province = normalized_province or province
+
     # 5. Risks
     top_risks = []
     # Industry specific risks
-    top_risks.extend(INDUSTRY_RISKS.get(industry, ["General business risk in the selected sector."]))
+    top_risks.extend(INDUSTRY_RISKS.get(normalized_industry, ["General business risk in the selected sector."]))
     
     # Province economic index check
-    prov_idx = PROVINCE_ECONOMIC_INDEX.get(province, 0.52)
+    prov_idx = (
+        PROVINCE_ECONOMIC_INDEX.get(normalized_province, 0.52)
+        if normalized_province
+        else 0.52
+    )
     if prov_idx < 0.45:
-        top_risks.append("Limpopo has lower formal economic activity than major urban centres" if province == "Limpopo" else f"{province} has lower formal economic activity than major urban centres")
+        top_risks.append(
+            "Limpopo has lower formal economic activity than major urban centres"
+            if normalized_province == "Limpopo"
+            else f"{display_province} has lower formal economic activity than major urban centres"
+        )
     
     # Survival rate check
     if survival < 0.45:
         top_risks.append(f"{industry} has a high failure rate nationally — thin margins, high competition")
         
     # No notable advantage check
-    adj = INDUSTRY_PROVINCE_ADJUSTMENTS.get((industry, province), 1.0)
+    adj = (
+        INDUSTRY_PROVINCE_ADJUSTMENTS.get(
+            (normalized_industry, normalized_province),
+            1.0,
+        )
+        if normalized_province
+        else 1.0
+    )
     if adj <= 1.0:
-        top_risks.append(f"No notable market advantage for this sector in {province}")
+        top_risks.append(f"No notable market advantage for this sector in {display_province}")
         
     # 6. Encouragements
     encouragements = []
     # Add default industry encouragement
-    if industry in INDUSTRY_ENCOURAGEMENTS:
-        encouragements.append(INDUSTRY_ENCOURAGEMENTS[industry])
+    if normalized_industry in INDUSTRY_ENCOURAGEMENTS:
+        encouragements.append(INDUSTRY_ENCOURAGEMENTS[normalized_industry])
         
     # Rules-based encouragements
     if survival >= 0.60:
         encouragements.append("Strong sector fundamentals — most businesses in this industry survive")
     if prov_idx >= 0.70:
-        encouragements.append(f"{province} has high economic activity — strong market opportunity")
+        encouragements.append(f"{display_province} has high economic activity — strong market opportunity")
     if adj > 1.0:
-        encouragements.append(f"This sector performs particularly well in {province}")
+        encouragements.append(f"This sector performs particularly well in {display_province}")
         
     # 7. Next step CTA
     next_step = "Register your business and complete a full funding readiness assessment to see your personalised score."

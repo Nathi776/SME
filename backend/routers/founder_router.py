@@ -1,4 +1,4 @@
-"""
+﻿"""
 routers/founder_router.py
 
 Endpoints for creating and updating the founder profile.
@@ -10,6 +10,7 @@ Every update triggers a score recalculation.
 from __future__ import annotations
 
 from datetime import datetime
+from core.time_utils import utc_now
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -29,7 +30,7 @@ router = APIRouter(prefix="/founder", tags=["Founder Profile"])
 VALID_QUALIFICATIONS = {"none", "matric", "certificate", "diploma", "degree", "postgraduate"}
 
 
-# ── Schemas ───────────────────────────────────────────────────────────────────
+# â”€â”€ Schemas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class FounderProfileIn(BaseModel):
     # Identity
@@ -64,7 +65,7 @@ class FounderProfileOut(FounderProfileIn):
     model_config = ConfigDict(from_attributes=True)
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 def _get_sme_for_user(current_user: User, db: Session) -> SME:
     sme = db.query(SME).filter(SME.user_id == current_user.id).first()
@@ -86,16 +87,16 @@ def _apply_fields(fp: FounderProfile, data: FounderProfileIn) -> None:
     for field_name, value in data.model_dump(exclude_unset=False).items():
         if hasattr(fp, field_name):
             setattr(fp, field_name, value)
-    fp.updated_at = datetime.utcnow()
+    fp.updated_at = utc_now()
 
 
 def _recalculate_score(sme: SME, db: Session) -> float:
     result = score_sme(sme, db)
-    db.add(CreditScore(sme_id=sme.id, score=result.score, created_at=datetime.utcnow()))
+    db.add(CreditScore(sme_id=sme.id, score=result.score, created_at=utc_now()))
     return result.score
 
 
-# ── Endpoints ─────────────────────────────────────────────────────────────────
+# â”€â”€ Endpoints â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @router.post("/", response_model=FounderProfileOut, status_code=201)
 def create_founder_profile(
@@ -121,7 +122,7 @@ def create_founder_profile(
             detail="Founder profile already exists. Use PUT /founder to update it."
         )
 
-    fp = FounderProfile(sme_id=sme.id, created_at=datetime.utcnow())
+    fp = FounderProfile(sme_id=sme.id, created_at=utc_now())
     _apply_fields(fp, data)
     db.add(fp)
     db.flush()
@@ -171,7 +172,7 @@ def update_founder_profile(
 
     fp = db.query(FounderProfile).filter(FounderProfile.sme_id == sme.id).first()
     if not fp:
-        fp = FounderProfile(sme_id=sme.id, created_at=datetime.utcnow())
+        fp = FounderProfile(sme_id=sme.id, created_at=utc_now())
         db.add(fp)
         db.flush()
 
@@ -236,3 +237,4 @@ def preview_founder_score(
         "potential_gains":              potential_gains,
         "founder_detail":               founder_bd.get("detail"),
     }
+

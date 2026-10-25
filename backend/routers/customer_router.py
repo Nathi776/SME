@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException
+﻿from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from decimal import Decimal
 from datetime import datetime, timedelta
+from core.time_utils import utc_now
 from typing import List, Dict, Any
 from database import get_db
 import models.invoice  # noqa: F401
@@ -266,8 +267,8 @@ def get_sme_customers_data(db: Session, sme_id: int):
 
         # Calculate days overdue if pending
         days_overdue = 0
-        if status_clean != "paid" and inv.due_date and datetime.utcnow() > inv.due_date:
-            days_overdue = (datetime.utcnow() - inv.due_date).days
+        if status_clean != "paid" and inv.due_date and utc_now() > inv.due_date:
+            days_overdue = (utc_now() - inv.due_date).days
 
         cust["invoices"].append({
             "id": inv.id,
@@ -405,8 +406,8 @@ def create_customer(
         description="Initial customer registration (draft)",
         amount=Decimal("0.00"),
         status="draft",
-        issue_date=datetime.utcnow(),
-        due_date=datetime.utcnow() + timedelta(days=30),
+        issue_date=utc_now(),
+        due_date=utc_now() + timedelta(days=30),
         currency="ZAR",
     )
     
@@ -456,3 +457,4 @@ def update_customer(
             
     db.commit()
     return {"message": "Customer profile updated successfully"}
+

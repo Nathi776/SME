@@ -157,10 +157,32 @@ def test_bank_statement_quality_bonus():
     )
     result = calculate_score(inp)
 
-    # Compliance: 0 approved + bonus (months>=6: +2, regularity>=0.8: +2, overdraft 1: -1) = 3
-    assert result.breakdown["Compliance Documents"]["contribution"] == 3
+    # Pending documents must not earn bank-statement quality points.
+    assert result.breakdown["Compliance Documents"]["contribution"] == 0
     assert result.breakdown["Intent Documents"]["contribution"] == 0
 
+def test_rejected_bank_statement_does_not_earn_quality_bonus():
+    inp = ScoringInput(
+        revenue=120_000,
+        years_active=3,
+        industry="Technology",
+        total_invoices=10,
+        paid_on_time=8,
+        unpaid_invoices=2,
+        verifications={
+            "cipc": "pending",
+            "bank_statement": "rejected",
+        },
+        overdraft_count=1,
+        income_regularity=0.85,
+        months_analysed=6,
+        province="Gauteng",
+        founder=None,
+    )
+
+    result = calculate_score(inp)
+
+    assert result.breakdown["Compliance Documents"]["contribution"] == 0
 
 # ── Intent documents: LOI only, unknown counterparty ─────────────────────────
 def test_intent_loi_unknown_counterparty():
@@ -375,3 +397,67 @@ def test_pre_invoice_sme_with_perfect_founder():
     # rescale(84) = 84 / 140 * 100 = 60.0
     assert result.score == 60.0
     assert result.decision == "Review"
+
+
+def test_market_viability_uses_calculated_score_for_recognized_province():
+    inp = ScoringInput(
+        revenue=50_000,
+        years_active=0,
+        industry="Technology",
+        total_invoices=0,
+        paid_on_time=0,
+        unpaid_invoices=0,
+        verifications={},
+        province="Gauteng",
+        founder=None,
+    )
+
+    result = calculate_score(inp)
+    market = result.breakdown["Market Viability"]
+
+    assert market["value"] == 1.0
+    assert market["contribution"] == 10.0
+    assert market["label"] != "Province not specified"
+
+
+def test_market_viability_uses_neutral_score_when_province_missing():
+    inp = ScoringInput(
+        revenue=50_000,
+        years_active=0,
+        industry="Technology",
+        total_invoices=0,
+        paid_on_time=0,
+        unpaid_invoices=0,
+        verifications={},
+        province=None,
+        founder=None,
+    )
+
+    result = calculate_score(inp)
+    market = result.breakdown["Market Viability"]
+
+    assert market["value"] is None
+    assert market["contribution"] == 5.0
+    assert "neutral score" in market["label"].lower()
+
+
+def test_market_viability_uses_neutral_score_for_unknown_province():
+    inp = ScoringInput(
+        revenue=50_000,
+        years_active=0,
+        industry="Technology",
+        total_invoices=0,
+        paid_on_time=0,
+        unpaid_invoices=0,
+        verifications={},
+        province="Atlantis",
+        founder=None,
+    )
+
+    result = calculate_score(inp)
+    market = result.breakdown["Market Viability"]
+
+    assert market["value"] is None
+    assert market["contribution"] == 5.0
+    assert "not recognized" in market["label"].lower()
+    assert market["note"] is not None

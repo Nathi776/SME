@@ -1,13 +1,15 @@
-from decimal import Decimal
+﻿from decimal import Decimal
 
 from sqlalchemy.orm import Session
-from datetime import datetime
+from datetime import datetime, timezone
+from core.time_utils import utc_now
 from models.finance_request import FinanceRequest
 from models.sme import SME
 from models.invoice import Invoice
 from models.credit_score import CreditScore
 from models.lender import Lender
 from config import get_settings
+from services.scoring_service import score_sme
 
 
 PLATFORM_FEE_RATE = get_settings().platform_fee_rate
@@ -22,9 +24,9 @@ def _to_decimal(value: Decimal | float | int) -> Decimal:
 def calculate_fee_rate(credit_score: int | None) -> Decimal:
     """
     Fee rate based on credit score.
-    Score 0–50:  8%    (high risk / declined band)
-    Score 50–75: 5%    (review band)
-    Score 75–85: 2.5%  (approved, standard)
+    Score 0â€“50:  8%    (high risk / declined band)
+    Score 50â€“75: 5%    (review band)
+    Score 75â€“85: 2.5%  (approved, standard)
     Score 85+:   1.5%  (approved, strong)
     Aligned with decision thresholds in core/scoring.py.
     """
@@ -64,7 +66,7 @@ def create_finance_request(
     db: Session,
     sme_id: int,
     amount: Decimal | float | int,
-    invoice_id: int | None = None,          # None → pre-invoice request
+    invoice_id: int | None = None,          # None â†’ pre-invoice request
     purpose_of_funding: str | None = None,
     preferred_payout_date: datetime | None = None,
     additional_notes: str | None = None,
@@ -73,8 +75,8 @@ def create_finance_request(
     Create a financing request.
 
     Two paths:
-    - invoice_id provided → invoice-backed (traditional)
-    - invoice_id is None  → pre-invoice (scored on business signals only)
+    - invoice_id provided â†’ invoice-backed (traditional)
+    - invoice_id is None  â†’ pre-invoice (scored on business signals only)
     """
     amount = _to_decimal(amount)
 
@@ -82,27 +84,36 @@ def create_finance_request(
     if not sme:
         raise ValueError("SME not found")
 
-    # Latest credit score — required for both paths
+    invoice = None
+    if invoice_id is not None:
+        invoice = db.query(Invoice).filter(
+            Invoice.id == invoice_id,
+            Invoice.sme_id == sme_id,
+        ).first()
+        if not invoice:
+            raise ValueError("Invoice not found or does not belong to this SME")
+        if (invoice.status or "").lower() == "paid":
+            raise ValueError("Cannot finance a paid invoice")
+
+    # Create and retain the assessment used for this finance application.
+    assessment_result = score_sme(sme, db)
+    assessment_snapshot_id = assessment_result.assessment_snapshot_id
+    score_value = int(assessment_result.score)
+    if assessment_snapshot_id is None:
+        raise ValueError(
+            "Assessment snapshot could not be created for this finance application"
+        )
+
+    # Retain the existing CreditScore link for compatibility.
     latest_score = (
         db.query(CreditScore)
         .filter(CreditScore.sme_id == sme_id)
         .order_by(CreditScore.created_at.desc())
         .first()
     )
-    score_value = int(latest_score.score) if latest_score else None
 
-    # ── Invoice-backed path ──────────────────────────────────────────────────
+    # â”€â”€ Invoice-backed path â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     if invoice_id is not None:
-        invoice = db.query(Invoice).filter(
-            Invoice.id == invoice_id,
-            Invoice.sme_id == sme_id,
-        ).first()
-
-        if not invoice:
-            raise ValueError("Invoice not found or does not belong to this SME")
-        if invoice.status == "paid":
-            raise ValueError("Cannot finance a paid invoice")
-
         fee_rate = calculate_fee_rate(score_value)
         eligible_amount = calculate_eligible_amount(invoice.amount, score_value)
 
@@ -114,6 +125,7 @@ def create_finance_request(
         request = FinanceRequest(
             sme_id=sme_id,
             invoice_id=invoice_id,
+            assessment_snapshot_id=assessment_snapshot_id,
             request_type="invoice_backed",
             amount_requested=amount,
             approved_amount=None,
@@ -125,34 +137,30 @@ def create_finance_request(
             credit_score_id=latest_score.id if latest_score else None,
         )
 
-    # ── Pre-invoice path ─────────────────────────────────────────────────────
+    # â”€â”€ Pre-invoice path â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     else:
         # Pre-invoice requests need at least a Review-band score to proceed.
         # A Declined SME (score < 50) cannot access pre-invoice funding.
-        if score_value is None:
-            raise ValueError(
-                "A credit score is required before applying for pre-invoice funding. "
-                "Please complete your profile and generate a score first."
-            )
         if score_value < 50:
             raise ValueError(
-                f"Your current credit score ({score_value}) does not meet the minimum "
+                f"Your current assessment score ({score_value}) does not meet the minimum "
                 "threshold for pre-invoice funding. Improve your score by verifying "
                 "your documents and updating your business profile."
             )
 
         fee_rate = calculate_fee_rate(score_value)
-        # For pre-invoice, eligible amount is a % of what they asked for —
+        # For pre-invoice, eligible amount is a % of what they asked for â€”
         # effectively capping how much can be approved against a pure score.
         eligible_amount = calculate_eligible_amount(amount, score_value)
 
         if amount > eligible_amount:
-            # Auto-cap rather than reject — lender still sees the real eligible amount
+            # Auto-cap rather than reject â€” lender still sees the real eligible amount
             amount = eligible_amount
 
         request = FinanceRequest(
             sme_id=sme_id,
             invoice_id=None,
+            assessment_snapshot_id=assessment_snapshot_id,
             request_type="pre_invoice",
             amount_requested=amount,
             approved_amount=None,
@@ -208,7 +216,7 @@ def approve_finance_request(
     req.platform_fee = platform_fee
     req.net_amount = net_amount
     req.status = "approved"
-    req.approved_at = datetime.utcnow()
+    req.approved_at = utc_now()
 
     db.commit()
     db.refresh(req)
@@ -224,7 +232,7 @@ def reject_finance_request(db: Session, request_id: int, lender_id: int):
 
     req.lender_id = lender_id
     req.status = "rejected"
-    req.approved_at = datetime.utcnow()
+    req.approved_at = utc_now()
 
     db.commit()
     db.refresh(req)
@@ -259,12 +267,20 @@ def mark_finance_request_paid(db: Session, request_id: int):
 
     # Only update invoice status if this was an invoice-backed request
     if req.invoice:
-        req.invoice.status = "paid"
+        mark_invoice_paid(req.invoice)
 
     req.status = "paid"
     db.commit()
     db.refresh(req)
     return req
+
+
+def mark_invoice_paid(invoice: Invoice, paid_at: datetime | None = None) -> Invoice:
+    """Mark an invoice paid and record its actual payment timestamp once."""
+    invoice.status = "paid"
+    if invoice.paid_at is None:
+        invoice.paid_at = paid_at or datetime.now(timezone.utc)
+    return invoice
 
 
 def mark_finance_request_closed(db: Session, request_id: int):
@@ -283,3 +299,4 @@ def mark_finance_request_closed(db: Session, request_id: int):
 def mark_finance_request_completed(db: Session, request_id: int):
     """Backward-compatible alias."""
     return mark_finance_request_paid(db, request_id)
+
