@@ -11,7 +11,10 @@ from database import get_db
 from models.assessment_snapshot import AssessmentSnapshot
 from models.sme import SME
 from models.user import User
-from services.assessment_evaluation_service import get_assessment_evaluation
+from services.assessment_evaluation_service import (
+    get_assessment_evaluation,
+    get_model_calibration,
+)
 from services.auth_service import get_current_user
 
 
@@ -44,6 +47,17 @@ def get_snapshot_or_404(snapshot_id: int, db: Session) -> AssessmentSnapshot:
         )
 
     return snapshot
+
+
+@router.get("/calibration/summary")
+def model_calibration(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Realised 12-month outcomes by strategy version and score band."""
+    if current_user.role not in {"admin", "lender"}:
+        raise HTTPException(status_code=403, detail="Unauthorized")
+    return get_model_calibration(db)
 
 
 @router.get("/{snapshot_id}")
