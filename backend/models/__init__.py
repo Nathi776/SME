@@ -10,3 +10,4 @@ from models.sme_outcome import SmeOutcome
 from models.api_key import APIKey
 from models.assessment_snapshot import AssessmentSnapshot
 from models.business_observation import BusinessObservation
+from models.email_verification import EmailVerificationCode
