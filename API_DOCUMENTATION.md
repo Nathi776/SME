@@ -51,6 +51,17 @@ Submits a South African company registration number and retrieves detailed platf
 #### Request Parameters
 *   `registration_number` (Query, required, string): Format `YYYY/NNNNNN/NN` (e.g. `2019/045321/07`).
 
+#### The three scores
+`score` and `scores.funding_readiness_score` are the same value and drive `decision`. They are distinct from the other two outputs; do not combine them into one number.
+
+| Field | Meaning |
+| :--- | :--- |
+| `scores.viability_score` (0-100) | How strong the business itself looks. Excludes compliance paperwork, so submitting more documents does not change it. |
+| `scores.funding_readiness_score` (0-100) | Overall readiness for funding now, including compliance documents. Equals `score`. |
+| `scores.evidence_confidence` (5-100) | How well the inputs are verified. Read viability together with this: high viability with low confidence means promising but unverified. |
+
+All three are rule-based and uncalibrated; none is a probability of repayment or survival. See `MODEL_SPECIFICATION.md`.
+
 #### Response Example (200 OK)
 ```json
 {
@@ -60,6 +71,11 @@ Submits a South African company registration number and retrieves detailed platf
   "province": "KwaZulu-Natal",
   "score": 82.4,
   "decision": "Approved",
+  "scores": {
+    "viability_score": 88.1,
+    "funding_readiness_score": 82.4,
+    "evidence_confidence": 85.0
+  },
   "score_components": {
     "revenue_tier": { "contribution": 18.0, "max": 25, "label": "R200k-R500k (parsed)" },
     "invoice_timeliness": { "contribution": 20.0, "max": 20, "label": "95% on time" },
@@ -128,6 +144,76 @@ None.
 
 ---
 
+## Platform API (JWT, used by the portal)
+
+These endpoints use a bearer token from `POST /auth/login` (`Authorization: Bearer <token>`), not an API key. They are not part of the versioned external API and may change with the portal.
+
+### Authentication and email verification
+
+| Method | Path | Notes |
+| :--- | :--- | :--- |
+| POST | `/auth/register` | Roles `sme` or `lender`. Password: 8+ characters with an uppercase letter and a number. |
+| POST | `/auth/login` | Body: `username` or `email`, plus `password`. Unknown users and wrong passwords return the same 401. Passwords are bcrypt-hashed; plaintext is never accepted. |
+| POST | `/auth/send-verification` | Body: `user_id` or `email`, optional `channels` (only `email`). Always returns the same generic message, whether or not the account exists. |
+| POST | `/auth/resend-verification` | Same behaviour; one code per account per minute. |
+| POST | `/auth/verify` | Body: `user_id` or `email`, `channel`, `code`. Sets `email_verified_at`. |
+| POST | `/auth/change-password` | Authenticated. |
+
+Verification codes are stored hashed, expire after 10 minutes, work once, and are burned after 5 wrong attempts. Rate limits: login, register and verify 10/min; send and resend 5/min.
+
+### Verification documents
+
+| Method | Path | Notes |
+| :--- | :--- | :--- |
+| POST | `/verifications/submit` | Multipart: `doc_type`, `file` (and `cipc_registration_number` for `cipc`). Allowed files: `.pdf`, `.png`, `.jpg`, `.jpeg`; the content must match the extension (400 otherwise). Maximum 10 MB (413). Bank statements must be PDF. |
+| GET | `/verifications/my` | Own records. |
+| GET | `/verifications/pending` | Admin only. |
+| PUT | `/verifications/approve/{id}` and `/reject/{id}` | Admin only. Only `pending` records can be reviewed; reviewed ones return 409. Approving a bank statement copies its metrics onto the SME record. |
+| GET | `/verifications/{id}/document` | Download. Allowed for the owning SME, the owning lender and admins; anyone else gets 404. |
+
+`document_url` in responses is always `/verifications/{id}/document`. Storage references and file paths are never exposed. Local files are returned as attachments; S3-stored files redirect (307) to a presigned URL valid for 5 minutes. Keep the S3 bucket private ("Block all public access").
+
+Uploaded bank statements are parsed, but their metrics are stored against that specific verification record and are used in scoring only once that statement is approved.
+
+### Assessments and provenance
+
+`POST /credit-scores/calculate/{sme_id}` records an observation and a snapshot and returns:
+
+```json
+{
+  "score": 72.4,
+  "decision": "Review",
+  "scores": { "viability_score": 80.2, "funding_readiness_score": 72.4, "evidence_confidence": 55.0 },
+  "profile": "growth",
+  "observation_id": 31,
+  "assessment_snapshot_id": 57
+}
+```
+
+`GET /credit-scores/details/{sme_id}` returns the live `score`, `scores` and per-factor `breakdown` without saving anything.
+
+Scoring uses the **latest approved** bank statement. A newer upload that is still pending or was rejected does not displace it. Each snapshot's `input_snapshot` records:
+
+*   `bank_statement_verification_id`: the verification record the bank signals came from (`null` if none was approved)
+*   `bank_statement_newer_pending`: `true` when a newer, unreviewed statement exists, so the evidence may be stale
+*   `revenue_source`: `verified_bank_statement` or `declared`
+
+Business observations carry the same `bank_statement_verification_id`.
+
+### Outcomes and model evaluation
+
+| Method | Path | Notes |
+| :--- | :--- | :--- |
+| GET | `/outcomes/history` | SMEs see their own; lenders and admins see all. Read-only: it does not create assessments. |
+| POST | `/outcomes/{id}/checkin` | SME owner or admin. Body: `interval` (90, 180 or 365), `still_operating`, `revenue`, `loan_repaid`. Also recorded as a business observation (source `outcome_checkin`). |
+| GET | `/outcomes/analytics` | Lenders and admins. |
+| GET | `/assessment-evaluations/{snapshot_id}` | What happened after one assessment. |
+| GET | `/assessment-evaluations/calibration/summary` | Lenders and admins. Realised 12-month survival and default rates by strategy version and score band. Groups under 30 outcomes are flagged `sufficient_sample: false`. Reports association, not causation. |
+
+An outcome's `score_at_funding` is the score from the assessment snapshot the funding request was based on. At the 365-day check-in the training labels are written once and never changed: `y1_survived_12m`, `y3_reached_100k`, `y4_revenue_grew`, `y5_defaulted`. `y2_survived_18m` stays empty until a 540-day check-in exists.
+
+---
+
 ## Error Responses
 
 *   **401 Unauthorized:** Invalid or inactive API key.
@@ -167,6 +253,10 @@ A corporate enterprise wants to assess the operational risk of a potential suppl
 ---
 
 ## Changelog
+
+*   **v1.1.0** (backward compatible)
+    *   `GET /api/v1/sme/score` now returns a `scores` object (`viability_score`, `funding_readiness_score`, `evidence_confidence`). Existing fields are unchanged.
+    *   Platform API (JWT) documented below: private document access, verification review rules, outcome labels and model calibration.
 
 *   **v1.0.0**
     *   Initial release of versioned external integration layer.

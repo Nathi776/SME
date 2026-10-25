@@ -163,7 +163,7 @@ SME routes:
 *   `/founder-profile` — Founder profile (Layer 1 signals)
 *   `/recommendations` — Personalised funding readiness action plan
 *   `/outcomes` — Funding history and check-in submissions
-*   `/credit-score` — Credit score details and factor breakdown
+*   `/credit-scores` — Credit score details and factor breakdown
 
 Lender routes:
 *   `/lender/dashboard` — Pending finance requests queue
