@@ -172,7 +172,7 @@ def test_verification_submission_and_admin_review(token, lender_token, admin_tok
     sme_submit = requests.post(
         f"{BASE_URL}/verifications/submit",
         data={"doc_type": "cipc", "cipc_registration_number": "2020/123456/07"},
-        files={"file": ("cipc.pdf", b"cipc test doc", "application/pdf")},
+        files={"file": ("cipc.pdf", b"%PDF-1.4 cipc test doc", "application/pdf")},
         headers=sme_headers
     )
     assert sme_submit.status_code == 200
@@ -183,7 +183,7 @@ def test_verification_submission_and_admin_review(token, lender_token, admin_tok
     lender_submit = requests.post(
         f"{BASE_URL}/verifications/submit",
         data={"doc_type": "registration_docs"},
-        files={"file": ("license.pdf", b"license test doc", "application/pdf")},
+        files={"file": ("license.pdf", b"%PDF-1.4 license test doc", "application/pdf")},
         headers=lender_headers
     )
     assert lender_submit.status_code == 200

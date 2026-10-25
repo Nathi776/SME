@@ -143,7 +143,7 @@ def test_auth_and_sme_flow():
         assert pre_invoice_response.status_code == 400
 
     # 8. Upload Verification Document (multipart upload)
-    upload_file_content = b"PDF mock content for CIPC document"
+    upload_file_content = b"%PDF-1.4 mock content for CIPC document"
     upload_response = client.post(
         "/verifications/submit",
         data={
