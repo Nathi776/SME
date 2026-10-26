@@ -28,6 +28,8 @@ class Settings(BaseSettings):
     smtp_password: str | None = None
     smtp_from_email: str | None = None
     smtp_use_tls: bool = True
+    # Used in links inside emails (check-in reminders).
+    portal_base_url: str = "http://localhost:3000"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

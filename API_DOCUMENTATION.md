@@ -112,9 +112,12 @@ Queries sector and province viability signals based on Stats SA and World Bank d
   "combined_viability": 0.832,
   "viability_label": "Strong opportunity",
   "survival_label": "72% sector survival (strong)",
-  "market_label": "High economic activity market (100%)"
+  "market_label": "High economic activity market (100%)",
+  "data_version": "2025.10.1"
 }
 ```
+
+`data_version` identifies the market tables behind the answer. See endpoint 4 for where those tables come from.
 
 ---
 
@@ -152,7 +155,7 @@ These endpoints use a bearer token from `POST /auth/login` (`Authorization: Bear
 
 | Method | Path | Notes |
 | :--- | :--- | :--- |
-| POST | `/auth/register` | Roles `sme` or `lender`. Password: 8+ characters with an uppercase letter and a number. |
+| POST | `/auth/register` | Roles `sme` or `lender`. Password: 8+ characters with an uppercase letter and a number. Optional `consent_model_improvement` (true/false): records the user's explicit choice; leave it out if the user was not asked. See Consent below. |
 | POST | `/auth/login` | Body: `username` or `email`, plus `password`. Unknown users and wrong passwords return the same 401. Passwords are bcrypt-hashed; plaintext is never accepted. |
 | POST | `/auth/send-verification` | Body: `user_id` or `email`, optional `channels` (only `email`). Always returns the same generic message, whether or not the account exists. |
 | POST | `/auth/resend-verification` | Same behaviour; one code per account per minute. |
@@ -160,6 +163,19 @@ These endpoints use a bearer token from `POST /auth/login` (`Authorization: Bear
 | POST | `/auth/change-password` | Authenticated. |
 
 Verification codes are stored hashed, expire after 10 minutes, work once, and are burned after 5 wrong attempts. Rate limits: login, register and verify 10/min; send and resend 5/min.
+
+### Consent for model-improvement use
+
+Using a business's assessment results and later check-in outcomes to evaluate and improve the scoring model is **opt-in**. No record means no consent. Granting and withdrawing each add a record (nothing is overwritten), tagged with the policy version the user saw and where the choice was made.
+
+| Method | Path | Notes |
+| :--- | :--- | :--- |
+| GET | `/consent/policy` | Public. The exact wording and its `policy_version`, so the portal shows the same text that is recorded. |
+| GET | `/consent` | Current state for the signed-in user: `granted`, `decided` (false = never asked), `policy_version`, `recorded_at`. |
+| PUT | `/consent/{purpose}` | Body `{"granted": true|false}`. Purpose today: `model_improvement`. Unknown purposes return 404. |
+| GET | `/consent/history` | The user's own full history. |
+
+Withdrawal applies from the moment it is recorded: analyses read current consent each time they run, so a withdrawn business drops out of the next one. It cannot undo analysis already completed. The wording is product copy, not legal advice; have it reviewed against POPIA and bump `CONSENT_POLICY_VERSION` whenever it changes.
 
 ### Verification documents
 
@@ -206,11 +222,50 @@ Business observations carry the same `bank_statement_verification_id`.
 | :--- | :--- | :--- |
 | GET | `/outcomes/history` | SMEs see their own; lenders and admins see all. Read-only: it does not create assessments. |
 | POST | `/outcomes/{id}/checkin` | SME owner or admin. Body: `interval` (90, 180 or 365), `still_operating`, `revenue`, `loan_repaid`. Also recorded as a business observation (source `outcome_checkin`). |
+| GET | `/outcomes/due` | Check-ins that are due and not yet submitted: an SME's own, or all for admins. Each item shows `days_overdue` and `reminders_sent`. |
+| POST | `/outcomes/reminders/run` | Admin. Sends due check-in reminders now and returns a summary (`emails_sent`, `skipped_*`, `failed`, `not_configured`). |
 | GET | `/outcomes/analytics` | Lenders and admins. |
 | GET | `/assessment-evaluations/{snapshot_id}` | What happened after one assessment. |
-| GET | `/assessment-evaluations/calibration/summary` | Lenders and admins. Realised 12-month survival and default rates by strategy version and score band. Groups under 30 outcomes are flagged `sufficient_sample: false`. Reports association, not causation. |
+| GET | `/assessment-evaluations/calibration/summary` | Lenders and admins. Realised 12-month survival and default rates by strategy version and score band. Only businesses whose owner currently consents are included (`excluded_without_consent` shows how many were left out). Groups under 30 outcomes are flagged `sufficient_sample: false`. Reports association, not causation. |
 
 An outcome's `score_at_funding` is the score from the assessment snapshot the funding request was based on. At the 365-day check-in the training labels are written once and never changed: `y1_survived_12m`, `y3_reached_100k`, `y4_revenue_grew`, `y5_defaulted`. `y2_survived_18m` stays empty until a 540-day check-in exists.
+
+---
+
+### 4. Market Data Sources
+`GET /api/v1/market/data-sources`
+
+Describes where each market table comes from, what kind of evidence stands behind it, how old it is, and whether anyone has checked it against the original publication.
+
+#### Response Example (200 OK)
+```json
+{
+  "version": "2025.10.1",
+  "fingerprint": "34738e3d4e543cdb",
+  "tables": {
+    "sector_survival_rates": {
+      "basis": "cited_benchmark",
+      "cited_sources": ["SEDA SME Quarterly Update 2023"],
+      "as_of": "2023",
+      "independently_verified": false,
+      "stale": true,
+      "note": "Share of businesses surviving past 36 months, by sector. Values are attributed to the cited reports and have not been independently re-checked."
+    }
+  }
+}
+```
+
+`basis` is one of `published_statistic`, `informed_index`, `cited_benchmark`, `expert_judgement`, `taxonomy` or `design_default`. `stale` is true when the data period ended more than 12 months ago. `fingerprint` changes whenever any value in any table changes. Every assessment snapshot stores the version and fingerprint it used (`market_context.market_data`).
+
+### Check-in reminders (operations)
+
+Check-ins produce the outcome labels the model is evaluated against, so late ones are chased automatically:
+
+*   A check-in is due once its due date has passed and it has not been submitted.
+*   One email per business per run lists every eligible due check-in. The same check-in is reminded again only after 7 days, and at most 3 times in total. It stays visible in `GET /outcomes/due` afterwards.
+*   A failed send is not counted and is retried on the next run. Emails contain no financial details.
+*   Nothing is sent until SMTP is configured (`SMTP_HOST`, `SMTP_FROM_EMAIL` or `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_PORT`, `SMTP_USE_TLS`). Set `PORTAL_BASE_URL` so the email links to your portal.
+*   Schedule `python send_checkin_reminders.py` once a day, for example `0 7 * * * cd /path/to/backend && python send_checkin_reminders.py`. It exits with 1 if any send failed or SMTP is not configured.
 
 ---
 
@@ -253,6 +308,10 @@ A corporate enterprise wants to assess the operational risk of a potential suppl
 ---
 
 ## Changelog
+
+*   **v1.2.0** (backward compatible)
+    *   `GET /api/v1/market/viability` returns `data_version`; new `GET /api/v1/market/data-sources`.
+    *   Platform API: consent endpoints, `consent_model_improvement` at registration, `GET /outcomes/due`, `POST /outcomes/reminders/run`, and `excluded_without_consent` in the calibration summary.
 
 *   **v1.1.0** (backward compatible)
     *   `GET /api/v1/sme/score` now returns a `scores` object (`viability_score`, `funding_readiness_score`, `evidence_confidence`). Existing fields are unchanged.

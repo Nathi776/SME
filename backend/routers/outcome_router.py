@@ -9,6 +9,9 @@ from models.user import User
 from models.sme import SME
 from models.sme_outcome import SmeOutcome
 from services.auth_service import get_current_user
+from core.time_utils import utc_now
+from models.checkin_reminder import CheckinReminder
+from services.checkin_reminder_service import outstanding_checkins, run_due_reminders
 from services.outcome_service import update_checkin, compute_followed_recommendations
 
 router = APIRouter(prefix="/outcomes", tags=["Outcomes"])
@@ -240,6 +243,56 @@ def get_outcome_history(
         response_list.append(item)
 
     return response_list
+
+
+@router.get("/due")
+def get_due_checkins(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Check-ins that are due and not yet submitted.
+    SMEs see their own; admins see all.
+    """
+    if current_user.role == "sme":
+        sme = db.query(SME).filter(SME.user_id == current_user.id).first()
+        if not sme:
+            raise HTTPException(status_code=404, detail="SME profile not found")
+        outcomes = db.query(SmeOutcome).filter(SmeOutcome.sme_id == sme.id).all()
+    elif current_user.role == "admin":
+        outcomes = db.query(SmeOutcome).all()
+    else:
+        raise HTTPException(status_code=403, detail="Not authorized")
+
+    now = utc_now()
+    result = []
+    for outcome in outcomes:
+        reminders = {
+            r.interval_days: r.reminder_count
+            for r in db.query(CheckinReminder).filter(CheckinReminder.outcome_id == outcome.id)
+        }
+        for interval in outstanding_checkins(outcome, now):
+            due_at = getattr(outcome, f"check_in_{interval}_due_at")
+            result.append({
+                "outcome_id": outcome.id,
+                "sme_id": outcome.sme_id,
+                "interval": interval,
+                "due_at": due_at,
+                "days_overdue": (now - due_at).days,
+                "reminders_sent": reminders.get(interval, 0),
+            })
+    return result
+
+
+@router.post("/reminders/run")
+def run_reminders(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Send due check-in reminders now (admin). Normally run daily by a scheduler."""
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Only admins can send reminders")
+    return run_due_reminders(db).as_dict()
 
 
 @router.post("/{outcome_id}/checkin", response_model=SmeOutcomeResponse)

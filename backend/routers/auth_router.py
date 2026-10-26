@@ -15,6 +15,7 @@ from config import get_settings
 from core.time_utils import utc_now
 from limiter import limiter
 from models.email_verification import EmailVerificationCode
+from services.consent_service import PURPOSE_MODEL_IMPROVEMENT, record_consent
 from services.auth_service import (
     burn_password_check,
     create_access_token,
@@ -59,6 +60,9 @@ class RegisterRequest(BaseModel):
     password: str = Field(..., min_length=8)
     email: str
     role: Literal["sme", "lender"] = "sme"
+    # Optional, never pre-selected. None = not asked (no record); True/False =
+    # the user's explicit choice, recorded with the policy version they saw.
+    consent_model_improvement: Optional[bool] = None
 
     @field_validator("password")
     @classmethod
@@ -212,6 +216,12 @@ def register_user(request: Request, payload: RegisterRequest, db: Session = Depe
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+
+    if payload.consent_model_improvement is not None:
+        record_consent(
+            db, new_user.id, PURPOSE_MODEL_IMPROVEMENT,
+            payload.consent_model_improvement, source="registration",
+        )
     return {"message": "User registered successfully", "id": new_user.id, "username": new_user.username, "role": new_user.role}
 
 

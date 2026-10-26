@@ -14,6 +14,7 @@ from models import SME, FinanceRequest, SmeOutcome, User
 from models.assessment_snapshot import AssessmentSnapshot
 from models.business_observation import BusinessObservation
 from services.assessment_evaluation_service import get_model_calibration
+from services.consent_service import PURPOSE_MODEL_IMPROVEMENT, record_consent
 from services.outcome_service import (
     compute_followed_recommendations,
     create_outcome,
@@ -137,6 +138,7 @@ def test_default_label(db):
 def test_calibration_groups_by_version_and_band_and_flags_small_samples(db):
     for i, (score, survived) in enumerate([(72.0, True), (75.0, False), (45.0, False)]):
         sme = _sme(db, name=f"B{i}")
+        record_consent(db, sme.user_id, PURPOSE_MODEL_IMPROVEMENT, True, "portal")
         req, _ = _funded_request(db, sme, snapshot_score=score, version="v1")
         outcome = create_outcome(db, req.id)
         db.commit()

@@ -11,3 +11,5 @@ from models.api_key import APIKey
 from models.assessment_snapshot import AssessmentSnapshot
 from models.business_observation import BusinessObservation
 from models.email_verification import EmailVerificationCode
+from models.data_consent import DataConsent
+from models.checkin_reminder import CheckinReminder
