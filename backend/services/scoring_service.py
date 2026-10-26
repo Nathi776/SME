@@ -18,7 +18,7 @@ from core.assessment_engine import AssessmentResult, assess
 
 from services.assessment_snapshot_service import create_assessment_snapshot
 from services.business_observation_service import create_current_business_observation
-from services.market_data_service import normalize_industry
+from services.market_data_service import market_data_summary, normalize_industry
 from services.evidence_selection import select_bank_statement_evidence, sort_verifications
 
 def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
@@ -226,6 +226,8 @@ def _build_assessment_snapshot_data(inp, result: AssessmentResult) -> dict:
         "market_context": {
             "industry": result.breakdown.get("Industry Risk"),
             "market": result.breakdown.get("Market Viability"),
+            # Which market tables produced the two factors above.
+            "market_data": market_data_summary(),
         },
     }
 

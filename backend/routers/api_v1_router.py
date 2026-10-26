@@ -10,7 +10,7 @@ from models.credit_score import CreditScore
 from models.api_key import APIKey
 from services.scoring_service import score_sme, scores_summary
 from services.recommendations_service import generate_plan
-from services.market_data_service import get_market_intelligence
+from services.market_data_service import get_market_intelligence, market_data_sources
 from services.api_key_service import get_api_key_from_header, generate_api_key
 from services.auth_service import get_current_user
 from models.user import User
@@ -122,8 +122,19 @@ def get_market_viability(
         "combined_viability": float(combined_viability),
         "viability_label": viability_label,
         "survival_label": intel.get("survival_label", ""),
-        "market_label": intel.get("market_label", "Province not specified")
+        "market_label": intel.get("market_label", "Province not specified"),
+        "data_version": intel.get("data_version"),
     }
+
+
+@router.get("/market/data-sources")
+def get_market_data_sources(
+    api_key: APIKey = Depends(get_api_key_from_header)
+):
+    """
+    Where each market table comes from, its basis, age and verification status.
+    """
+    return market_data_sources()
 
 @router.get("/platform/stats")
 def get_platform_stats(

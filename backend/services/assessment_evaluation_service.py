@@ -17,7 +17,9 @@ from sqlalchemy.orm import Session
 from models.assessment_snapshot import AssessmentSnapshot
 from models.business_observation import BusinessObservation
 from models.finance_request import FinanceRequest
+from models.sme import SME
 from models.sme_outcome import SmeOutcome
+from services.consent_service import PURPOSE_MODEL_IMPROVEMENT, consenting_user_ids
 
 
 def _decimal_to_float(value):
@@ -225,17 +227,23 @@ def get_model_calibration(db: Session, band_width: int = 20) -> dict:
     """
     Compare initial assessments with realised 12-month outcomes.
 
-    Only outcomes whose 365-day labels exist are used. Results are grouped by
+    Only outcomes whose 365-day labels exist are used, and only for businesses
+    whose owner currently consents to model-improvement use (withdrawn or
+    never-given consent excludes them). Results are grouped by
     strategy version and score band so a new model version can be compared
     with the previous one. Small groups are flagged rather than hidden; this
     reports association, not proof that the score causes the outcome.
     """
-    rows = (
-        db.query(SmeOutcome, FinanceRequest)
+    labelled = (
+        db.query(SmeOutcome, FinanceRequest, SME.user_id)
         .join(FinanceRequest, FinanceRequest.id == SmeOutcome.finance_request_id)
+        .join(SME, SME.id == SmeOutcome.sme_id)
         .filter(SmeOutcome.y1_survived_12m.isnot(None))
         .all()
     )
+    consenting = consenting_user_ids(db, PURPOSE_MODEL_IMPROVEMENT)
+    rows = [(o, r) for o, r, user_id in labelled if user_id in consenting]
+    excluded = len(labelled) - len(rows)
 
     groups: dict[tuple[str, int], dict] = {}
     for outcome, request in rows:
@@ -268,6 +276,7 @@ def get_model_calibration(db: Session, band_width: int = 20) -> dict:
 
     return {
         "labelled_outcomes": len(rows),
+        "excluded_without_consent": excluded,
         "min_reliable_sample": MIN_RELIABLE_SAMPLE,
         "groups": result,
     }
