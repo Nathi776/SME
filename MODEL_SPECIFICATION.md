@@ -157,3 +157,14 @@ The **Confidence Score** measures the depth of primary verified evidence submitt
 3. **Linear Revenue Scale:** Scaled linearly to R500k. A business with R500k revenue receives the same revenue score as one with R5M, assuming that past R500k, other transactional metrics become better indicators.
 4. **Simulation Validation:** Current outcome testing is run against synthetic simulator profiles. True predictive validity will only be established when the engine is calibrated against observed repayments and defaults.
 5. **Market Data Provenance:** The sector-survival and province tables are versioned (`MARKET_DATA_VERSION`) and fingerprinted, and each assessment snapshot records both. Each table is labelled with its evidence basis (`GET /api/v1/market/data-sources`). None has been independently checked against its original publication yet. The sector-survival table is attributed to 2023 sources and is flagged stale after 12 months; the industry-by-province multipliers are analyst judgement with no published source. Treat Industry Risk and Market Viability accordingly until the tables are re-sourced.
+
+## World Bank Enterprise Survey context benchmarks (South Africa 2020)
+
+`data/wbes_sa_2020_benchmarks.json` holds weighted aggregates (finance access, audited statements,
+firm age, sales per employee, labour-cost share) by size band and sector, built by
+`data_pipeline/build_wbes_benchmarks.py` from licensed survey microdata that is not stored in the repo.
+They are **context only and do not enter any score**. Coverage is formal firms with 5+ employees in four
+provinces, surveyed mostly after the COVID-19 outbreak (median firm: 14 permanent staff, 20 years old), so
+they do not describe micro or informal businesses. Cells with fewer than 30 firms are suppressed. The
+survey cannot supply survival or loan-approval rates (no usable closure outcome; 28 loan applications).
+The data-use terms have not yet been checked against shipping derived tables.

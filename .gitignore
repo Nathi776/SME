@@ -22,3 +22,6 @@ venv/
 *.sqlite*
 uploads/
 **/uploads/
+*.dta
+*.sav
+backend/data_pipeline/raw/

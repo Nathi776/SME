@@ -336,7 +336,29 @@ def _market_label(score: float) -> str:
 # The test fails if a table changes without those steps, so data can never
 # change silently.
 
-MARKET_DATA_VERSION = "2025.10.1"
+MARKET_DATA_VERSION = "2026.10.1"
+
+# Aggregates built by data_pipeline/build_wbes_benchmarks.py from licensed World
+# Bank Enterprise Survey microdata. CONTEXT ONLY: nothing here feeds a score.
+def _load_wbes_benchmarks() -> dict:
+    import json
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parent.parent / "data" / "wbes_sa_2020_benchmarks.json"
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+WBES_SA_2020_BENCHMARKS: dict = _load_wbes_benchmarks()
+
+
+def wbes_benchmark(measure: str, size_band: str | None = None, sector: str | None = None):
+    """One benchmark cell ({n, value, ...}); value is None when suppressed (n < 30)."""
+    if size_band and sector:
+        raise ValueError("choose size_band or sector, not both")
+    t = WBES_SA_2020_BENCHMARKS
+    cell = (t["by_size_band"][size_band] if size_band
+            else t["by_sector"][sector] if sector else t["overall"])
+    return cell[measure]
 
 # `basis` says what kind of evidence stands behind a table:
 #   published_statistic   directly from a published statistical release
@@ -345,6 +367,7 @@ MARKET_DATA_VERSION = "2025.10.1"
 #   expert_judgement      analyst judgement with no published source
 #   taxonomy              name matching, not a statistic
 #   design_default        a modelling choice
+#   derived_from_microdata  aggregates computed by us from licensed survey microdata
 # `independently_verified` is True only once someone has checked the values
 # against the original publication. None are verified yet.
 # `public_note` may be shown to API users; `review_note` is internal.
@@ -364,7 +387,9 @@ TABLE_PROVENANCE: dict[str, dict] = {
         "review_note": (
             "Check each value against the original publication. The World Bank "
             "discontinued Doing Business in 2021, so a '2024' edition cannot be the "
-            "source: find the real source or relabel this table 'expert_judgement'."
+            "source: find the real source or relabel this table 'expert_judgement'. "
+            "The Enterprise Survey 2020 files were checked and cannot replace it (no usable "
+            "closure outcome); the Gauteng 2019->2020 link has only 12 closures."
         ),
     },
     "province_economic_index": {
@@ -391,6 +416,23 @@ TABLE_PROVENANCE: dict[str, dict] = {
         "independently_verified": False,
         "public_note": "Industry-by-province multipliers set by analyst judgement; no published source.",
         "review_note": "Replace with estimates from microdata when licensed data is available.",
+    },
+    "wbes_sa_2020_benchmarks": {
+        "basis": "derived_from_microdata",
+        "cited_sources": ["World Bank Enterprise Surveys, South Africa 2020 (1,097 firms)"],
+        "as_of": "2020",
+        "independently_verified": False,
+        "public_note": (
+            "Weighted context benchmarks (finance access, audit status, firm age, sales per "
+            "employee) for formal firms with 5+ employees in four provinces, surveyed mostly "
+            "after the COVID-19 outbreak. Not representative of micro or informal businesses. "
+            "Cells under 30 firms are suppressed. Context only: not used in any score."
+        ),
+        "review_note": (
+            "Data-use terms accepted at registration have not been checked against shipping "
+            "derived tables. Rebuild with data_pipeline/build_wbes_benchmarks.py. Cannot supply "
+            "survival rates: the panel's non-interviewed firms are mostly unreachable, not closed."
+        ),
     },
     "industry_aliases": {
         "basis": "taxonomy",
@@ -429,6 +471,7 @@ def _canonical_tables() -> dict:
             f"{industry}|{province}": value
             for (industry, province), value in INDUSTRY_PROVINCE_ADJUSTMENTS.items()
         },
+        "wbes_sa_2020_benchmarks": WBES_SA_2020_BENCHMARKS,
         "industry_aliases": INDUSTRY_ALIASES,
         "province_aliases": PROVINCE_ALIASES,
         "unspecified_province_index": UNSPECIFIED_PROVINCE_INDEX,

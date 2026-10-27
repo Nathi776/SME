@@ -12,8 +12,8 @@ from services import market_data_service as mds
 #   1. bump MARKET_DATA_VERSION in services/market_data_service.py
 #   2. update that table's TABLE_PROVENANCE entry (basis, sources, as_of)
 #   3. replace the value below with the new fingerprint
-PINNED_VERSION = "2025.10.1"
-PINNED_FINGERPRINT = "34738e3d4e543cdb"
+PINNED_VERSION = "2026.10.1"
+PINNED_FINGERPRINT = "217e76546e79ffdd"
 
 
 def test_tables_have_not_changed_without_a_version_bump():
@@ -43,7 +43,7 @@ def test_fingerprint_covers_adjustments_and_default_index(monkeypatch):
 def test_every_table_has_provenance_and_none_claims_verification():
     assert set(mds.TABLE_PROVENANCE) == set(mds._canonical_tables())
     allowed = {"published_statistic", "informed_index", "cited_benchmark",
-               "expert_judgement", "taxonomy", "design_default"}
+               "expert_judgement", "taxonomy", "design_default", "derived_from_microdata"}
     for name, info in mds.TABLE_PROVENANCE.items():
         assert info["basis"] in allowed, name
         assert info["as_of"], name
