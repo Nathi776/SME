@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, User, FileText, CreditCard, Star, Users,
   ArrowRightLeft, FolderOpen, MessageSquare, HelpCircle, Settings, LogOut,
-  BarChart3, TrendingUp, Activity
+  BarChart3, TrendingUp, Activity, ShieldCheck
 } from "lucide-react";
 
 const navSections = [
@@ -38,6 +38,7 @@ const navSections = [
       { icon: MessageSquare, label: "Messages", path: "/messages" },
       { icon: HelpCircle, label: "Help Center", path: "/help" },
       { icon: Settings, label: "Settings", path: "/settings" },
+      { icon: ShieldCheck, label: "Privacy & Data", path: "/privacy" },
     ],
   },
 ];

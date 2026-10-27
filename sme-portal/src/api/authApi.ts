@@ -15,12 +15,20 @@ export const AuthApi = {
 
     return api.post<LoginResponse>("/auth/login", payload);
   },
-  register: (username: string, password: string, email: string, role: "sme" | "lender" = "sme") => {
+  register: (
+    username: string,
+    password: string,
+    email: string,
+    role: "sme" | "lender" = "sme",
+    // true/false records the person's explicit choice; undefined = not asked, nothing recorded.
+    consentModelImprovement?: boolean,
+  ) => {
     return api.post<{ id: number; username: string; email: string; role: "sme" | "lender" }>("/auth/register", {
       username,
       password,
       email,
       role,
+      ...(consentModelImprovement === undefined ? {} : { consent_model_improvement: consentModelImprovement }),
     });
   },
 
