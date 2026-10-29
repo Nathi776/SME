@@ -103,7 +103,8 @@ def build(df: pd.DataFrame) -> dict:
     d = derive(df)
     return {
         "source": {
-            "name": "World Bank Enterprise Surveys, South Africa 2020",
+            "name": "Enterprise Surveys, The World Bank Group",   # citation wording required by the data protocol
+            "survey": "South Africa 2020",
             "publisher": "The World Bank Group",
             "fieldwork": "December 2019 - February 2021 (about 94% of interviews after the COVID-19 outbreak)",
             "firms": int(len(d)),
@@ -111,6 +112,7 @@ def build(df: pd.DataFrame) -> dict:
                         "KwaZulu-Natal and Western Cape",
             "weight_variable": WEIGHT,
             "licence_verified": False,
+            "permitted_use": "research only until the World Bank gives written permission for product use",
         },
         "method": {
             "min_n_per_cell": MIN_N,

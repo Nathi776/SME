@@ -13,7 +13,7 @@ from services import market_data_service as mds
 #   2. update that table's TABLE_PROVENANCE entry (basis, sources, as_of)
 #   3. replace the value below with the new fingerprint
 PINNED_VERSION = "2026.10.1"
-PINNED_FINGERPRINT = "217e76546e79ffdd"
+PINNED_FINGERPRINT = "1d5bc5fed499a488"
 
 
 def test_tables_have_not_changed_without_a_version_bump():

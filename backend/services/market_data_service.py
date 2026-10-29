@@ -419,18 +419,18 @@ TABLE_PROVENANCE: dict[str, dict] = {
     },
     "wbes_sa_2020_benchmarks": {
         "basis": "derived_from_microdata",
-        "cited_sources": ["World Bank Enterprise Surveys, South Africa 2020 (1,097 firms)"],
+        "cited_sources": ["Enterprise Surveys, The World Bank Group (South Africa 2020, 1,097 firms)"],
         "as_of": "2020",
         "independently_verified": False,
         "public_note": (
-            "Weighted context benchmarks (finance access, audit status, firm age, sales per "
-            "employee) for formal firms with 5+ employees in four provinces, surveyed mostly "
-            "after the COVID-19 outbreak. Not representative of micro or informal businesses. "
-            "Cells under 30 firms are suppressed. Context only: not used in any score."
+            "Internal research table built from Enterprise Surveys data. Its use is restricted "
+            "by the data-access protocol, so its values are not published through any API and "
+            "are not used in any score."
         ),
         "review_note": (
-            "Data-use terms accepted at registration have not been checked against shipping "
-            "derived tables. Rebuild with data_pipeline/build_wbes_benchmarks.py. Cannot supply "
+            "RESEARCH ONLY. The Data Access Protocol allows academic research or World Bank "
+            "work and says nothing about commercial use; written permission has been requested "
+            "(Oct 2026). Do not show these values to users until it is granted. Rebuild with data_pipeline/build_wbes_benchmarks.py. Cannot supply "
             "survival rates: the panel's non-interviewed firms are mostly unreachable, not closed."
         ),
     },

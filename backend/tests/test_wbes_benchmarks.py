@@ -72,4 +72,26 @@ def test_provenance_listed_in_public_sources():
     info = mds.market_data_sources()["tables"]["wbes_sa_2020_benchmarks"]
     assert info["basis"] == "derived_from_microdata"
     assert info["stale"] is True   # survey year 2020 is more than 12 months old
-    assert "Context only" in info["note"]
+    assert "not published through any API" in info["note"]
+
+
+def test_values_are_not_exposed_or_used_outside_the_data_layer():
+    """Research-only data: no router or scoring code may read the benchmark values."""
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent
+    offenders = []
+    for folder in ("routers", "services", "schemas.py", "main.py"):
+        target = root / folder
+        files = [target] if target.is_file() else list(target.rglob("*.py"))
+        for f in files:
+            if f.name == "market_data_service.py":
+                continue
+            text = f.read_text(encoding="utf-8", errors="ignore")
+            if "wbes_benchmark" in text or "WBES_SA_2020_BENCHMARKS" in text:
+                offenders.append(str(f.relative_to(root)))
+    assert offenders == []
+
+
+def test_source_is_cited_in_the_wording_the_protocol_requires():
+    assert mds.WBES_SA_2020_BENCHMARKS["source"]["name"] == "Enterprise Surveys, The World Bank Group"
+    assert mds.WBES_SA_2020_BENCHMARKS["source"]["licence_verified"] is False

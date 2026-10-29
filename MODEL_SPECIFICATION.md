@@ -167,4 +167,4 @@ They are **context only and do not enter any score**. Coverage is formal firms w
 provinces, surveyed mostly after the COVID-19 outbreak (median firm: 14 permanent staff, 20 years old), so
 they do not describe micro or informal businesses. Cells with fewer than 30 firms are suppressed. The
 survey cannot supply survival or loan-approval rates (no usable closure outcome; 28 loan applications).
-The data-use terms have not yet been checked against shipping derived tables.
+**Research use only:** the Data Access Protocol allows academic research or World Bank work and does not mention commercial use. Written permission was requested in Oct 2026; until it is granted the values are not exposed by any endpoint and must not be shown to users. Cite as "Enterprise Surveys, The World Bank Group".
