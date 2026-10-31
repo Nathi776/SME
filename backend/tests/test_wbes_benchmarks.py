@@ -1,5 +1,6 @@
 """WBES benchmark builder: weighting, validity handling, suppression, and the shipped table."""
 import numpy as np
+from pathlib import Path
 import pandas as pd
 import pytest
 
@@ -55,6 +56,10 @@ def test_derive_drops_invalid_values():
     assert d.loc[4, "age"] == 20 and d.loc[4, "labour_share"] == pytest.approx(0.25)
 
 
+_LOCAL = Path(__file__).resolve().parent.parent / "data" / "wbes_sa_2020_benchmarks.json"
+
+
+@pytest.mark.skipif(not _LOCAL.exists(), reason="local-only research file not built")
 def test_shipped_table_respects_suppression_and_is_context_only():
     t = mds.WBES_SA_2020_BENCHMARKS
     assert t["source"]["firms"] == 1097 and t["source"]["weight_variable"] == "wmedian"
@@ -95,3 +100,9 @@ def test_values_are_not_exposed_or_used_outside_the_data_layer():
 def test_source_is_cited_in_the_wording_the_protocol_requires():
     assert mds.WBES_SA_2020_BENCHMARKS["source"]["name"] == "Enterprise Surveys, The World Bank Group"
     assert mds.WBES_SA_2020_BENCHMARKS["source"]["licence_verified"] is False
+
+
+def test_data_file_is_not_tracked_by_git():
+    import subprocess
+    out = subprocess.run(["git", "ls-files", "--error-unmatch", str(_LOCAL)], capture_output=True)
+    assert out.returncode != 0

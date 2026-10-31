@@ -336,7 +336,7 @@ def _market_label(score: float) -> str:
 # The test fails if a table changes without those steps, so data can never
 # change silently.
 
-MARKET_DATA_VERSION = "2026.10.1"
+MARKET_DATA_VERSION = "2025.10.1"
 
 # Aggregates built by data_pipeline/build_wbes_benchmarks.py from licensed World
 # Bank Enterprise Survey microdata. CONTEXT ONLY: nothing here feeds a score.
@@ -344,7 +344,12 @@ def _load_wbes_benchmarks() -> dict:
     import json
     from pathlib import Path
 
+    # The file is deliberately NOT in git (public repo, restricted source). Build it locally
+    # with data_pipeline/build_wbes_benchmarks.py; when absent the table is empty.
     path = Path(__file__).resolve().parent.parent / "data" / "wbes_sa_2020_benchmarks.json"
+    if not path.exists():
+        return {"source": {"name": "Enterprise Surveys, The World Bank Group", "licence_verified": False},
+                "overall": {}, "by_size_band": {}, "by_sector": {}}
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -471,7 +476,8 @@ def _canonical_tables() -> dict:
             f"{industry}|{province}": value
             for (industry, province), value in INDUSTRY_PROVINCE_ADJUSTMENTS.items()
         },
-        "wbes_sa_2020_benchmarks": WBES_SA_2020_BENCHMARKS,
+        # WBES benchmarks are local-only research data, not part of any score: excluded here
+        # so the fingerprint is the same with or without the local file.
         "industry_aliases": INDUSTRY_ALIASES,
         "province_aliases": PROVINCE_ALIASES,
         "unspecified_province_index": UNSPECIFIED_PROVINCE_INDEX,
