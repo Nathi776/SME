@@ -17,7 +17,8 @@ from models import *
 # access to the values within the .ini file in use.
 config = context.config
 from config import get_settings
-config.set_main_option("sqlalchemy.url", get_settings().database_url)
+if not config.attributes.get("url_overridden"):
+    config.set_main_option("sqlalchemy.url", get_settings().database_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

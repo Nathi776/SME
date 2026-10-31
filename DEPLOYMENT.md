@@ -7,7 +7,7 @@ Work top to bottom. Items marked **[you]** need an account or decision from the 
 - [ ] **[you]** Provision PostgreSQL (managed, with automated daily backups and a tested restore).
 - [ ] Copy `backend/.env.example` to the host's secret store and fill every value. `SECRET_KEY` must be 32+ random characters or the app refuses to start in production.
 - [ ] Set `CORS_ORIGINS` to the real portal domain(s) only.
-- [ ] Run migrations: `cd backend && alembic upgrade head` (expect a single head, 028 or later).
+- [ ] Set up the database: `cd backend && python setup_database.py` (builds a new database, or applies pending migrations to an existing one; do not run `alembic upgrade head` on an empty database, because the migration history assumes tables already exist). Expect a single head, 029 or later.
 - [ ] Create the first admin: `python create_admin.py`.
 - [ ] Build the portal with `REACT_APP_API_URL=https://YOUR-API-DOMAIN npm run build` (in `sme-portal`) and serve it over HTTPS.
 

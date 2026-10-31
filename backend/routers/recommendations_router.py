@@ -16,7 +16,7 @@ from database import get_db
 from models.user import User
 from models.sme import SME
 from services.auth_service import get_current_user
-from services.scoring_service import score_sme
+from services.scoring_service import calculate_assessment
 from services.recommendations_service import RecommendationEngine
 
 router = APIRouter(prefix="/recommendations", tags=["Recommendations"])
@@ -48,7 +48,8 @@ def get_recommendations(
         raise HTTPException(status_code=404, detail="SME profile not found")
 
     # Score is always recalculated live — no stale data
-    result = score_sme(sme, db)
+    # Read-only: viewing the page must not write a snapshot or observation.
+    result, _ = calculate_assessment(sme, db)
     plan   = RecommendationEngine.generate(result)
 
     return {

@@ -8,7 +8,7 @@ from database import get_db
 from models.sme import SME
 from models.credit_score import CreditScore
 from models.api_key import APIKey
-from services.scoring_service import score_sme, scores_summary
+from services.scoring_service import calculate_assessment, scores_summary
 from services.recommendations_service import generate_plan
 from services.market_data_service import get_market_intelligence, market_data_sources
 from services.api_key_service import get_api_key_from_header, generate_api_key
@@ -40,7 +40,8 @@ def get_sme_score(
 
 
     # Call scoring engine
-    result = score_sme(sme, db)
+    # Read-only: an external lookup must not write snapshots or observations.
+    result, _ = calculate_assessment(sme, db)
     # Generate recommendations coaching plan
     plan = generate_plan(result.breakdown, result.score)
 

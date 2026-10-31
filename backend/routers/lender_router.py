@@ -13,7 +13,7 @@ from services.auth_service import get_current_user
 from typing import List
 from models.sme_outcome import SmeOutcome
 from models.founder_profile import FounderProfile
-from services.scoring_service import score_sme
+from services.scoring_service import calculate_assessment
 from services.recommendations_service import generate_plan
 from core.scoring import determine_decision
 
@@ -278,8 +278,9 @@ def get_sme_intelligence(
     if not sme:
         raise HTTPException(status_code=404, detail="SME not found")
 
-    # Call score_sme for the live score and breakdown
-    result = score_sme(sme, db)
+    # Live score and breakdown (read-only)
+    # Read-only: a lender viewing a business must not write snapshots or observations.
+    result, _ = calculate_assessment(sme, db)
     
     # Call generate_plan for recommendations and take the first 3
     plan = generate_plan(result.breakdown, result.score)
