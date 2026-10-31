@@ -9,6 +9,7 @@ export interface FinanceRequest {
   status: string;
   created_at: string;
   approved_at: string | null;
+  rejection_reason?: string | null;
 }
 
 export interface InfoMessage {
