@@ -4,9 +4,7 @@ import {
   TrendingUp,
   Coins,
   Briefcase,
-  Shield,
   Search,
-  Filter,
   Download,
   Share2,
   FileSpreadsheet,
@@ -18,7 +16,6 @@ import {
   CheckCircle2,
   Eye,
   Calendar,
-  AlertTriangle,
   ArrowRight
 } from "lucide-react";
 import {
@@ -51,17 +48,6 @@ interface DealRow {
   status: "Active" | "Repaid" | "Overdue" | "Defaulted" | "Cancelled";
   risk_level: "Low" | "Medium" | "High";
 }
-
-const MOCK_DEALS: DealRow[] = [
-  { id: "FD-2026-001", sme_name: "ABC Construction (Pty) Ltd", industry: "Construction", invoice_amount: 95000, funded_amount: 85000, funding_date: "20 May 2026", term: 30, interest_rate: 12, expected_return: 8500, status: "Active", risk_level: "Low" },
-  { id: "FD-2026-002", sme_name: "Metro Hardware Supplies", industry: "Retail", invoice_amount: 150000, funded_amount: 120000, funding_date: "18 May 2026", term: 45, interest_rate: 15, expected_return: 18000, status: "Active", risk_level: "Medium" },
-  { id: "FD-2026-003", sme_name: "City Power Solutions (Pty) Ltd", industry: "Utilities", invoice_amount: 70000, funded_amount: 60000, funding_date: "17 May 2026", term: 30, interest_rate: 11, expected_return: 6600, status: "Repaid", risk_level: "Low" },
-  { id: "FD-2026-004", sme_name: "Green Home Supplies", industry: "Retail", invoice_amount: 100000, funded_amount: 80000, funding_date: "12 May 2026", term: 60, interest_rate: 14, expected_return: 11200, status: "Overdue", risk_level: "High" },
-  { id: "FD-2026-005", sme_name: "Fresh Food Distributors", industry: "Agriculture", invoice_amount: 75000, funded_amount: 75000, funding_date: "10 May 2026", term: 30, interest_rate: 12, expected_return: 7500, status: "Repaid", risk_level: "Low" },
-  { id: "FD-2026-006", sme_name: "Apex Engineering Works", industry: "Manufacturing", invoice_amount: 200000, funded_amount: 160000, funding_date: "05 May 2026", term: 60, interest_rate: 13, expected_return: 20800, status: "Repaid", risk_level: "Medium" },
-  { id: "FD-2026-007", sme_name: "Gauteng Transport Logistics", industry: "Logistics", invoice_amount: 110000, funded_amount: 95000, funding_date: "28 Apr 2026", term: 30, interest_rate: 12, expected_return: 9500, status: "Repaid", risk_level: "Low" },
-  { id: "FD-2026-008", sme_name: "Cape IT Consulting", industry: "Technology", invoice_amount: 80000, funded_amount: 70000, funding_date: "25 Apr 2026", term: 30, interest_rate: 10, expected_return: 7000, status: "Defaulted", risk_level: "Medium" }
-];
 
 // Recharts Static Data
 const GROWTH_DATA = [
@@ -183,12 +169,6 @@ export default function LenderPortfolioReportPage() {
       }
     });
 
-    // Populate with mock list
-    MOCK_DEALS.forEach((mock) => {
-      if (!list.some((r) => r.id === mock.id)) {
-        list.push(mock);
-      }
-    });
 
     return list;
   }, [dbRequests, smesById]);
