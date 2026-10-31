@@ -37,7 +37,7 @@ Repeat on a staging copy with a real database, then once on production with a te
 
 ## 5. Operations
 - [ ] Error monitoring (Sentry or similar) on API and portal.
-- [ ] Uptime check on `/health` (or `/docs` if no health route) and an alert contact.
+- [ ] Uptime check on `/health` (returns 503 if the database is unreachable) and an alert contact.
 - [ ] Log retention policy; make sure logs contain no document contents or passwords.
 - [ ] Dependency updates: rerun `pip install -r requirements.txt` and the test suite monthly.
 

@@ -40,6 +40,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health", include_in_schema=False)
+def health():
+    """Liveness/readiness for uptime monitors: confirms the app can reach its database."""
+    from fastapi.responses import JSONResponse
+    from sqlalchemy import text
+
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+    except Exception:
+        return JSONResponse({"status": "unavailable"}, status_code=503)
+    return {"status": "ok"}
+
+
 # Include routers
 app.include_router(auth_router.router)
 app.include_router(sme_router.router)
