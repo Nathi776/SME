@@ -27,15 +27,6 @@ interface ReviewRequestRow {
   status: string;
 }
 
-// Fallback mock requests matching the requirements
-const MOCK_REQUESTS: ReviewRequestRow[] = [
-  { id: 15, sme_id: 15, name: "ABC Construction (Pty) Ltd", amount: 85000, score: 78, risk: "Low", date: "20 Jun 2026", status: "pending" },
-  { id: 16, sme_id: 16, name: "XYZ Trading Ltd", amount: 50000, score: 74, risk: "Low", date: "19 Jun 2026", status: "pending" },
-  { id: 17, sme_id: 17, name: "Metro Supply & Hardware", amount: 90000, score: 45, risk: "High", date: "18 Jun 2026", status: "pending" },
-  { id: 18, sme_id: 18, name: "Gauteng Logistics", amount: 120000, score: 62, risk: "Medium", date: "15 Jun 2026", status: "pending" },
-  { id: 19, sme_id: 19, name: "Cape Wholesale Goods", amount: 65000, score: 81, risk: "Low", date: "12 Jun 2026", status: "pending" }
-];
-
 export default function LenderReviewRequestsPage() {
   const navigate = useNavigate();
   const [dbRequests, setDbRequests] = useState<FinanceRequest[]>([]);
@@ -122,13 +113,6 @@ export default function LenderReviewRequestsPage() {
       });
     });
 
-    // Add mock requests to populate the list if needed, or to make it complete
-    MOCK_REQUESTS.forEach((mock) => {
-      // Avoid duplicate IDs if the DB has generated them
-      if (!list.some((r) => r.id === mock.id)) {
-        list.push(mock);
-      }
-    });
 
     return list;
   }, [dbRequests, smesById]);

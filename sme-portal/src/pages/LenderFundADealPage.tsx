@@ -5,15 +5,12 @@ import {
   Filter,
   TrendingUp,
   Coins,
-  FileText,
-  AlertTriangle,
   ChevronLeft,
   ChevronRight,
   Shield,
   Briefcase,
   ArrowRight,
   Info,
-  Clock,
   ArrowRightLeft,
   HelpCircle,
   X,
@@ -43,108 +40,6 @@ interface MarketOpportunity {
   remaining_amount: number;
   is_new?: boolean;
 }
-
-const INITIAL_MOCK_DEALS: MarketOpportunity[] = [
-  {
-    id: 15,
-    sme_id: 15,
-    company_name: "ABC Construction (Pty) Ltd",
-    industry: "Construction",
-    location: "Gauteng",
-    credit_score: 78,
-    risk_level: "Low",
-    requested_funding: 85000,
-    invoice_value: 95000,
-    expected_yield: 12.0,
-    funding_term: 30,
-    funded_percentage: 80,
-    funded_amount: 68000,
-    remaining_amount: 17000,
-    is_new: true
-  },
-  {
-    id: 16,
-    sme_id: 16,
-    company_name: "Metro Hardware Supplies",
-    industry: "Retail",
-    location: "KwaZulu-Natal",
-    credit_score: 65,
-    risk_level: "Medium",
-    requested_funding: 120000,
-    invoice_value: 150000,
-    expected_yield: 15.0,
-    funding_term: 45,
-    funded_percentage: 75,
-    funded_amount: 90000,
-    remaining_amount: 30000,
-    is_new: true
-  },
-  {
-    id: 17,
-    sme_id: 17,
-    company_name: "City Power Solutions (Pty) Ltd",
-    industry: "Utilities",
-    location: "Western Cape",
-    credit_score: 82,
-    risk_level: "Low",
-    requested_funding: 60000,
-    invoice_value: 70000,
-    expected_yield: 11.5,
-    funding_term: 30,
-    funded_percentage: 70,
-    funded_amount: 42000,
-    remaining_amount: 18000,
-    is_new: true
-  },
-  {
-    id: 18,
-    sme_id: 18,
-    company_name: "BuildTech Projects (Pty) Ltd",
-    industry: "Construction",
-    location: "Eastern Cape",
-    credit_score: 62,
-    risk_level: "Medium",
-    requested_funding: 95000,
-    invoice_value: 110000,
-    expected_yield: 14.0,
-    funding_term: 45,
-    funded_percentage: 60,
-    funded_amount: 57000,
-    remaining_amount: 38000
-  },
-  {
-    id: 19,
-    sme_id: 19,
-    company_name: "Green Home Supplies",
-    industry: "Retail",
-    location: "Gauteng",
-    credit_score: 45,
-    risk_level: "High",
-    requested_funding: 80000,
-    invoice_value: 100000,
-    expected_yield: 18.0,
-    funding_term: 60,
-    funded_percentage: 25,
-    funded_amount: 20000,
-    remaining_amount: 60000
-  },
-  {
-    id: 20,
-    sme_id: 20,
-    company_name: "Fresh Food Distributors (Pty) Ltd",
-    industry: "Wholesale",
-    location: "Western Cape",
-    credit_score: 74,
-    risk_level: "Low",
-    requested_funding: 75000,
-    invoice_value: 90000,
-    expected_yield: 12.5,
-    funding_term: 30,
-    funded_percentage: 75,
-    funded_amount: 56250,
-    remaining_amount: 18750
-  }
-];
 
 export default function LenderFundADealPage() {
   const navigate = useNavigate();
@@ -252,12 +147,6 @@ export default function LenderFundADealPage() {
       });
     });
 
-    // Add static mocks to populate marketplace
-    INITIAL_MOCK_DEALS.forEach((mock) => {
-      if (!list.some((r) => r.id === mock.id)) {
-        list.push(mock);
-      }
-    });
 
     return list;
   }, [dbRequests, smesById]);
@@ -409,15 +298,6 @@ export default function LenderFundADealPage() {
       setTotalInvested((prev) => prev + amountToFund);
       setActiveDealsCount((prev) => prev + 1);
 
-      // Mutate mock list to simulate real-time updates in marketplace
-      const idx = INITIAL_MOCK_DEALS.findIndex((d) => d.id === selectedDeal.id);
-      if (idx !== -1) {
-        const item = INITIAL_MOCK_DEALS[idx];
-        const newFunded = item.funded_amount + amountToFund;
-        item.funded_amount = newFunded;
-        item.remaining_amount = Math.max(item.requested_funding - newFunded, 0);
-        item.funded_percentage = Math.round((newFunded / item.requested_funding) * 100);
-      }
 
       enqueueSnackbar(`Successfully funded ${formatZAR(amountToFund)} to ${selectedDeal.company_name}!`, {
         variant: "success"

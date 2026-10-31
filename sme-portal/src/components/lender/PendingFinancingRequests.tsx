@@ -10,14 +10,6 @@ type Props = {
   onAction?: () => void;
 };
 
-const fallbackRows = [
-  { id: 125, sme_id: 1, name: "ABC Construction (Pty) Ltd", amount: 450000, score: 78, risk: "Medium", date: "20 May 2024" },
-  { id: 124, sme_id: 2, name: "City Power Solutions", amount: 300000, score: 72, risk: "Medium", date: "19 May 2024" },
-  { id: 123, sme_id: 3, name: "Metro Hardware", amount: 250000, score: 65, risk: "High", date: "18 May 2024" },
-  { id: 122, sme_id: 4, name: "Greenfield Supplies", amount: 500000, score: 81, risk: "Low", date: "18 May 2024" },
-  { id: 121, sme_id: 5, name: "Bright Future Labs", amount: 150000, score: 60, risk: "High", date: "17 May 2024" },
-];
-
 const riskStyles: Record<string, string> = {
   Low: "bg-[#ddf7eb] text-[#008b5a] border-[#a8ebcf]",
   Medium: "bg-[#fff3d6] text-[#e18200] border-[#ffd782]",
@@ -54,7 +46,7 @@ export default function PendingFinancingRequests({ requests, smeById, onAction }
         date: request.created_at ? formatDate(request.created_at) : "Unknown date",
       };
     });
-  const rows = liveRows.length > 0 ? liveRows : fallbackRows;
+  const rows = liveRows;
 
   const actionText =
     pendingAction?.kind === "approve"
@@ -150,11 +142,14 @@ export default function PendingFinancingRequests({ requests, smeById, onAction }
             </tr>
           </thead>
           <tbody>
+            {rows.length === 0 && (
+              <tr><td colSpan={7} className="px-4 py-8 text-center text-sm text-[#31507e]">No pending requests right now.</td></tr>
+            )}
             {rows.map((row) => (
               <tr key={row.id} className="border-b border-[#eef3fb] last:border-0">
                 <td className="py-4 pr-4">
                   <p className="font-semibold text-[#071942]">{row.name}</p>
-                  <p className="mt-1 text-xs text-[#31507e]">SME-2024-{String(row.id).padStart(4, "0")}</p>
+                  <p className="mt-1 text-xs text-[#31507e]">Request #{row.id}</p>
                 </td>
                 <td className="px-4 py-4 font-semibold text-[#071942]">{formatZAR(row.amount)}</td>
                 <td className="px-4 py-4">

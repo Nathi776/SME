@@ -184,7 +184,6 @@ export default function UploadInvoicePage() {
         phone: phoneNumber || undefined,
         customer_industry: customerIndustry || undefined,
         payment_terms: paymentTerms ? Number(paymentTerms) : undefined,
-        pdf_url: uploadedFile ? `mock_uploads/${uploadedFile.name}` : undefined,
       });
 
       enqueueSnackbar("Invoice saved successfully", { variant: "success" });
