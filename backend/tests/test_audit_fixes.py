@@ -60,3 +60,40 @@ def test_rejection_reason_is_stored_and_visible_to_the_business(world):
 def test_rejecting_without_a_reason_still_works(world):
     r = world.request("pending", None)
     assert world.call("l1", "PUT", f"/finance/reject/{r.id}", json={}).status_code == 200
+
+
+PDF = b"%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF"
+
+
+def _pdf(name="inv.pdf", data=PDF):
+    return {"file": (name, data, "application/pdf")}
+
+
+def test_invoice_pdf_roundtrip_and_access(world, monkeypatch, tmp_path):
+    monkeypatch.setenv("PERSISTENT_UPLOAD_DIR", str(tmp_path))
+    inv = world.inv
+    assert world.call("a", "POST", f"/invoices/{inv.id}/pdf", files=_pdf()).status_code == 200
+    got = world.call("a", "GET", f"/invoices/{inv.id}/pdf")
+    assert got.status_code == 200 and got.content.startswith(b"%PDF-")
+    assert world.call("admin", "GET", f"/invoices/{inv.id}/pdf").status_code == 200
+    # another business and a lender with no request on it cannot read it
+    assert world.call("b", "GET", f"/invoices/{inv.id}/pdf").status_code == 404
+    assert world.call("l1", "GET", f"/invoices/{inv.id}/pdf").status_code == 404
+    # a lender can once a live request exists on the invoice
+    world.request("pending", None)
+    assert world.call("l1", "GET", f"/invoices/{inv.id}/pdf").status_code == 200
+
+
+def test_invoice_pdf_rejects_other_owners_and_bad_files(world, monkeypatch, tmp_path):
+    monkeypatch.setenv("PERSISTENT_UPLOAD_DIR", str(tmp_path))
+    inv = world.inv
+    assert world.call("b", "POST", f"/invoices/{inv.id}/pdf", files=_pdf()).status_code == 404
+    assert world.call("l1", "POST", f"/invoices/{inv.id}/pdf", files=_pdf()).status_code == 404
+    assert world.call("a", "POST", f"/invoices/{inv.id}/pdf", files=_pdf("x.png")).status_code == 400
+    assert world.call("a", "POST", f"/invoices/{inv.id}/pdf", files=_pdf(data=b"not a pdf")).status_code == 400
+
+
+def test_client_cannot_set_a_storage_reference_when_creating_an_invoice(world):
+    r = world.call("a", "POST", "/invoices/", json={"client_name": "X", "amount": 10, "pdf_url": "local:../../etc/passwd"})
+    assert r.status_code == 200
+    assert r.json()["invoice"]["pdf_url"] is None

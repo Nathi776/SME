@@ -7,8 +7,10 @@ import InfoThread from "../components/finance/InfoThread";
 import type { InfoMessage } from "../api/financeApi";
 import { LenderApi, type FinanceRequest, type SmeIntelligence } from "../api/lenderApi";
 import { formatZAR } from "../utils/format";
+import { invoiceApi } from "../api/invoiceApi";
 
 interface InvoiceRow {
+  pdf_url?: string | null;
   id: number;
   invoice_number?: string | null;
   client_name?: string | null;
@@ -195,6 +197,23 @@ export default function LenderRequestDetailPage() {
             </div>
           ))}
         </div>
+
+        {request.invoice_id && (
+          <div>
+            {invoice?.pdf_url ? (
+              <button
+                type="button"
+                onClick={() => invoiceApi.openPdf(request.invoice_id as number).catch(() =>
+                  enqueueSnackbar("Could not open the invoice PDF", { variant: "error" }))}
+                className="inline-flex items-center gap-2 rounded-xl border border-[#dfe5f0] bg-white px-4 py-2 text-xs font-bold text-[#071942] hover:bg-slate-50"
+              >
+                <FileText className="h-4 w-4" /> View invoice PDF
+              </button>
+            ) : (
+              <p className="text-xs font-semibold text-[#5f6d8a]">The business has not attached an invoice PDF.</p>
+            )}
+          </div>
+        )}
 
         {intelFailed && (
           <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm font-semibold text-rose-700">
