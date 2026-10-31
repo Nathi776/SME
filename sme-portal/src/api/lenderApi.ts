@@ -35,6 +35,7 @@ export interface AvailableSme {
   sme_id: number;
   company_name: string;
   industry: string;
+  province?: string | null;
   revenue: number;
   credit_score: number | null;
   risk_level: "High" | "Medium" | "Low" | null;

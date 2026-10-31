@@ -29,8 +29,8 @@ interface MarketOpportunity {
   company_name: string;
   industry: string;
   location: string;
-  credit_score: number;
-  risk_level: "Low" | "Medium" | "High";
+  credit_score: number | null;
+  risk_level: "Low" | "Medium" | "High" | null;
   requested_funding: number;
   invoice_value: number;
   expected_yield: number;
@@ -118,13 +118,13 @@ export default function LenderFundADealPage() {
     dbRequests.forEach((req) => {
       const sme = smesById[req.sme_id];
       const name = sme?.company_name || `SME ${req.sme_id}`;
-      const score = sme?.credit_score ?? 72;
-      const risk = sme?.risk_level || "Medium";
+      const score = sme?.credit_score ?? null;
+      const risk = sme?.risk_level ?? null;
       const requested = Number(req.amount_requested);
       const invoice = Math.round(requested * 1.15);
 
       // Determine expected yield based on credit score
-      const scoreYield = score >= 80 ? 11.5 : score >= 60 ? 13.5 : score >= 40 ? 15.5 : 18.0;
+      const scoreYield = (score ?? 0) >= 80 ? 11.5 : (score ?? 0) >= 60 ? 13.5 : (score ?? 0) >= 40 ? 15.5 : 18.0;
       // Determine term based on payout dates or defaults
       const term = 30;
 
@@ -133,9 +133,9 @@ export default function LenderFundADealPage() {
         sme_id: req.sme_id,
         company_name: name,
         industry: sme?.industry || "Services",
-        location: "Gauteng",
+        location: sme?.province || "Location not provided",
         credit_score: score,
-        risk_level: risk as any,
+        risk_level: risk,
         requested_funding: requested,
         invoice_value: invoice,
         expected_yield: scoreYield,
@@ -209,7 +209,7 @@ export default function LenderFundADealPage() {
     // Credit score
     if (scoreFilter !== "All") {
       list = list.filter((o) => {
-        const cs = o.credit_score;
+        const cs = o.credit_score ?? -1;
         if (scoreFilter === "80+") return cs >= 80;
         if (scoreFilter === "60-80") return cs >= 60 && cs < 80;
         if (scoreFilter === "<60") return cs < 60;
@@ -231,8 +231,8 @@ export default function LenderFundADealPage() {
     // Sorting
     list.sort((a, b) => {
       if (sortBy === "Highest Yield") return b.expected_yield - a.expected_yield;
-      if (sortBy === "Lowest Risk") return a.credit_score - b.credit_score; // Lower score is higher risk, so lowest risk means highest score
-      if (sortBy === "Highest Score") return b.credit_score - a.credit_score;
+      if (sortBy === "Lowest Risk") return (a.credit_score ?? -1) - (b.credit_score ?? -1); // Lower score is higher risk, so lowest risk means highest score
+      if (sortBy === "Highest Score") return (b.credit_score ?? -1) - (a.credit_score ?? -1);
       if (sortBy === "Amount: High to Low") return b.requested_funding - a.requested_funding;
       if (sortBy === "Amount: Low to High") return a.requested_funding - b.requested_funding;
       return 0;
@@ -245,7 +245,7 @@ export default function LenderFundADealPage() {
   const handleOpenFundingModal = (deal: MarketOpportunity) => {
     setSelectedDeal(deal);
     // Suggest the remaining funding needed or recommended amount
-    const recommended = Math.round(deal.remaining_amount * (deal.credit_score >= 80 ? 1.0 : deal.credit_score >= 60 ? 0.9 : 0.7));
+    const recommended = Math.round(deal.remaining_amount * ((deal.credit_score ?? 0) >= 80 ? 1.0 : (deal.credit_score ?? 0) >= 60 ? 0.9 : 0.7));
     setFundingInput(String(recommended));
   };
 
@@ -522,7 +522,7 @@ export default function LenderFundADealPage() {
                             ? "bg-rose-50 text-rose-700 border-rose-100"
                             : "bg-amber-50 text-amber-700 border-amber-100"
                         }`}>
-                        {deal.risk_level} Risk
+                        {deal.risk_level ? `${deal.risk_level} Risk` : "Not scored"}
                       </span>
                       {deal.is_new && (
                         <span className="rounded bg-[#8b7cff]/10 px-1.5 py-0.5 text-[8px] font-bold text-[#8b7cff] tracking-wide uppercase">
@@ -568,15 +568,15 @@ export default function LenderFundADealPage() {
                               strokeWidth="4.5"
                               fill="transparent"
                               strokeDasharray={2 * Math.PI * 24}
-                              strokeDashoffset={2 * Math.PI * 24 * (1 - deal.credit_score / 100)}
+                              strokeDashoffset={2 * Math.PI * 24 * (1 - (deal.credit_score ?? 0) / 100)}
                               strokeLinecap="round"
                             />
                           </svg>
-                          <span className="absolute text-[13px] font-extrabold text-[#071942]">{deal.credit_score}</span>
+                          <span className="absolute text-[13px] font-extrabold text-[#071942]">{deal.credit_score ?? "—"}</span>
                         </div>
                         <span className={`text-[8px] font-bold mt-1 uppercase tracking-wide ${deal.risk_level === "High" ? "text-rose-600" : deal.risk_level === "Low" ? "text-emerald-600" : "text-amber-600"
                           }`}>
-                          {deal.credit_score >= 80 ? "Excellent" : deal.credit_score >= 70 ? "Good" : deal.credit_score >= 60 ? "Fair" : "Poor"}
+                          {deal.credit_score === null ? "Not scored" : deal.credit_score >= 80 ? "Excellent" : deal.credit_score >= 70 ? "Good" : deal.credit_score >= 60 ? "Fair" : "Poor"}
                         </span>
                       </div>
 
@@ -809,7 +809,7 @@ export default function LenderFundADealPage() {
                 <div>
                   <span className="text-[#8f9bba] text-[10px] font-bold uppercase tracking-wide">Recommended Amount</span>
                   <p className="text-base font-extrabold text-emerald-600 mt-0.5">
-                    {formatZAR(Math.round(selectedDeal.remaining_amount * (selectedDeal.credit_score >= 80 ? 1.0 : selectedDeal.credit_score >= 60 ? 0.9 : 0.7)))}
+                    {formatZAR(Math.round(selectedDeal.remaining_amount * ((selectedDeal.credit_score ?? 0) >= 80 ? 1.0 : (selectedDeal.credit_score ?? 0) >= 60 ? 0.9 : 0.7)))}
                   </p>
                 </div>
               </div>
