@@ -19,8 +19,10 @@ from services.consent_service import PURPOSE_MODEL_IMPROVEMENT, record_consent
 from services.auth_service import (
     burn_password_check,
     create_access_token,
+    find_user_by_email,
     get_current_user,
     hash_password,
+    normalize_email,
     verify_password,
 )
 from database import get_db
@@ -103,7 +105,7 @@ def _find_user(request: VerificationTargetRequest, db: Session) -> User | None:
     if request.user_id is not None:
         return db.query(User).filter(User.id == request.user_id).first()
     if request.email:
-        return db.query(User).filter(User.email == request.email).first()
+        return find_user_by_email(db, request.email)
     raise HTTPException(status_code=400, detail="user_id or email is required")
 
 
@@ -207,12 +209,13 @@ def register_user(request: Request, payload: RegisterRequest, db: Session = Depe
     if existing_username:
         raise HTTPException(status_code=400, detail="Username already exists")
 
-    existing_email = db.query(User).filter(User.email == payload.email).first()
+    existing_email = find_user_by_email(db, payload.email)
     if existing_email:
         raise HTTPException(status_code=400, detail="Email already exists")
 
     hashed_pw = hash_password(payload.password)
     new_user = User(username=payload.username, email=payload.email, hashed_password=hashed_pw, role=payload.role)
+    new_user.email = normalize_email(payload.email)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -327,7 +330,7 @@ def login_user(request: Request, payload: LoginRequest, db: Session = Depends(ge
     if payload.username:
         user = db.query(User).filter(User.username == payload.username).first()
     elif payload.email:
-        user = db.query(User).filter(User.email == payload.email).first()
+        user = find_user_by_email(db, payload.email)
     else:
         raise HTTPException(status_code=400, detail="username or email is required")
 
