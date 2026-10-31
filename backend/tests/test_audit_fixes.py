@@ -1,0 +1,34 @@
+"""Regressions found in the codebase audit."""
+import pytest
+
+from models import AssessmentSnapshot, BusinessObservation, FinanceRequest, SME
+from tests.test_access_isolation import world  # noqa: F401
+
+
+def _counts(world):
+    world.db.expire_all()
+    return (world.db.query(AssessmentSnapshot).count(), world.db.query(BusinessObservation).count())
+
+
+def test_viewing_pages_does_not_write_assessment_records(world):
+    before = _counts(world)
+    for _ in range(3):
+        assert world.call("l1", "GET", f"/lenders/sme-intelligence/{world.A.id}").status_code == 200
+        assert world.call("a", "GET", "/recommendations/").status_code == 200
+    assert _counts(world) == before
+
+
+@pytest.mark.parametrize("status", ["approved", "funded"])
+def test_business_with_unsettled_financing_cannot_delete_itself(world, status):
+    world.request(status, world.L1)
+    r = world.call("a", "DELETE", f"/smes/{world.A.id}")
+    assert r.status_code == 409
+    world.db.expire_all()
+    assert world.db.get(SME, world.A.id) is not None
+    assert world.db.query(FinanceRequest).filter_by(sme_id=world.A.id).count() == 1
+
+
+@pytest.mark.parametrize("status", ["pending", "rejected", "paid", "closed"])
+def test_settled_or_unfunded_business_can_delete(world, status):
+    world.request(status, world.L1)
+    assert world.call("a", "DELETE", f"/smes/{world.A.id}").status_code == 200

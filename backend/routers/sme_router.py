@@ -386,6 +386,20 @@ def delete_sme(
     if sme.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="You can only delete your own SME profile")
 
+    # Deleting cascades to finance requests and outcome records. Never let a business erase
+    # a live obligation: refuse while any request is approved or funded (still being repaid).
+    from models.finance_request import FinanceRequest
+    live = (
+        db.query(FinanceRequest)
+        .filter(FinanceRequest.sme_id == sme_id, FinanceRequest.status.in_(("approved", "funded")))
+        .count()
+    )
+    if live:
+        raise HTTPException(
+            status_code=409,
+            detail="This business has approved or funded financing that is not yet settled, so it cannot be deleted.",
+        )
+
     db.delete(sme)
     db.commit()
     return {"message": f"SME with ID {sme_id} deleted successfully."}
