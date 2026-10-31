@@ -51,8 +51,18 @@ export interface CheckinSubmit {
   loan_repaid: boolean;
 }
 
+export interface DueCheckin {
+  outcome_id: number;
+  sme_id: number;
+  interval: number;
+  due_at: string;
+  days_overdue: number;
+  reminders_sent: number;
+}
+
 export const OutcomeApi = {
   getHistory: () => api.get<SmeOutcome[]>("/outcomes/history"),
+  getDue: () => api.get<DueCheckin[]>("/outcomes/due"),
   submitCheckin: (outcomeId: number, data: CheckinSubmit) =>
     api.post<SmeOutcome>(`/outcomes/${outcomeId}/checkin`, data),
 };

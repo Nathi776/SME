@@ -36,6 +36,7 @@ import AppLayout from "./components/layout/AppLayout";
 import FounderProfilePage from "./pages/FounderProfilePage";
 import RecommendationsPage from "./pages/RecommendationsPage";
 import SettingsPage from "./pages/SettingsPage";
+import PrivacyConsentPage from "./pages/PrivacyConsentPage";
 import OutcomeTrackingPage from "./pages/OutcomeTrackingPage";
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
           <Route path="/recommendations" element={<RecommendationsPage />} />
           <Route path="/outcomes" element={<OutcomeTrackingPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/privacy" element={<PrivacyConsentPage />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/messages" element={<MessagesPage />} />

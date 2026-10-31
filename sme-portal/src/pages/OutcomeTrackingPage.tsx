@@ -4,6 +4,7 @@ import {
   Loader2, ChevronDown, ChevronUp, RefreshCw, BarChart2, Briefcase
 } from "lucide-react";
 import { OutcomeApi, type SmeOutcome, type CheckinSubmit } from "../api/outcomeApi";
+import DueCheckinsBanner from "../components/outcomes/DueCheckinsBanner";
 
 const STATUS_COLORS: Record<string, string> = {
   pending: "bg-blue-100 text-blue-800 border-blue-200",
@@ -122,6 +123,7 @@ export default function OutcomeTrackingPage() {
     <div className="max-w-4xl mx-auto space-y-6 p-6">
       
       {/* Header */}
+      <DueCheckinsBanner linkToPage={false} />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold text-[#071942]">Outcome Tracking</h1>

@@ -338,6 +338,33 @@ def _market_label(score: float) -> str:
 
 MARKET_DATA_VERSION = "2025.10.1"
 
+# Aggregates built by data_pipeline/build_wbes_benchmarks.py from licensed World
+# Bank Enterprise Survey microdata. CONTEXT ONLY: nothing here feeds a score.
+def _load_wbes_benchmarks() -> dict:
+    import json
+    from pathlib import Path
+
+    # The file is deliberately NOT in git (public repo, restricted source). Build it locally
+    # with data_pipeline/build_wbes_benchmarks.py; when absent the table is empty.
+    path = Path(__file__).resolve().parent.parent / "data" / "wbes_sa_2020_benchmarks.json"
+    if not path.exists():
+        return {"source": {"name": "Enterprise Surveys, The World Bank Group", "licence_verified": False},
+                "overall": {}, "by_size_band": {}, "by_sector": {}}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+WBES_SA_2020_BENCHMARKS: dict = _load_wbes_benchmarks()
+
+
+def wbes_benchmark(measure: str, size_band: str | None = None, sector: str | None = None):
+    """One benchmark cell ({n, value, ...}); value is None when suppressed (n < 30)."""
+    if size_band and sector:
+        raise ValueError("choose size_band or sector, not both")
+    t = WBES_SA_2020_BENCHMARKS
+    cell = (t["by_size_band"][size_band] if size_band
+            else t["by_sector"][sector] if sector else t["overall"])
+    return cell[measure]
+
 # `basis` says what kind of evidence stands behind a table:
 #   published_statistic   directly from a published statistical release
 #   informed_index        an index scaled by hand using published statistics
@@ -345,6 +372,7 @@ MARKET_DATA_VERSION = "2025.10.1"
 #   expert_judgement      analyst judgement with no published source
 #   taxonomy              name matching, not a statistic
 #   design_default        a modelling choice
+#   derived_from_microdata  aggregates computed by us from licensed survey microdata
 # `independently_verified` is True only once someone has checked the values
 # against the original publication. None are verified yet.
 # `public_note` may be shown to API users; `review_note` is internal.
@@ -364,7 +392,9 @@ TABLE_PROVENANCE: dict[str, dict] = {
         "review_note": (
             "Check each value against the original publication. The World Bank "
             "discontinued Doing Business in 2021, so a '2024' edition cannot be the "
-            "source: find the real source or relabel this table 'expert_judgement'."
+            "source: find the real source or relabel this table 'expert_judgement'. "
+            "The Enterprise Survey 2020 files were checked and cannot replace it (no usable "
+            "closure outcome); the Gauteng 2019->2020 link has only 12 closures."
         ),
     },
     "province_economic_index": {
@@ -391,6 +421,23 @@ TABLE_PROVENANCE: dict[str, dict] = {
         "independently_verified": False,
         "public_note": "Industry-by-province multipliers set by analyst judgement; no published source.",
         "review_note": "Replace with estimates from microdata when licensed data is available.",
+    },
+    "wbes_sa_2020_benchmarks": {
+        "basis": "derived_from_microdata",
+        "cited_sources": ["Enterprise Surveys, The World Bank Group (South Africa 2020, 1,097 firms)"],
+        "as_of": "2020",
+        "independently_verified": False,
+        "public_note": (
+            "Internal research table built from Enterprise Surveys data. Its use is restricted "
+            "by the data-access protocol, so its values are not published through any API and "
+            "are not used in any score."
+        ),
+        "review_note": (
+            "RESEARCH ONLY. The Data Access Protocol allows academic research or World Bank "
+            "work and says nothing about commercial use; written permission has been requested "
+            "(Oct 2026). Do not show these values to users until it is granted. Rebuild with data_pipeline/build_wbes_benchmarks.py. Cannot supply "
+            "survival rates: the panel's non-interviewed firms are mostly unreachable, not closed."
+        ),
     },
     "industry_aliases": {
         "basis": "taxonomy",
@@ -429,6 +476,8 @@ def _canonical_tables() -> dict:
             f"{industry}|{province}": value
             for (industry, province), value in INDUSTRY_PROVINCE_ADJUSTMENTS.items()
         },
+        # WBES benchmarks are local-only research data, not part of any score: excluded here
+        # so the fingerprint is the same with or without the local file.
         "industry_aliases": INDUSTRY_ALIASES,
         "province_aliases": PROVINCE_ALIASES,
         "unspecified_province_index": UNSPECIFIED_PROVINCE_INDEX,

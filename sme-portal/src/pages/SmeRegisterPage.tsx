@@ -23,6 +23,7 @@ import { AuthApi } from "../api/authApi";
 import { SMEApi } from "../api/smeApi";
 import { formatApiErrorDetail } from "../utils/formatApiError";
 import { login as autoLogin } from "../utils/auth";
+import ConsentCheckbox from "../components/consent/ConsentCheckbox";
 
 const BUSINESS_TYPES = ["Sole Proprietor", "Partnership", "Private Company (Pty) Ltd", "Public Company", "Close Corporation", "NPO / NGO"];
 const INDUSTRIES = ["Construction", "Retail", "Manufacturing", "Technology", "Healthcare", "Agriculture", "Transport & Logistics", "Food & Beverage", "Professional Services", "Other"];
@@ -220,6 +221,8 @@ export default function SmeRegisterPage() {
   const [notifyEmail, setNotifyEmail] = useState(true);
   const [notifySms, setNotifySms] = useState(false);
   const [notifyWhatsApp, setNotifyWhatsApp] = useState(false);
+  // Opt-in: never pre-ticked.
+  const [consentModelImprovement, setConsentModelImprovement] = useState(false);
 
   const [bankName, setBankName] = useState("");
   const [accountHolder, setAccountHolder] = useState("");
@@ -267,7 +270,7 @@ export default function SmeRegisterPage() {
     setLoading(true);
 
     try {
-      const registerResponse = await AuthApi.register(username, password, email, "sme");
+      const registerResponse = await AuthApi.register(username, password, email, "sme", consentModelImprovement);
       const userId = registerResponse.data?.id;
       if (userId) sessionStorage.setItem("justRegisteredUserId", String(userId));
 
@@ -506,6 +509,10 @@ export default function SmeRegisterPage() {
                   <div><label className="mb-1.5 block text-xs font-semibold text-gray-700">Business Email <span className="text-red-500">*</span></label><input required type="email" value={bizEmail} onChange={(event) => setBizEmail(event.target.value)} className={INPUT_CLS} /></div>
                 </div>
                 <div className="mb-6 grid grid-cols-1 gap-4"><div><label className="mb-1.5 block text-xs font-semibold text-gray-700">Business Address <span className="text-red-500">*</span></label><input required value={address} onChange={(event) => setAddress(event.target.value)} className={INPUT_CLS} /></div></div>
+                <div className="mb-6 rounded-xl border border-gray-200 p-5">
+                  <h3 className="mb-3 text-sm font-semibold text-gray-900">Privacy</h3>
+                  <ConsentCheckbox checked={consentModelImprovement} onChange={setConsentModelImprovement} />
+                </div>
                 <div className="flex items-center justify-between">
                   <button type="button" onClick={() => setStep(1)} className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">← Back</button>
                   <button type="submit" disabled={loading} className="flex items-center gap-2 rounded-lg bg-green-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-green-800 disabled:opacity-50">{loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Creating...</> : <>Next: Verification & Compliance</>}</button>

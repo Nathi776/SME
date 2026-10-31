@@ -41,9 +41,9 @@ def test_fingerprint_covers_adjustments_and_default_index(monkeypatch):
 
 
 def test_every_table_has_provenance_and_none_claims_verification():
-    assert set(mds.TABLE_PROVENANCE) == set(mds._canonical_tables())
+    assert set(mds.TABLE_PROVENANCE) - {"wbes_sa_2020_benchmarks"} == set(mds._canonical_tables())
     allowed = {"published_statistic", "informed_index", "cited_benchmark",
-               "expert_judgement", "taxonomy", "design_default"}
+               "expert_judgement", "taxonomy", "design_default", "derived_from_microdata"}
     for name, info in mds.TABLE_PROVENANCE.items():
         assert info["basis"] in allowed, name
         assert info["as_of"], name

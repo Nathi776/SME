@@ -22,3 +22,7 @@ venv/
 *.sqlite*
 uploads/
 **/uploads/
+*.dta
+*.sav
+backend/data_pipeline/raw/
+backend/data/wbes_sa_2020_benchmarks.json

@@ -10,6 +10,7 @@ import QuickActions from "../components/dashboard/QuickActions";
 import { DashboardResponse, SMEApi } from "../api/smeApi";
 import ScoreTrajectoryChart from "../components/dashboard/ScoreTrajectoryChart";
 import ScoreImprovementPanel from "../components/dashboard/ScoreImprovementPanel";
+import DueCheckinsBanner from "../components/outcomes/DueCheckinsBanner";
 
 export default function Dashboard() {
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
@@ -92,6 +93,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-4 pb-6 text-[#071942]">
       <WelcomeBanner username={dashboard.username} smeName={dashboard.sme_name} smeId={String(dashboard.sme_id)} />
+      <DueCheckinsBanner />
       <StatCards
         creditScore={dashboard.credit_score}
         invoiceCount={dashboard.invoice_count}
