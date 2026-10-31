@@ -18,6 +18,7 @@ export interface FinanceRequest {
   request_type?: "invoice_backed" | "pre_invoice";
   amount_requested: number;
   approved_amount: number | null;
+  rejection_reason?: string | null;
   fee_rate: number;
   platform_fee: number | null;
   net_amount: number | null;
@@ -99,8 +100,8 @@ export const LenderApi = {
   getMessages: (requestId: number) =>
     api.get<InfoMessage[]>(`/finance/${requestId}/messages`),
 
-  rejectRequest: (requestId: number) =>
-    api.put<FinanceRequest>(`/finance/reject/${requestId}`, {}),
+  rejectRequest: (requestId: number, reason?: string) =>
+    api.put<FinanceRequest>(`/finance/reject/${requestId}`, { reason: reason?.trim() || undefined }),
 
   // SME details
   getSMEDetail: (smeId: number) =>

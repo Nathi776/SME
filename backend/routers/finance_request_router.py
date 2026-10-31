@@ -68,8 +68,13 @@ class FinanceRequestResponse(BaseModel):
     purpose_of_funding: str | None = None
     preferred_payout_date: datetime | None = None
     additional_notes: str | None = None
+    rejection_reason: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class RejectBody(BaseModel):
+    reason: str | None = Field(default=None, max_length=1000)
 
 
 class FinanceRequestOut(BaseModel):
@@ -349,6 +354,7 @@ def approve_request(
 @router.put("/reject/{request_id}", response_model=FinanceRequestResponse)
 def reject_request(
     request_id: int,
+    body: RejectBody | None = None,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -361,7 +367,7 @@ def reject_request(
         raise HTTPException(status_code=404, detail="Lender profile not found")
 
     try:
-        return reject_finance_request(db, request_id, lender.id)
+        return reject_finance_request(db, request_id, lender.id, body.reason if body else None)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 

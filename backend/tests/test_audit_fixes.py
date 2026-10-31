@@ -46,3 +46,17 @@ def test_approval_charges_the_fee_rate_quoted_at_application(world, quoted, expe
     done = approve_request(world.db, r.id, world.L1.id, Decimal("1000"))
     assert done.platform_fee == expected
     assert done.net_amount == Decimal("1000") - expected
+
+
+def test_rejection_reason_is_stored_and_visible_to_the_business(world):
+    r = world.request("pending", None)
+    resp = world.call("l1", "PUT", f"/finance/reject/{r.id}", json={"reason": "  Invoice debtor not verifiable  "})
+    assert resp.status_code == 200
+    assert resp.json()["rejection_reason"] == "Invoice debtor not verifiable"
+    world.db.refresh(r)
+    assert r.status == "rejected"
+
+
+def test_rejecting_without_a_reason_still_works(world):
+    r = world.request("pending", None)
+    assert world.call("l1", "PUT", f"/finance/reject/{r.id}", json={}).status_code == 200

@@ -57,11 +57,12 @@ export default function LenderReviewRequestsPage() {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [requestsRes, smesRes] = await Promise.all([
+      const [requestsRes, smesRes, awaitingRes] = await Promise.all([
         LenderApi.getPendingRequests(),
-        LenderApi.getAvailableSMEs()
+        LenderApi.getAvailableSMEs(),
+        LenderApi.getAwaitingInfo().catch(() => ({ data: [] as FinanceRequest[] }))
       ]);
-      setDbRequests(requestsRes.data || []);
+      setDbRequests([...(awaitingRes.data || []), ...(requestsRes.data || [])]);
       setAvailableSmes(smesRes.data || []);
       setError(null);
     } catch (err) {
@@ -85,7 +86,7 @@ export default function LenderReviewRequestsPage() {
     return map;
   }, [availableSmes]);
 
-  // Merge backend data with mock data
+  // Real requests: ones waiting on the business's reply first, then new ones
   const requests = useMemo(() => {
     const list: ReviewRequestRow[] = [];
 
@@ -278,7 +279,9 @@ export default function LenderReviewRequestsPage() {
                     </span>
                   </div>
                   <div>
-                    <h4 className="text-sm font-extrabold text-[#071942]">{row.name}</h4>
+                    <h4 className="text-sm font-extrabold text-[#071942]">{row.name}{row.status === "info_requested" && (
+                      <span className="ml-2 rounded bg-amber-50 border border-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-700">Awaiting reply</span>
+                    )}</h4>
                     <p className="text-[10px] text-[#8f9bba] mt-0.5">Submitted: {row.date}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f2f5fa] text-xs">
@@ -344,6 +347,9 @@ export default function LenderReviewRequestsPage() {
                       {/* SME Name */}
                       <td className="py-4 px-6 font-extrabold text-sm text-[#071942]">
                         {row.name}
+                        {row.status === "info_requested" && (
+                          <span className="ml-2 rounded bg-amber-50 border border-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-700">Awaiting reply</span>
+                        )}
                       </td>
 
                       {/* Score */}

@@ -314,7 +314,7 @@ def approve_finance_request(
     return req
 
 
-def reject_finance_request(db: Session, request_id: int, lender_id: int):
+def reject_finance_request(db: Session, request_id: int, lender_id: int, reason: str | None = None):
     req = db.query(FinanceRequest).filter(FinanceRequest.id == request_id).first()
     if not req:
         raise ValueError("Finance request not found")
@@ -324,6 +324,7 @@ def reject_finance_request(db: Session, request_id: int, lender_id: int):
 
     req.lender_id = lender_id
     req.status = "rejected"
+    req.rejection_reason = (reason or "").strip() or None
     req.approved_at = utc_now()
 
     db.commit()
