@@ -1,4 +1,4 @@
-﻿from sqlalchemy import Column, Integer, Numeric, ForeignKey, String, DateTime
+﻿from sqlalchemy import Column, Integer, Numeric, ForeignKey, String, DateTime, Text
 from sqlalchemy.orm import relationship
 from core.time_utils import utc_now
 from database import Base
@@ -15,6 +15,7 @@ class FinanceRequest(Base):
 
     fee_rate = Column(Numeric(18, 4), default=0)
     platform_fee = Column(Numeric(18, 2), default=0)
+    rejection_reason = Column(Text, nullable=True)
     net_amount = Column(Numeric(18, 2), default=0)
 
     status = Column(String, default="pending")

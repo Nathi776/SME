@@ -112,8 +112,10 @@ export default function LenderRequestDetailPage() {
     run(() => LenderApi.approveRequest(request.id, approvedNum), "Request approved", "Failed to approve request", true);
   };
   const reject = () => {
-    if (!request || !window.confirm("Reject this request? This cannot be undone.")) return;
-    run(() => LenderApi.rejectRequest(request.id), "Request rejected", "Failed to reject request", true);
+    if (!request) return;
+    const reason = window.prompt("Reject this request? This cannot be undone.\nGive the business a short reason (optional):");
+    if (reason === null) return;
+    run(() => LenderApi.rejectRequest(request.id, reason), "Request rejected", "Failed to reject request", true);
   };
   const askInfo = () => {
     if (!request) return;
