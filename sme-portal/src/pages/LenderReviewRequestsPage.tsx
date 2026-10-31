@@ -279,7 +279,7 @@ export default function LenderReviewRequestsPage() {
                 <div key={row.id} className="p-5 space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-[#5f6d8a]">
-                      REQ-2026-{String(row.id).padStart(3, "0")}
+                      REQ-{String(row.id).padStart(3, "0")}
                     </span>
                     <span
                       className={`inline-flex min-w-[76px] justify-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold ${
@@ -354,7 +354,7 @@ export default function LenderReviewRequestsPage() {
                     <tr key={row.id} className="hover:bg-slate-50/40 transition duration-150">
                       {/* ID */}
                       <td className="py-4 px-6 text-[#5f6d8a] font-bold">
-                        REQ-2026-{String(row.id).padStart(3, "0")}
+                        REQ-{String(row.id).padStart(3, "0")}
                       </td>
 
                       {/* SME Name */}
