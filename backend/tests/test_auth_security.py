@@ -136,3 +136,25 @@ def test_send_response_does_not_reveal_whether_account_exists(api, sent):
     assert real.status_code == ghost.status_code == 200
     assert real.json() == ghost.json()
     assert len(sent) == 1                                           # only the real user
+
+
+# ---- email case ---------------------------------------------------------------------------
+def test_login_by_email_ignores_case(api):
+    user = api.make_user("sme", password="Password123", username="casey")
+    from models.user import User
+    db = api.Session()
+    db.query(User).filter(User.id == user.id).update({"email": "Casey@Example.com"})  # legacy mixed-case row
+    db.commit()
+    for typed in ("casey@example.com", "CASEY@EXAMPLE.COM", " Casey@Example.com "):
+        r = api.client.post("/auth/login", json={"email": typed, "password": "Password123"})
+        assert r.status_code == 200, typed
+    assert api.client.post("/auth/login", json={"email": "casey@example.com", "password": "wrong"}).status_code == 401
+
+
+def test_register_stores_lowercase_and_rejects_case_variant_duplicates(api):
+    body = {"username": "newperson", "password": "Password123", "email": "New.Person@Example.com", "role": "sme"}
+    assert api.client.post("/auth/register", json=body).status_code in (200, 201)
+    from models.user import User
+    assert api.Session().query(User).filter_by(username="newperson").one().email == "new.person@example.com"
+    again = {**body, "username": "another", "email": "NEW.PERSON@example.com"}
+    assert api.client.post("/auth/register", json=again).status_code == 400

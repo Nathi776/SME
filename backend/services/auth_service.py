@@ -25,6 +25,20 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
+def normalize_email(email: str | None) -> str | None:
+    """Emails are stored lowercase and trimmed so Name@x.com and name@x.com are one account."""
+    return email.strip().lower() if email else email
+
+
+def find_user_by_email(db: Session, email: str | None) -> User | None:
+    """Case-insensitive lookup, so accounts created before normalisation (e.g. 'Name@x.com') still match."""
+    from sqlalchemy import func
+
+    if not email:
+        return None
+    return db.query(User).filter(func.lower(User.email) == email.strip().lower()).first()
+
 def hash_password(password: str) -> str:
     """Hash user password before storing."""
     return pwd_context.hash(password)

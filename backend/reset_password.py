@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import models  # noqa: F401,E402  (register every table)
 from database import SessionLocal  # noqa: E402
 from models.user import User  # noqa: E402
-from services.auth_service import hash_password  # noqa: E402
+from services.auth_service import find_user_by_email, hash_password  # noqa: E402
 
 
 def looks_hashed(stored: str | None) -> bool:
@@ -40,7 +40,7 @@ def main() -> int:
         if not args.account:
             parser.error("give a username/email, or use --list")
         user = (db.query(User).filter(User.username == args.account).first()
-                or db.query(User).filter(User.email == args.account).first())
+                or find_user_by_email(db, args.account))
         if user is None:
             print(f"No account found for '{args.account}'. Use --list to see accounts.")
             return 1
