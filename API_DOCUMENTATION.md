@@ -321,3 +321,16 @@ A corporate enterprise wants to assess the operational risk of a potential suppl
     *   Initial release of versioned external integration layer.
     *   Added CIPC lookup endpoint, market viability query, and aggregate stats query.
     *   Introduced hashed API Key header authentication mechanism.
+
+## Request more information (finance requests)
+
+A lender can pause a decision to ask the business a question; the business answers; the request returns to that lender's pending queue.
+
+| Method and path | Who | Notes |
+|---|---|---|
+| `POST /finance/{id}/request-info` | lender | body `{message}` (5-1000 chars). Request must be `pending`. Sets status `info_requested` and claims the request for this lender. Emails the business owner (best effort). |
+| `POST /finance/{id}/respond` | the business owner | body `{message}`. Request must be `info_requested`. Returns it to `pending`. Emails the lender (best effort). |
+| `GET /finance/{id}/messages` | owner, the claiming lender, admin | Ordered thread `[{id, author_role, kind, message, created_at}]`; others get 404. |
+| `GET /finance/awaiting-info` | lender | The lender's own `info_requested` requests. |
+
+`GET /finance/pending` now returns pending requests that are unassigned or claimed by the calling lender. Previously it returned only requests already assigned to the caller, which new requests never were, so lenders could not see new requests. Once claimed, only that lender can approve or reject.

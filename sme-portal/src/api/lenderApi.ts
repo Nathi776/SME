@@ -1,4 +1,5 @@
 import api from "./client";
+import type { InfoMessage } from "./financeApi";
 
 export interface LenderProfile {
   id: number;
@@ -58,6 +59,14 @@ export const LenderApi = {
     api.put<FinanceRequest>(`/finance/approve/${requestId}`, {
       approved_amount: approvedAmount,
     }),
+
+  getAwaitingInfo: () => api.get<FinanceRequest[]>("/finance/awaiting-info"),
+
+  requestInfo: (requestId: number, message: string) =>
+    api.post<FinanceRequest>(`/finance/${requestId}/request-info`, { message }),
+
+  getMessages: (requestId: number) =>
+    api.get<InfoMessage[]>(`/finance/${requestId}/messages`),
 
   rejectRequest: (requestId: number) =>
     api.put<FinanceRequest>(`/finance/reject/${requestId}`, {}),

@@ -272,6 +272,8 @@ def sme_dashboard(
             activity_text = f"Finance request for {label} was closed"
         elif request.status == "completed":
             activity_text = f"Finance request for {label} was repaid"
+        elif request.status == "info_requested":
+            activity_text = f"A lender asked for more information about {label}"
         elif request.status == "rejected":
             activity_text = f"Finance request for {label} was rejected"
         else:
