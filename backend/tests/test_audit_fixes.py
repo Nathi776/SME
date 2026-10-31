@@ -97,3 +97,11 @@ def test_client_cannot_set_a_storage_reference_when_creating_an_invoice(world):
     r = world.call("a", "POST", "/invoices/", json={"client_name": "X", "amount": 10, "pdf_url": "local:../../etc/passwd"})
     assert r.status_code == 200
     assert r.json()["invoice"]["pdf_url"] is None
+
+
+def test_business_can_read_the_rejection_reason_but_others_cannot(world):
+    r = world.request("pending", None)
+    world.call("l1", "PUT", f"/finance/reject/{r.id}", json={"reason": "Debtor could not be verified"})
+    mine = world.call("a", "GET", f"/finance/requests/{world.A.id}").json()
+    assert [x["rejection_reason"] for x in mine if x["id"] == r.id] == ["Debtor could not be verified"]
+    assert world.call("b", "GET", f"/finance/requests/{world.A.id}").status_code == 403

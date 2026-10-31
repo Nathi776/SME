@@ -7,6 +7,7 @@ import { useSnackbar } from "notistack";
 import { formatZAR } from "../utils/format";
 import { formatApiErrorDetail } from "../utils/formatApiError";
 import InfoRequestsPanel from "../components/finance/InfoRequestsPanel";
+import RejectedRequestsPanel from "../components/finance/RejectedRequestsPanel";
 
 interface Invoice {
   id: number;
@@ -24,6 +25,7 @@ interface FinanceRequest {
   fee_rate: number;
   status: string;
   created_at: string;
+  rejection_reason?: string | null;
 }
 
 const calculateEligibleAmount = (invoiceAmount: number, score: number | null) => {
@@ -237,6 +239,7 @@ export default function FinanceRequestPage() {
   return (
     <div className="space-y-6 pb-12 text-[#071942]">
       <InfoRequestsPanel />
+      <RejectedRequestsPanel requests={financeRequests as any} />
       {/* Page Header */}
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2 text-xs font-semibold text-[#8f9bba]">
