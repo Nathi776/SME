@@ -51,3 +51,10 @@ Repeat on a staging copy with a real database, then once on production with a te
 - No admin screen for the reminder job (use the script or `POST /outcomes/reminders/run`).
 - Lender sign-up has no consent checkbox (lenders can opt in from Privacy & Data).
 - The sector-survival table is cited but unverified.
+
+## 8. Access rules (enforced by tests/test_access_isolation.py)
+- Every endpoint requires login; one SME cannot read or change another's business, invoices, documents or check-ins.
+- Lenders cannot edit SMEs or approve documents; SMEs cannot use lender or admin actions.
+- A lender can mark funded/paid/closed only the requests they approved (admins: any).
+- Lender profiles (contact details, limits) are visible only to that lender and admins.
+- Policy question left open: any lender can currently list all invoices and all pending requests (marketplace behaviour). Decide whether that should be narrowed before multiple competing lenders join.
