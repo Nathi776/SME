@@ -25,9 +25,9 @@ def _to_decimal(value: Decimal | float | int) -> Decimal:
 def calculate_fee_rate(credit_score: int | None) -> Decimal:
     """
     Fee rate based on credit score.
-    Score 0â€“50:  8%    (high risk / declined band)
-    Score 50â€“75: 5%    (review band)
-    Score 75â€“85: 2.5%  (approved, standard)
+    Score 0-50:  8%    (high risk / declined band)
+    Score 50-75: 5%    (review band)
+    Score 75-85: 2.5%  (approved, standard)
     Score 85+:   1.5%  (approved, strong)
     Aligned with decision thresholds in core/scoring.py.
     """
@@ -296,7 +296,10 @@ def approve_finance_request(
     if not lender:
         raise ValueError("Lender not found")
 
-    platform_fee = approved_amount * PLATFORM_FEE_RATE
+    # Charge the rate quoted to the business when it applied; the flat default is only for
+    # older requests that were saved without one.
+    quoted_rate = _to_decimal(req.fee_rate) if req.fee_rate else PLATFORM_FEE_RATE
+    platform_fee = (approved_amount * quoted_rate).quantize(Decimal("0.01"))
     net_amount = approved_amount - platform_fee
 
     req.lender_id = lender_id
