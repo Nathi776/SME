@@ -11,6 +11,14 @@ export interface FinanceRequest {
   approved_at: string | null;
 }
 
+export interface InfoMessage {
+  id: number;
+  author_role: "lender" | "sme";
+  kind: "info_request" | "response";
+  message: string;
+  created_at: string;
+}
+
 export const FinanceApi = {
   apply: (
     invoiceId: number | null,
@@ -43,6 +51,12 @@ export const FinanceApi = {
 
   reject: (requestId: number) =>
     api.put<FinanceRequest>(`/finance/reject/${requestId}`, {}),
+
+  getMessages: (requestId: number) =>
+    api.get<InfoMessage[]>(`/finance/${requestId}/messages`),
+
+  respond: (requestId: number, message: string) =>
+    api.post<FinanceRequest>(`/finance/${requestId}/respond`, { message }),
 
   fund: (requestId: number) => api.put<FinanceRequest>(`/finance/funded/${requestId}`, {}),
 

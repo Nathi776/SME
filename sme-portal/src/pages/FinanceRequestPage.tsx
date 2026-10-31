@@ -6,6 +6,7 @@ import { FinanceApi } from "../api/financeApi";
 import { useSnackbar } from "notistack";
 import { formatZAR } from "../utils/format";
 import { formatApiErrorDetail } from "../utils/formatApiError";
+import InfoRequestsPanel from "../components/finance/InfoRequestsPanel";
 
 interface Invoice {
   id: number;
@@ -235,6 +236,7 @@ export default function FinanceRequestPage() {
 
   return (
     <div className="space-y-6 pb-12 text-[#071942]">
+      <InfoRequestsPanel />
       {/* Page Header */}
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2 text-xs font-semibold text-[#8f9bba]">

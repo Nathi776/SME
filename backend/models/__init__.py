@@ -13,3 +13,4 @@ from models.business_observation import BusinessObservation
 from models.email_verification import EmailVerificationCode
 from models.data_consent import DataConsent
 from models.checkin_reminder import CheckinReminder
+from models.finance_request_message import FinanceRequestMessage

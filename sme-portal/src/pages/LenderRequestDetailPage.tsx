@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import LenderLayout from "../components/lender/LenderLayout";
 import { LenderApi, type FinanceRequest, type AvailableSme } from "../api/lenderApi";
+import InfoThread from "../components/finance/InfoThread";
+import type { InfoMessage } from "../api/financeApi";
 import { formatZAR } from "../utils/format";
 import { useSnackbar } from "notistack";
 
@@ -91,15 +93,18 @@ export default function LenderRequestDetailPage() {
   const [platformFeePercent, setPlatformFeePercent] = useState<number>(5);
   const [notes, setNotes] = useState("");
   const [submittingDecision, setSubmittingDecision] = useState(false);
+  const [infoDraft, setInfoDraft] = useState("");
+  const [thread, setThread] = useState<InfoMessage[]>([]);
 
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
-      const [requestsRes, smesRes] = await Promise.all([
+      const [requestsRes, awaitingRes, smesRes] = await Promise.all([
         LenderApi.getPendingRequests(),
+        LenderApi.getAwaitingInfo(),
         LenderApi.getAvailableSMEs()
       ]);
-      setDbRequests(requestsRes.data || []);
+      setDbRequests([...(requestsRes.data || []), ...(awaitingRes.data || [])]);
       setAvailableSmes(smesRes.data || []);
     } catch (err) {
       console.error(err);
@@ -147,7 +152,8 @@ export default function LenderRequestDetailPage() {
         ...DEFAULT_UNDERWRITING,
         id: dbReq.id,
         req_code: `REQ-2026-${String(dbReq.id).padStart(3, "0")}`,
-        status: dbReq.status === "pending" ? "Pending Review" : dbReq.status,
+        status: dbReq.status === "pending" ? "Pending Review"
+          : dbReq.status === "info_requested" ? "Awaiting business reply" : dbReq.status,
         submitted_date: submittedStr,
         requested_amount: requested,
         invoice_amount: Math.round(requested * 1.15),
@@ -195,6 +201,34 @@ export default function LenderRequestDetailPage() {
     } catch (err) {
       console.error(err);
       enqueueSnackbar("Failed to approve financing request", { variant: "error" });
+    } finally {
+      setSubmittingDecision(false);
+    }
+  };
+
+  const isAwaitingReply = details?.status === "Awaiting business reply";
+  const isLiveRequest = dbRequests.some((r) => r.id === Number(id));
+
+  useEffect(() => {
+    if (!isLiveRequest) { setThread([]); return; }
+    LenderApi.getMessages(Number(id)).then((res) => setThread(res.data)).catch(() => setThread([]));
+  }, [id, isLiveRequest, dbRequests]);
+
+  const handleRequestInfo = async () => {
+    if (!details) return;
+    const text = infoDraft.trim();
+    if (text.length < 5) {
+      enqueueSnackbar("Write the question you need answered (at least a few words)", { variant: "warning" });
+      return;
+    }
+    try {
+      setSubmittingDecision(true);
+      await LenderApi.requestInfo(details.id, text);
+      enqueueSnackbar("Question sent. The request is paused until the business replies.", { variant: "success" });
+      setInfoDraft("");
+      await loadData();
+    } catch (err: any) {
+      enqueueSnackbar(err?.response?.data?.detail || "Could not send your question", { variant: "error" });
     } finally {
       setSubmittingDecision(false);
     }
@@ -700,11 +734,46 @@ export default function LenderRequestDetailPage() {
                   />
                 </div>
 
+                {thread.length > 0 && (
+                  <div>
+                    <p className="block text-[10px] font-bold text-[#5f6d8a] mb-1.5 uppercase tracking-wide">Conversation</p>
+                    <InfoThread messages={thread} />
+                  </div>
+                )}
+
+                {isLiveRequest && !isAwaitingReply && (
+                  <div>
+                    <label className="block text-[10px] font-bold text-[#5f6d8a] mb-1.5 uppercase tracking-wide">Need more information?</label>
+                    <textarea
+                      rows={2}
+                      maxLength={1000}
+                      placeholder="Ask the business a question before you decide..."
+                      value={infoDraft}
+                      onChange={(e) => setInfoDraft(e.target.value)}
+                      className="w-full rounded-xl border border-[#dfe5f0] bg-white px-3 py-2 text-xs text-[#071942] focus:border-[#4f63f6] focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleRequestInfo}
+                      disabled={submittingDecision}
+                      className="mt-2 w-full rounded-xl border border-amber-400 bg-white hover:bg-amber-50 py-2 text-xs font-bold text-amber-700 transition disabled:opacity-40"
+                    >
+                      Send question and pause decision
+                    </button>
+                  </div>
+                )}
+
+                {isAwaitingReply && (
+                  <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs font-semibold text-amber-800">
+                    Waiting for the business to reply. You can approve or reject once they do.
+                  </p>
+                )}
+
                 <div className="grid grid-cols-2 gap-3 pt-1">
                   <button
                     type="button"
                     onClick={handleReject}
-                    disabled={submittingDecision}
+                    disabled={submittingDecision || isAwaitingReply}
                     className="inline-flex items-center justify-center rounded-xl border border-rose-500 bg-white hover:bg-rose-50 py-2.5 text-xs font-bold text-rose-600 transition active:scale-95 disabled:opacity-40"
                   >
                     Reject Request
@@ -712,7 +781,7 @@ export default function LenderRequestDetailPage() {
                   <button
                     type="button"
                     onClick={handleApprove}
-                    disabled={submittingDecision}
+                    disabled={submittingDecision || isAwaitingReply}
                     className="inline-flex items-center justify-center rounded-xl bg-[#009a65] hover:bg-[#008154] py-2.5 text-xs font-bold text-white transition active:scale-95 disabled:opacity-40 shadow-sm"
                   >
                     {submittingDecision ? "Processing..." : "Approve & Fund"}

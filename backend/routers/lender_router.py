@@ -179,6 +179,7 @@ def get_portfolio_analytics(
     funded_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "funded").count()
     pending_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "pending").count()
     rejected_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "rejected").count()
+    awaiting_info_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "info_requested").count()
 
     # 2. financials
     financials_query = db.query(FinanceRequest).filter(
@@ -239,7 +240,8 @@ def get_portfolio_analytics(
             "approved": approved_apps,
             "funded": funded_apps,
             "pending": pending_apps,
-            "rejected": rejected_apps
+            "rejected": rejected_apps,
+            "awaiting_info": awaiting_info_apps
         },
         "financials": {
             "total_financed": total_financed,

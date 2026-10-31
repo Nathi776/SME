@@ -8,6 +8,7 @@ from models.sme import SME
 from models.invoice import Invoice
 from models.credit_score import CreditScore
 from models.lender import Lender
+from models.finance_request_message import FinanceRequestMessage
 from config import get_settings
 from services.scoring_service import score_sme
 
@@ -183,10 +184,96 @@ def get_finance_requests(db: Session, sme_id: int):
 
 
 def get_pending_finance_requests(db: Session, lender_id: int = None):
+    """Requests a lender can act on now: new (unassigned) ones plus any they have claimed.
+
+    A request is claimed when a lender asks for more information; once the SME
+    answers it returns here for that lender. Requests claimed by another lender
+    are not shown.
+    """
+    from sqlalchemy import or_
+
     query = db.query(FinanceRequest).filter(FinanceRequest.status == "pending")
     if lender_id:
-        query = query.filter(FinanceRequest.lender_id == lender_id)
-    return query.all()
+        query = query.filter(
+            or_(FinanceRequest.lender_id.is_(None), FinanceRequest.lender_id == lender_id)
+        )
+    return query.order_by(FinanceRequest.created_at.desc()).all()
+
+
+def get_awaiting_info_requests(db: Session, lender_id: int):
+    """This lender's requests that are waiting for the SME to answer a question."""
+    return (
+        db.query(FinanceRequest)
+        .filter(FinanceRequest.status == "info_requested", FinanceRequest.lender_id == lender_id)
+        .order_by(FinanceRequest.created_at.desc())
+        .all()
+    )
+
+
+MAX_MESSAGE_LENGTH = 1000
+
+
+def _clean_message(message: str) -> str:
+    text = (message or "").strip()
+    if len(text) < 5:
+        raise ValueError("Message must be at least 5 characters")
+    if len(text) > MAX_MESSAGE_LENGTH:
+        raise ValueError(f"Message must be at most {MAX_MESSAGE_LENGTH} characters")
+    return text
+
+
+def _require_not_claimed_by_other(req: FinanceRequest, lender_id: int) -> None:
+    if req.lender_id is not None and req.lender_id != lender_id:
+        raise ValueError("This request is being handled by another lender")
+
+
+def request_more_information(db: Session, request_id: int, lender_id: int, user_id: int, message: str):
+    """Lender asks the SME a question. Claims the request and pauses the decision."""
+    text = _clean_message(message)
+    req = db.query(FinanceRequest).filter(FinanceRequest.id == request_id).first()
+    if not req:
+        raise ValueError("Finance request not found")
+    if req.status != "pending":
+        raise ValueError(f"Cannot request information on a request with status: {req.status}")
+    _require_not_claimed_by_other(req, lender_id)
+
+    req.lender_id = lender_id
+    req.status = "info_requested"
+    db.add(FinanceRequestMessage(
+        request_id=req.id, author_user_id=user_id, author_role="lender",
+        kind="info_request", message=text,
+    ))
+    db.commit()
+    db.refresh(req)
+    return req
+
+
+def respond_to_information_request(db: Session, request_id: int, user_id: int, message: str):
+    """SME answers; the request goes back to the lender's pending queue."""
+    text = _clean_message(message)
+    req = db.query(FinanceRequest).filter(FinanceRequest.id == request_id).first()
+    if not req:
+        raise ValueError("Finance request not found")
+    if req.status != "info_requested":
+        raise ValueError("This request is not waiting for information")
+
+    req.status = "pending"
+    db.add(FinanceRequestMessage(
+        request_id=req.id, author_user_id=user_id, author_role="sme",
+        kind="response", message=text,
+    ))
+    db.commit()
+    db.refresh(req)
+    return req
+
+
+def get_request_messages(db: Session, request_id: int):
+    return (
+        db.query(FinanceRequestMessage)
+        .filter(FinanceRequestMessage.request_id == request_id)
+        .order_by(FinanceRequestMessage.created_at, FinanceRequestMessage.id)
+        .all()
+    )
 
 
 def approve_finance_request(
@@ -201,6 +288,7 @@ def approve_finance_request(
         raise ValueError("Finance request not found")
     if req.status != "pending":
         raise ValueError(f"Cannot approve request with status: {req.status}")
+    _require_not_claimed_by_other(req, lender_id)
     if approved_amount > req.amount_requested:
         raise ValueError("Approved amount cannot exceed requested amount")
 
@@ -229,6 +317,7 @@ def reject_finance_request(db: Session, request_id: int, lender_id: int):
         raise ValueError("Finance request not found")
     if req.status != "pending":
         raise ValueError(f"Cannot reject request with status: {req.status}")
+    _require_not_claimed_by_other(req, lender_id)
 
     req.lender_id = lender_id
     req.status = "rejected"
