@@ -234,6 +234,20 @@ def reject_request(
         raise HTTPException(status_code=400, detail=str(e))
 
 
+def _require_deal_owner(db: Session, request_id: int, user: User) -> None:
+    """A lender may only move requests they approved; admins may move any.
+
+    Missing requests fall through so the service raises its usual "not found".
+    """
+    if user.role == "admin":
+        return
+    from models.lender import Lender
+    lender = db.query(Lender).filter(Lender.user_id == user.id).first()
+    req = db.query(FinanceRequest).filter(FinanceRequest.id == request_id).first()
+    if req is not None and (lender is None or req.lender_id != lender.id):
+        raise HTTPException(status_code=403, detail="You can only update requests you approved")
+
+
 @router.put("/funded/{request_id}", response_model=FinanceRequestResponse)
 def mark_request_funded(
     request_id: int,
@@ -243,6 +257,7 @@ def mark_request_funded(
     if current_user.role not in {"lender", "admin"}:
         raise HTTPException(status_code=403, detail="Only lenders or admins can mark requests as funded")
 
+    _require_deal_owner(db, request_id, current_user)
     try:
         return mark_finance_request_funded(db, request_id)
     except ValueError as e:
@@ -258,6 +273,7 @@ def mark_request_paid(
     if current_user.role not in {"lender", "admin"}:
         raise HTTPException(status_code=403, detail="Only lenders or admins can mark requests as paid")
 
+    _require_deal_owner(db, request_id, current_user)
     try:
         return mark_finance_request_paid(db, request_id)
     except ValueError as e:
@@ -273,6 +289,7 @@ def mark_request_closed(
     if current_user.role not in {"lender", "admin"}:
         raise HTTPException(status_code=403, detail="Only lenders or admins can close requests")
 
+    _require_deal_owner(db, request_id, current_user)
     try:
         return mark_finance_request_closed(db, request_id)
     except ValueError as e:
