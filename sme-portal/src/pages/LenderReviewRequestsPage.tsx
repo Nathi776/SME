@@ -21,8 +21,8 @@ interface ReviewRequestRow {
   sme_id: number;
   name: string;
   amount: number;
-  score: number;
-  risk: "Low" | "Medium" | "High";
+  score: number | null;
+  risk: "Low" | "Medium" | "High" | null;
   date: string;
   status: string;
 }
@@ -94,8 +94,8 @@ export default function LenderReviewRequestsPage() {
     dbRequests.forEach((req) => {
       const sme = smesById[req.sme_id];
       const name = sme?.company_name || `SME ${req.sme_id}`;
-      const score = sme?.credit_score ?? 72;
-      const risk = sme?.risk_level || "Medium";
+      const score = sme?.credit_score ?? null;
+      const risk = sme?.risk_level ?? null;
       const dateStr = new Date(req.created_at).toLocaleDateString("en-ZA", {
         day: "2-digit",
         month: "short",
@@ -108,7 +108,7 @@ export default function LenderReviewRequestsPage() {
         name,
         amount: Number(req.amount_requested),
         score,
-        risk: risk as any,
+        risk,
         date: dateStr,
         status: req.status
       });
@@ -123,7 +123,7 @@ export default function LenderReviewRequestsPage() {
     const pendingCount = requests.length;
     const totalValue = requests.reduce((sum, r) => sum + r.amount, 0);
     const highRisk = requests.filter((r) => r.risk === "High").length;
-    const readyForApproval = requests.filter((r) => r.score >= 70).length;
+    const readyForApproval = requests.filter((r) => r.score !== null && r.score >= 70).length;
 
     return { pendingCount, totalValue, highRisk, readyForApproval };
   }, [requests]);
@@ -275,7 +275,7 @@ export default function LenderReviewRequestsPage() {
                             : "bg-amber-50 text-amber-700 border-amber-100"
                       }`}
                     >
-                      {row.risk} Risk
+                      {row.risk ? `${row.risk} Risk` : "Not scored"}
                     </span>
                   </div>
                   <div>
@@ -292,7 +292,7 @@ export default function LenderReviewRequestsPage() {
                     <div>
                       <span className="text-[#8f9bba] block text-[9px] uppercase font-bold">Credit Score</span>
                       <span className="inline-flex items-center gap-1.5 rounded bg-[#f5f7ff] px-2 py-0.5 text-xs font-bold text-[#315cff] border border-[#c8d5ff] mt-0.5">
-                        {row.score}
+                        {row.score ?? "—"}
                       </span>
                     </div>
                   </div>
@@ -355,7 +355,7 @@ export default function LenderReviewRequestsPage() {
                       {/* Score */}
                       <td className="py-4 px-4 text-center">
                         <span className="inline-flex min-w-10 justify-center rounded-lg border border-[#c8d5ff] bg-[#f5f7ff] px-2.5 py-1 text-xs font-bold text-[#315cff]">
-                          {row.score}
+                          {row.score ?? "—"}
                         </span>
                       </td>
 
@@ -374,7 +374,7 @@ export default function LenderReviewRequestsPage() {
                                 : "bg-amber-50 text-amber-700 border-amber-100"
                             }`}
                         >
-                          {row.risk} Risk
+                          {row.risk ? `${row.risk} Risk` : "Not scored"}
                         </span>
                       </td>
 

@@ -41,8 +41,8 @@ export default function PendingFinancingRequests({ requests, smeById, onAction }
         sme_id: request.sme_id,
         name: sme?.company_name || `SME ${request.sme_id}`,
         amount: Number(request.amount_requested || 0),
-        score: sme?.credit_score ?? 72,
-        risk: sme?.risk_level || "Medium",
+        score: sme?.credit_score ?? null,
+        risk: sme?.risk_level ?? null,
         date: request.created_at ? formatDate(request.created_at) : "Unknown date",
       };
     });
@@ -154,12 +154,12 @@ export default function PendingFinancingRequests({ requests, smeById, onAction }
                 <td className="px-4 py-4 font-semibold text-[#071942]">{formatZAR(row.amount)}</td>
                 <td className="px-4 py-4">
                   <span className="inline-flex min-w-10 justify-center rounded border border-[#a8ebcf] bg-[#ddf7eb] px-2 py-1 text-xs font-semibold text-[#008b5a]">
-                    {row.score}
+                    {row.score ?? "—"}
                   </span>
                 </td>
                 <td className="px-4 py-4">
-                  <span className={`inline-flex min-w-[68px] justify-center rounded border px-2 py-1 text-xs font-semibold ${riskStyles[row.risk] ?? riskStyles.Medium}`}>
-                    {row.risk}
+                  <span className={`inline-flex min-w-[68px] justify-center rounded border px-2 py-1 text-xs font-semibold ${(row.risk ? riskStyles[row.risk] : null) ?? "bg-slate-50 text-slate-500 border-slate-200"}`}>
+                    {row.risk ?? "Not scored"}
                   </span>
                 </td>
                 <td className="px-4 py-4 text-xs font-medium text-[#31456f]">{row.date}</td>
