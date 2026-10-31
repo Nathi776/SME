@@ -334,7 +334,33 @@ def get_sme_intelligence(
         for o in outcomes_query
     ]
 
+    # Real evidence status per document type: the latest approved record wins, and a newer
+    # pending upload is flagged but never replaces it (same rule the scoring engine uses).
+    from models.verification import Verification
+    from services.evidence_selection import sort_verifications
+
+    by_type: dict = {}
+    for v in sort_verifications(db.query(Verification).filter(Verification.sme_id == sme_id).all()):
+        by_type.setdefault(v.doc_type, []).append(v)
+    documents = []
+    for doc_type, records in sorted(by_type.items()):
+        newest = records[-1]
+        approved = next((r for r in reversed(records) if r.status == "approved"), None)
+        shown = approved or newest
+        documents.append({
+            "doc_type": doc_type,
+            "status": shown.status,
+            "reviewed_at": shown.reviewed_at.isoformat() if shown.reviewed_at else None,
+            "newer_pending": bool(approved and newest is not approved and newest.status == "pending"),
+        })
+
     return {
+        "evidence": {
+            "documents": documents,
+            "funding_readiness": result.score,
+            "viability_score": result.viability_score,
+            "evidence_confidence": result.confidence_score,
+        },
         "sme": {
             "id": sme.id,
             "name": sme.name,

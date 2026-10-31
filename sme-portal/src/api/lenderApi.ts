@@ -14,7 +14,8 @@ export interface LenderProfile {
 export interface FinanceRequest {
   id: number;
   sme_id: number;
-  invoice_id: number;
+  invoice_id: number | null;
+  request_type?: "invoice_backed" | "pre_invoice";
   amount_requested: number;
   approved_amount: number | null;
   fee_rate: number;
@@ -39,7 +40,37 @@ export interface AvailableSme {
   pending_finance_requests: number;
 }
 
+export interface EvidenceDocument {
+  doc_type: string;
+  status: "approved" | "pending" | "rejected" | string;
+  reviewed_at: string | null;
+  newer_pending: boolean;
+}
+
+export interface SmeIntelligence {
+  evidence: {
+    documents: EvidenceDocument[];
+    funding_readiness: number;
+    viability_score: number | null;
+    evidence_confidence: number;
+  };
+  sme: {
+    id: number; name: string; industry: string; province: string | null;
+    business_city: string | null; revenue: number; years_active: number; cipc_verified: boolean;
+  };
+  score: {
+    current: number;
+    decision: string;
+    breakdown: Record<string, { label?: string; contribution?: number; max?: number; applicable?: boolean; missing?: string[]; note?: string }>;
+  };
+  recommendations: { projected_score: number; top_3_actions: { action: string; impact_score: number; difficulty: string }[] };
+  score_history: { score: number; created_at: string }[];
+  outcomes: { id: number; outcome_status: string; score_at_funding: number | null; amount: number; created_at: string }[];
+}
+
 export const LenderApi = {
+  getSmeIntelligence: (smeId: number) => api.get<SmeIntelligence>(`/lenders/sme-intelligence/${smeId}`),
+
   // Profile endpoints
   getProfile: () => api.get<LenderProfile>("/lenders/me"),
   
