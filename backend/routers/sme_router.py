@@ -227,7 +227,7 @@ def sme_dashboard(
             phone=invoice.phone,
             customer_industry=invoice.customer_industry,
             payment_terms=invoice.payment_terms,
-            pdf_url=invoice.pdf_url,
+            pdf_url=f"/invoices/{invoice.id}/pdf" if invoice.pdf_url else None,
             created_at=invoice.created_at,
         )
         for invoice in invoices[:4]

@@ -29,6 +29,7 @@ export default function UploadInvoicePage() {
   const [paymentTerms, setPaymentTerms] = useState<number | "">(30);
 
   // Supporting Documents
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [uploadedFile, setUploadedFile] = useState<{ name: string; size: string } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -95,14 +96,21 @@ export default function UploadInvoicePage() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setUploadedFile({
-        name: file.name,
-        size: (file.size / (1024 * 1024)).toFixed(1) + " MB",
-      });
+  const acceptFile = (file: File) => {
+    if (!file.name.toLowerCase().endsWith(".pdf")) {
+      enqueueSnackbar("Please upload the invoice as a PDF file", { variant: "warning" });
+      return;
     }
+    if (file.size > 10 * 1024 * 1024) {
+      enqueueSnackbar("The PDF is too large (maximum 10 MB)", { variant: "warning" });
+      return;
+    }
+    setPdfFile(file);
+    setUploadedFile({ name: file.name, size: (file.size / (1024 * 1024)).toFixed(1) + " MB" });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) acceptFile(e.target.files[0]);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -117,13 +125,7 @@ export default function UploadInvoicePage() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0];
-      setUploadedFile({
-        name: file.name,
-        size: (file.size / (1024 * 1024)).toFixed(1) + " MB",
-      });
-    }
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) acceptFile(e.dataTransfer.files[0]);
   };
 
   // Eligibility Formulas
@@ -186,9 +188,18 @@ export default function UploadInvoicePage() {
         payment_terms: paymentTerms ? Number(paymentTerms) : undefined,
       });
 
-      enqueueSnackbar("Invoice saved successfully", { variant: "success" });
-
       const newInvoice = res.data.invoice;
+
+      if (pdfFile && newInvoice) {
+        try {
+          await invoiceApi.uploadPdf(newInvoice.id, pdfFile);
+          enqueueSnackbar("Invoice saved successfully", { variant: "success" });
+        } catch {
+          enqueueSnackbar("Invoice saved, but the PDF could not be uploaded. Try attaching it again later.", { variant: "warning" });
+        }
+      } else {
+        enqueueSnackbar("Invoice saved successfully", { variant: "success" });
+      }
 
       if (requestFinanceAfterSave && newInvoice) {
         // Redirect directly to the finance requests page with this invoice preselected
@@ -460,7 +471,7 @@ export default function UploadInvoicePage() {
                   <input
                     type="file"
                     id="invoice-file"
-                    accept=".pdf,.jpg,.jpeg,.png"
+                    accept=".pdf"
                     onChange={handleFileChange}
                     className="hidden"
                   />
