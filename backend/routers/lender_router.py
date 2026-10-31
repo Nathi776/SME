@@ -359,10 +359,16 @@ def get_sme_intelligence(
     }
 
 @router.get("/{lender_id}", response_model=LenderResponse)
-def get_lender(lender_id: int, db: Session = Depends(get_db)):
-    """Get lender details by ID."""
+def get_lender(
+    lender_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Lender details (contact email, phone, lending limits): the lender themself or an admin only."""
     lender = db.query(Lender).filter(Lender.id == lender_id).first()
     if not lender:
         raise HTTPException(status_code=404, detail="Lender not found")
+    if current_user.role != "admin" and lender.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Unauthorized access")
     return lender
 
