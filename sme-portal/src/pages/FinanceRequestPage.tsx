@@ -57,7 +57,7 @@ export default function FinanceRequestPage() {
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<number | "">("");
   const [requestedAmount, setRequestedAmount] = useState<number>(0);
   const [purpose, setPurpose] = useState("Working Capital");
-  const [payoutDate, setPayoutDate] = useState("2026-06-15");
+  const [payoutDate, setPayoutDate] = useState(() => new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10));
   const [additionalNotes, setAdditionalNotes] = useState("");
 
   // Terms Checkboxes
@@ -66,7 +66,7 @@ export default function FinanceRequestPage() {
   const [term3, setTerm3] = useState(false);
 
   // SME Details & Credit Score
-  const [creditScore, setCreditScore] = useState<number | null>(78);
+  const [creditScore, setCreditScore] = useState<number | null>(null);
   const [pricingParams, setPricingParams] = useState<{ fee_rate: number; advance_rate: number } | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -75,7 +75,7 @@ export default function FinanceRequestPage() {
       setLoading(true);
       const dashboardRes = await api.get("/smes/dashboard");
       const smeId = dashboardRes.data.sme_id;
-      const scoreVal = dashboardRes.data.credit_score ?? 78;
+      const scoreVal = dashboardRes.data.credit_score ?? null;
       setCreditScore(scoreVal);
 
       const [invoicesRes, requestsRes, pricingRes] = await Promise.all([
@@ -156,7 +156,7 @@ export default function FinanceRequestPage() {
 
   // Derived financial previews
   const previewMetrics = useMemo(() => {
-    const scoreVal = creditScore ?? 78;
+    const scoreVal = creditScore ?? 0;
     const advRate = pricingParams ? pricingParams.advance_rate : calculateEligibleAmount(1, scoreVal);
     const feeRate = pricingParams ? pricingParams.fee_rate : getFeeRate(scoreVal);
     const advanceRate = Math.round(advRate * 100);
@@ -204,7 +204,7 @@ export default function FinanceRequestPage() {
       if (!selectedInvoiceId) return false;
       if (requestedAmount > previewMetrics.maxEligible) return false;
     } else {
-      const scoreVal = creditScore ?? 78;
+      const scoreVal = creditScore ?? 0;
       if (scoreVal < 50) return false;
     }
     return true;

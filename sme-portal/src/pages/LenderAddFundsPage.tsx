@@ -48,21 +48,15 @@ export default function LenderAddFundsPage() {
   // Form states
   const [amountInput, setAmountInput] = useState<string>("100000");
   const [fundingMethod, setFundingMethod] = useState<string>("EFT Transfer");
-  const [referenceName, setReferenceName] = useState<string>("Mokoena Electrical (Pty) Ltd");
-  const [expectedDate, setExpectedDate] = useState<string>("2026-06-23");
+  const [referenceName, setReferenceName] = useState<string>("");
+  const [expectedDate, setExpectedDate] = useState<string>(() => new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10));
 
   // Inline edit state for target capital
   const [isEditingTarget, setIsEditingTarget] = useState<boolean>(false);
   const [targetCapitalInput, setTargetCapitalInput] = useState<string>("5000000");
 
   // History state
-  const [deposits, setDeposits] = useState<DepositRecord[]>([
-    { date: "20 Jun 2026", reference: "DEP-2026-0548", amount: 50000, method: "EFT Transfer", status: "Completed" },
-    { date: "15 Jun 2026", reference: "DEP-2026-0512", amount: 100000, method: "Instant EFT", status: "Completed" },
-    { date: "10 Jun 2026", reference: "DEP-2026-0481", amount: 25000, method: "Bank Transfer", status: "Pending" },
-    { date: "05 Jun 2026", reference: "DEP-2026-0440", amount: 75000, method: "EFT Transfer", status: "Completed" },
-    { date: "01 Jun 2026", reference: "DEP-2026-0415", amount: 200000, method: "EFT Transfer", status: "Failed" }
-  ]);
+  const [deposits, setDeposits] = useState<DepositRecord[]>([]);
 
   // Derived capital stats
   const currentCapital = useMemo(() => {
@@ -92,7 +86,7 @@ export default function LenderAddFundsPage() {
     // Add to deposit history list
     const newRecord: DepositRecord = {
       date: new Date(expectedDate).toLocaleDateString("en-ZA", { day: "2-digit", month: "short", year: "numeric" }),
-      reference: `DEP-2026-0${Math.floor(Math.random() * 900) + 100}`,
+      reference: `DEP-${Date.now().toString().slice(-6)}`,
       amount,
       method: fundingMethod,
       status: "Pending"
