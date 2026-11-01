@@ -5,27 +5,27 @@ import axios from "axios";
 import type { LucideIcon } from "lucide-react";
 import {
   BarChart2,
-  CheckCircle,
+  
   CheckCircle2,
-  ChevronDown,
-  Clock,
+  
+  
   Eye,
   EyeOff,
   FileText,
-  Globe,
-  HeadphonesIcon,
+  
+  
   Loader2,
   Lock,
   Mail,
-  Menu,
+  
   ShieldCheck,
   Target,
   TrendingUp,
   Upload,
   User,
   UserRound,
-  Building2,
-  Bell,
+  
+  
   X,
 } from "lucide-react";
 import { AuthApi } from "../api/authApi";
@@ -181,7 +181,6 @@ function Feature({ icon: Icon, title, desc, color }: FeatureProps) {
 export default function LenderRegisterPage() {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const displayName = useMemo(() => sessionStorage.getItem("username") || sessionStorage.getItem("email") || "User", []);
 
   const [step, setStep] = useState(1);
 

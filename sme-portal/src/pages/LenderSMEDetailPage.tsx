@@ -4,16 +4,16 @@ import {
   ArrowLeft,
   CheckCircle,
   AlertCircle,
-  XCircle,
+  
   HelpCircle,
-  Calendar,
+  
   Building,
   MapPin,
   Clock,
-  Sparkles,
+  
   TrendingUp,
-  UserCheck,
-  ShieldCheck,
+  
+  
   FileText
 } from "lucide-react";
 import {

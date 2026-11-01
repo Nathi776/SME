@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { 
   Search, Plus, RotateCcw, Eye, ChevronLeft, ChevronRight, 
   X, Calendar, Phone, Mail, MapPin, Briefcase, Award, 
-  FileText, ShieldAlert, BadgePercent, Star, ArrowRight, Edit, 
-  Check, FileSpreadsheet, Users
+  FileText, Star, ArrowRight, Edit, 
+  FileSpreadsheet, Users
 } from "lucide-react";
 import { customerApi, Customer } from "../api/customerApi";
 import { formatZAR } from "../utils/format";
@@ -66,27 +66,23 @@ export default function CustomersPage() {
       setCustomers(res.data.customers);
       setStats(res.data.stats);
       
-      // Auto-select first customer if available and nothing is selected
-      if (res.data.customers.length > 0 && !selectedCustomer) {
-        // Find ABC Manufacturing as default, otherwise pick first
-        const abc = res.data.customers.find(c => c.company_name.includes("ABC Manufacturing"));
-        setSelectedCustomer(abc || res.data.customers[0]);
-      } else if (selectedCustomer) {
-        // Refresh selected customer details
-        const updated = res.data.customers.find(c => c.company_name === selectedCustomer.company_name);
-        if (updated) setSelectedCustomer(updated);
-      }
+      // Keep the current selection (refreshed) or fall back to the first customer
+      const list = res.data.customers;
+      setSelectedCustomer((prev) => {
+        if (prev) return list.find((c) => c.company_name === prev.company_name) ?? prev;
+        return list[0] ?? null;
+      });
     } catch (err) {
       console.error("Failed to load customers", err);
       enqueueSnackbar("Failed to load customers", { variant: "error" });
     } finally {
       setLoading(false);
     }
-  }, [enqueueSnackbar, selectedCustomer]);
+  }, [enqueueSnackbar]);
 
   useEffect(() => {
     fetchCustomersData();
-  }, []);
+  }, [fetchCustomersData]);
 
   // Filter logic
   const filteredCustomers = useMemo(() => {
