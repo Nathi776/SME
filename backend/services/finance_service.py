@@ -63,6 +63,10 @@ def calculate_eligible_amount(
         return base_amount * Decimal("0.90")
 
 
+# A request in any of these states still ties up its invoice or its funds.
+ACTIVE_REQUEST_STATUSES = ("pending", "info_requested", "approved", "funded")
+
+
 def create_finance_request(
     db: Session,
     sme_id: int,
@@ -95,6 +99,15 @@ def create_finance_request(
             raise ValueError("Invoice not found or does not belong to this SME")
         if (invoice.status or "").lower() == "paid":
             raise ValueError("Cannot finance a paid invoice")
+        already = db.query(FinanceRequest).filter(
+            FinanceRequest.invoice_id == invoice_id,
+            FinanceRequest.status.in_(ACTIVE_REQUEST_STATUSES),
+        ).first()
+        if already:
+            raise ValueError(
+                "This invoice already has an active financing request. "
+                "Wait for it to be decided before applying again."
+            )
 
     # Create and retain the assessment used for this finance application.
     assessment_result = score_sme(sme, db)
@@ -147,6 +160,11 @@ def create_finance_request(
                 f"Your current assessment score ({score_value}) does not meet the minimum "
                 "threshold for pre-invoice funding. Improve your score by verifying "
                 "your documents and updating your business profile."
+            )
+
+        if sme.revenue is not None and amount > _to_decimal(sme.revenue):
+            raise ValueError(
+                "Requested amount cannot exceed your business's stated annual revenue."
             )
 
         fee_rate = calculate_fee_rate(score_value)

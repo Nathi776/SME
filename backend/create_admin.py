@@ -1,3 +1,5 @@
+import getpass
+import os
 import sys
 from pathlib import Path
 
@@ -20,8 +22,10 @@ from services.auth_service import hash_password
 
 def main():
     username = "admin"
-    email = "admin@example.com"
-    password = "AdminPass123"
+    email = (os.environ.get("ADMIN_EMAIL") or input("Admin email: ")).strip().lower()
+    password = os.environ.get("ADMIN_PASSWORD") or getpass.getpass("Admin password: ")
+    if len(password) < 12:
+        raise SystemExit("Use a password of at least 12 characters.")
 
     db = SessionLocal()
     try:
