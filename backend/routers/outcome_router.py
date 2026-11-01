@@ -222,15 +222,28 @@ def get_outcome_history(
     """
     Retrieve outcome history.
     - SMEs see their own outcome history.
-    - Lenders and Admins see all outcome records in the system.
+    - Lenders see outcomes of the deals they funded; admins see all.
     """
     if current_user.role == "sme":
         sme = db.query(SME).filter(SME.user_id == current_user.id).first()
         if not sme:
             raise HTTPException(status_code=404, detail="SME profile not found")
         outcomes = db.query(SmeOutcome).filter(SmeOutcome.sme_id == sme.id).all()
-    elif current_user.role in {"lender", "admin"}:
+    elif current_user.role == "admin":
         outcomes = db.query(SmeOutcome).all()
+    elif current_user.role == "lender":
+        # A lender sees outcomes of the deals it funded, not other lenders' deals.
+        from models.lender import Lender
+        from models.finance_request import FinanceRequest
+        lender = db.query(Lender).filter(Lender.user_id == current_user.id).first()
+        if not lender:
+            raise HTTPException(status_code=404, detail="Lender profile not found")
+        outcomes = (
+            db.query(SmeOutcome)
+            .join(FinanceRequest, FinanceRequest.id == SmeOutcome.finance_request_id)
+            .filter(FinanceRequest.lender_id == lender.id)
+            .all()
+        )
     else:
         raise HTTPException(status_code=403, detail="Not authorized to view outcomes")
 
