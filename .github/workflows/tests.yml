@@ -44,6 +44,5 @@ jobs:
         run: npx tsc --noEmit
       - name: Tests
         run: CI=true npx react-scripts test --watchAll=false
-      # Clean those up, then drop this override.
       - name: Production build
         run: CI=true npm run build
