@@ -15,8 +15,8 @@ export default function UploadInvoicePage() {
   const [clientName, setClientName] = useState("");
   const [invoiceNumber, setInvoiceNumber] = useState("");
   const [invoiceAmount, setInvoiceAmount] = useState<number | "">("");
-  const [issueDate, setIssueDate] = useState("2026-06-01");
-  const [dueDate, setDueDate] = useState("2026-06-30");
+  const [issueDate, setIssueDate] = useState(() => new Date().toISOString().slice(0, 10));
+  const [dueDate, setDueDate] = useState(() => new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10));
   const [currency, setCurrency] = useState("ZAR");
   const [description, setDescription] = useState("");
 
@@ -34,7 +34,7 @@ export default function UploadInvoicePage() {
   const [isDragging, setIsDragging] = useState(false);
 
   // SME Credit Score
-  const [creditScore, setCreditScore] = useState<number | null>(78); // Default score is 78 (780)
+  const [creditScore, setCreditScore] = useState<number | null>(null);
   const [loadingScore, setLoadingScore] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -130,7 +130,7 @@ export default function UploadInvoicePage() {
 
   // Eligibility Formulas
   const getEligibilityMetrics = () => {
-    const scoreVal = creditScore ?? 78; // Default 78
+    const scoreVal = creditScore ?? 0; // unknown score: use the most cautious band
     const amountVal = Number(invoiceAmount) || 0;
 
     // Advance Rate: <40 = 60%, <60 = 70%, <80 = 80%, 80+ = 90%

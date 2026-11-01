@@ -1,4 +1,5 @@
-﻿import secrets
+﻿import logging
+import secrets
 from datetime import datetime
 from core.time_utils import utc_now
 from fastapi import Header, Depends, HTTPException, status
@@ -36,7 +37,9 @@ def verify_api_key(raw_key: str, db: Session) -> APIKey | None:
                 db.commit()
                 db.refresh(key_record)
                 return key_record
-        except Exception:
+        except (ValueError, TypeError):
+            # a malformed stored hash; skip it, but make it visible
+            logging.getLogger(__name__).warning("Unreadable hash on API key %s", key_record.id)
             continue
     return None
 
