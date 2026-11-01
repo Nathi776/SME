@@ -11,12 +11,11 @@ import {
   Briefcase,
   ArrowRight,
   Info,
-  ArrowRightLeft,
+  
   HelpCircle,
   X,
-  CheckCircle2,
-  Users
-} from "lucide-react";
+  
+  } from "lucide-react";
 import LenderLayout from "../components/lender/LenderLayout";
 import { LenderApi, type FinanceRequest, type AvailableSme } from "../api/lenderApi";
 import { FinanceApi } from "../api/financeApi";
@@ -48,7 +47,6 @@ export default function LenderFundADealPage() {
   // API loading states
   const [dbRequests, setDbRequests] = useState<FinanceRequest[]>([]);
   const [availableSmes, setAvailableSmes] = useState<AvailableSme[]>([]);
-  const [loading, setLoading] = useState(false);
 
   // UI state for capital/portfolio
   const [availableCapital, setAvailableCapital] = useState<number>(500000);
@@ -83,7 +81,6 @@ export default function LenderFundADealPage() {
 
   const loadData = useCallback(async () => {
     try {
-      setLoading(true);
       const [requestsRes, smesRes] = await Promise.all([
         LenderApi.getPendingRequests(),
         LenderApi.getAvailableSMEs()
@@ -94,7 +91,6 @@ export default function LenderFundADealPage() {
       console.error(err);
       enqueueSnackbar("Failed to fetch pending requests from database", { variant: "error" });
     } finally {
-      setLoading(false);
     }
   }, [enqueueSnackbar]);
 

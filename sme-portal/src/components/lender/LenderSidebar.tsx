@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  LayoutDashboard, Briefcase, ArrowRightLeft, Users, BarChart2,
+  LayoutDashboard, Briefcase, ArrowRightLeft, BarChart2,
   LogOut, Home, Settings, ShieldCheck, BadgeDollarSign, Wallet, TrendingUp
 } from "lucide-react";
 import { logout } from "../../utils/auth";

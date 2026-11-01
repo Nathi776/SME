@@ -5,7 +5,7 @@ import {
   Users,
   DollarSign,
   Percent,
-  TrendingDown,
+  
   ChevronRight,
   Filter,
   BarChart3,
@@ -21,7 +21,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
+  
   PieChart,
   Pie,
   Cell

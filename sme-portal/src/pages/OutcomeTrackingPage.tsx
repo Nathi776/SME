@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  Activity, Calendar, DollarSign, CheckCircle2, XCircle, AlertCircle,
+  Calendar, DollarSign, CheckCircle2, XCircle, AlertCircle,
   Loader2, ChevronDown, ChevronUp, RefreshCw, BarChart2, Briefcase
 } from "lucide-react";
 import { OutcomeApi, type SmeOutcome, type CheckinSubmit } from "../api/outcomeApi";
