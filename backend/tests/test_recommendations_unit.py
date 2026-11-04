@@ -51,8 +51,9 @@ def test_recommendations_s1_brand_new_business():
     #    - lease_agreement: 3 pts
     # 5. Founder Signal: 15 pts (Complete founder profile)
     
-    # Total recommendations should be 14 (1 for revenue, 1 for market, 4 for compliance docs, 3 for intent docs, 5 for founder signal detail gaps)
-    assert len(plan.recommendations) == 14
+    # Total recommendations should be 13 (1 for revenue, 4 for compliance docs, 3 for intent docs,
+    # 5 for founder signal detail gaps). Province is context only, so there is no province recommendation.
+    assert len(plan.recommendations) == 13
     
     # Follow all recommendations -> projected decision is Approved (score >= 75)
     assert plan.projected_score >= 75.0

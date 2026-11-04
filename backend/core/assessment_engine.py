@@ -298,7 +298,8 @@ class StrategyFactory:
         """
         Resolves the scoring weight strategy for the given stage profile.
         """
-        return STRATEGIES[profile], "v1"
+        # v2: sector and province are contextual only; missing documents earn neutral credit.
+        return STRATEGIES[profile], "v2"
 
 
 # ── Score Calculator ──────────────────────────────────────────────────────────
@@ -445,16 +446,15 @@ class ScoreCalculator:
                 "applicable": False
             }
         else:
-            applicable_max += strategy.industry_max
-            survival     = sector_survival_score(inp.industry)
-            industry_pts = round(_scale(survival, 0.38, 0.72, strategy.industry_max * 0.3, strategy.industry_max), 1)
-
-            raw += industry_pts
+            # Contextual only: sector survival describes a broad market, not this business,
+            # so it explains the assessment but does not move the score or the decision.
+            survival = sector_survival_score(inp.industry)
             breakdown["Industry Risk"] = {
                 "value": survival, "label": intel["survival_label"],
-                "contribution": industry_pts, "max": strategy.industry_max,
+                "contribution": 0.0, "max": 0.0,
                 "sector_survival_rate": survival,
-                "applicable": True
+                "contextual": True, "applicable": False,
+                "note": "Sector context: shown for information, not used to decide the score.",
             }
 
         # 6. Market Viability
@@ -467,23 +467,22 @@ class ScoreCalculator:
                 "applicable": False
             }
         else:
-            applicable_max += strategy.market_max
+            # Contextual only: provincial indicators do not establish the viability of an
+            # individual business, so they are reported but never change the score.
             if inp.province:
                 mkt_score    = province_market_score(inp.province, inp.industry)
-                market_pts   = round(_scale(mkt_score, 0.30, 1.00, strategy.market_max * 0.3, strategy.market_max), 1)
                 market_label = intel["market_label"]
-                market_note  = None
+                market_note  = "Province context: shown for information, not used to decide the score."
             else:
-                mkt_score, market_pts = None, round(strategy.market_max * 0.5, 1)
-                market_label = "Province not specified — neutral score applied"
-                market_note  = "Add your province to improve this factor"
+                mkt_score    = None
+                market_label = "Province not specified"
+                market_note  = "Add your province to see local market context. It does not change your score."
 
-            raw += market_pts
             breakdown["Market Viability"] = {
                 "value": mkt_score, "label": market_label,
-                "contribution": market_pts, "max": strategy.market_max,
+                "contribution": 0.0, "max": 0.0,
                 "province": inp.province, "note": market_note,
-                "applicable": True
+                "contextual": True, "applicable": False,
             }
 
         # 7. Compliance Documents
@@ -503,12 +502,20 @@ class ScoreCalculator:
 
             comp_scale = strategy.compliance_max / MAX_COMPLIANCE_POINTS
 
+            # Missing is not the same as negative. A document that has not been supplied (or is
+            # still pending) earns neutral half credit, like other missing evidence in this engine,
+            # so informality alone does not push a business down. A document that was reviewed
+            # and rejected is negative evidence and earns nothing. Missing documents still lower
+            # Evidence Confidence, and are listed so the gap is visible.
             for doc_type, base_pts in COMPLIANCE_POINTS.items():
-                if inp.verifications.get(doc_type) == "approved":
+                status = inp.verifications.get(doc_type)
+                if status == "approved":
                     comp_pts += round(base_pts * comp_scale, 1)
                     verified_compliance.append(doc_type)
                 else:
                     missing_compliance.append(doc_type)
+                    if status != "rejected":
+                        comp_pts += round(base_pts * comp_scale * 0.5, 1)
 
             bs_bonus, bs_bonus_detail = 0.0, []
             bank_statement_approved = (

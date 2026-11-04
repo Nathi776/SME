@@ -349,8 +349,14 @@ class TestAssessmentEngine:
         assert result.breakdown["Business Age"]["applicable"] is True
         assert result.breakdown["Founder Signal"]["applicable"] is True
 
-        # Denominator raw_max in breakdown should be the sum of applicable factors (92.0)
-        assert result.breakdown["_assessment"]["raw_max"] == 92.0
+        # Sector and province are contextual: reported in the breakdown but never scored
+        for name in ("Industry Risk", "Market Viability"):
+            assert result.breakdown[name]["contextual"] is True
+            assert result.breakdown[name]["applicable"] is False
+            assert result.breakdown[name]["contribution"] == 0.0
+
+        # Denominator raw_max in breakdown is the sum of applicable (scored) factors (65.0)
+        assert result.breakdown["_assessment"]["raw_max"] == 65.0
 
     def test_confidence_score_calculation(self):
         # 1. Low evidence profile: no verifications, no founder, self-reported revenue
@@ -449,17 +455,17 @@ class TestAssessmentEngine:
         # 2. StrategyFactory
         strategy, strategy_ver = StrategyFactory.get_strategy(profile_res.profile)
         assert strategy.name == "IdeaAssessmentStrategy"
-        assert strategy_ver == "v1"
+        assert strategy_ver == "v2"
         
         # 3. assess() audit version headers
         res = assess(inp)
         assert res.inference_version == "v1"
-        assert res.strategy_version == "v1"
+        assert res.strategy_version == "v2"
         
         # 4. breakdown metadata contains version strings
         meta = res.breakdown["_assessment"]
         assert meta["inference_version"] == "v1"
-        assert meta["strategy_version"] == "v1"
+        assert meta["strategy_version"] == "v2"
 
     def test_zero_division_guard_when_all_factors_unavailable(self, monkeypatch):
         from core.assessment_engine import ProfileInferenceService

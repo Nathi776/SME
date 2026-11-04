@@ -333,9 +333,9 @@ for i in range(100):
     unpaid = random.choice([2, 3])  # slightly more unpaid to lower scores safely
     paid = total_invoices - unpaid
     
-    # Construction in lowest economic activity provinces (Limpopo, North West, Free State)
-    # resolves to Declined due to extreme risk weighting. Others (EC, NC) manage to land in Review.
-    is_extreme_risk_construction = (ind == "Construction" and prov in ["Limpopo", "North West", "Free State"])
+    # Sector and province are contextual only: they explain the assessment but do not decide it,
+    # so a Construction business in Limpopo is judged on its own evidence like any other.
+    is_extreme_risk_construction = False
     expected_decision = "Declined" if is_extreme_risk_construction else "Review"
     score_range = [10.0, 49.9] if is_extreme_risk_construction else [50.0, 74.9]
     

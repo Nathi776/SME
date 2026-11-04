@@ -166,10 +166,11 @@ def test_create_finance_request_invoice_backed(db):
     Expected fee rate: 5%.
     """
     # Seed an SME that the live engine will score in the 50–74 band.
-    # Revenue=200k + 4 compliance docs + 5 paid invoices → GROWTH profile → ~60
+    # Revenue=200k + 4 compliance docs + 10 paid invoices → GROWTH profile → ~50-60
+    # (sector and province are context only and no longer add points)
     sme = _seed_user_and_sme(db, revenue=Decimal("200000"), years_active=1)
     _add_verifications(db, sme, "cipc", "tax_clearance", "bank_statement", "registration_docs")
-    _add_paid_invoices(db, sme, count=5)
+    _add_paid_invoices(db, sme, count=10)
     db.commit()
 
     # Add the invoice to finance

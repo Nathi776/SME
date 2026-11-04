@@ -52,6 +52,7 @@ interface SMEIntelligence {
         contribution: number;
         max: number;
         note?: string | null;
+        contextual?: boolean;
       }
     >;
   };
@@ -248,6 +249,17 @@ export default function LenderSMEDetailPage() {
             <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400">Readiness Score Breakdown</h3>
             <div className="space-y-3.5 divide-y divide-gray-50">
               {Object.entries(score.breakdown).map(([factor, bd]) => {
+                if (bd.contextual) {
+                  return (
+                    <div key={factor} className="pt-3 first:pt-0">
+                      <div className="flex justify-between items-center text-xs font-semibold mb-1.5">
+                        <span className="text-gray-700">{factor}</span>
+                        <span className="text-gray-400">Context only, not scored</span>
+                      </div>
+                      <p className="text-[10px] text-gray-400 leading-relaxed">{bd.label}</p>
+                    </div>
+                  );
+                }
                 const percentage = bd.max > 0 ? (bd.contribution / bd.max) * 100 : 0;
                 let barColorClass = "bg-red-500";
                 if (percentage >= 80) barColorClass = "bg-green-500";
