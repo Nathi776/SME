@@ -66,7 +66,7 @@ export interface SMECreate {
   industry: string;
   revenue: number;
   years_active?: number;
-  province?: string | null;       // feeds Market Viability factor in scoring engine
+  province?: string | null;       // market context only; does not affect the score
   business_city?: string | null;
   description?: string;
 }

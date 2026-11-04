@@ -167,7 +167,7 @@ export default function SettingsPage() {
               ))}
             </select>
             <p className="mt-1 text-[10px] text-gray-400">
-              * Feeds directly into your Market Viability score.
+              * Used to show local market context. It does not change your score.
             </p>
           </div>
 

@@ -19,6 +19,7 @@ Output contract: RecommendationPlan dataclass
 """
 
 from __future__ import annotations
+from contextvars import ContextVar
 from dataclasses import dataclass, field
 from typing import Literal
 
@@ -97,9 +98,15 @@ DIFFICULTY_MAP = {
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+# Points the score is measured against for the plan being built. The assessment engine
+# normalises by the points available to *this* business (idea-stage businesses and contextual
+# factors reduce it), so impact must be expressed on that same basis, not the fixed 140.
+_SCORE_BASIS: ContextVar[float] = ContextVar("score_basis", default=RAW_MAX)
+
+
 def _rescale(raw_pts: float) -> float:
     """Convert raw pts gain to rescaled score impact."""
-    return round((raw_pts / RAW_MAX) * 100, 1)
+    return round((raw_pts / _SCORE_BASIS.get()) * 100, 1)
 
 
 def _factor_status(current: float, maximum: float) -> Literal["Strong", "Moderate", "Weak", "Missing"]:
@@ -121,6 +128,18 @@ def _determine_decision(score: float) -> str:
 # ── Main function ─────────────────────────────────────────────────────────────
 
 def generate_plan(
+    breakdown: dict[str, dict],
+    current_score: float,
+) -> RecommendationPlan:
+    basis = float((breakdown.get("_assessment") or {}).get("raw_max") or RAW_MAX)
+    token = _SCORE_BASIS.set(basis)
+    try:
+        return _generate_plan(breakdown, current_score)
+    finally:
+        _SCORE_BASIS.reset(token)
+
+
+def _generate_plan(
     breakdown: dict[str, dict],
     current_score: float,
 ) -> RecommendationPlan:
@@ -231,42 +250,9 @@ def generate_plan(
         ))
         total_possible_gain_raw += unp_gap
 
-    # 5. Industry Risk — not directly actionable
-    ind = breakdown.get("Industry Risk", {})
-    ind_current = ind.get("contribution", 0)
-    ind_max     = ind.get("max", 10)
-    factor_statuses.append(FactorStatus(
-        "Industry Risk", ind_current, ind_max,
-        round(ind_current / ind_max * 100) if ind_max else 0, _factor_status(ind_current, ind_max),
-        ind_max - ind_current
-    ))
-
-    # 6. Market Viability
-    mkt = breakdown.get("Market Viability", {})
-    mkt_current = mkt.get("contribution", 0)
-    mkt_max     = mkt.get("max", 10)
-    mkt_gap     = mkt_max - mkt_current
-    factor_statuses.append(FactorStatus(
-        "Market Viability", mkt_current, mkt_max,
-        round(mkt_current / mkt_max * 100) if mkt_max else 0, _factor_status(mkt_current, mkt_max), mkt_gap
-    ))
-    if mkt.get("province") is None:
-        # Province not set — easy win
-        recommendations.append(Recommendation(
-            category="Market Position",
-            action="Add your province in your business profile settings",
-            reason=(
-                "Your province is not set. Province data feeds the Market Viability "
-                "factor and can add up to 10 points depending on your location and sector."
-            ),
-            impact_pts=5.0,   # gain from neutral (5) to likely value
-            impact_score=_rescale(5.0),
-            difficulty="Easy",
-            time_estimate="5 minutes",
-            doc_type=None,
-            priority=0,
-        ))
-        total_possible_gain_raw += 5.0
+    # 5-6. Industry Risk and Market Viability are contextual only (they explain the market the
+    # business operates in but do not affect the score), so they are not scored factors here and
+    # there is nothing for the business to "improve" or any points to gain from them.
 
     # 7. Compliance Documents
     comp = breakdown.get("Compliance Documents", {})
@@ -371,8 +357,9 @@ def generate_plan(
         rec.priority = i + 1
 
     # ── Projected score ───────────────────────────────────────────────────────
-    projected_raw   = min((current_score / 100) * RAW_MAX + total_possible_gain_raw, RAW_MAX)
-    projected_score = round(min((projected_raw / RAW_MAX) * 100, 100), 1)
+    basis           = _SCORE_BASIS.get()
+    projected_raw   = min((current_score / 100) * basis + total_possible_gain_raw, basis)
+    projected_score = round(min((projected_raw / basis) * 100, 100), 1)
 
     return RecommendationPlan(
         current_score=current_score,
@@ -382,7 +369,7 @@ def generate_plan(
         recommendations=recommendations,
         factor_statuses=factor_statuses,
         summary=_generate_summary(current_score, projected_score, recommendations),
-        raw_max=RAW_MAX,
+        raw_max=basis,
     )
 
 

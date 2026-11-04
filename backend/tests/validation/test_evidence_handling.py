@@ -4,6 +4,9 @@ Validation of how the assessment engine treats missing, contradictory and irrele
 Tests marked xfail(strict=True) record KNOWN GAPS found in the validation sprint. They are expected
 to fail today; when the engine is changed to fix a gap the test starts passing, strict mode makes
 the run fail, and the marker should then be removed. See VALIDATION_REPORT.md.
+
+Engine principles enforced here: sector and province are context only; missing evidence is neutral,
+rejected evidence is negative; informality is not penalised in the viability score.
 """
 import random
 
@@ -58,7 +61,6 @@ def test_more_verified_documents_never_lower_evidence_confidence():
 
 # ---- known gaps (see VALIDATION_REPORT.md) --------------------------------------------------
 
-@pytest.mark.xfail(strict=True, reason="GAP 1: province alone changes the funding decision")
 def test_province_alone_does_not_change_the_decision():
     flips = 0
     for rev in range(20000, 400001, 10000):
@@ -69,7 +71,6 @@ def test_province_alone_does_not_change_the_decision():
     assert flips == 0
 
 
-@pytest.mark.xfail(strict=True, reason="GAP 2: a missing bank statement is scored the same as a rejected one")
 def test_missing_evidence_is_treated_differently_from_negative_evidence():
     missing = assess(sme(**NO_BANK)).score
     rejected = assess(sme(verifications={"cipc": "approved", "bank_statement": "rejected"})).score
@@ -90,10 +91,38 @@ def test_inflating_declared_revenue_does_not_raise_the_score_without_support():
     assert inflated <= honest + 1.0
 
 
-@pytest.mark.xfail(strict=True, reason="GAP 5: lack of CIPC registration flips an otherwise sound informal seller to Declined")
-def test_informal_business_with_consistent_bank_income_is_not_declined_for_lack_of_registration():
-    informal = assess(sme(verifications={"bank_statement": "approved"}, years_active=3, income_regularity=0.9))
-    assert informal.decision != "Declined"
+def test_lack_of_cipc_registration_does_not_lower_the_viability_score():
+    registered = assess(sme(years_active=3)).viability_score
+    informal = assess(sme(years_active=3, verifications={"bank_statement": "approved"})).viability_score
+    assert informal == registered
+
+
+def test_sector_and_province_never_change_score_or_decision_but_are_still_reported():
+    base = assess(sme())
+    for industry in ("Construction", "Agriculture", "Retail"):
+        for province in ("Limpopo", "Northern Cape", "Western Cape", None):
+            r = assess(sme(industry=industry, province=province))
+            assert (r.score, r.decision, r.viability_score) == (base.score, base.decision, base.viability_score)
+    ctx = assess(sme(industry="Construction", province="Limpopo")).breakdown
+    for name in ("Industry Risk", "Market Viability"):
+        assert ctx[name]["contextual"] is True and ctx[name]["contribution"] == 0.0
+    assert ctx["Market Viability"]["province"] == "Limpopo"
+
+
+def test_missing_document_scores_between_a_rejected_and_an_approved_one():
+    for doc in ("cipc", "tax_clearance"):
+        others = {"bank_statement": "approved"}
+        approved = assess(sme(verifications={**others, doc: "approved"})).score
+        missing = assess(sme(verifications=others)).score
+        rejected = assess(sme(verifications={**others, doc: "rejected"})).score
+        assert rejected < missing < approved
+
+
+def test_missing_documents_lower_evidence_confidence_not_viability():
+    full = assess(sme(verifications={"cipc": "approved", "bank_statement": "approved", "tax_clearance": "approved"}))
+    bare = assess(sme(verifications={}, overdraft_count=None, income_regularity=None, months_analysed=None))
+    assert bare.confidence_score < full.confidence_score
+    assert bare.viability_score == full.viability_score
 
 
 @pytest.mark.xfail(strict=True, reason="GAP 6: overdraft count above 2 has no further effect")

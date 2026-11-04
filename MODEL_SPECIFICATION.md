@@ -22,7 +22,7 @@ An assessment reports three separate measures. They answer different questions a
 
 | Output | Question it answers | How it is computed |
 | :--- | :--- | :--- |
-| **Viability Score** (0-100) | How strong is the business itself? | Earned / maximum points over the *viability factors*: Revenue Tier, Invoice Timeliness, Unpaid Invoice Ratio, Business Age, Industry Risk, Market Viability, Intent Documents (evidenced demand) and Founder Signal, using the stage-aware weights in section 4. **Compliance Documents are excluded.** |
+| **Viability Score** (0-100) | How strong is the business itself? | Earned / maximum points over the *viability factors*: Revenue Tier, Invoice Timeliness, Unpaid Invoice Ratio, Business Age, Intent Documents (evidenced demand) and Founder Signal, using the stage-aware weights in section 4. **Compliance Documents are excluded.** |
 | **Funding Readiness** (0-100) | Is this business ready to be funded right now? | All applicable factors, including Compliance Documents (the existing `score`, and the basis of the decision in section 6). |
 | **Evidence Confidence** (5-100%) | How well verified are the inputs? | Depth of approved evidence (section 5; the existing `confidence_score`). |
 
@@ -85,8 +85,8 @@ The engine evaluates **nine core factors** across three evidence layers:
    * $\ge 2$ years: 6 pts
    * $\ge 1$ year: 3 pts
    * $< 1$ year: 1 pt
-5. **Industry Risk (Max 10 pts):** Measures sector survival rates past 36 months in South Africa (SEDA/World Bank benchmarks). Continuously scaled between the lowest-survival sector (Construction, 0.38 $\rightarrow$ 3 pts) and highest (Healthcare/Tech, 0.74 $\rightarrow$ 10 pts).
-6. **Market Viability (Max 10 pts):** Province-level GDP economic index interacting with local industry strength (e.g. Agriculture multiplier in Free State). Continuously scaled (Gauteng $\rightarrow$ 10 pts, Northern Cape $\rightarrow$ 3 pts). A neutral 5 pts is applied if province is not provided.
+5. **Industry Risk (context only, 0 pts):** Sector survival rates (SEDA/World Bank benchmarks) are shown in the breakdown to explain the market the business operates in. Since strategy v2 they do **not** change the score or the decision: a sector statistic does not establish the viability of an individual business.
+6. **Market Viability (context only, 0 pts):** Province-level indicators are shown in the breakdown as market context. Since strategy v2 they do **not** change the score or the decision, and they are not a recommendation target.
 7. **Compliance Documents (Max 25 pts):** Aggregates verified documents up to a 25 pt cap:
    * CIPC registration: 10 pts
    * Bank statement verified: 8 pts (+ quality adjustments for overdrafts and regularity)
@@ -119,8 +119,8 @@ $$\text{Final Score} = \left( \frac{\sum \text{Earned Points of Applicable Facto
 | **Invoice Timeliness** | *Unavailable (0)* | 8 | 18 | 25 |
 | **Business Age** | 5 | 8 | 10 | 10 |
 | **Unpaid Invoice Ratio** | *Unavailable (0)* | 5 | 10 | 12 |
-| **Industry Risk** | 12 | 12 | 10 | 8 |
-| **Market Viability** | 15 | 12 | 10 | 7 |
+| **Industry Risk** | context only | context only | context only | context only |
+| **Market Viability** | context only | context only | context only | context only |
 | **Compliance Docs** | 20 | 22 | 22 | 20 |
 | **Intent Docs** | 20 | 16 | 10 | 8 |
 | **Founder Signal** | 20 | 17 | 15 | 10 |
@@ -153,10 +153,11 @@ The **Confidence Score** measures the depth of primary verified evidence submitt
 ## 7. Model Assumptions & Known Limitations
 
 1. **Rule-Based Weighting:** Current weights represent expert consensus on SME risk, not empirical coefficients.
-2. **Province/Market Bias:** Location indicators act as modifiers. A business in Limpopo is penalized relative to one in Gauteng. The model assumes Stats SA provincial GDP index is a proxy for individual business opportunity.
-3. **Linear Revenue Scale:** Scaled linearly to R500k. A business with R500k revenue receives the same revenue score as one with R5M, assuming that past R500k, other transactional metrics become better indicators.
-4. **Simulation Validation:** Current outcome testing is run against synthetic simulator profiles. True predictive validity will only be established when the engine is calibrated against observed repayments and defaults.
-5. **Market Data Provenance:** The sector-survival and province tables are versioned (`MARKET_DATA_VERSION`) and fingerprinted, and each assessment snapshot records both. Each table is labelled with its evidence basis (`GET /api/v1/market/data-sources`). None has been independently checked against its original publication yet. The sector-survival table is attributed to 2023 sources and is flagged stale after 12 months; the industry-by-province multipliers are analyst judgement with no published source. Treat Industry Risk and Market Viability accordingly until the tables are re-sourced.
+2. **Province/sector are context, not decision drivers (strategy v2):** earlier versions scored province and sector, which penalised a business in Limpopo relative to one in Gauteng. Those indicators now only explain the assessment. They may influence the score again only when backed by sufficiently granular, relevant and verifiable evidence.
+3. **Missing is not negative (strategy v2):** an unsupplied or pending compliance document earns neutral half credit and lowers Evidence Confidence; a rejected document earns nothing. Absence of CIPC registration does not change the Viability Score.
+4. **Linear Revenue Scale:** Scaled linearly to R500k. A business with R500k revenue receives the same revenue score as one with R5M, assuming that past R500k, other transactional metrics become better indicators.
+5. **Simulation Validation:** Current outcome testing is run against synthetic simulator profiles. True predictive validity will only be established when the engine is calibrated against observed repayments and defaults.
+6. **Market Data Provenance:** The sector-survival and province tables are versioned (`MARKET_DATA_VERSION`) and fingerprinted, and each assessment snapshot records both. Each table is labelled with its evidence basis (`GET /api/v1/market/data-sources`). None has been independently checked against its original publication yet. The sector-survival table is attributed to 2023 sources and is flagged stale after 12 months; the industry-by-province multipliers are analyst judgement with no published source. Treat Industry Risk and Market Viability accordingly until the tables are re-sourced.
 
 ## World Bank Enterprise Survey context benchmarks (South Africa 2020)
 

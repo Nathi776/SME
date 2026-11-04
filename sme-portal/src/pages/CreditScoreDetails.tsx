@@ -26,6 +26,7 @@ type BreakdownItem = {
   missing?: string[];
   bank_statement_parsed?: boolean;
   bank_statement_quality?: string[] | null;
+  contextual?: boolean;
 };
 
 export default function CreditScoreDetails() {
@@ -227,10 +228,10 @@ export default function CreditScoreDetails() {
                             </Box>
                             <Box sx={{ textAlign: "right" }}>
                               <Typography variant="subtitle2" sx={{ fontWeight: 900, color: colorClass }}>
-                                {item.contribution} / {item.max} pts
+                                {item.contextual ? "Context only" : `${item.contribution} / ${item.max} pts`}
                               </Typography>
                               <Typography variant="caption" sx={{ color: "#8f9bba" }}>
-                                Contribution
+                                {item.contextual ? "Not scored" : "Contribution"}
                               </Typography>
                             </Box>
                           </Box>
@@ -239,7 +240,7 @@ export default function CreditScoreDetails() {
                           <Box sx={{ width: "100%" }}>
                             <LinearProgress 
                               variant="determinate" 
-                              value={percent} 
+                              value={item.contextual ? 0 : percent} 
                               sx={{ 
                                 height: 8, 
                                 borderRadius: 4, 
