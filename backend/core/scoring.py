@@ -99,6 +99,12 @@ class EvidencePackage:
     # A newer bank statement exists that is not yet approved (evidence may be stale).
     bank_statement_newer_pending: bool = False
 
+    # Revenue context (optional; NOT used in scoring yet). `revenue` stays exactly what was reported.
+    # revenue_period_months: months covered by the reported revenue figure.
+    # months_trading: months the business has actually operated (never inferred from registration date).
+    revenue_period_months: int | None = None
+    months_trading:        int | None = None
+
     # Location
     province: str | None = None
 
