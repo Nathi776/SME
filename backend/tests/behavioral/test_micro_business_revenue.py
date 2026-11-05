@@ -51,9 +51,8 @@ def test_micro_range_is_resolved_by_at_least_five_points():
     assert high - low >= 5
 
 
-@pytest.mark.xfail(strict=True, reason="GAP 4/trading duration: engine has no months-trading input, so a "
-                   "6-month business's revenue cannot be annualised or compared with the 12-month SESE median")
-def test_trading_duration_is_an_input():
+def test_trading_duration_is_an_optional_input():
+    """Captured (optional, default None) but deliberately not used in scoring yet."""
     import dataclasses
     assert {"months_trading", "trading_months"} & {f.name for f in dataclasses.fields(type(pkg()))}
 
@@ -65,3 +64,12 @@ def test_parsed_revenue_is_annualised_using_months_analysed():
     from services import scoring_service
     src = inspect.getsource(scoring_service)
     assert "months_analysed" in src and ("* 12" in src or "/ months" in src)
+
+
+@pytest.mark.xfail(strict=True, reason="Deferred by decision: months_trading / revenue_period_months are "
+                   "captured but do not yet affect revenue points")
+def test_duration_fields_change_revenue_points():
+    base = assess(pkg(revenue=12_000, years_active=2)).breakdown["Revenue Tier"]["contribution"]
+    adj = assess(pkg(revenue=12_000, years_active=2, months_trading=6,
+                     revenue_period_months=6)).breakdown["Revenue Tier"]["contribution"]
+    assert adj > base
