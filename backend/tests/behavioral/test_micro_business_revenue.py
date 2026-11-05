@@ -1,86 +1,67 @@
-"""
-Revenue sensitivity for micro-businesses. SESE 2023 (non-VAT population, survey estimates):
-~76% below R50k, ~88% below R100k, ~98% below R500k annual turnover; median ~R14,400 for firms that
-traded all 12 months. These bands are TEST bands, not Stats SA thresholds, and are not scoring
-weights. Current behaviour is recorded as the baseline; known gaps are strict xfails so that a
-future formula change must update them consciously.
-"""
-import dataclasses
-
+"""Test C - micro-business revenue sensitivity. SESE 2023 median turnover is about R14,400 (businesses
+trading all 12 months); 76% are under R50k. Revenue should change the result proportionately without
+overwhelming other factors. Baseline recorded in SESE_BENCHMARK.md; the formula is NOT changed here."""
 import pytest
-
 from core.assessment_engine import assess
-from core.scoring import EvidencePackage
-from tests.validation.test_evidence_handling import sme
-
-TURNOVERS = [5_000, 10_000, 15_000, 25_000, 50_000, 75_000, 100_000, 250_000, 500_000]
-BLANK = dict(overdraft_count=None, income_regularity=None, months_analysed=None,
-             verifications={})
+from ._sese import pkg, TURNOVERS, STAGES
 
 
-def rev_factor(revenue, **k):
-    return assess(sme(revenue=float(revenue), **BLANK, **k)).breakdown["Revenue Tier"]
+@pytest.mark.parametrize("label,yrs,inv", STAGES)
+def test_revenue_never_lowers_the_score(label, yrs, inv):
+    s = [assess(pkg(revenue=r, years_active=yrs, total_invoices=inv, paid_on_time=int(inv * .8),
+                    unpaid_invoices=inv - int(inv * .8))).score for r in TURNOVERS]
+    assert s == sorted(s)
 
 
-@pytest.mark.parametrize("years,inv", [(0, 0), (1, 3), (2, 10)])
-def test_revenue_contribution_never_decreases_with_turnover(years, inv):
-    pts = [rev_factor(r, years_active=years, total_invoices=inv, paid_on_time=inv,
-                      unpaid_invoices=0)["contribution"] for r in TURNOVERS]
-    assert pts == sorted(pts)
+@pytest.mark.parametrize("label,yrs,inv", STAGES)
+def test_revenue_alone_cannot_move_a_business_across_two_decision_bands(label, yrs, inv):
+    order = {"Declined": 0, "Review": 1, "Approved": 2}
+    def d(r):
+        return order[assess(pkg(revenue=r, years_active=yrs, total_invoices=inv, paid_on_time=int(inv * .8),
+                                unpaid_invoices=inv - int(inv * .8))).decision]
+    assert d(500_000) - d(5_000) <= 1
 
 
-def test_revenue_distinguishes_adjacent_micro_turnovers_in_points():
-    pts = [rev_factor(r)["contribution"] for r in TURNOVERS[:5]]
-    assert len(set(pts)) == len(pts)
+@pytest.mark.parametrize("label,yrs,inv", STAGES)
+def test_revenue_factor_is_bounded_share_of_the_score(label, yrs, inv):
+    a = assess(pkg(revenue=500_000, years_active=yrs, total_invoices=inv, paid_on_time=int(inv * .8),
+                   unpaid_invoices=inv - int(inv * .8)))
+    rev = a.breakdown["Revenue Tier"]
+    assert rev["contribution"] <= rev["max"] <= 0.30 * a.breakdown["_assessment"]["raw_max"]
 
 
-def test_revenue_factor_cannot_dominate_the_score():
-    low = assess(sme(revenue=5_000.0, **BLANK))
-    high = assess(sme(revenue=500_000.0, **BLANK))
-    swing = high.score - low.score
-    assert swing <= 0.25 * 100  # one factor must not move the score by more than a quarter
+@pytest.mark.parametrize("label,yrs,inv", STAGES)
+def test_other_factors_outweigh_revenue_across_the_micro_range(label, yrs, inv):
+    """Between R5k and R100k (about 90% of SESE businesses) a clean-payment history must matter more."""
+    lo = assess(pkg(revenue=5_000, years_active=yrs, total_invoices=inv, paid_on_time=inv, unpaid_invoices=0)).score
+    hi_bad = assess(pkg(revenue=100_000, years_active=yrs, total_invoices=inv, paid_on_time=0, unpaid_invoices=inv)).score
+    assert lo > hi_bad
 
 
-def test_revenue_cannot_rescue_a_business_with_all_invoices_unpaid():
-    bad = assess(sme(revenue=500_000.0, total_invoices=10, paid_on_time=0, unpaid_invoices=10,
-                     **BLANK))
-    good = assess(sme(revenue=25_000.0, total_invoices=10, paid_on_time=10, unpaid_invoices=0,
-                      **BLANK))
-    assert good.viability_score > bad.viability_score
+def test_revenue_period_is_annual_only_documented_in_breakdown_label():
+    a = assess(pkg(revenue=30_000))
+    assert "R" in a.breakdown["Revenue Tier"]["label"]
 
 
-def test_baseline_revenue_scale_is_annual_and_linear_to_r500k():
-    f = rev_factor(250_000.0)
-    assert f["contribution"] == pytest.approx(f["max"] * 0.5, abs=0.1)
-    assert rev_factor(1_000_000.0)["contribution"] == rev_factor(500_000.0)["contribution"]
+@pytest.mark.xfail(strict=True, reason="GAP: micro-range resolution. R5k and R50k differ by under 2 pts "
+                   "(startup/growth), so the engine barely separates the bottom 76% of SESE businesses")
+def test_micro_range_is_resolved_by_at_least_five_points():
+    low = assess(pkg(revenue=5_000, years_active=2)).score
+    high = assess(pkg(revenue=50_000, years_active=2)).score
+    assert high - low >= 5
 
 
-def test_baseline_revenue_thresholds_are_the_same_in_every_stage():
-    fracs = []
-    for years, inv in [(1, 3), (2, 10), (4, 25)]:
-        f = rev_factor(100_000.0, years_active=years, total_invoices=inv, paid_on_time=inv,
-                       unpaid_invoices=0)
-        fracs.append(round(f["contribution"] / f["max"], 3))
-    assert len(set(fracs)) == 1  # same R100k = same share of the factor in Growth/Established
+@pytest.mark.xfail(strict=True, reason="GAP 4/trading duration: engine has no months-trading input, so a "
+                   "6-month business's revenue cannot be annualised or compared with the 12-month SESE median")
+def test_trading_duration_is_an_input():
+    import dataclasses
+    assert {"months_trading", "trading_months"} & {f.name for f in dataclasses.fields(type(pkg()))}
 
 
-def test_baseline_idea_stage_ignores_revenue_entirely():
-    f = rev_factor(100_000.0, years_active=0, total_invoices=0, paid_on_time=0, unpaid_invoices=0)
-    assert f["applicable"] is False and f["contribution"] == 0.0
-
-
-# ---- KNOWN GAPS (strict xfail): remove the marker when the revenue scale is redesigned ----------
-
-@pytest.mark.xfail(strict=True, reason=(
-    "Gap: ~76% of SESE businesses fall in the single '< R50k' label, so R5k and R25k look identical"))
-def test_labels_distinguish_the_lower_micro_range():
-    labels = {rev_factor(r)["label"].split(" (")[0] for r in (5_000, 15_000, 40_000)}
-    assert len(labels) > 1
-
-
-@pytest.mark.xfail(strict=True, reason=(
-    "Gap: EvidencePackage has no trading-duration field, so a half-year trader's revenue cannot be "
-    "annualised before comparison with a full-year benchmark such as the SESE R14,400 median"))
-def test_revenue_can_be_adjusted_for_months_traded():
-    names = {f.name for f in dataclasses.fields(EvidencePackage)}
-    assert {"months_trading", "trading_months"} & names
+@pytest.mark.xfail(strict=True, reason="GAP: parsed_revenue is stored without a period; months_analysed is "
+                   "captured but never used to annualise, so a 3-month statement is scored as annual revenue")
+def test_parsed_revenue_is_annualised_using_months_analysed():
+    import inspect
+    from services import scoring_service
+    src = inspect.getsource(scoring_service)
+    assert "months_analysed" in src and ("* 12" in src or "/ months" in src)

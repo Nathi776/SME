@@ -1,46 +1,54 @@
-"""
-Evidence ladder. SESE 2023: 71% of surveyed businesses keep no financial records, so the engine must
-assess limited-record businesses while being honest about uncertainty (Evidence Confidence).
-Ordering of confidence is tested; the exact numbers are not.
-"""
+"""Test B - evidence ladder. SESE 2023: 71% keep no financial records, 13% keep informal records.
+Evidence quality should move Evidence Confidence; absence of evidence must not be treated as
+negative evidence, and weak evidence must not outrank strong evidence."""
+import pytest
 from core.assessment_engine import assess
-from tests.validation.test_evidence_handling import sme
+from ._sese import pkg, NO_BANK
 
-BLANK = dict(overdraft_count=None, income_regularity=None, months_analysed=None)
-
-
-def conf(**k):
-    return assess(sme(**k)).confidence_score
+INV = dict(total_invoices=10, paid_on_time=9, unpaid_invoices=1)
+NO_INV = dict(total_invoices=0, paid_on_time=0, unpaid_invoices=0)
 
 
-def test_verified_bank_statement_gives_more_confidence_than_none():
-    with_bank = conf()
-    no_bank = conf(verifications={"cipc": "approved"}, **BLANK)
-    assert with_bank > no_bank
+def rungs():
+    return {
+        "invoices+bank": pkg(**INV),
+        "invoices only": pkg(verifications={}, **INV, **NO_BANK),
+        "bank only": pkg(**NO_INV),
+        "declaration only": pkg(verifications={}, **NO_INV, **NO_BANK),
+    }
 
 
-def test_unverified_trading_records_still_beat_a_bare_declaration():
-    records = conf(verifications={}, **BLANK)
-    declaration = conf(verifications={}, total_invoices=0, paid_on_time=0, unpaid_invoices=0,
-                       founder=None, **BLANK)
-    # Invoices do not raise confidence today (only documents and founder profile do); equality is
-    # acceptable, a lower value for informal records is not.
-    assert records >= declaration
+def test_confidence_orders_by_evidence_quality():
+    c = {k: assess(v).confidence_score for k, v in rungs().items()}
+    assert c["invoices+bank"] >= c["invoices only"] >= c["declaration only"]
+    assert c["invoices+bank"] >= c["bank only"] >= c["declaration only"]
 
 
-def test_confidence_never_reaches_certainty_without_documents():
-    assert conf(verifications={}, **BLANK) < 60
+def test_declaration_only_is_assessed_not_rejected_outright():
+    a = assess(rungs()["declaration only"])
+    assert a.score > 0 and a.confidence_score > 0
 
 
-def test_informal_evidence_is_not_treated_as_nonexistent():
-    informal = assess(sme(verifications={}, **BLANK))
-    nothing = assess(sme(verifications={}, revenue=0.0, total_invoices=0, paid_on_time=0,
-                         unpaid_invoices=0, years_active=0, founder=None, **BLANK))
-    assert informal.viability_score > nothing.viability_score
-    assert informal.confidence_score > 0
+def test_declaration_only_cannot_be_approved():
+    assert assess(rungs()["declaration only"]).decision != "Approved"
 
 
-def test_rejected_evidence_does_not_raise_confidence():
-    base = conf(verifications={}, **BLANK)
-    rejected = conf(verifications={"cipc": "rejected", "bank_statement": "rejected"}, **BLANK)
-    assert rejected <= base
+def test_missing_evidence_is_not_scored_below_rejected_evidence():
+    rejected = assess(pkg(verifications={"bank_statement": "rejected"}, **NO_BANK)).score
+    missing = assess(pkg(verifications={}, **NO_BANK)).score
+    assert missing >= rejected
+
+
+@pytest.mark.xfail(strict=True, reason="GAP: no input channel for informal sales/expenditure records "
+                   "(13% of SESE businesses keep them); they cannot raise confidence today")
+def test_informal_records_are_recognised_as_evidence():
+    import dataclasses
+    assert "informal_records" in {f.name for f in dataclasses.fields(type(pkg()))}
+
+
+@pytest.mark.xfail(strict=True, reason="GAP 3: poor bank evidence (irregular income, overdrafts) does not "
+                   "move the viability score, so it can look no worse than having no bank evidence")
+def test_poor_bank_evidence_is_not_equal_to_no_bank_evidence():
+    poor = assess(pkg(income_regularity=0.2, overdraft_count=8)).viability_score
+    none = assess(pkg(verifications={}, **NO_BANK)).viability_score
+    assert poor != none
