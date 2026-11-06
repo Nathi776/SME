@@ -58,3 +58,29 @@ def select_bank_statement_evidence(verifications: Iterable) -> BankStatementEvid
     governing = ordered[0] if ordered else None
     approved = next((v for v in ordered if v.status == "approved"), None)
     return BankStatementEvidence(governing=governing, approved=approved)
+
+
+def evidence_timestamps(verifications: Iterable, bank_evidence: "BankStatementEvidence | None" = None) -> dict:
+    """
+    When each document was submitted and reviewed, for the assessment snapshot (audit F5). Pure: reads
+    the verification rows, never changes a score. For each document type the most recently submitted
+    record is reported; the bank statement actually used for scoring is reported separately, because
+    it may differ from the newest upload.
+    """
+    def row(v):
+        return {
+            "verification_id": v.id,
+            "status": v.status,
+            "submitted_at": v.submitted_at.isoformat() if v.submitted_at else None,
+            "reviewed_at": v.reviewed_at.isoformat() if v.reviewed_at else None,
+            "review_method": getattr(v, "review_method", None),
+        }
+
+    latest: dict[str, object] = {}
+    for v in sorted(verifications, key=lambda x: (x.submitted_at is not None, x.submitted_at, x.id)):
+        latest[v.doc_type] = v
+    used = bank_evidence.approved if bank_evidence is not None else None
+    return {
+        "documents": {doc_type: row(v) for doc_type, v in sorted(latest.items())},
+        "bank_statement_used": row(used) if used is not None else None,
+    }
