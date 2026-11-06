@@ -59,3 +59,8 @@ Versioned strategy and inference, market-data version and fingerprint, stored in
 7. Then build the decision-explanation report on top of 2 and 3, keeping viability, funding readiness and evidence confidence separate and not describing a thinly documented business as unviable.
 
 Not recommended now: new scoring factors, calibrating weights, wiring the extractor into production.
+
+## 6. Status of recommendations
+- Recommendation 1 (F1 provenance mismatch): done (PR #35).
+- Recommendations 4 and 6 (document timestamps in the snapshot; reviewer identity): done (migration 031). Staleness policy is still undecided.
+- Recommendations 2, 3, 5, 7: open; see docs/EVIDENCE_RECORD_DESIGN.md.

@@ -23,6 +23,11 @@ class Verification(Base):
     submitted_at = Column(DateTime, default=utc_now)
     reviewed_at = Column(DateTime, nullable=True)
     reviewer_notes = Column(String, nullable=True)
+    # Accountability (audit F7): who made the decision and how. reviewed_by_user_id is internal and is
+    # deliberately not exposed to the business; review_method is.
+    # review_method: "manual_admin" | "auto_cipc_api" | NULL (not reviewed, or decided before this field existed)
+    reviewed_by_user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
+    review_method = Column(String, nullable=True)
 
     # Set by admin during review of letter_of_intent documents only.
     # True  â†’ counterparty is a recognised/known company (e.g. listed corp, govt entity)
