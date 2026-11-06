@@ -14,7 +14,7 @@ from models.verification import Verification
 from models.sme import SME
 from models.founder_profile import FounderProfile
 from core.scoring import EvidencePackage, FounderSignalInput, INTENT_BASE_POINTS
-from core.assessment_engine import AssessmentResult, assess
+from core.assessment_engine import AssessmentResult, assess, revenue_evidence_source
 
 from services.assessment_snapshot_service import create_assessment_snapshot
 from services.business_observation_service import create_current_business_observation
@@ -189,9 +189,10 @@ def _build_assessment_snapshot_data(inp, result: AssessmentResult) -> dict:
     input_snapshot = {
         "revenue": inp.revenue,
         # Declared vs verified: lets reviewers see what the revenue figure rests on.
+        # Derived from the same rule the Revenue Tier factor uses, so snapshot and breakdown always agree.
         "revenue_source": (
             "verified_bank_statement"
-            if inp.bank_statement_verification_id is not None
+            if revenue_evidence_source(inp) == "parsed"
             else "declared"
         ),
         "years_active": inp.years_active,
