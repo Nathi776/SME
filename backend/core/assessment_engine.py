@@ -302,6 +302,16 @@ class StrategyFactory:
         return STRATEGIES[profile], "v2"
 
 
+def revenue_evidence_source(inp) -> str:
+    """
+    "parsed" only when an approved bank statement supplied the revenue basis (months analysed is set);
+    otherwise "self-reported". Single source of truth: the Revenue Tier breakdown AND the stored
+    snapshot's revenue_source are both derived from this, so they cannot disagree.
+    """
+    approved = inp.verifications.get("bank_statement") == "approved"
+    return "parsed" if approved and inp.months_analysed is not None else "self-reported"
+
+
 # ── Score Calculator ──────────────────────────────────────────────────────────
 
 class ScoreCalculator:
@@ -327,14 +337,7 @@ class ScoreCalculator:
             }
         else:
             applicable_max += strategy.revenue_max
-            bank_statement_approved = (
-                inp.verifications.get("bank_statement") == "approved"
-            )
-            revenue_source = (
-                "parsed"
-                if bank_statement_approved and inp.months_analysed is not None
-                else "self-reported"
-            )
+            revenue_source = revenue_evidence_source(inp)
             rev_ratio = min(inp.revenue / 500_000, 1.0)
             rev_pts   = round(_scale(rev_ratio, 0.0, 1.0, 0, strategy.revenue_max), 1)
             if inp.revenue >= 500_000:   rev_label = "≥ R500k"
