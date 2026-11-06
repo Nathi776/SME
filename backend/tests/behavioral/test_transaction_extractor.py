@@ -148,7 +148,7 @@ def test_normalisation_uses_only_eligible_classified_customer_revenue(good):
     assert ob.total_deposits == sum(D(t["credit"]) for t in truth["rows"] if t["credit"])
     parts = ob.observed_customer_revenue + ob.unresolved_deposits + sum(ob.excluded_by_category.values())
     assert parts == ob.total_deposits  # every deposit is in exactly one bucket
-    assert ob.unresolved_deposits == D("2950.00") and ob.needs_review_count == 3
+    assert ob.unresolved_deposits == D("12650.00") and ob.needs_review_count == 5
     assert ob.basis == "run_rate" and ob.months_covered == 3.0
 
 
@@ -162,7 +162,7 @@ def truth_for(outcome, truth, c):
 
 
 def test_classifier_baseline_on_synthetic_deposits(good):
-    """Pinned baseline: 11 genuine sales; 10 found, 1 missed, 1 false positive. Change = review it."""
+    """Pinned baseline (rules-v2): 11 genuine sales; 10 found, 1 sent to review, 0 false positives."""
     outcome, truth = good
     tp = fp = fn = 0
     for c in outcome.classified:
@@ -170,21 +170,19 @@ def test_classifier_baseline_on_synthetic_deposits(good):
         tp += actual and c.counts_as_revenue
         fp += (not actual) and c.counts_as_revenue
         fn += actual and not c.counts_as_revenue
-    assert (tp, fp, fn) == (10, 1, 1)
+    assert (tp, fp, fn) == (10, 0, 1)
     true_revenue = sum(D(r["credit"]) for r in truth["rows"] if r["true_category"] == "sale")
     assert true_revenue == D("41350.00")
-    assert outcome.observation.observed_customer_revenue == D("46650.00")  # overstated by R5,300
+    # conservative: understated by the R2,200 'OWNER STORES PAYMENT' held for review, never overstated
+    assert outcome.observation.observed_customer_revenue == D("39150.00")
+    assert outcome.observation.observed_customer_revenue <= true_revenue
 
 
-@pytest.mark.xfail(strict=True, reason="KNOWN classifier false positive: 'SALE OF EQUIPMENT' is an asset "
-                   "sale, but the generic SALE keyword counts it as customer revenue")
 def test_asset_sale_is_not_counted_as_customer_revenue(good):
     (c,) = by_desc(good[0], "SALE OF EQUIPMENT")
     assert not c.counts_as_revenue
 
 
-@pytest.mark.xfail(strict=True, reason="KNOWN classifier false negative: a customer named 'OWNER STORES' is "
-                   "excluded as an owner contribution")
 def test_customer_whose_name_contains_a_keyword_is_not_excluded(good):
     (c,) = by_desc(good[0], "OWNER STORES PAYMENT")
     assert c.counts_as_revenue or c.review_status is ReviewStatus.NEEDS_REVIEW

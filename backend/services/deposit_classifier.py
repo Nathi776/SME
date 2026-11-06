@@ -13,7 +13,7 @@ from datetime import date
 from decimal import Decimal
 from enum import Enum
 
-CLASSIFIER_VERSION = "rules-v1"
+CLASSIFIER_VERSION = "rules-v2"
 MIN_SALE_CONFIDENCE = 0.70   # a sale rule below this would not count (no such rule today)
 LOW_CONFIDENCE_BELOW = 0.80  # revenue resting on rules below this is reported as low confidence
 
@@ -61,9 +61,12 @@ _RULES: list[tuple[str, DepositCategory, float, re.Pattern]] = [
         ("loan.keyword", DepositCategory.LOAN, 0.90,
          r"\b(LOAN|CREDIT ADVANCE|CASH ADVANCE|MICROLOAN|MICRO LOAN|FINANCE ADVANCE|OVERDRAFT FACILITY|"
          r"LENDER|DISBURSEMENT)\b"),
-        ("owner.keyword", DepositCategory.OWNER_CONTRIBUTION, 0.90,
-         r"\b(OWNER|DIRECTOR|SHAREHOLDER|MEMBER'?S? (LOAN|CONTRIBUTION)|CAPITAL (INJECTION|CONTRIBUTION)|"
-         r"INJECTION|DRAWINGS? REPAY|PERSONAL (ACC|ACCOUNT)|OWN CONTRIBUTION)\b"),
+        # Owner money needs a PAIRED phrase (who + what). A bare OWNER/DIRECTOR word is only a weak signal
+        # (it can be part of a customer's name) and is handled separately as _WEAK_OWNER.
+        ("owner.strong", DepositCategory.OWNER_CONTRIBUTION, 0.90,
+         r"\b((OWNER|DIRECTOR|SHAREHOLDER|MEMBER)'?S? (CAPITAL|CONTRIBUTION|FUNDING|INJECTION|LOAN|"
+         r"INVESTMENT|DEPOSIT)|CAPITAL (INJECTION|CONTRIBUTION)|DRAWINGS? REPAY|PERSONAL (ACC|ACCOUNT)|"
+         r"OWN CONTRIBUTION)\b"),
         ("transfer.keyword", DepositCategory.INTERNAL_TRANSFER, 0.90,
          r"\b(OWN ACC(OUNT)?|INTER[- ]?ACC(OUNT)?|BETWEEN ACC(OUNT)?S?|SAVINGS? TRANSFER|TRANSFER FROM "
          r"(SAVINGS?|CURRENT|CHEQUE|CREDIT CARD)|TFR FROM (SAV|CUR|CHQ)|ACCOUNT TRANSFER|IB TRANSFER FROM "
@@ -73,12 +76,17 @@ _RULES: list[tuple[str, DepositCategory, float, re.Pattern]] = [
         ("sale.processor", DepositCategory.CUSTOMER_SALE, 0.90,
          r"\b(YOCO|SNAPSCAN|ZAPPER|PAYFAST|PAYSTACK|PEACH PAYMENTS|IKHOKHA|SUMUP|CARD SETTLEMENT|"
          r"POS SETTLEMENT|MERCHANT SETTLEMENT)\b"),
+        # A bare SALE/SALES word is NOT evidence of customer revenue ("SALE OF EQUIPMENT" is an asset
+        # disposal). An invoice reference is.
         ("sale.invoice", DepositCategory.CUSTOMER_SALE, 0.90,
-         r"\b(INV|INVOICE|INV(OICE)? ?(NO|#)?\s?\d+|SALES?|POS SALE)\b"),
+         r"\b(INV|INVOICE|INV(OICE)? ?(NO|#)?\s?\d+)\b"),
         ("sale.customer", DepositCategory.CUSTOMER_SALE, 0.75,
          r"\b(CUSTOMER|CLIENT|PAYMENT FROM|PMT FROM|PAYMENT RECEIVED)\b"),
     ]
 ]
+# A bare owner-related word anywhere in the description. Never decides a category on its own.
+_WEAK_OWNER = re.compile(r"\b(OWNER|DIRECTOR|SHAREHOLDER|MEMBER)'?S?\b")
+STRONG_SALE_CONFIDENCE = 0.90  # an invoice reference or payment processor can resolve a weak owner word
 _NON_SALE = {DepositCategory.LOAN, DepositCategory.OWNER_CONTRIBUTION,
              DepositCategory.INTERNAL_TRANSFER, DepositCategory.REFUND_REVERSAL}
 
@@ -98,11 +106,16 @@ def classify_deposit(tx: Transaction) -> ClassifiedTransaction | None:
     text = _norm(tx.description)
     hits = [(rid, cat, conf) for rid, cat, conf, pat in _RULES if pat.search(text)]
     if not hits:
-        return ClassifiedTransaction(tx, DepositCategory.UNKNOWN, 0.0, "default", ReviewStatus.NEEDS_REVIEW)
+        src = "ambiguous:owner-word" if _WEAK_OWNER.search(text) else "default"
+        return ClassifiedTransaction(tx, DepositCategory.UNKNOWN, 0.0, src, ReviewStatus.NEEDS_REVIEW)
 
     cats = {cat for _, cat, _ in hits}
     non_sale = [h for h in hits if h[1] in _NON_SALE]
     sale = [h for h in hits if h[1] is DepositCategory.CUSTOMER_SALE]
+    if not non_sale and _WEAK_OWNER.search(text) and not any(h[2] >= STRONG_SALE_CONFIDENCE for h in sale):
+        # e.g. "OWNER STORES PAYMENT": a customer's name or the owner's own money; do not guess either way
+        return ClassifiedTransaction(tx, DepositCategory.UNKNOWN, 0.0, "ambiguous:owner-word",
+                                     ReviewStatus.NEEDS_REVIEW)
     if non_sale and sale:
         # e.g. "LOAN REPAYMENT INVOICE": sale vs not-sale is the question that matters, so do not guess.
         return ClassifiedTransaction(tx, DepositCategory.UNKNOWN, 0.0, "conflict", ReviewStatus.NEEDS_REVIEW)
