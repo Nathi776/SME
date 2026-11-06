@@ -77,6 +77,18 @@ Classifier quality on the same set, measured separately from extraction: 11 genu
 
 Extraction limitations: text-layer PDFs only (no scanned or image statements, no OCR); one layout (header row with right-aligned Debit/Credit/Balance columns, dates `DD Mon YYYY`, ZAR-style `1,234.56`); descriptions that run into the amount columns are not supported; multi-account or multi-currency statements untested; anything else is reported as a failure rather than guessed. Because it was designed against its own synthetic layout, passing these tests says nothing yet about real bank layouts. Real evaluation needs a labelled set across several banks, with extraction accuracy and classification precision/recall reported separately, using redacted statements and permission.
 
+## 5a. Rules v2 (conservative fix of the two demonstrated errors)
+Changes, none of which add broad keywords:
+- A bare `SALE`/`SALES` word no longer establishes customer revenue. Revenue needs a payment processor, an invoice reference, or the weaker "customer / payment from" pattern. `SALE OF EQUIPMENT` now goes to review and is not revenue.
+- A bare `OWNER`/`DIRECTOR`/`SHAREHOLDER`/`MEMBER` word no longer excludes a deposit. Owner money needs a paired phrase (for example `OWNER CAPITAL`, `DIRECTOR LOAN`, `CAPITAL INJECTION`). A bare owner word sends the deposit to review (`ambiguous:owner-word`), unless a strong sale signal (invoice reference or payment processor) resolves it: `INV 20491 OWNER STORES` is revenue; `PAYMENT FROM OWNER STORES` and `OWNER'S MARKET PAYMENT` are review.
+- Everything else is unchanged: loans, owner capital, transfers and refunds stay excluded; conflicts, unknowns and unmatched cash deposits stay in review.
+
+Synthetic result, rules-v2: 11 genuine sales, 10 counted, 1 held for review, **0 false positives** (precision 10/10, recall 10/11). Observed customer revenue R39,150 against a true R41,350: **understated by R2,200** (the held-for-review `OWNER STORES PAYMENT`) instead of overstated by R5,300. Recall was deliberately not bought back with looser rules. The two former strict xfails are now passing tests, and `tests/behavioral/test_deposit_classifier_rules.py` pins the rule table.
+
+**Rules are frozen** until a labelled, anonymised evaluation set from several banks exists. These synthetic results show the pipeline works on its designed layout; they do not establish real-world accuracy.
+
+**Open policy decision (explicit, undecided): refunds.** Credits classified as refunds are excluded from revenue and reported separately. Customer refunds paid out are debits, which the classifier ignores, so they do not yet reduce revenue. Options: net them as a negative adjustment to customer revenue, or report them separately. Until decided, observed revenue can be overstated by refunds paid to customers.
+
 ## 6. Not in this milestone
 - Phase 3 capture side: persisting classified transactions and `months_trading` / `revenue_period_months` (database, API, portal), with validation and backward compatibility.
 - Extracting transactions from real statement PDFs (the current parser reads labelled fields only).
