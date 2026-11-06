@@ -26,3 +26,6 @@ uploads/
 *.sav
 backend/data_pipeline/raw/
 backend/data/wbes_sa_2020_benchmarks.json
+
+# Real bank statements and labelled evaluation data must never be committed
+evaluation_data/

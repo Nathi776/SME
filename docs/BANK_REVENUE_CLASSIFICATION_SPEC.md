@@ -87,7 +87,7 @@ Synthetic result, rules-v2: 11 genuine sales, 10 counted, 1 held for review, **0
 
 **Rules are frozen** until a labelled, anonymised evaluation set from several banks exists. These synthetic results show the pipeline works on its designed layout; they do not establish real-world accuracy.
 
-**Open policy decision (explicit, undecided): refunds.** Credits classified as refunds are excluded from revenue and reported separately. Customer refunds paid out are debits, which the classifier ignores, so they do not yet reduce revenue. Options: net them as a negative adjustment to customer revenue, or report them separately. Until decided, observed revenue can be overstated by refunds paid to customers.
+**Refund decision (closed, not yet implemented): report separately and net.** Confirmed customer refunds are recorded as separate negative adjustments. Four values stay distinct: gross customer revenue, confirmed customer refunds, net customer revenue, and unclassified or disputed refund amounts. Not every debit is a refund: a refund needs sufficient evidence and is linked to the original sale where possible; ambiguous debits go to review and are not deducted. Today the classifier still ignores debits, so refunds paid out do not yet reduce revenue and observed revenue can be overstated by them. Implementing the adjustment is deferred until the labelled evaluation set shows how refunds appear in real statements (see BANK_STATEMENT_LABELLING_GUIDE.md and BANK_STATEMENT_EVALUATION_SET.md).
 
 ## 6. Not in this milestone
 - Phase 3 capture side: persisting classified transactions and `months_trading` / `revenue_period_months` (database, API, portal), with validation and backward compatibility.
