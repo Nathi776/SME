@@ -1,0 +1,208 @@
+{
+  "opening_balance": "10000.00",
+  "closing_balance": "114260.00",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "rows": [
+    {
+      "date": "2026-01-02",
+      "description": "PAYMENT FROM ABC TRADERS",
+      "debit": null,
+      "credit": "4500.00",
+      "balance": "14500.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-01-03",
+      "description": "OWNER CAPITAL INJECTION",
+      "debit": null,
+      "credit": "20000.00",
+      "balance": "34500.00",
+      "true_category": "owner_contribution"
+    },
+    {
+      "date": "2026-01-05",
+      "description": "BUSINESS LOAN DISBURSEMENT",
+      "debit": null,
+      "credit": "50000.00",
+      "balance": "84500.00",
+      "true_category": "loan"
+    },
+    {
+      "date": "2026-01-08",
+      "description": "TRANSFER FROM SAVINGS",
+      "debit": null,
+      "credit": "3000.00",
+      "balance": "87500.00",
+      "true_category": "internal_transfer"
+    },
+    {
+      "date": "2026-01-10",
+      "description": "RENT JANUARY",
+      "debit": "6500.00",
+      "credit": null,
+      "balance": "81000.00",
+      "true_category": null
+    },
+    {
+      "date": "2026-01-15",
+      "description": "CUSTOMER REFUND",
+      "debit": null,
+      "credit": "800.00",
+      "balance": "81800.00",
+      "true_category": "refund_reversal"
+    },
+    {
+      "date": "2026-01-20",
+      "description": "LOAN REPAYMENT INVOICE",
+      "debit": null,
+      "credit": "1200.00",
+      "balance": "83000.00",
+      "true_category": "ambiguous"
+    },
+    {
+      "date": "2026-01-22",
+      "description": "SUPPLIER PAYMENT NDLOVU WHOLESALE",
+      "debit": "3200.00",
+      "credit": null,
+      "balance": "79800.00",
+      "true_category": null
+    },
+    {
+      "date": "2026-01-25",
+      "description": "SALE OF EQUIPMENT",
+      "debit": null,
+      "credit": "7500.00",
+      "balance": "87300.00",
+      "true_category": "asset_sale_not_revenue"
+    },
+    {
+      "date": "2026-01-28",
+      "description": "OWNER STORES PAYMENT",
+      "debit": null,
+      "credit": "2200.00",
+      "balance": "89500.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-01-31",
+      "description": "PAYMENT FROM ABC TRADERS",
+      "debit": null,
+      "credit": "4500.00",
+      "balance": "94000.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-01-31",
+      "description": "MONTHLY ACCOUNT FEE",
+      "debit": "120.00",
+      "credit": null,
+      "balance": "93880.00",
+      "true_category": null
+    },
+    {
+      "date": "2026-02-02",
+      "description": "PAYMENT FROM ABC TRADERS",
+      "debit": null,
+      "credit": "4500.00",
+      "balance": "98380.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-02-05",
+      "description": "CASH DEPOSIT 88213",
+      "debit": null,
+      "credit": "950.00",
+      "balance": "99330.00",
+      "true_category": "unknown"
+    },
+    {
+      "date": "2026-02-14",
+      "description": "YOCO CARD SETTLEMENT",
+      "debit": null,
+      "credit": "1250.00",
+      "balance": "100580.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-02-14",
+      "description": "YOCO CARD SETTLEMENT",
+      "debit": null,
+      "credit": "1250.00",
+      "balance": "101830.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-02-20",
+      "description": "SALARIES FEBRUARY",
+      "debit": "8000.00",
+      "credit": null,
+      "balance": "93830.00",
+      "true_category": null
+    },
+    {
+      "date": "2026-02-27",
+      "description": "PAYMENT FROM KHUMALO HARDWARE AND BUILDING SUPPLIES INVOICE 20481 FEBRUARY ORDER",
+      "debit": null,
+      "credit": "9800.00",
+      "balance": "103630.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-02-28",
+      "description": "INV 20490 DUBE CATERING",
+      "debit": null,
+      "credit": "3100.00",
+      "balance": "106730.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-03-01",
+      "description": "INV 20491 DUBE CATERING",
+      "debit": null,
+      "credit": "3100.00",
+      "balance": "109830.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-03-03",
+      "description": "MONTHLY ACCOUNT FEE",
+      "debit": "120.00",
+      "credit": null,
+      "balance": "109710.00",
+      "true_category": null
+    },
+    {
+      "date": "2026-03-10",
+      "description": "PAYMENT FROM ABC TRADERS",
+      "debit": null,
+      "credit": "4500.00",
+      "balance": "114210.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-03-18",
+      "description": "SNAPSCAN SETTLEMENT",
+      "debit": null,
+      "credit": "2650.00",
+      "balance": "116860.00",
+      "true_category": "sale"
+    },
+    {
+      "date": "2026-03-25",
+      "description": "SUPPLIER PAYMENT NDLOVU WHOLESALE",
+      "debit": "4100.00",
+      "credit": null,
+      "balance": "112760.00",
+      "true_category": null
+    },
+    {
+      "date": "2026-03-31",
+      "description": "INTER ACCOUNT TRANSFER",
+      "debit": null,
+      "credit": "1500.00",
+      "balance": "114260.00",
+      "true_category": "internal_transfer"
+    }
+  ]
+}
