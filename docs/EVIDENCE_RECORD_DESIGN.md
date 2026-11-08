@@ -49,7 +49,7 @@ Wording rules: limited evidence is reported as limited evidence; Funding Readine
 4. Whether the report is shown to the SME, to lenders, or both, and with the same detail.
 
 ## 6. Build order (each step separately reviewed and tested)
-0. Prerequisites: reviewer identity on verification decisions (F7, needs a migration); copy document timestamps into the snapshot (F5).
+0. Prerequisites (**done**): reviewer identity (`reviewed_by_user_id`, `review_method`, migration 031; identity is stored but not exposed to the business; decisions made before this change stay NULL, not back-filled) and document submit/review timestamps copied into each snapshot as `input_snapshot.evidence_timestamps` (latest record per document type, plus the bank statement actually used). Neither affects any score.
 1. Pure `build_evidence_records(inputs, breakdown)` function with a test per factor and per rule row. No persistence.
 2. Store the records in the snapshot JSON with `evidence_schema_version`; test that scores and regression are unchanged.
 3. Explanation report endpoint and a portal view.

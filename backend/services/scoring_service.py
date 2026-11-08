@@ -19,7 +19,7 @@ from core.assessment_engine import AssessmentResult, assess, revenue_evidence_so
 from services.assessment_snapshot_service import create_assessment_snapshot
 from services.business_observation_service import create_current_business_observation
 from services.market_data_service import market_data_summary, normalize_industry
-from services.evidence_selection import select_bank_statement_evidence, sort_verifications
+from services.evidence_selection import evidence_timestamps, select_bank_statement_evidence, sort_verifications
 
 def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
     """
@@ -250,6 +250,10 @@ def create_assessment_for_sme(
 
     result, inp = calculate_assessment(sme, db)
     snapshot_data = _build_assessment_snapshot_data(inp, result)
+    # When the evidence was submitted and reviewed (audit F5). Informational only; no score uses it.
+    sme_verifications = db.query(Verification).filter(Verification.sme_id == sme.id).all()
+    snapshot_data["input_snapshot"]["evidence_timestamps"] = evidence_timestamps(
+        sme_verifications, select_bank_statement_evidence(sme_verifications))
 
     snapshot = create_assessment_snapshot(
         db=db,

@@ -115,6 +115,7 @@ def _apply_cipc_verification(
         ver.status         = "rejected"
         ver.reviewed_at    = utc_now()
         ver.reviewer_notes = result.error or "CIPC verification failed"
+        ver.review_method  = "auto_cipc_api"
         return {
             "cipc_verified":         False,
             "auto_approved":         False,
@@ -128,6 +129,7 @@ def _apply_cipc_verification(
         ver.status         = "approved"
         ver.reviewed_at    = utc_now()
         ver.reviewer_notes = f"Auto-verified via CIPC API. Status: {result.status}"
+        ver.review_method  = "auto_cipc_api"
 
         sme.cipc_verified_at   = utc_now()
         sme.cipc_company_name  = result.company_name
@@ -207,6 +209,7 @@ class VerificationOut(BaseModel):
     submitted_at:           datetime
     reviewed_at:            Optional[datetime]
     reviewer_notes:         Optional[str]
+    review_method:         Optional[str] = None
     sme_id:                 Optional[int]
     lender_id:              Optional[int]
     loi_counterparty_known: Optional[bool] = None
@@ -423,6 +426,8 @@ def approve_verification(
     ver.status         = "approved"
     ver.reviewed_at    = utc_now()
     ver.reviewer_notes = payload.reviewer_notes
+    ver.reviewed_by_user_id = current_user.id
+    ver.review_method  = "manual_admin"
 
     # When admin manually approves a CIPC, record the verified timestamp on the SME
     if ver.doc_type == "cipc" and ver.sme_id:
@@ -458,6 +463,8 @@ def reject_verification(
     ver.status         = "rejected"
     ver.reviewed_at    = utc_now()
     ver.reviewer_notes = payload.reviewer_notes
+    ver.reviewed_by_user_id = current_user.id
+    ver.review_method  = "manual_admin"
     db.commit()
     db.refresh(ver)
     return ver
