@@ -6,6 +6,7 @@ The legacy calculate_score() path is preserved for backward compatibility
 but assess() is now the authoritative entry point.
 """
 from __future__ import annotations
+import logging
 from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 
@@ -19,7 +20,10 @@ from core.assessment_engine import AssessmentResult, assess, revenue_evidence_so
 from services.assessment_snapshot_service import create_assessment_snapshot
 from services.business_observation_service import create_current_business_observation
 from services.market_data_service import market_data_summary, normalize_industry
+from services.evidence_records import EVIDENCE_SCHEMA_VERSION, EvidenceConfig, build_evidence_records
 from services.evidence_selection import evidence_timestamps, select_bank_statement_evidence, sort_verifications
+
+logger = logging.getLogger(__name__)
 
 def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
     """
@@ -233,6 +237,38 @@ def _build_assessment_snapshot_data(inp, result: AssessmentResult) -> dict:
     }
 
 
+def _stored_evidence_block(sme, inp, result: AssessmentResult, verifications, bank_evidence) -> dict:
+    """
+    Per-factor evidence records for the snapshot (docs/EVIDENCE_RECORD_DESIGN.md). Informational: no
+    score reads it, and a failure here must NEVER block or change an assessment, so errors are recorded
+    in the block instead of raised. The rules version and settings used are stored with the records, so
+    a stored record can always be traced to the provisional bands that produced it.
+    """
+    cfg = EvidenceConfig()
+    block = {
+        "schema_version": EVIDENCE_SCHEMA_VERSION,
+        "config_version": cfg.version,
+        "config": {
+            "revenue_conflict_tolerance": cfg.revenue_conflict_tolerance,
+            "stale_after_days": cfg.stale_after_days,
+            "bands": {c.value: b.value for c, b in cfg.bands.items()},
+        },
+        "built_at": datetime.now(timezone.utc).isoformat(),
+    }
+    try:
+        block["records"] = build_evidence_records(
+            inp, result.breakdown, verifications, bank_evidence, config=cfg,
+            as_of=datetime.now(timezone.utc),
+            declared_revenue=float(sme.revenue) if sme.revenue is not None else None,
+            # Not available until the extractor and transaction review are wired in; stated, not guessed.
+            extraction_reconciled=None, transactions_reviewed=None)
+    except Exception as exc:  # noqa: BLE001 - never let evidence description break an assessment
+        logger.warning("evidence record build failed for sme %s", getattr(sme, "id", None), exc_info=True)
+        block["records"] = None
+        block["error"] = f"{type(exc).__name__}: {exc}"[:200]
+    return block
+
+
 def create_assessment_for_sme(
     sme: SME,
     db: Session,
@@ -252,8 +288,11 @@ def create_assessment_for_sme(
     snapshot_data = _build_assessment_snapshot_data(inp, result)
     # When the evidence was submitted and reviewed (audit F5). Informational only; no score uses it.
     sme_verifications = db.query(Verification).filter(Verification.sme_id == sme.id).all()
+    bank_evidence = select_bank_statement_evidence(sme_verifications)
     snapshot_data["input_snapshot"]["evidence_timestamps"] = evidence_timestamps(
-        sme_verifications, select_bank_statement_evidence(sme_verifications))
+        sme_verifications, bank_evidence)
+    snapshot_data["input_snapshot"]["evidence"] = _stored_evidence_block(
+        sme, inp, result, sme_verifications, bank_evidence)
 
     snapshot = create_assessment_snapshot(
         db=db,
