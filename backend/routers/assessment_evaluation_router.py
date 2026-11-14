@@ -15,6 +15,7 @@ from services.assessment_evaluation_service import (
     get_assessment_evaluation,
     get_model_calibration,
 )
+from services.lender_access import can_view_sme
 from services.auth_service import get_current_user
 
 
@@ -24,9 +25,13 @@ router = APIRouter(
 )
 
 
-def check_sme_access(current_user: User, sme: SME):
-    """Allow owners, lenders, and admins to view evaluations."""
-    if current_user.role in {"admin", "lender"}:
+def check_sme_access(current_user: User, sme: SME, db):
+    """Owners, admins, and lenders with a legitimate relationship to the business."""
+    if current_user.role == "admin":
+        return
+    if current_user.role == "lender":
+        if not can_view_sme(db, current_user, sme.id):
+            raise HTTPException(status_code=404, detail="Assessment snapshot not found")
         return
 
     if sme.user_id != current_user.id:
@@ -73,7 +78,7 @@ def evaluate_assessment(
     if sme is None:
         raise HTTPException(status_code=404, detail="SME not found")
 
-    check_sme_access(current_user, sme)
+    check_sme_access(current_user, sme, db)
 
     evaluation = get_assessment_evaluation(db, snapshot_id)
     if evaluation is None:

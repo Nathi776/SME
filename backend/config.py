@@ -30,6 +30,8 @@ class Settings(BaseSettings):
     smtp_use_tls: bool = True
     # Used in links inside emails (check-in reminders).
     portal_base_url: str = "http://localhost:3000"
+    # An admin may only approve a lender whose email address has been verified.
+    require_verified_email_for_lenders: bool = True
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

@@ -9,7 +9,8 @@ from models.lender import Lender
 from models.sme import SME
 from models.credit_score import CreditScore
 from models.finance_request import FinanceRequest
-from services.auth_service import get_current_user
+from services.auth_service import get_current_user, get_current_user_allow_pending_lender
+from services.lender_access import can_view_sme, lender_for_user, related_requests, visible_sme_ids
 from typing import List
 from models.sme_outcome import SmeOutcome
 from models.founder_profile import FounderProfile
@@ -43,6 +44,7 @@ class LenderResponse(BaseModel):
     phone: str | None
     max_lending_amount: Decimal
     min_credit_score: int
+    approval_status: str = "pending"  # read-only: set only by an administrator
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -72,10 +74,16 @@ def get_risk_level(score: int | None) -> str | None:
 @router.post("/register", response_model=LenderResponse)
 def register_lender(
     request: LenderCreate,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_user_allow_pending_lender),
     db: Session = Depends(get_db)
 ):
-    """Register as a lender."""
+    """
+    Create the lender profile for an account that registered with the lender role. The profile starts
+    as "pending": it gives NO access to business data until an administrator approves it.
+    """
+    # Never change anyone's role here. An SME or admin account must not turn itself into a lender.
+    if current_user.role != "lender":
+        raise HTTPException(status_code=403, detail="Register a separate account with the lender role")
     # Check if user already has a lender profile
     existing = db.query(Lender).filter(Lender.user_id == current_user.id).first()
     if existing:
@@ -87,17 +95,17 @@ def register_lender(
         contact_email=request.contact_email,
         phone=request.phone,
         max_lending_amount=request.max_lending_amount,
-        min_credit_score=request.min_credit_score
+        min_credit_score=request.min_credit_score,
+        approval_status="pending",
     )
     db.add(new_lender)
-    current_user.role = "lender"
     db.commit()
     db.refresh(new_lender)
     return new_lender
 
 @router.get("/me", response_model=LenderResponse)
 def get_lender_profile(
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_user_allow_pending_lender),
     db: Session = Depends(get_db)
 ):
     """Get current lender's profile."""
@@ -109,7 +117,7 @@ def get_lender_profile(
 @router.put("/me", response_model=LenderResponse)
 def update_lender_profile(
     request: LenderUpdate,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_user_allow_pending_lender),
     db: Session = Depends(get_db)
 ):
     """Update current lender's profile."""
@@ -133,7 +141,10 @@ def get_available_smes(
     if current_user.role != "lender":
         raise HTTPException(status_code=403, detail="Only lenders can view SMEs")
     
-    smes = db.query(SME).all()
+    # Only businesses with a request open to the pool or assigned to this lender, never the whole platform.
+    lender = lender_for_user(db, current_user)
+    ids = visible_sme_ids(db, lender) if lender else set()
+    smes = db.query(SME).filter(SME.id.in_(ids)).all() if ids else []
     result = []
     
     for sme in smes:
@@ -169,27 +180,42 @@ def get_portfolio_analytics(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Retrieve portfolio-wide intelligence analytics."""
+    """
+    Portfolio analytics. A lender sees only its own pipeline and the businesses it may see; an admin
+    sees the whole platform. (Previously every lender saw every lender's deals and the platform's fees.)
+    """
     if current_user.role not in ["lender", "admin"]:
         raise HTTPException(status_code=403, detail="Unauthorized access")
+
+    is_admin = current_user.role == "admin"
+    lender = None if is_admin else lender_for_user(db, current_user)
+    if not is_admin and lender is None:
+        raise HTTPException(status_code=404, detail="Lender profile not found")
+
+    def reqs():
+        return db.query(FinanceRequest) if is_admin else related_requests(db, lender)
     
     # 1. applications
-    total_apps = db.query(FinanceRequest).count()
-    approved_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "approved").count()
-    funded_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "funded").count()
-    pending_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "pending").count()
-    rejected_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "rejected").count()
-    awaiting_info_apps = db.query(FinanceRequest).filter(FinanceRequest.status == "info_requested").count()
+    total_apps = reqs().count()
+    approved_apps = reqs().filter(FinanceRequest.status == "approved").count()
+    funded_apps = reqs().filter(FinanceRequest.status == "funded").count()
+    pending_apps = reqs().filter(FinanceRequest.status == "pending").count()
+    rejected_apps = reqs().filter(FinanceRequest.status == "rejected").count()
+    awaiting_info_apps = reqs().filter(FinanceRequest.status == "info_requested").count()
 
     # 2. financials
-    financials_query = db.query(FinanceRequest).filter(
+    financials_query = reqs().filter(
         FinanceRequest.status.in_(["funded", "paid", "closed"])
     ).all()
     total_financed = float(sum(r.approved_amount or 0 for r in financials_query))
     total_fees = float(sum(r.platform_fee or 0 for r in financials_query))
 
     # 3. scores
-    smes = db.query(SME).all()
+    if is_admin:
+        smes = db.query(SME).all()
+    else:
+        ids = visible_sme_ids(db, lender)
+        smes = db.query(SME).filter(SME.id.in_(ids)).all() if ids else []
     scores = []
     distribution = {
         "Declined (<50)": 0,
@@ -225,7 +251,11 @@ def get_portfolio_analytics(
         by_province[prov] = by_province.get(prov, 0) + 1
 
     # 5. outcomes
-    all_outcomes = db.query(SmeOutcome).all()
+    if is_admin:
+        all_outcomes = db.query(SmeOutcome).all()
+    else:
+        own = [r.id for r in db.query(FinanceRequest).filter(FinanceRequest.lender_id == lender.id).all()]
+        all_outcomes = db.query(SmeOutcome).filter(SmeOutcome.finance_request_id.in_(own)).all() if own else []
     pending_out = sum(1 for o in all_outcomes if o.outcome_status == "pending")
     active_out = sum(1 for o in all_outcomes if o.outcome_status == "active")
     repaid_out = sum(1 for o in all_outcomes if o.outcome_status == "repaid")
@@ -275,7 +305,8 @@ def get_sme_intelligence(
         raise HTTPException(status_code=403, detail="Unauthorized access")
 
     sme = db.query(SME).filter(SME.id == sme_id).first()
-    if not sme:
+    if not sme or not can_view_sme(db, current_user, sme_id):
+        # Same answer for "does not exist" and "not yours to see": no probing of other businesses.
         raise HTTPException(status_code=404, detail="SME not found")
 
     # Live score and breakdown (read-only)

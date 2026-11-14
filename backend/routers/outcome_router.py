@@ -9,6 +9,8 @@ from models.user import User
 from models.sme import SME
 from models.sme_outcome import SmeOutcome
 from services.auth_service import get_current_user
+from services.lender_access import lender_for_user
+from models.finance_request import FinanceRequest
 from core.time_utils import utc_now
 from models.checkin_reminder import CheckinReminder
 from services.checkin_reminder_service import outstanding_checkins, run_due_reminders
@@ -109,7 +111,16 @@ def get_outcome_analytics(
     if current_user.role not in {"lender", "admin"}:
         raise HTTPException(status_code=403, detail="Not authorized to view analytics")
 
-    outcomes = db.query(SmeOutcome).all()
+    query = db.query(SmeOutcome)
+    if current_user.role == "lender":
+        # A lender sees outcomes of its own financing only, never platform-wide data.
+        lender = lender_for_user(db, current_user)
+        if lender is None:
+            raise HTTPException(status_code=403, detail="Complete lender registration first")
+        query = query.join(FinanceRequest, FinanceRequest.id == SmeOutcome.finance_request_id).filter(
+            FinanceRequest.lender_id == lender.id
+        )
+    outcomes = query.all()
     total = len(outcomes)
 
     if total == 0:
