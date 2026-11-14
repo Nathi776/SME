@@ -230,14 +230,14 @@ def test_building_records_changes_no_score_or_breakdown():
            (after.score, after.viability_score, after.confidence_score, after.decision)
 
 
-def test_module_is_pure_and_unwired():
+def test_module_is_pure_and_only_scoring_service_uses_it():
     src = pathlib.Path(er.__file__).read_text()
     for forbidden in ("sqlalchemy", "Session", "commit(", "open(", "requests"):
         assert forbidden not in src
     root = pathlib.Path(er.__file__).resolve().parents[1]
     offenders = [p.relative_to(root).as_posix() for p in root.rglob("*.py")
                  if not p.relative_to(root).as_posix().startswith(("tests/", "venv", ".venv"))
-                 and not p.name == "evidence_records.py"
+                 and p.name not in ("evidence_records.py", "scoring_service.py")  # scoring_service stores the records
                  and "evidence_records" in p.read_text(encoding="utf-8-sig", errors="ignore")]
     assert offenders == []
 
