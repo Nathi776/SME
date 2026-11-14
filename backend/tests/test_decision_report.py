@@ -169,3 +169,10 @@ def test_lender_needs_approval_and_a_relationship(world):
 
 def test_no_assessment_yet_is_a_clear_404(world):
     assert world.call("a", "GET", f"/decision-reports/sme/{world.A.id}/latest").status_code == 404
+
+
+def test_business_can_fetch_its_own_latest_without_knowing_its_id(world):
+    _assess(world)
+    r = world.call("a", "GET", "/decision-reports/me/latest")
+    assert r.status_code == 200 and r.json()["headline"]["decision"]
+    assert world.call("b", "GET", "/decision-reports/me/latest").status_code == 404   # B has no assessment yet
