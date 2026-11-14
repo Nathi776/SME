@@ -14,7 +14,7 @@ from routers import (
     verification_router, founder_router, recommendations_router,
     outcome_router, public_router, api_v1_router, admin_router,
     business_observation_router, assessment_evaluation_router,
-    consent_router,
+    consent_router, decision_report_router,
 )
 from fastapi.middleware.cors import CORSMiddleware
 from limiter import limiter
@@ -69,6 +69,7 @@ app.include_router(outcome_router.router)
 app.include_router(public_router.router)
 app.include_router(api_v1_router.router)
 app.include_router(admin_router.router)
+app.include_router(decision_report_router.router)
 app.include_router(business_observation_router.router)
 app.include_router(assessment_evaluation_router.router)
 app.include_router(consent_router.router)
