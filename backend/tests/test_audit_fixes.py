@@ -12,6 +12,7 @@ def _counts(world):
 
 
 def test_viewing_pages_does_not_write_assessment_records(world):
+    world.request("pending", None)
     before = _counts(world)
     for _ in range(3):
         assert world.call("l1", "GET", f"/lenders/sme-intelligence/{world.A.id}").status_code == 200

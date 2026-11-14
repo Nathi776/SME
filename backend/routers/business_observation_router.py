@@ -15,6 +15,7 @@ from database import get_db
 from models.business_observation import BusinessObservation
 from models.sme import SME
 from models.user import User
+from services.lender_access import can_view_sme
 from services.auth_service import get_current_user
 from services.business_observation_service import (
     create_current_business_observation,
@@ -85,14 +86,19 @@ class BusinessObservationResponse(BaseModel):
 def check_sme_access(
     current_user: User,
     sme: SME,
+    db,
 ):
     """
     SMEs may access their own observations.
 
-    Lenders and admins may access observations for any SME.
+    Admins may access any SME; lenders only businesses with a request open to them or assigned to them.
     """
 
-    if current_user.role in {"admin", "lender"}:
+    if current_user.role == "admin":
+        return
+    if current_user.role == "lender":
+        if not can_view_sme(db, current_user, sme.id):
+            raise HTTPException(status_code=404, detail="SME not found")
         return
 
     if sme.user_id != current_user.id:
@@ -146,6 +152,7 @@ def create_observation(
     check_sme_access(
         current_user,
         sme,
+        db,
     )
 
     observation = create_current_business_observation(
@@ -181,6 +188,7 @@ def get_observation_history(
     check_sme_access(
         current_user,
         sme,
+        db,
     )
 
     return get_business_observations(
@@ -211,6 +219,7 @@ def get_latest_observation(
     check_sme_access(
         current_user,
         sme,
+        db,
     )
 
     observation = get_latest_business_observation(

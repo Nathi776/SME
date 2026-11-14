@@ -143,7 +143,7 @@ def test_lender_intelligence_endpoints():
     assert user.role == "lender"
 
     # Create Lender profile
-    lender = Lender(
+    lender = Lender(approval_status="approved", 
         user_id=user.id,
         organization_name="Test Lending Corp",
         contact_email="contact@testlending.com",
@@ -191,6 +191,7 @@ def test_lender_intelligence_endpoints():
         approved_amount=80000.00,
         platform_fee=2400.00,
         status="funded",
+        lender_id=lender.id,
         sme_id=sme.id
     )
     db.add(req)

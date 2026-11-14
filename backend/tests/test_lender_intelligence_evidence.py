@@ -1,9 +1,11 @@
 """Lenders must see the business's real evidence, not placeholders."""
 from tests.test_access_isolation import world  # noqa: F401
-from models import Verification
+from models import FinanceRequest, Verification
 
 
 def _get(world):
+    if not world.db.query(FinanceRequest).filter_by(sme_id=world.A.id).count():
+        world.request("pending", None)   # a lender only sees businesses it is related to
     r = world.call("l1", "GET", f"/lenders/sme-intelligence/{world.A.id}")
     assert r.status_code == 200, r.text
     return r.json()
@@ -38,6 +40,7 @@ def test_three_distinct_outputs_are_returned(world):
 
 
 def test_no_document_links_or_other_businesses_data_leak(world):
+    world.request("pending", None)
     other = Verification(sme_id=world.B.id, doc_type="cipc", status="approved", document_url="secret-b.pdf")
     world.db.add(other); world.db.commit()
     text = world.call("l1", "GET", f"/lenders/sme-intelligence/{world.A.id}").text

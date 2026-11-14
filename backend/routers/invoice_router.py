@@ -11,6 +11,7 @@ from models.sme import SME
 from models.user import User
 from models.lender import Lender
 from services.storage_service import InvalidUpload, resolve_document, save_uploaded_file
+from services.lender_access import can_view_sme, lender_for_user, visible_sme_ids
 from services.auth_service import get_current_user
 from services.finance_service import (
     mark_finance_request_paid,
@@ -109,8 +110,13 @@ def get_all_invoices(
             raise HTTPException(status_code=404, detail="SME profile not found")
         return db.query(Invoice).filter(Invoice.sme_id == sme.id).all()
 
-    if current_user.role in {"lender", "admin"}:
+    if current_user.role == "admin":
         return db.query(Invoice).all()
+    if current_user.role == "lender":
+        # Only invoices of businesses with a request open to this lender or assigned to it.
+        lender = lender_for_user(db, current_user)
+        ids = visible_sme_ids(db, lender) if lender else set()
+        return db.query(Invoice).filter(Invoice.sme_id.in_(ids)).all() if ids else []
 
     raise HTTPException(status_code=403, detail="Unauthorized")
 
@@ -125,7 +131,10 @@ def get_invoices_by_sme(
         sme = db.query(SME).filter(SME.user_id == current_user.id).first()
         if not sme or sme.id != sme_id:
             raise HTTPException(status_code=403, detail="You can only view your own invoices")
-    elif current_user.role not in {"lender", "admin"}:
+    elif current_user.role == "lender":
+        if not can_view_sme(db, current_user, sme_id):
+            raise HTTPException(status_code=403, detail="Unauthorized")
+    elif current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Unauthorized")
 
     invoices = db.query(Invoice).filter(Invoice.sme_id == sme_id).all()

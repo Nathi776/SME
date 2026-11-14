@@ -5,6 +5,7 @@ from jwt import PyJWTError
 
 from database import get_db
 from models.user import User
+from models.lender import Lender
 from services.user_service import get_user_by_username
 from config import get_settings
 
@@ -72,10 +73,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-def get_current_user(
-    token: str = Depends(oauth2_scheme),
-    db: Session = Depends(get_db),
-) -> User:
+def _authenticate(token: str, db: Session) -> User:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
@@ -100,5 +98,34 @@ def get_current_user(
             detail="User not found",
         )
 
+    return user
+
+
+def get_current_user_allow_pending_lender(
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db),
+) -> User:
+    """For the few endpoints a not-yet-approved lender needs: registering and viewing own profile."""
+    return _authenticate(token, db)
+
+
+def get_current_user(
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db),
+) -> User:
+    """
+    Default for every protected endpoint. A lender whose account is not approved is refused
+    everywhere (default deny), so no route has to remember to check.
+    """
+    user = _authenticate(token, db)
+    if user.role == "lender":
+        lender = db.query(Lender).filter(Lender.user_id == user.id).first()
+        if lender is None:
+            raise HTTPException(status_code=403, detail="Complete lender registration first")
+        if lender.approval_status != "approved":
+            raise HTTPException(
+                status_code=403,
+                detail=f"Lender account is {lender.approval_status}; an administrator must approve it",
+            )
     return user
 

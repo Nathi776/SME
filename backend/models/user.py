@@ -13,4 +13,4 @@ class User(Base):
     email_verified_at = Column(DateTime, nullable=True)
 
     sme_profile = relationship("SME", back_populates="user", uselist=False)
-    lender_profile = relationship("Lender", back_populates="user", uselist=False)
+    lender_profile = relationship("Lender", back_populates="user", uselist=False, foreign_keys="Lender.user_id")

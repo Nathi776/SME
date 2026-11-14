@@ -14,6 +14,7 @@ from models.invoice import Invoice
 
 from pydantic import BaseModel, ConfigDict, Field
 from typing import List
+from services.lender_access import can_view_sme, lender_for_user, visible_sme_ids
 from services.auth_service import get_current_user
 from services.scoring_service import score_sme
 from services.finance_service import calculate_eligible_amount
@@ -327,8 +328,12 @@ def get_all_smes(
     if current_user.role not in {"admin", "lender"}:
         raise HTTPException(status_code=403, detail="Unauthorized")
 
-    smes = db.query(SME).all()
-    return smes
+    if current_user.role == "lender":
+        # Never the whole platform: only businesses with a request open to this lender or assigned to it.
+        lender = lender_for_user(db, current_user)
+        ids = visible_sme_ids(db, lender) if lender else set()
+        return db.query(SME).filter(SME.id.in_(ids)).all() if ids else []
+    return db.query(SME).all()
 
 
 # âœ… Get SME by ID
@@ -342,7 +347,10 @@ def get_sme(
     if not sme:
         raise HTTPException(status_code=404, detail="SME not found.")
 
-    if current_user.role not in {"admin", "lender"} and sme.user_id != current_user.id:
+    if current_user.role == "lender":
+        if not can_view_sme(db, current_user, sme_id):
+            raise HTTPException(status_code=404, detail="SME not found.")
+    elif current_user.role != "admin" and sme.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Unauthorized")
     return sme
 

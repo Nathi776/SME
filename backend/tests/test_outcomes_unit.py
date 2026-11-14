@@ -116,7 +116,7 @@ def test_outcome_tracking_flow(db):
     )
     db.add(lender_user)
     db.commit()
-    lender = Lender(
+    lender = Lender(approval_status="approved", 
         user_id=lender_user.id,
         organization_name="Lender Org",
         contact_email="lender@test.com",
@@ -244,7 +244,7 @@ def test_analytics_calculation(db):
     lender_user = User(username="lender2", email="lender2@test.com", hashed_password="pw", role="lender")
     db.add(lender_user)
     db.commit()
-    lender = Lender(user_id=lender_user.id, organization_name="Lender2", contact_email="lender2@test.com", max_lending_amount=100000)
+    lender = Lender(approval_status="approved", user_id=lender_user.id, organization_name="Lender2", contact_email="lender2@test.com", max_lending_amount=100000)
     db.add(lender)
     db.commit()
 
@@ -295,7 +295,7 @@ def test_precedence_bug_repaid_but_not_operating(db):
     lender_user = User(username="lender_bug", email="lender_bug@test.com", hashed_password="pw", role="lender")
     db.add(lender_user)
     db.commit()
-    lender = Lender(user_id=lender_user.id, organization_name="Lender Bug", contact_email="lender_bug@test.com", max_lending_amount=100000)
+    lender = Lender(approval_status="approved", user_id=lender_user.id, organization_name="Lender Bug", contact_email="lender_bug@test.com", max_lending_amount=100000)
     db.add(lender)
     db.commit()
 

@@ -157,7 +157,7 @@ def test_lender_downloads_only_their_own_documents(api):
     lender_user, other_lender_user = api.make_user("lender"), api.make_user("lender")
     db = api.Session()
     for u in (lender_user, other_lender_user):
-        db.add(Lender(user_id=u.id, organization_name="Org", contact_email=u.email,
+        db.add(Lender(approval_status="approved", user_id=u.id, organization_name="Org", contact_email=u.email,
                       max_lending_amount=1000))
     db.commit()
     db.close()

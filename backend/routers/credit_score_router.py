@@ -15,6 +15,7 @@ from database import get_db
 from models.credit_score import CreditScore
 from models.sme import SME
 from models.user import User
+from services.lender_access import can_view_sme
 from services.auth_service import get_current_user
 from services.scoring_service import (
     calculate_assessment,
@@ -27,10 +28,15 @@ router = APIRouter(prefix="/credit-scores", tags=["Credit Scoring"])
 
 
 def check_sme_access(current_user: User, sme_id: int, db: Session):
-    if current_user.role not in {"admin", "lender"}:
-        sme = db.query(SME).filter(SME.user_id == current_user.id).first()
-        if not sme or sme.id != sme_id:
+    if current_user.role == "admin":
+        return
+    if current_user.role == "lender":
+        if not can_view_sme(db, current_user, sme_id):
             raise HTTPException(status_code=403, detail="Unauthorized")
+        return
+    sme = db.query(SME).filter(SME.user_id == current_user.id).first()
+    if not sme or sme.id != sme_id:
+        raise HTTPException(status_code=403, detail="Unauthorized")
 
 
 def _get_sme_or_404(sme_id: int, db: Session) -> SME:
