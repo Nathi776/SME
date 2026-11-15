@@ -33,6 +33,15 @@ def _authorise(db: Session, user: User, sme_id: int) -> None:
         raise HTTPException(status_code=403, detail="Unauthorized")
 
 
+@router.get("/me/latest")
+def my_latest_report(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """The signed-in business's own latest report (no business id needed)."""
+    sme = db.query(SME).filter(SME.user_id == current_user.id).first()
+    if sme is None:
+        raise HTTPException(status_code=404, detail="No business profile found")
+    return latest_report(sme.id, current_user, db)
+
+
 @router.get("/sme/{sme_id}/latest")
 def latest_report(sme_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     _authorise(db, current_user, sme_id)

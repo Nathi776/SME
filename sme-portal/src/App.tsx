@@ -38,6 +38,7 @@ import RecommendationsPage from "./pages/RecommendationsPage";
 import SettingsPage from "./pages/SettingsPage";
 import PrivacyConsentPage from "./pages/PrivacyConsentPage";
 import OutcomeTrackingPage from "./pages/OutcomeTrackingPage";
+import DecisionReportPage from "./pages/DecisionReportPage";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
           <Route path="/founder-profile" element={<FounderProfilePage />} />
           <Route path="/recommendations" element={<RecommendationsPage />} />
           <Route path="/outcomes" element={<OutcomeTrackingPage />} />
+          <Route path="/assessment-report" element={<DecisionReportPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/privacy" element={<PrivacyConsentPage />} />
           <Route path="/documents" element={<DocumentsPage />} />
@@ -82,6 +84,7 @@ function App() {
         <Route path="/lender/intelligence" element={<ProtectedRoute roles={["lender", "admin"]}><LenderIntelligenceDashboard /></ProtectedRoute>} />
         <Route path="/lender/sme/:smeId" element={<ProtectedRoute roles={["lender", "admin"]}><LenderSMEDetailPage /></ProtectedRoute>} />
         <Route path="/lender/sme/:smeId/credit-score" element={<ProtectedRoute roles={["lender", "admin"]}><CreditScoreDetails /></ProtectedRoute>} />
+        <Route path="/lender/sme/:smeId/report" element={<ProtectedRoute roles={["lender", "admin"]}><DecisionReportPage /></ProtectedRoute>} />
         <Route path="/lender/decision-engine" element={<ProtectedRoute roles={["lender"]}><LenderDecisionEngine /></ProtectedRoute>} />
         <Route path="/lender/fund-a-deal" element={<ProtectedRoute roles={["lender"]}><LenderFundADealPage /></ProtectedRoute>} />
         <Route path="/lender/portfolio-report" element={<ProtectedRoute roles={["lender"]}><LenderPortfolioReportPage /></ProtectedRoute>} />

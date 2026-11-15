@@ -21,6 +21,7 @@ const navSections = [
       { icon: CreditCard, label: "Finance Requests", path: "/finance-requests" },
       { icon: Star, label: "Credit Score", path: "/credit-score" },
       { icon: TrendingUp, label: "Coaching Roadmap", path: "/recommendations" },
+      { icon: FileText, label: "Assessment Explained", path: "/assessment-report" },
       { icon: Activity, label: "Outcome Tracking", path: "/outcomes" },
       { icon: Users, label: "Customers", path: "/customers" },
     ],

@@ -194,6 +194,12 @@ export default function LenderSMEDetailPage() {
           >
             <ArrowLeft className="h-4 w-4" /> Back to Dashboard
           </button>
+          <button
+            onClick={() => navigate(`/lender/sme/${sme.id}/report`)}
+            className="ml-6 inline-flex items-center gap-2 text-xs font-bold text-[#4f63f6] hover:underline uppercase tracking-wider"
+          >
+            Assessment explained
+          </button>
         </div>
 
         {/* Section 1: SME Header Card */}
