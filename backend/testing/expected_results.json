@@ -8585,7 +8585,7 @@
     ]
   },
   "SME_BAD_OUTCOME_001": {
-    "score": 23.4,
+    "score": 18.5,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -8608,7 +8608,7 @@
     ]
   },
   "SME_BAD_OUTCOME_002": {
-    "score": 22.7,
+    "score": 17.0,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8631,7 +8631,7 @@
     ]
   },
   "SME_BAD_OUTCOME_003": {
-    "score": 23.5,
+    "score": 18.6,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -8654,7 +8654,7 @@
     ]
   },
   "SME_BAD_OUTCOME_004": {
-    "score": 22.9,
+    "score": 17.1,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8677,7 +8677,7 @@
     ]
   },
   "SME_BAD_OUTCOME_005": {
-    "score": 23.0,
+    "score": 18.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -8700,7 +8700,7 @@
     ]
   },
   "SME_BAD_OUTCOME_006": {
-    "score": 22.6,
+    "score": 16.9,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8723,7 +8723,7 @@
     ]
   },
   "SME_BAD_OUTCOME_007": {
-    "score": 22.5,
+    "score": 16.8,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8746,7 +8746,7 @@
     ]
   },
   "SME_BAD_OUTCOME_008": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -8769,7 +8769,7 @@
     ]
   },
   "SME_BAD_OUTCOME_009": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -8792,7 +8792,7 @@
     ]
   },
   "SME_BAD_OUTCOME_010": {
-    "score": 22.5,
+    "score": 16.8,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8815,7 +8815,7 @@
     ]
   },
   "SME_BAD_OUTCOME_011": {
-    "score": 22.3,
+    "score": 16.6,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8838,7 +8838,7 @@
     ]
   },
   "SME_BAD_OUTCOME_012": {
-    "score": 20.5,
+    "score": 16.2,
     "decision": "Declined",
     "profile": "established",
     "confidence": 50.0,
@@ -8861,7 +8861,7 @@
     ]
   },
   "SME_BAD_OUTCOME_013": {
-    "score": 22.9,
+    "score": 17.1,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8884,7 +8884,7 @@
     ]
   },
   "SME_BAD_OUTCOME_014": {
-    "score": 22.4,
+    "score": 16.7,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8907,7 +8907,7 @@
     ]
   },
   "SME_BAD_OUTCOME_015": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -8930,7 +8930,7 @@
     ]
   },
   "SME_BAD_OUTCOME_016": {
-    "score": 22.3,
+    "score": 16.6,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8953,7 +8953,7 @@
     ]
   },
   "SME_BAD_OUTCOME_017": {
-    "score": 23.5,
+    "score": 18.6,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -8976,7 +8976,7 @@
     ]
   },
   "SME_BAD_OUTCOME_018": {
-    "score": 22.6,
+    "score": 16.9,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -8999,7 +8999,7 @@
     ]
   },
   "SME_BAD_OUTCOME_019": {
-    "score": 23.1,
+    "score": 18.2,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9022,7 +9022,7 @@
     ]
   },
   "SME_BAD_OUTCOME_020": {
-    "score": 23.0,
+    "score": 18.1,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9045,7 +9045,7 @@
     ]
   },
   "SME_BAD_OUTCOME_021": {
-    "score": 23.4,
+    "score": 18.5,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9068,7 +9068,7 @@
     ]
   },
   "SME_BAD_OUTCOME_022": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9091,7 +9091,7 @@
     ]
   },
   "SME_BAD_OUTCOME_023": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9114,7 +9114,7 @@
     ]
   },
   "SME_BAD_OUTCOME_024": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9137,7 +9137,7 @@
     ]
   },
   "SME_BAD_OUTCOME_025": {
-    "score": 23.5,
+    "score": 18.6,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9160,7 +9160,7 @@
     ]
   },
   "SME_BAD_OUTCOME_026": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9183,7 +9183,7 @@
     ]
   },
   "SME_BAD_OUTCOME_027": {
-    "score": 23.6,
+    "score": 18.7,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9206,7 +9206,7 @@
     ]
   },
   "SME_BAD_OUTCOME_028": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9229,7 +9229,7 @@
     ]
   },
   "SME_BAD_OUTCOME_029": {
-    "score": 22.3,
+    "score": 16.6,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9252,7 +9252,7 @@
     ]
   },
   "SME_BAD_OUTCOME_030": {
-    "score": 23.1,
+    "score": 18.2,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9275,7 +9275,7 @@
     ]
   },
   "SME_BAD_OUTCOME_031": {
-    "score": 19.9,
+    "score": 15.5,
     "decision": "Declined",
     "profile": "established",
     "confidence": 50.0,
@@ -9298,7 +9298,7 @@
     ]
   },
   "SME_BAD_OUTCOME_032": {
-    "score": 22.5,
+    "score": 16.8,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9321,7 +9321,7 @@
     ]
   },
   "SME_BAD_OUTCOME_033": {
-    "score": 23.0,
+    "score": 18.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9344,7 +9344,7 @@
     ]
   },
   "SME_BAD_OUTCOME_034": {
-    "score": 23.7,
+    "score": 18.8,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9367,7 +9367,7 @@
     ]
   },
   "SME_BAD_OUTCOME_035": {
-    "score": 23.0,
+    "score": 18.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9390,7 +9390,7 @@
     ]
   },
   "SME_BAD_OUTCOME_036": {
-    "score": 23.4,
+    "score": 18.5,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9413,7 +9413,7 @@
     ]
   },
   "SME_BAD_OUTCOME_037": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9436,7 +9436,7 @@
     ]
   },
   "SME_BAD_OUTCOME_038": {
-    "score": 22.5,
+    "score": 16.8,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9459,7 +9459,7 @@
     ]
   },
   "SME_BAD_OUTCOME_039": {
-    "score": 23.6,
+    "score": 18.7,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9482,7 +9482,7 @@
     ]
   },
   "SME_BAD_OUTCOME_040": {
-    "score": 23.5,
+    "score": 18.6,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9505,7 +9505,7 @@
     ]
   },
   "SME_BAD_OUTCOME_041": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9528,7 +9528,7 @@
     ]
   },
   "SME_BAD_OUTCOME_042": {
-    "score": 23.5,
+    "score": 18.6,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9551,7 +9551,7 @@
     ]
   },
   "SME_BAD_OUTCOME_043": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9574,7 +9574,7 @@
     ]
   },
   "SME_BAD_OUTCOME_044": {
-    "score": 22.2,
+    "score": 16.5,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9597,7 +9597,7 @@
     ]
   },
   "SME_BAD_OUTCOME_045": {
-    "score": 22.3,
+    "score": 16.6,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9620,7 +9620,7 @@
     ]
   },
   "SME_BAD_OUTCOME_046": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9643,7 +9643,7 @@
     ]
   },
   "SME_BAD_OUTCOME_047": {
-    "score": 23.6,
+    "score": 18.7,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9666,7 +9666,7 @@
     ]
   },
   "SME_BAD_OUTCOME_048": {
-    "score": 22.6,
+    "score": 16.9,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9689,7 +9689,7 @@
     ]
   },
   "SME_BAD_OUTCOME_049": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9712,7 +9712,7 @@
     ]
   },
   "SME_BAD_OUTCOME_050": {
-    "score": 22.3,
+    "score": 16.6,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9735,7 +9735,7 @@
     ]
   },
   "SME_BAD_OUTCOME_051": {
-    "score": 22.1,
+    "score": 17.7,
     "decision": "Declined",
     "profile": "established",
     "confidence": 50.0,
@@ -9758,7 +9758,7 @@
     ]
   },
   "SME_BAD_OUTCOME_052": {
-    "score": 23.0,
+    "score": 18.1,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9781,7 +9781,7 @@
     ]
   },
   "SME_BAD_OUTCOME_053": {
-    "score": 23.6,
+    "score": 18.7,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9804,7 +9804,7 @@
     ]
   },
   "SME_BAD_OUTCOME_054": {
-    "score": 22.3,
+    "score": 16.6,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9827,7 +9827,7 @@
     ]
   },
   "SME_BAD_OUTCOME_055": {
-    "score": 23.6,
+    "score": 18.7,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9850,7 +9850,7 @@
     ]
   },
   "SME_BAD_OUTCOME_056": {
-    "score": 23.6,
+    "score": 18.7,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9873,7 +9873,7 @@
     ]
   },
   "SME_BAD_OUTCOME_057": {
-    "score": 22.4,
+    "score": 16.7,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9896,7 +9896,7 @@
     ]
   },
   "SME_BAD_OUTCOME_058": {
-    "score": 22.7,
+    "score": 17.0,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9919,7 +9919,7 @@
     ]
   },
   "SME_BAD_OUTCOME_059": {
-    "score": 22.3,
+    "score": 16.6,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9942,7 +9942,7 @@
     ]
   },
   "SME_BAD_OUTCOME_060": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -9965,7 +9965,7 @@
     ]
   },
   "SME_BAD_OUTCOME_061": {
-    "score": 22.9,
+    "score": 17.1,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -9988,7 +9988,7 @@
     ]
   },
   "SME_BAD_OUTCOME_062": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10011,7 +10011,7 @@
     ]
   },
   "SME_BAD_OUTCOME_063": {
-    "score": 22.7,
+    "score": 17.0,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10034,7 +10034,7 @@
     ]
   },
   "SME_BAD_OUTCOME_064": {
-    "score": 22.9,
+    "score": 17.1,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10057,7 +10057,7 @@
     ]
   },
   "SME_BAD_OUTCOME_065": {
-    "score": 23.6,
+    "score": 18.7,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10080,7 +10080,7 @@
     ]
   },
   "SME_BAD_OUTCOME_066": {
-    "score": 23.0,
+    "score": 18.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10103,7 +10103,7 @@
     ]
   },
   "SME_BAD_OUTCOME_067": {
-    "score": 22.7,
+    "score": 17.0,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10126,7 +10126,7 @@
     ]
   },
   "SME_BAD_OUTCOME_068": {
-    "score": 23.0,
+    "score": 18.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10149,7 +10149,7 @@
     ]
   },
   "SME_BAD_OUTCOME_069": {
-    "score": 23.4,
+    "score": 18.5,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10172,7 +10172,7 @@
     ]
   },
   "SME_BAD_OUTCOME_070": {
-    "score": 23.0,
+    "score": 18.1,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10195,7 +10195,7 @@
     ]
   },
   "SME_BAD_OUTCOME_071": {
-    "score": 22.9,
+    "score": 17.1,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10218,7 +10218,7 @@
     ]
   },
   "SME_BAD_OUTCOME_072": {
-    "score": 23.0,
+    "score": 18.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10241,7 +10241,7 @@
     ]
   },
   "SME_BAD_OUTCOME_073": {
-    "score": 22.2,
+    "score": 16.5,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10264,7 +10264,7 @@
     ]
   },
   "SME_BAD_OUTCOME_074": {
-    "score": 23.4,
+    "score": 18.5,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10287,7 +10287,7 @@
     ]
   },
   "SME_BAD_OUTCOME_075": {
-    "score": 22.3,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "established",
     "confidence": 50.0,
@@ -10310,7 +10310,7 @@
     ]
   },
   "SME_BAD_OUTCOME_076": {
-    "score": 21.7,
+    "score": 17.4,
     "decision": "Declined",
     "profile": "established",
     "confidence": 50.0,
@@ -10333,7 +10333,7 @@
     ]
   },
   "SME_BAD_OUTCOME_077": {
-    "score": 22.2,
+    "score": 16.5,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10356,7 +10356,7 @@
     ]
   },
   "SME_BAD_OUTCOME_078": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10379,7 +10379,7 @@
     ]
   },
   "SME_BAD_OUTCOME_079": {
-    "score": 22.5,
+    "score": 16.8,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10402,7 +10402,7 @@
     ]
   },
   "SME_BAD_OUTCOME_080": {
-    "score": 23.7,
+    "score": 18.8,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10425,7 +10425,7 @@
     ]
   },
   "SME_BAD_OUTCOME_081": {
-    "score": 23.7,
+    "score": 18.8,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10448,7 +10448,7 @@
     ]
   },
   "SME_BAD_OUTCOME_082": {
-    "score": 23.0,
+    "score": 18.1,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10471,7 +10471,7 @@
     ]
   },
   "SME_BAD_OUTCOME_083": {
-    "score": 22.6,
+    "score": 16.9,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10494,7 +10494,7 @@
     ]
   },
   "SME_BAD_OUTCOME_084": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10517,7 +10517,7 @@
     ]
   },
   "SME_BAD_OUTCOME_085": {
-    "score": 22.4,
+    "score": 16.7,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10540,7 +10540,7 @@
     ]
   },
   "SME_BAD_OUTCOME_086": {
-    "score": 22.3,
+    "score": 16.6,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10563,7 +10563,7 @@
     ]
   },
   "SME_BAD_OUTCOME_087": {
-    "score": 23.4,
+    "score": 18.5,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10586,7 +10586,7 @@
     ]
   },
   "SME_BAD_OUTCOME_088": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10609,7 +10609,7 @@
     ]
   },
   "SME_BAD_OUTCOME_089": {
-    "score": 23.0,
+    "score": 18.1,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10632,7 +10632,7 @@
     ]
   },
   "SME_BAD_OUTCOME_090": {
-    "score": 23.1,
+    "score": 18.2,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10655,7 +10655,7 @@
     ]
   },
   "SME_BAD_OUTCOME_091": {
-    "score": 22.7,
+    "score": 17.0,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10678,7 +10678,7 @@
     ]
   },
   "SME_BAD_OUTCOME_092": {
-    "score": 23.0,
+    "score": 18.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10701,7 +10701,7 @@
     ]
   },
   "SME_BAD_OUTCOME_093": {
-    "score": 22.5,
+    "score": 16.8,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10724,7 +10724,7 @@
     ]
   },
   "SME_BAD_OUTCOME_094": {
-    "score": 22.7,
+    "score": 17.0,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10747,7 +10747,7 @@
     ]
   },
   "SME_BAD_OUTCOME_095": {
-    "score": 22.9,
+    "score": 17.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10770,7 +10770,7 @@
     ]
   },
   "SME_BAD_OUTCOME_096": {
-    "score": 22.9,
+    "score": 17.1,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10793,7 +10793,7 @@
     ]
   },
   "SME_BAD_OUTCOME_097": {
-    "score": 23.2,
+    "score": 18.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,
@@ -10816,7 +10816,7 @@
     ]
   },
   "SME_BAD_OUTCOME_098": {
-    "score": 23.0,
+    "score": 17.3,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10839,7 +10839,7 @@
     ]
   },
   "SME_BAD_OUTCOME_099": {
-    "score": 22.6,
+    "score": 16.9,
     "decision": "Declined",
     "profile": "startup",
     "confidence": 50.0,
@@ -10862,7 +10862,7 @@
     ]
   },
   "SME_BAD_OUTCOME_100": {
-    "score": 23.0,
+    "score": 18.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 50.0,

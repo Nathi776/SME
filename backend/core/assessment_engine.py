@@ -299,7 +299,8 @@ class StrategyFactory:
         Resolves the scoring weight strategy for the given stage profile.
         """
         # v2: sector and province are contextual only; missing documents earn neutral credit.
-        return STRATEGIES[profile], "v2"
+        # v3: poor bank behaviour never earns more than no statement; overdraft penalty cap 2 -> 4.
+        return STRATEGIES[profile], "v3"
 
 
 def revenue_evidence_source(inp) -> str:
@@ -313,6 +314,17 @@ def revenue_evidence_source(inp) -> str:
 
 
 # ── Score Calculator ──────────────────────────────────────────────────────────
+
+# Bank behaviour rules (strategy v3; see docs/BANK_BEHAVIOUR_GAPS_ANALYSIS.md)
+OVERDRAFT_PENALTY_CAP = 4        # overdraft months beyond this carry no further penalty (GAP 6)
+POOR_OVERDRAFT_MONTHS = 3        # 3 or more overdraft months, or ...
+POOR_INCOME_REGULARITY = 0.4     # ... income regularity below this, is "poor" behaviour (GAP 3)
+
+
+def is_poor_bank_behaviour(inp) -> bool:
+    return (inp.overdraft_count or 0) >= POOR_OVERDRAFT_MONTHS or (
+        inp.income_regularity is not None and inp.income_regularity < POOR_INCOME_REGULARITY)
+
 
 class ScoreCalculator:
     @staticmethod
@@ -540,8 +552,14 @@ class ScoreCalculator:
                         bs_bonus += 1 * bonus_scale
                         bs_bonus_detail.append("moderate income consistency")
                 if inp.overdraft_count:
-                    bs_bonus -= min(inp.overdraft_count, 2) * bonus_scale
+                    bs_bonus -= min(inp.overdraft_count, OVERDRAFT_PENALTY_CAP) * bonus_scale
                     bs_bonus_detail.append(f"{inp.overdraft_count} overdraft month(s) detected")
+                # Poor behaviour earns the statement no more than NOT submitting one (neutral half
+                # credit), so disclosure is never worth more than silence (GAP 3).
+                if is_poor_bank_behaviour(inp):
+                    base = COMPLIANCE_POINTS["bank_statement"] * comp_scale
+                    comp_pts += round(base * 0.5, 1) - round(base, 1)
+                    bs_bonus_detail.append("poor account behaviour: statement counted at the same level as no statement")
 
             comp_pts = round(min(comp_pts + bs_bonus, strategy.compliance_max), 1)
             raw += comp_pts

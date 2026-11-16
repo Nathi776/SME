@@ -57,7 +57,7 @@ Notes:
 Observed customer revenue, reviewed revenue, excluded amounts and unresolved deposits are kept apart. A run-rate is withheld when the period is under 3 months or more than 25% of deposit value is unresolved; a period of 11.5 to 12.5 months is reported as observed. See docs/BANK_REVENUE_CLASSIFICATION_SPEC.md. The transaction extractor, the classifier and the normaliser are **not connected** to the parser, scoring, the engine, the database or the API.
 
 ## 4. Known limitations (all recorded as strict xfail tests where testable)
-1. Poor bank behaviour (irregular income, overdrafts) can score no worse than submitting no statement (gap 3); more than two overdrafts have no further effect (gap 6).
+1. ~~Gaps 3 and 6~~ closed in strategy v3: poor bank behaviour (3+ overdraft months or income regularity below 0.4) earns the statement the same base credit as no statement, and the overdraft penalty now stops at 4 months instead of 2. 100 gold scenarios (all `bad_outcome`) dropped 4.3 to 5.8 points; no decision or profile changed. See docs/BANK_BEHAVIOUR_GAPS_ANALYSIS.md.
 2. Declared revenue is never cross-checked against bank evidence (gap 4).
 3. Parsed revenue has no recorded period; months_analysed is never used to annualise.
 4. The micro-range (below about R50k) is barely separated by the revenue factor; the duration fields (`months_trading`, `revenue_period_months`) exist but do not affect scoring.

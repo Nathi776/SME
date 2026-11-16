@@ -1,7 +1,9 @@
 # Analysis: poor bank behaviour (gap 3) and overdrafts beyond two (gap 6)
 
-Status: ANALYSIS ONLY. Nothing in the engine, weights or thresholds was changed. Reproduce with
-`python backend/testing/bank_behaviour_analysis.py`.
+Status: IMPLEMENTED in strategy v3 on owner sign-off (gap 3 option B, gap 6 cap 4). The numbers below were
+measured before the change; the script describes the pre-v3 engine. Actual result after the change: 100 scenarios
+(exactly the predicted set) dropped 4.3 to 5.8 points, no decision or profile changed, the other 750 valid
+scenarios are unchanged.
 
 ## The two gaps (verified against the engine)
 
