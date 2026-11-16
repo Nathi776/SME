@@ -42,6 +42,9 @@ _FLAG_TEXT = {
     "business_entered_not_counterparty_confirmed": "Entered by the business; not confirmed by the other party.",
     "counterparty_not_recognised": "The other party in this document could not be recognised.",
     "registration_does_not_establish_trading_history": "Registration shows the business exists; it does not show how long or how well it has traded.",
+    "unsupported_revenue_capped": "Revenue above {cap} is credited in the score once it is supported by a bank statement or paid invoices. This limits only the amount that earns scoring credit while unsupported. It is not a limit on what the business earns or claims.",
+    "bank_revenue_limited_to_declared_until_classified": "The bank statement shows more than the business declared, but its deposits have not yet been checked as customer payments, so the score uses the declared figure.",
+    "revenue_supported_by_paid_invoices": "Revenue above {cap} is credited up to the value of invoices recorded as paid in the last 12 months.",
     "context_only_not_scored": "Shown for information; it does not change the score.",
     "factor_not_covered_by_evidence_rules": "Evidence reliability is not yet rated for this item.",
 }
@@ -74,13 +77,14 @@ def _factor_view(name: str, b: dict, rec: dict | None) -> dict:
                     rests_on=None, notes=[], what_would_help=None, needs_review=False)
         return view
     band = rec.get("confidence")
+    cap_text = f"R{float(b.get('cap_amount') or 100000):,.0f}"
     flags = [f for f in rec.get("flags", []) if f not in _HIDDEN_FLAGS]
     view.update(
         confidence=band, confidence_text=_BAND_TEXT.get(band, "Not rated"),
         rests_on=rec.get("claim"),
         evidence_kind=rec.get("evidence_type"),
         verification=rec.get("verification_status"),
-        notes=[_FLAG_TEXT[f] for f in flags if f in _FLAG_TEXT],
+        notes=[_FLAG_TEXT[f].replace("{cap}", cap_text) for f in flags if f in _FLAG_TEXT],
         what_would_help=_HELP.get(rec.get("condition")) if view["scored"] else None,
         needs_review=bool(rec.get("needs_review")),
     )

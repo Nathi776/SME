@@ -78,16 +78,20 @@ def test_missing_evidence_is_treated_differently_from_negative_evidence():
 
 
 def test_poor_bank_behaviour_does_not_beat_no_bank_evidence():
-    poor = assess(sme(overdraft_count=8, income_regularity=0.2)).score
-    missing = assess(sme(**NO_BANK)).score
+    # Revenue is kept under the v4 unsupported-revenue cap so this isolates bank BEHAVIOUR, not revenue support.
+    poor = assess(sme(revenue=80_000.0, overdraft_count=8, income_regularity=0.2)).score
+    missing = assess(sme(revenue=80_000.0, **NO_BANK)).score
     assert poor <= missing
 
 
-@pytest.mark.xfail(strict=True, reason="GAP 4: declared revenue is never cross-checked against bank evidence")
 def test_inflating_declared_revenue_does_not_raise_the_score_without_support():
-    honest = assess(sme(revenue=150000.0)).score
-    inflated = assess(sme(revenue=1_500_000.0)).score
-    assert inflated <= honest + 1.0
+    """Gap 4 (closed in strategy v4): the old test used an approved-statement setup, where the service already
+    substitutes the bank figure. The real exposure is a claim with NO support, which is what is tested here."""
+    unsupported = dict(verifications={"cipc": "approved"}, overdraft_count=None, income_regularity=None,
+                       months_analysed=None)
+    modest = assess(sme(revenue=100_000.0, **unsupported)).score
+    inflated = assess(sme(revenue=1_500_000.0, **unsupported)).score
+    assert inflated == modest
 
 
 def test_lack_of_cipc_registration_does_not_lower_the_viability_score():
@@ -118,8 +122,9 @@ def test_missing_document_scores_between_a_rejected_and_an_approved_one():
 
 
 def test_missing_documents_lower_evidence_confidence_not_viability():
-    full = assess(sme(verifications={"cipc": "approved", "bank_statement": "approved", "tax_clearance": "approved"}))
-    bare = assess(sme(verifications={}, overdraft_count=None, income_regularity=None, months_analysed=None))
+    # Revenue under the v4 cap: above it, unsupported revenue deliberately earns less (also in viability).
+    full = assess(sme(revenue=80_000.0, verifications={"cipc": "approved", "bank_statement": "approved", "tax_clearance": "approved"}))
+    bare = assess(sme(revenue=80_000.0, verifications={}, overdraft_count=None, income_regularity=None, months_analysed=None))
     assert bare.confidence_score < full.confidence_score
     assert bare.viability_score == full.viability_score
 

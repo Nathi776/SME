@@ -7,7 +7,7 @@ but assess() is now the authoritative entry point.
 """
 from __future__ import annotations
 import logging
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from sqlalchemy.orm import Session
 
 from models.invoice import Invoice
@@ -15,7 +15,9 @@ from models.verification import Verification
 from models.sme import SME
 from models.founder_profile import FounderProfile
 from core.scoring import EvidencePackage, FounderSignalInput, INTENT_BASE_POINTS
-from core.assessment_engine import AssessmentResult, assess, revenue_evidence_source
+from core.assessment_engine import (
+    REVENUE_POLICY, AssessmentResult, assess, resolve_revenue_for_scoring, revenue_evidence_source,
+)
 
 from services.assessment_snapshot_service import create_assessment_snapshot
 from services.business_observation_service import create_current_business_observation
@@ -98,6 +100,18 @@ def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
         revenue = float(bank_statement_verification.bs_parsed_revenue)
     else:
         revenue = float(sme.revenue or 0)
+    declared_revenue = float(sme.revenue or 0)
+
+    # Rand value of invoices recorded as paid in the last 12 months: the only amount invoices can corroborate.
+    cutoff = datetime.now(timezone.utc) - timedelta(days=365)
+    invoice_paid_revenue = 0.0
+    for invoice in invoices:
+        paid_at = invoice.paid_at
+        if (invoice.status or "").lower() == "paid" and paid_at is not None and invoice.amount is not None:
+            if paid_at.tzinfo is None:
+                paid_at = paid_at.replace(tzinfo=timezone.utc)
+            if paid_at >= cutoff:
+                invoice_paid_revenue += float(invoice.amount)
 
     # Bank statement signals
     # Never use legacy SME metrics as authoritative evidence.
@@ -139,6 +153,8 @@ def build_evidence_package(sme: SME, db: Session) -> EvidencePackage:
 
     return EvidencePackage(
         revenue=revenue,
+        declared_revenue=declared_revenue,
+        invoice_paid_revenue=invoice_paid_revenue,
         years_active=int(sme.years_active or 0),
         industry=normalize_industry(sme.industry),
         total_invoices=total_invoices,
@@ -192,6 +208,10 @@ def calculate_assessment(
 def _build_assessment_snapshot_data(inp, result: AssessmentResult) -> dict:
     input_snapshot = {
         "revenue": inp.revenue,
+        # Declared figure and the amount that earned scoring credit are kept apart (strategy v4).
+        "declared_revenue": inp.declared_revenue,
+        "scoring_revenue": resolve_revenue_for_scoring(inp).scoring_revenue,
+        "revenue_policy": {"version": REVENUE_POLICY.version, "unsupported_cap": REVENUE_POLICY.unsupported_cap},
         # Declared vs verified: lets reviewers see what the revenue figure rests on.
         # Derived from the same rule the Revenue Tier factor uses, so snapshot and breakdown always agree.
         "revenue_source": (
