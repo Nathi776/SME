@@ -238,7 +238,8 @@ def test_lender_intelligence_endpoints():
     intel_data = intel_res.json()
     assert intel_data["sme"]["name"] == "Test Tech Inc"
     assert intel_data["sme"]["cipc_verified"] is False
-    assert intel_data["score"]["current"] == 42.2
+    # 42.2 under strategy v3; v4 credits unsupported revenue only up to R100k (this SME declares R120k).
+    assert intel_data["score"]["current"] == 41.5
     assert intel_data["founder"]["years_experience"] == 4
     assert intel_data["founder"]["highest_qualification"] == "degree"
     assert len(intel_data["recommendations"]["top_3_actions"]) > 0

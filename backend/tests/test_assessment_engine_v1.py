@@ -455,17 +455,17 @@ class TestAssessmentEngine:
         # 2. StrategyFactory
         strategy, strategy_ver = StrategyFactory.get_strategy(profile_res.profile)
         assert strategy.name == "IdeaAssessmentStrategy"
-        assert strategy_ver == "v3"
+        assert strategy_ver == "v4"
         
         # 3. assess() audit version headers
         res = assess(inp)
         assert res.inference_version == "v1"
-        assert res.strategy_version == "v3"
+        assert res.strategy_version == "v4"
         
         # 4. breakdown metadata contains version strings
         meta = res.breakdown["_assessment"]
         assert meta["inference_version"] == "v1"
-        assert meta["strategy_version"] == "v3"
+        assert meta["strategy_version"] == "v4"
 
     def test_zero_division_guard_when_all_factors_unavailable(self, monkeypatch):
         from core.assessment_engine import ProfileInferenceService

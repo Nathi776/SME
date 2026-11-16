@@ -272,7 +272,7 @@ def test_create_finance_request_pre_invoice_success_and_capping(db):
         )
     )
 
-    _add_paid_invoices(db, sme, count=10)
+    _add_paid_invoices(db, sme, count=10, amount=Decimal("35000"))  # R350k paid: supports the R350k revenue under the v4 policy
     db.commit()
 
 

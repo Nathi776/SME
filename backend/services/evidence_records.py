@@ -219,6 +219,13 @@ def build_evidence_records(
             governing = bank_evidence.governing if bank_evidence is not None else None
             parsed = revenue_evidence_source(inp) == "parsed"
             flags, review = [], False
+            rt = breakdown[factor]
+            if rt.get("cap_applied"):
+                flags.append("unsupported_revenue_capped")
+            if rt.get("limited_to_declared"):
+                flags.append("bank_revenue_limited_to_declared_until_classified")
+            if rt.get("revenue_basis") == "invoice_supported":
+                flags.append("revenue_supported_by_paid_invoices")
             prov = {"derivation": "parsed from approved bank statement" if parsed else "declared by the business",
                     "used_verification_id": inp.bank_statement_verification_id,
                     "latest_upload_id": governing.id if governing is not None else None}

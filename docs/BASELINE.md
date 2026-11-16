@@ -58,7 +58,7 @@ Observed customer revenue, reviewed revenue, excluded amounts and unresolved dep
 
 ## 4. Known limitations (all recorded as strict xfail tests where testable)
 1. ~~Gaps 3 and 6~~ closed in strategy v3: poor bank behaviour (3+ overdraft months or income regularity below 0.4) earns the statement the same base credit as no statement, and the overdraft penalty now stops at 4 months instead of 2. 100 gold scenarios (all `bad_outcome`) dropped 4.3 to 5.8 points; no decision or profile changed. See docs/BANK_BEHAVIOUR_GAPS_ANALYSIS.md.
-2. Declared revenue is never cross-checked against bank evidence (gap 4).
+2. ~~Gap 4~~ closed in strategy v4 (see docs/REVENUE_POLICY_V4.md): unsupported self-reported revenue earns credit only up to R100k; paid invoices lift that up to their value; bank-derived revenue is not credited above the declared figure until deposits are classified as customer revenue. 29 gold scenarios changed (5 decisions, all fraud scenarios). The pre-v4 baseline is kept in `backend/testing/expected_results_strategy_v3.json`.
 3. Parsed revenue has no recorded period; months_analysed is never used to annualise.
 4. The micro-range (below about R50k) is barely separated by the revenue factor; the duration fields (`months_trading`, `revenue_period_months`) exist but do not affect scoring.
 5. Informal sales and expenditure records have no input channel and cannot raise confidence.

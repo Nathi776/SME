@@ -105,6 +105,13 @@ class EvidencePackage:
     revenue_period_months: int | None = None
     months_trading:        int | None = None
 
+    # Revenue evidence (strategy v4). Both optional: when absent the engine behaves as if nothing
+    # corroborates the figure in `revenue`.
+    # declared_revenue     : the business's own annual figure, kept separately from the figure used for scoring.
+    # invoice_paid_revenue : rand total of invoices recorded as paid in the last 12 months.
+    declared_revenue:     float | None = None
+    invoice_paid_revenue: float | None = None
+
     # Location
     province: str | None = None
 

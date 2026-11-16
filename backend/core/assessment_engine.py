@@ -300,7 +300,9 @@ class StrategyFactory:
         """
         # v2: sector and province are contextual only; missing documents earn neutral credit.
         # v3: poor bank behaviour never earns more than no statement; overdraft penalty cap 2 -> 4.
-        return STRATEGIES[profile], "v3"
+        # v4: unsupported revenue above the policy cap earns no further credit; bank-derived revenue is
+        #     not credited above the declared figure until deposits are classified as customer revenue.
+        return STRATEGIES[profile], "v4"
 
 
 def revenue_evidence_source(inp) -> str:
@@ -311,6 +313,73 @@ def revenue_evidence_source(inp) -> str:
     """
     approved = inp.verifications.get("bank_statement") == "approved"
     return "parsed" if approved and inp.months_analysed is not None else "self-reported"
+
+
+# ── Revenue policy (strategy v4) ──────────────────────────────────────────────
+
+@dataclass(frozen=True)
+class RevenuePolicy:
+    """
+    How much of a stated revenue figure earns scoring credit, given what supports it.
+
+    PROVISIONAL and configurable: the cap is a conservative starting rule, not a calibrated level, and is
+    recorded with every assessment so pilot evidence can later inform it. The cap limits only the revenue
+    that RECEIVES SCORING CREDIT when unsupported. It is not a limit on what a business can earn, claim or
+    have recognised.
+    """
+    version: str = "revenue-policy-1"
+    unsupported_cap: float = 100_000.0
+    conflict_tolerance: float = 0.25
+
+
+REVENUE_POLICY = RevenuePolicy()
+
+
+@dataclass(frozen=True)
+class RevenueResolution:
+    declared_revenue: float          # the business's own figure, never altered
+    scoring_revenue: float           # the amount that earns credit
+    basis: str                       # see below
+    cap_applied: bool
+    limited_to_declared: bool        # bank-derived revenue held to the declared figure (deposits unclassified)
+    conflict: bool
+    policy_version: str
+    cap: float
+
+
+def resolve_revenue_for_scoring(inp, policy: RevenuePolicy | None = None) -> RevenueResolution:
+    """
+    basis is one of:
+      self_reported            under the cap, so nothing to limit
+      self_reported_unsupported over the cap with no corroboration: credit limited to the cap
+      invoice_supported        over the cap, corroborated by invoices recorded as paid: credit up to that amount
+      bank_derived_unclassified from an approved bank statement; deposits are NOT yet classified as customer
+                               revenue, so it is never credited above the business's own declared figure
+    """
+    p = policy or REVENUE_POLICY
+    revenue = float(inp.revenue)
+    declared = float(inp.declared_revenue) if getattr(inp, "declared_revenue", None) is not None else revenue
+    paid = float(getattr(inp, "invoice_paid_revenue", None) or 0.0)
+
+    if revenue_evidence_source(inp) == "parsed":
+        bound = declared if (getattr(inp, "declared_revenue", None) is not None and declared > 0) else (
+            p.unsupported_cap if getattr(inp, "declared_revenue", None) is not None else revenue)
+        scoring = min(revenue, bound)
+        conflict = bool(declared and revenue and abs(declared - revenue) / max(declared, revenue)
+                        > p.conflict_tolerance)
+        return RevenueResolution(declared, scoring, "bank_derived_unclassified", False,
+                                 scoring < revenue, conflict, p.version, p.unsupported_cap)
+
+    ceiling = max(p.unsupported_cap, paid)
+    scoring = min(revenue, ceiling)
+    capped = scoring < revenue
+    if revenue > p.unsupported_cap and paid > p.unsupported_cap:
+        basis = "invoice_supported"
+    elif capped:
+        basis = "self_reported_unsupported"
+    else:
+        basis = "self_reported"
+    return RevenueResolution(declared, scoring, basis, capped, False, False, p.version, p.unsupported_cap)
 
 
 # ── Score Calculator ──────────────────────────────────────────────────────────
@@ -350,18 +419,27 @@ class ScoreCalculator:
         else:
             applicable_max += strategy.revenue_max
             revenue_source = revenue_evidence_source(inp)
-            rev_ratio = min(inp.revenue / 500_000, 1.0)
+            res = resolve_revenue_for_scoring(inp)
+            scoring_rev = res.scoring_revenue
+            rev_ratio = min(scoring_rev / 500_000, 1.0)
             rev_pts   = round(_scale(rev_ratio, 0.0, 1.0, 0, strategy.revenue_max), 1)
-            if inp.revenue >= 500_000:   rev_label = "≥ R500k"
-            elif inp.revenue >= 200_000: rev_label = "R200k–R500k"
-            elif inp.revenue >= 100_000: rev_label = "R100k–R200k"
-            elif inp.revenue >= 50_000:  rev_label = "R50k–R100k"
+            if scoring_rev >= 500_000:   rev_label = "≥ R500k"
+            elif scoring_rev >= 200_000: rev_label = "R200k–R500k"
+            elif scoring_rev >= 100_000: rev_label = "R100k–R200k"
+            elif scoring_rev >= 50_000:  rev_label = "R50k–R100k"
             else:                        rev_label = "< R50k"
+            if res.cap_applied:
+                rev_label += ", unsupported amount above the cap not credited"
 
             raw += rev_pts
             breakdown["Revenue Tier"] = {
-                "value": inp.revenue, "label": f"{rev_label} ({revenue_source})",
+                "value": scoring_rev, "label": f"{rev_label} ({revenue_source})",
                 "contribution": rev_pts, "max": strategy.revenue_max, "source": revenue_source,
+                # Policy trace: declared figure kept apart from the amount that earned credit.
+                "declared_revenue": res.declared_revenue, "scoring_revenue": scoring_rev,
+                "revenue_basis": res.basis, "cap_applied": res.cap_applied, "cap_amount": res.cap,
+                "limited_to_declared": res.limited_to_declared, "revenue_conflict": res.conflict,
+                "revenue_policy_version": res.policy_version,
                 "applicable": True
             }
 

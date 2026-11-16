@@ -13049,8 +13049,8 @@
     ]
   },
   "SME_FRAUD_030": {
-    "score": 52.6,
-    "decision": "Review",
+    "score": 39.5,
+    "decision": "Declined",
     "profile": "startup",
     "confidence": 35.0,
     "passed": true,
@@ -13059,6 +13059,7 @@
       "Unusually high revenue: R500,000,000.0"
     ],
     "recommendations": [
+      "Upload 6 months of bank statements to verify your revenue",
       "Obtain and upload a Letter of Intent",
       "Upload and verify your Bank Statement (6 months)",
       "Upload and verify your SARS Tax Clearance Certificate",
@@ -13165,8 +13166,8 @@
     ]
   },
   "SME_FRAUD_035": {
-    "score": 52.6,
-    "decision": "Review",
+    "score": 39.5,
+    "decision": "Declined",
     "profile": "startup",
     "confidence": 35.0,
     "passed": true,
@@ -13175,6 +13176,7 @@
       "Unusually high revenue: R500,000,000.0"
     ],
     "recommendations": [
+      "Upload 6 months of bank statements to verify your revenue",
       "Obtain and upload a Letter of Intent",
       "Upload and verify your Bank Statement (6 months)",
       "Upload and verify your SARS Tax Clearance Certificate",
@@ -13281,8 +13283,8 @@
     ]
   },
   "SME_FRAUD_040": {
-    "score": 52.6,
-    "decision": "Review",
+    "score": 39.5,
+    "decision": "Declined",
     "profile": "startup",
     "confidence": 35.0,
     "passed": true,
@@ -13291,6 +13293,7 @@
       "Unusually high revenue: R500,000,000.0"
     ],
     "recommendations": [
+      "Upload 6 months of bank statements to verify your revenue",
       "Obtain and upload a Letter of Intent",
       "Upload and verify your Bank Statement (6 months)",
       "Upload and verify your SARS Tax Clearance Certificate",
@@ -13397,8 +13400,8 @@
     ]
   },
   "SME_FRAUD_045": {
-    "score": 52.6,
-    "decision": "Review",
+    "score": 39.5,
+    "decision": "Declined",
     "profile": "startup",
     "confidence": 35.0,
     "passed": true,
@@ -13407,6 +13410,7 @@
       "Unusually high revenue: R500,000,000.0"
     ],
     "recommendations": [
+      "Upload 6 months of bank statements to verify your revenue",
       "Obtain and upload a Letter of Intent",
       "Upload and verify your Bank Statement (6 months)",
       "Upload and verify your SARS Tax Clearance Certificate",
@@ -13513,8 +13517,8 @@
     ]
   },
   "SME_FRAUD_050": {
-    "score": 52.6,
-    "decision": "Review",
+    "score": 39.5,
+    "decision": "Declined",
     "profile": "startup",
     "confidence": 35.0,
     "passed": true,
@@ -13523,6 +13527,7 @@
       "Unusually high revenue: R500,000,000.0"
     ],
     "recommendations": [
+      "Upload 6 months of bank statements to verify your revenue",
       "Obtain and upload a Letter of Intent",
       "Upload and verify your Bank Statement (6 months)",
       "Upload and verify your SARS Tax Clearance Certificate",
@@ -13621,7 +13626,7 @@
     ]
   },
   "SME_MISSING_005": {
-    "score": 52.3,
+    "score": 51.5,
     "decision": "Review",
     "profile": "growth",
     "confidence": 35.0,
@@ -13642,7 +13647,7 @@
     ]
   },
   "SME_MISSING_006": {
-    "score": 48.1,
+    "score": 47.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 20.0,
@@ -13664,7 +13669,7 @@
     ]
   },
   "SME_MISSING_007": {
-    "score": 41.8,
+    "score": 41.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 25.0,
@@ -13689,7 +13694,7 @@
     ]
   },
   "SME_MISSING_008": {
-    "score": 37.6,
+    "score": 36.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 10.0,
@@ -13963,7 +13968,7 @@
     ]
   },
   "SME_MISSING_021": {
-    "score": 52.3,
+    "score": 51.5,
     "decision": "Review",
     "profile": "growth",
     "confidence": 35.0,
@@ -13984,7 +13989,7 @@
     ]
   },
   "SME_MISSING_022": {
-    "score": 48.1,
+    "score": 47.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 20.0,
@@ -14006,7 +14011,7 @@
     ]
   },
   "SME_MISSING_023": {
-    "score": 41.8,
+    "score": 41.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 25.0,
@@ -14031,7 +14036,7 @@
     ]
   },
   "SME_MISSING_024": {
-    "score": 37.6,
+    "score": 36.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 10.0,
@@ -14305,7 +14310,7 @@
     ]
   },
   "SME_MISSING_037": {
-    "score": 52.3,
+    "score": 51.5,
     "decision": "Review",
     "profile": "growth",
     "confidence": 35.0,
@@ -14326,7 +14331,7 @@
     ]
   },
   "SME_MISSING_038": {
-    "score": 48.1,
+    "score": 47.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 20.0,
@@ -14348,7 +14353,7 @@
     ]
   },
   "SME_MISSING_039": {
-    "score": 41.8,
+    "score": 41.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 25.0,
@@ -14373,7 +14378,7 @@
     ]
   },
   "SME_MISSING_040": {
-    "score": 37.6,
+    "score": 36.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 10.0,
@@ -14647,7 +14652,7 @@
     ]
   },
   "SME_MISSING_053": {
-    "score": 52.3,
+    "score": 51.5,
     "decision": "Review",
     "profile": "growth",
     "confidence": 35.0,
@@ -14668,7 +14673,7 @@
     ]
   },
   "SME_MISSING_054": {
-    "score": 48.1,
+    "score": 47.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 20.0,
@@ -14690,7 +14695,7 @@
     ]
   },
   "SME_MISSING_055": {
-    "score": 41.8,
+    "score": 41.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 25.0,
@@ -14715,7 +14720,7 @@
     ]
   },
   "SME_MISSING_056": {
-    "score": 37.6,
+    "score": 36.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 10.0,
@@ -14989,7 +14994,7 @@
     ]
   },
   "SME_MISSING_069": {
-    "score": 52.3,
+    "score": 51.5,
     "decision": "Review",
     "profile": "growth",
     "confidence": 35.0,
@@ -15010,7 +15015,7 @@
     ]
   },
   "SME_MISSING_070": {
-    "score": 48.1,
+    "score": 47.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 20.0,
@@ -15032,7 +15037,7 @@
     ]
   },
   "SME_MISSING_071": {
-    "score": 41.8,
+    "score": 41.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 25.0,
@@ -15057,7 +15062,7 @@
     ]
   },
   "SME_MISSING_072": {
-    "score": 37.6,
+    "score": 36.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 10.0,
@@ -15331,7 +15336,7 @@
     ]
   },
   "SME_MISSING_085": {
-    "score": 52.3,
+    "score": 51.5,
     "decision": "Review",
     "profile": "growth",
     "confidence": 35.0,
@@ -15352,7 +15357,7 @@
     ]
   },
   "SME_MISSING_086": {
-    "score": 48.1,
+    "score": 47.3,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 20.0,
@@ -15374,7 +15379,7 @@
     ]
   },
   "SME_MISSING_087": {
-    "score": 41.8,
+    "score": 41.0,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 25.0,
@@ -15399,7 +15404,7 @@
     ]
   },
   "SME_MISSING_088": {
-    "score": 37.6,
+    "score": 36.9,
     "decision": "Declined",
     "profile": "growth",
     "confidence": 10.0,

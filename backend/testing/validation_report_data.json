@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-11-16 07:23:03",
+  "timestamp": "2026-11-16 08:02:27",
   "total_scenarios": 850,
   "passed": 850,
   "failed": 0,
   "avg_duration_ms": 0.07,
-  "total_duration_ms": 56.59,
+  "total_duration_ms": 58.61,
   "stage_accuracy": {
     "idea": 100.0,
     "startup": 100.0,
