@@ -77,7 +77,6 @@ def test_missing_evidence_is_treated_differently_from_negative_evidence():
     assert missing != rejected
 
 
-@pytest.mark.xfail(strict=True, reason="GAP 3: terrible bank behaviour scores higher than submitting no statement")
 def test_poor_bank_behaviour_does_not_beat_no_bank_evidence():
     poor = assess(sme(overdraft_count=8, income_regularity=0.2)).score
     missing = assess(sme(**NO_BANK)).score
@@ -125,9 +124,25 @@ def test_missing_documents_lower_evidence_confidence_not_viability():
     assert bare.viability_score == full.viability_score
 
 
-@pytest.mark.xfail(strict=True, reason="GAP 6: overdraft count above 2 has no further effect")
-def test_more_overdrafts_keep_lowering_the_score():
+def test_more_overdrafts_keep_lowering_the_score_up_to_the_cap():
     s2 = assess(sme(overdraft_count=2)).score
-    s5 = assess(sme(overdraft_count=5)).score
-    s10 = assess(sme(overdraft_count=10)).score
-    assert s2 > s5 > s10
+    s3 = assess(sme(overdraft_count=3)).score
+    s4 = assess(sme(overdraft_count=4)).score
+    assert s2 > s3 > s4
+
+
+def test_overdraft_penalty_stops_at_the_cap():
+    assert assess(sme(overdraft_count=4, income_regularity=0.85)).score == \
+        assess(sme(overdraft_count=10, income_regularity=0.85)).score
+
+
+def test_poor_behaviour_statement_earns_exactly_what_a_missing_one_earns_in_base_credit():
+    from core.assessment_engine import is_poor_bank_behaviour
+    assert is_poor_bank_behaviour(sme(overdraft_count=3)) and is_poor_bank_behaviour(sme(income_regularity=0.39))
+    assert not is_poor_bank_behaviour(sme(overdraft_count=2, income_regularity=0.4))
+    comp = lambda inp: assess(inp).breakdown["Compliance Documents"]
+    assert any("same level as no statement" in x for x in comp(sme(overdraft_count=3))["bank_statement_quality"])
+
+
+def test_disclosing_good_behaviour_still_beats_silence():
+    assert assess(sme(overdraft_count=0, income_regularity=0.85)).score > assess(sme(**NO_BANK)).score

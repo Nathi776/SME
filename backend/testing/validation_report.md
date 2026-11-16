@@ -1,5 +1,5 @@
 # SME Assessment Engine Validation Report
-**Generated at:** `2026-11-04 14:25:06`
+**Generated at:** `2026-11-16 07:23:03`
 
 ## Summary Metrics
 | Metric | Value |
@@ -8,7 +8,7 @@
 | **Passed** | 850 |
 | **Failed** | 0 |
 | **Success Rate** | 100.0% |
-| **Average Execution Time** | 0.08 ms |
+| **Average Execution Time** | 0.07 ms |
 
 ## Stage Inference Accuracy
 | stage | Accuracy |

@@ -1,4 +1,5 @@
 """
+HISTORICAL (describes the pre-v3 engine; run it on a checkout before PR "Fix gaps 3 and 6" to reproduce).
 Analysis only: what would the options for GAP 3 (poor bank behaviour vs no statement) and GAP 6
 (overdrafts beyond 2) change across the gold scenarios? Reads the engine, changes nothing.
 Run: python testing/bank_behaviour_analysis.py   (prints markdown)
